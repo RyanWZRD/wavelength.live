@@ -30,19 +30,20 @@ jobs:
           path = Path('index.html')
           text = path.read_text(encoding='utf-8')
 
-          old_constants = '''  const BOT_STATUS_URL = "./bot-status.json";
-          const BOT_STATUS_POLL_MS = 60000;
-
-          let botStatus = null;'''
-          new_constants = '''  const BOT_STATUS_URL = "./bot-status.json";
+          constants_pattern = re.compile(
+              r'  const BOT_STATUS_URL = "\./bot-status\.json";\n'
+              r'  const BOT_STATUS_POLL_MS = 60000;\n\n'
+              r'  let botStatus = null;'
+          )
+          constants_replacement = '''  const BOT_STATUS_URL = "./bot-status.json";
           const BOT_BRAIN_URL = "./bot-brain.json";
           const BOT_STATUS_POLL_MS = 60000;
 
           let botStatus = null;
           let botBrain = null;'''
-          if old_constants not in text:
-              raise SystemExit('Could not find bot status constants block')
-          text = text.replace(old_constants, new_constants, 1)
+          text, constants_count = constants_pattern.subn(constants_replacement, text, count=1)
+          if constants_count != 1:
+              raise SystemExit(f'Expected one bot constants block, replaced {constants_count}')
 
           replacement = r'''  async function fetchBotStatus(){
             const stamp = Date.now();
