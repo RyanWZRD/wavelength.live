@@ -130,6 +130,16 @@
 
   .chart-loading{display:flex;align-items:center;justify-content:center;height:100%;color:var(--text-faint);font-size:.78rem;font-family:var(--font-mono);padding:30px 0;}
 
+  /* ---------- bot status card ---------- */
+  .badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.03em;font-family:var(--font-mono);}
+  .badge.long{background:var(--gain-soft);color:var(--gain);}
+  .badge.flat{background:var(--surface-2);color:var(--text-dim);border:1px solid var(--border);}
+  .bot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;}
+  .bot-tile{background:var(--surface-2);border:1px solid var(--border-soft);border-radius:var(--radius-sm);padding:13px 15px;display:flex;flex-direction:column;gap:5px;}
+  .bot-tile .b-label{font-size:.66rem;color:var(--text-faint);text-transform:uppercase;letter-spacing:.08em;}
+  .bot-tile .b-value{font-family:var(--font-mono);font-size:1.15rem;font-weight:600;font-variant-numeric:tabular-nums;transition:background-color .15s;border-radius:4px;}
+  .bot-flat-msg{font-size:.86rem;color:var(--text-dim);line-height:1.5;padding:6px 2px;}
+
   .note{font-size:.72rem;color:var(--text-faint);line-height:1.6;padding-top:10px;}
   footer.foot{text-align:center;padding:18px 0 4px;font-size:.72rem;color:var(--text-faint);font-family:var(--font-mono);}
   footer.foot a{color:var(--text-faint);}
@@ -156,6 +166,17 @@
       <span class="status-pill" id="statusPill"><span class="dot"></span> CONNECTING</span>
     </div>
   </header>
+
+  <div class="card">
+    <div class="card-head">
+      <div>
+        <div class="card-title">Wavelength Bot</div>
+        <div class="card-meta" id="botMeta">ETH/USD &middot; loading status&hellip;</div>
+      </div>
+      <span class="badge flat" id="botBadge">&mdash;</span>
+    </div>
+    <div id="botBody"><div class="chart-loading">Loading bot status&hellip;</div></div>
+  </div>
 
   <div class="card">
     <div class="card-head">
@@ -243,6 +264,63 @@
   const EXCLUDE_BASE = new Set(["USDC","BUSD","TUSD","FDUSD","USDP","DAI","EUR","GBP","EURI","USTC","PAX","UST","WBTC","WBETH"]);
   const MAX_COINS = 40;
   const MOVER_COUNT = 10;
+  const BOT_SYMBOL = "ETH";
+  const BOT_STATUS_URL = "./bot-status.json";
+  const BOT_STATUS_POLL_MS = 60000;
+
+  let botStatus = null;
+
+  async function fetchBotStatus(){
+    try{
+      const res = await fetch(BOT_STATUS_URL + "?t=" + Date.now());
+      if (!res.ok) throw new Error("status " + res.status);
+      botStatus = await res.json();
+    }catch(e){
+      // leave botStatus as-is (stale but shown) on a transient fetch failure
+    }
+    renderBotStatus();
+  }
+
+  function renderBotStatus(){
+    const badge = document.getElementById("botBadge");
+    const meta = document.getElementById("botMeta");
+    const body = document.getElementById("botBody");
+    if (!botStatus){
+      body.innerHTML = '<div class="chart-loading">Bot status unavailable right now.</div>';
+      return;
+    }
+    const asOf = new Date(botStatus.updated_at).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"});
+    meta.textContent = `${botStatus.symbol} · status as of ${asOf} (refreshes hourly)`;
+
+    if (!botStatus.position){
+      badge.textContent = "FLAT"; badge.className = "badge flat";
+      body.innerHTML = `
+        <div class="bot-flat-msg">No open position. The bot is watching ${botStatus.symbol} and will enter automatically once its signal filters align.</div>
+        <div class="bot-grid" style="margin-top:8px;">
+          <div class="bot-tile"><div class="b-label">Account equity</div><div class="b-value">${priceCell(botStatus.equity)}</div></div>
+          <div class="bot-tile"><div class="b-label">Cash</div><div class="b-value">${priceCell(botStatus.cash)}</div></div>
+        </div>`;
+      return;
+    }
+
+    badge.textContent = "LONG"; badge.className = "badge long";
+    const p = botStatus.position;
+    const live = coins[BOT_SYMBOL];
+    const currentPrice = live ? live.price : p.entry_price;
+    const pnl = (currentPrice - p.entry_price) * p.qty;
+    const pnlPct = (currentPrice / p.entry_price - 1) * 100;
+    const pnlCls = pnl>0?"up":pnl<0?"down":"flat";
+
+    body.innerHTML = `
+      <div class="bot-grid">
+        <div class="bot-tile"><div class="b-label">Position</div><div class="b-value">${p.qty.toFixed(4)} ${botStatus.symbol.split("/")[0]}</div></div>
+        <div class="bot-tile"><div class="b-label">Entry price</div><div class="b-value">${priceCell(p.entry_price)}</div></div>
+        <div class="bot-tile"><div class="b-label">Current price</div><div class="b-value" id="botCurrentPrice">${priceCell(currentPrice)}</div></div>
+        <div class="bot-tile"><div class="b-label">Unrealized P&amp;L (live)</div><div class="b-value ${pnlCls}" id="botPnl">${priceCell(pnl)} (${fmtPct(pnlPct)})</div></div>
+        <div class="bot-tile"><div class="b-label">Stop-loss</div><div class="b-value">${p.stop_price?priceCell(p.stop_price):"—"}</div></div>
+        <div class="bot-tile"><div class="b-label">Account equity</div><div class="b-value">${priceCell(botStatus.equity)}</div></div>
+      </div>`;
+  }
 
   // ---------------- state ----------------
   // keyed by base symbol, e.g. "BTC"
@@ -336,6 +414,7 @@
       c.low_24h = parseFloat(d.l);
       c.volume_24h = parseFloat(d.q);
       updateRow(base);
+      if (base === BOT_SYMBOL) renderBotStatus();
     };
     ws.onclose = ()=>{
       setStatus("warn");
@@ -449,6 +528,8 @@
   });
 
   pickUniverseAndConnect();
+  fetchBotStatus();
+  setInterval(fetchBotStatus, BOT_STATUS_POLL_MS);
 })();
 </script>
 </body>
