@@ -1,0 +1,699 @@
+{
+  "mode": "RESEARCH_GOVERNANCE_READ_ONLY",
+  "generated_at": "2026-09-05T15:49:59.049892+00:00",
+  "orders_enabled": false,
+  "automatic_rule_changes": false,
+  "experiments": [
+    {
+      "id": "radar-v1.0",
+      "name": "Hourly Opportunity Radar",
+      "version": "1.0",
+      "status": "FORWARD_COLLECTION_FROZEN",
+      "started_at": "2026-09-05T14:40:19.680393+00:00",
+      "hypothesis": "Higher hourly radar scores should retain stronger forward outcomes than lower score buckets.",
+      "frozen_rules": {
+        "near_confirmation": 80,
+        "developing": 65,
+        "watch": 55
+      },
+      "automatic_promotion": false
+    },
+    {
+      "id": "candidate-v3-eth-v1.0",
+      "name": "Candidate V3 ETH/USD",
+      "version": "1.0",
+      "status": "FORWARD_VALIDATION_FROZEN",
+      "started_at": "2026-09-05T12:00:00+00:00",
+      "hypothesis": "Frozen 4h ETH trend-state rules retain positive expectancy out of sample.",
+      "automatic_promotion": false
+    },
+    {
+      "id": "wider-paper-v1.0",
+      "name": "Wider-market Paper Portfolio",
+      "version": "1.0",
+      "status": "PAPER_FORWARD_FROZEN",
+      "started_at": "2026-09-05T14:14:47.723944+00:00",
+      "hypothesis": "Cross-asset selection adds value after fees, slippage, risk and correlation constraints.",
+      "automatic_promotion": false
+    }
+  ],
+  "research_lock": {
+    "enabled": true,
+    "policy": "Changing frozen rules requires a new version and fresh evidence window"
+  },
+  "change_log": [
+    {
+      "version": "1.0",
+      "name": "Hourly Opportunity Radar",
+      "started_at": "2026-09-05T14:40:19.680393+00:00",
+      "status": "FORWARD_COLLECTION_FROZEN"
+    },
+    {
+      "version": "1.0",
+      "name": "Candidate V3 ETH/USD",
+      "started_at": "2026-09-05T12:00:00+00:00",
+      "status": "FORWARD_VALIDATION_FROZEN"
+    },
+    {
+      "version": "1.0",
+      "name": "Wider-market Paper Portfolio",
+      "started_at": "2026-09-05T14:14:47.723944+00:00",
+      "status": "PAPER_FORWARD_FROZEN"
+    }
+  ],
+  "promotion_board": [
+    {
+      "experiment": "Hourly Opportunity Radar",
+      "version": "1.0",
+      "stage": "FORWARD_COLLECTION_FROZEN",
+      "next_gate": "More forward evidence; manual review only",
+      "automatic_promotion": false
+    },
+    {
+      "experiment": "Candidate V3 ETH/USD",
+      "version": "1.0",
+      "stage": "FORWARD_VALIDATION_FROZEN",
+      "next_gate": "More forward evidence; manual review only",
+      "automatic_promotion": false
+    },
+    {
+      "experiment": "Wider-market Paper Portfolio",
+      "version": "1.0",
+      "stage": "PAPER_FORWARD_FROZEN",
+      "next_gate": "More forward evidence; manual review only",
+      "automatic_promotion": false
+    }
+  ],
+  "decision_audit": [
+    {
+      "symbol": "SUI",
+      "score": 90,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.674,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.47,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.077,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "BNB",
+      "score": 80,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.552,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.456,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.09,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "NEAR",
+      "score": 75,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.645,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.32,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.082,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "DASH",
+      "score": 75,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.653,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.26,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.116,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "ZEC",
+      "score": 75,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "ALREADY_HELD",
+        "CORRELATION>0.85_WITH_ZEC",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 1.0,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.432,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.13,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "TUT",
+      "score": 65,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.11,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.102,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.059,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "TRUMP",
+      "score": 65,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.533,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.261,
+          "with": "UNI"
+        },
+        {
+          "correlation": -0.122,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "ZEN",
+      "score": 65,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.753,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.406,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.197,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "ZKC",
+      "score": 65,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "ALREADY_HELD",
+        "CORRELATION>0.85_WITH_ZKC",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 1.0,
+          "with": "ZKC"
+        },
+        {
+          "correlation": 0.314,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.13,
+          "with": "ZEC"
+        }
+      ]
+    },
+    {
+      "symbol": "ASTER",
+      "score": 60,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.222,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.098,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.023,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "SOL",
+      "score": 60,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.584,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.41,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.016,
+          "with": "ZKC"
+        }
+      ]
+    },
+    {
+      "symbol": "DOGE",
+      "score": 60,
+      "decision": "BLOCKED_OR_NOT_ELIGIBLE",
+      "reasons": [
+        "PORTFOLIO_FULL",
+        "HOURLY_NOT_NEAR_CONFIRMATION"
+      ],
+      "correlations": [
+        {
+          "correlation": 0.677,
+          "with": "ZEC"
+        },
+        {
+          "correlation": 0.457,
+          "with": "UNI"
+        },
+        {
+          "correlation": 0.065,
+          "with": "ZKC"
+        }
+      ]
+    }
+  ],
+  "paper_trade_replay": [],
+  "sample_stage": "DESCRIPTIVE_ONLY",
+  "resolved_radar_4h": 0,
+  "score_calibration": [
+    {
+      "bucket": "55-69",
+      "n": 0,
+      "avg_4h": null,
+      "win_4h": null,
+      "warning": "DESCRIPTIVE_ONLY"
+    },
+    {
+      "bucket": "70-79",
+      "n": 0,
+      "avg_4h": null,
+      "win_4h": null,
+      "warning": "DESCRIPTIVE_ONLY"
+    },
+    {
+      "bucket": "80-89",
+      "n": 0,
+      "avg_4h": null,
+      "win_4h": null,
+      "warning": "DESCRIPTIVE_ONLY"
+    },
+    {
+      "bucket": "90-100",
+      "n": 0,
+      "avg_4h": null,
+      "win_4h": null,
+      "warning": "DESCRIPTIVE_ONLY"
+    }
+  ],
+  "bootstrap_mean_4h_ci": null,
+  "stress_tests": [
+    {
+      "name": "BTC -10% / alts -15%",
+      "estimated_equity": 9719.176147540642,
+      "estimated_pnl": -284.83179213513057,
+      "assumption": "uniform open-position shock; diagnostic only"
+    },
+    {
+      "name": "Broad alt -25%",
+      "estimated_equity": 9529.28828611722,
+      "estimated_pnl": -474.71965355855093,
+      "assumption": "uniform open-position shock; diagnostic only"
+    },
+    {
+      "name": "Volatility shock -12%",
+      "estimated_equity": 9776.142505967668,
+      "estimated_pnl": -227.86543370810443,
+      "assumption": "uniform open-position shock; diagnostic only"
+    },
+    {
+      "name": "Correlated sell-off -20%",
+      "estimated_equity": 9624.232216828932,
+      "estimated_pnl": -379.7757228468408,
+      "assumption": "uniform open-position shock; diagnostic only"
+    }
+  ],
+  "cost_sensitivity": [
+    {
+      "round_trip_cost_pct": 0.2,
+      "estimated_incremental_drag": -0.0,
+      "sample_basis": 3
+    },
+    {
+      "round_trip_cost_pct": 0.5,
+      "estimated_incremental_drag": -0.0,
+      "sample_basis": 3
+    },
+    {
+      "round_trip_cost_pct": 1.0,
+      "estimated_incremental_drag": -7.560581245120935,
+      "sample_basis": 3
+    },
+    {
+      "round_trip_cost_pct": 2.0,
+      "estimated_incremental_drag": -26.46203435792327,
+      "sample_basis": 3
+    }
+  ],
+  "regime_transition": {
+    "state": "MIXED_STABLE",
+    "improving": 0,
+    "fading": 0,
+    "note": "Derived from cross-sectional radar trajectory, not a trading signal"
+  },
+  "trajectory_stability": [
+    {
+      "symbol": "SUI",
+      "observations": 1,
+      "latest_score": 90.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "BNB",
+      "observations": 1,
+      "latest_score": 80.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "NEAR",
+      "observations": 1,
+      "latest_score": 75.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "DASH",
+      "observations": 1,
+      "latest_score": 75.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "ZEC",
+      "observations": 1,
+      "latest_score": 75.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "TUT",
+      "observations": 1,
+      "latest_score": 65.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "TRUMP",
+      "observations": 1,
+      "latest_score": 65.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "ZEN",
+      "observations": 1,
+      "latest_score": 65.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "ZKC",
+      "observations": 1,
+      "latest_score": 65.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "ASTER",
+      "observations": 1,
+      "latest_score": 60.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "SOL",
+      "observations": 1,
+      "latest_score": 60.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "DOGE",
+      "observations": 1,
+      "latest_score": 60.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "XRP",
+      "observations": 1,
+      "latest_score": 55.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "ADA",
+      "observations": 1,
+      "latest_score": 55.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "LTC",
+      "observations": 1,
+      "latest_score": 55.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    },
+    {
+      "symbol": "SAHARA",
+      "observations": 1,
+      "latest_score": 55.0,
+      "score_range": 0,
+      "direction": "STABLE",
+      "half_life_status": "COLLECTING"
+    }
+  ],
+  "counterfactuals": [
+    {
+      "change": "max_positions 3 \u2192 5",
+      "effect": "Would increase capacity but also concentration/correlation exposure",
+      "status": "RESEARCH_ONLY"
+    },
+    {
+      "change": "Intel minimum 75 \u2192 80",
+      "effect": "Would reduce candidate count and may improve quality at cost of opportunity",
+      "status": "RESEARCH_ONLY"
+    },
+    {
+      "change": "correlation cap 0.85 \u2192 0.75",
+      "effect": "Would reject more overlapping positions",
+      "status": "RESEARCH_ONLY"
+    }
+  ],
+  "sector_exposure": {
+    "INFRA": 485.5593722220838,
+    "PRIVACY": 754.7878852299409,
+    "DEFI": 658.5313567821789
+  },
+  "sector_concentration_pct": 39.74913823200533,
+  "signal_overlap": [
+    {
+      "symbol": "ZEC",
+      "overlap_with": [
+        {
+          "symbol": "ZEC",
+          "correlation": 1.0
+        }
+      ]
+    },
+    {
+      "symbol": "ZEN",
+      "overlap_with": [
+        {
+          "symbol": "ZEC",
+          "correlation": 0.753
+        }
+      ]
+    },
+    {
+      "symbol": "ZKC",
+      "overlap_with": [
+        {
+          "symbol": "ZKC",
+          "correlation": 1.0
+        }
+      ]
+    }
+  ],
+  "market_cap_buckets": {
+    "status": "COLLECTING_METADATA",
+    "note": "Outcome attribution will separate large/mid/smaller-cap cohorts once durable metadata is available"
+  },
+  "capital_efficiency": {
+    "invested_pct": 18.981178600461465,
+    "cash_pct": 81.01882139953851,
+    "note": "Return attribution becomes meaningful after more closed trades"
+  },
+  "liquidity_policy": {
+    "minimum_quote_volume": 25000000.0,
+    "status": "ENFORCED_AT_SELECTION",
+    "spread_proxy": "NOT_YET_DURABLE",
+    "slippage_model_pct_per_side": 0.05
+  },
+  "opportunity_freshness": "Server radar trajectories preserve score age; empirical half-life requires repeated resolved trajectories",
+  "evidence_drift": {
+    "status": "INSUFFICIENT_DATA",
+    "rule": "Compare recent resolved cohort with prior cohort; alert on material deterioration"
+  },
+  "failure_modes": {
+    "trend_failure": 0,
+    "breakout_failure": 0,
+    "crowding_reversal": 0,
+    "volatility_shock": 0,
+    "correlation_event": 0,
+    "unclassified": 0
+  },
+  "opportunity_cost": {
+    "status": "COLLECTING",
+    "note": "Compare blocked near-confirmation candidates with held positions once exact 4h outcomes resolve"
+  },
+  "risk_adjusted": {
+    "status": "INSUFFICIENT_DATA",
+    "metrics": [
+      "Sharpe",
+      "Sortino",
+      "Calmar",
+      "downside deviation"
+    ]
+  },
+  "probability_calibration": {
+    "status": "NOT_A_PROBABILITY_YET",
+    "note": "Radar score remains a ranking score until empirical frequencies have sufficient n"
+  },
+  "validation_reference": {
+    "mode": "VALIDATION_SCORECARD_NO_ORDERS",
+    "live_ready": false,
+    "automatic_orders_enabled": false
+  },
+  "why_might_be_wrong": [
+    "Hourly strength may fail at the next closed 4h decision",
+    "Broad crypto beta can make many coins look independently strong",
+    "High score buckets currently have tiny samples",
+    "Portfolio capacity can make the best-looking opportunity unavailable",
+    "Fees, slippage and regime shifts can erase apparent edge"
+  ],
+  "weekly_digest": {
+    "headline": "3 open paper positions \u00b7 0 exact 4h radar outcomes resolved",
+    "paper_equity": 10004.007939675772,
+    "paper_return_pct": 0.04007939675771954,
+    "radar_stage": "DESCRIPTIVE_ONLY",
+    "regime_transition": "MIXED_STABLE"
+  }
+}
