@@ -10,6 +10,8 @@ on:
       - '*.html'
       - '*.css'
       - '*.json'
+      - '*.webmanifest'
+      - '*.svg'
       - '.github/workflows/site-check.yml'
 
 permissions:
@@ -41,7 +43,9 @@ jobs:
           node --check shared-nav.js
           node --check governance.js
           node --check terminal-ui.js
+          node --check final-ui.js
           node --check compare.js
+          node --check sw.js
       - name: Assert required cockpit files
         run: |
           test -s index.html
@@ -64,6 +68,11 @@ jobs:
           test -s compare.html
           test -s compare.js
           test -s terminal-ui.js
+          test -s final-ui.js
+          test -s mobile.html
+          test -s manifest.webmanifest
+          test -s wavelength-icon.svg
+          test -s sw.js
           test -s shared-nav.js
           test -s strategies.html
           test -s bot.html
@@ -81,7 +90,10 @@ jobs:
           grep -q 'shared-nav.js' bot.html
           grep -q 'shared-nav.js' coin.html
           grep -q 'shared-nav.js' compare.html
+          grep -q 'shared-nav.js' mobile.html
           grep -q 'shared-nav.js' learning-capture.js
           grep -q 'governance.html' shared-nav.js
           grep -q 'compare.html' shared-nav.js
+          grep -q 'mobile.html' shared-nav.js
           grep -q 'terminal-ui.js' shared-nav.js
+          grep -q 'final-ui.js' shared-nav.js
