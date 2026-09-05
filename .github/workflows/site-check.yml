@@ -50,6 +50,9 @@ jobs:
           node --check final-ui.js
           node --check compare.js
           node --check sw.js
+          node --check schema-smoke.js
+      - name: Runtime feed schema smoke
+        run: node schema-smoke.js
       - name: Assert required cockpit files
         run: |
           test -s index.html
@@ -58,8 +61,10 @@ jobs:
           test -s paper.html
           test -s paper.js
           test -s paper-portfolio.json
+          test -s paper-accounting.json
           test -s paper-history.json
           test -s opportunity-radar.json
+          test -s opportunity-funnel.json
           test -s cockpit-v2.js
           test -s cockpit-pro.js
           test -s funnel-drilldown.js
@@ -88,6 +93,7 @@ jobs:
           test -s styles.css
           test -s validation.json
           test -s server-learning.js
+          test -s schema-smoke.js
       - name: Assert shared navigation wiring
         run: |
           grep -q 'shared-nav.js' index.html
