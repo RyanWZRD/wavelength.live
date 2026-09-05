@@ -27,5 +27,13 @@ const funnel=JSON.parse(fs.readFileSync('opportunity-funnel.json','utf8'));
 if(!Array.isArray(funnel.qualified)||!Array.isArray(funnel.paper)){console.error('funnel arrays malformed');failed=true}
 const obs=JSON.parse(fs.readFileSync('observation-status.json','utf8'));
 for(const k of ['what_changed','next_events','milestones','funnel_history','qualified_history','paper_thesis_history','journal'])if(!Array.isArray(obs[k])){console.error(`observation ${k} malformed`);failed=true}
+if(!fs.existsSync('multi-asset-paper-status.json')){console.error('multi-asset-paper-status.json: missing');failed=true}else{
+ let m;try{m=JSON.parse(fs.readFileSync('multi-asset-paper-status.json','utf8'))}catch(e){console.error(`multi-asset-paper-status.json: invalid JSON ${e.message}`);failed=true;m={}}
+ for(const k of ['mode','generated_at','automatic_paper_orders_enabled','live_money_enabled','qualified_symbols','managed_symbols','actions','paper_endpoint_locked'])if(!(k in m)){console.error(`multi-asset-paper-status.json: missing ${k}`);failed=true}
+ if(m.automatic_paper_orders_enabled!==true){console.error('multi-asset automatic PAPER flag must be true');failed=true}
+ if(m.live_money_enabled!==false){console.error('multi-asset live_money_enabled must be false');failed=true}
+ if(m.paper_endpoint_locked!==true){console.error('multi-asset paper endpoint lock must be true');failed=true}
+ for(const k of ['qualified_symbols','managed_symbols','actions'])if(!Array.isArray(m[k])){console.error(`multi-asset ${k} malformed`);failed=true}
+}
 if(failed)process.exit(1);
 console.log('Runtime feed schema smoke: PASS');
