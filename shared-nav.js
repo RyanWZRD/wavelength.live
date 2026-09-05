@@ -7,4 +7,5 @@ const top=document.querySelector('.topbar');if(top&&!document.querySelector('.st
 window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.metric,.ev-kpi,.analysis-row,.pro-kpi').forEach(el=>{if(!el.title)el.title='Metric source/timeframe may differ. See Research / Governance for evidence provenance, maturity and research locks.'})});
 if(!document.querySelector('script[data-wl-terminal]')){const s=document.createElement('script');s.src='terminal-ui.js';s.defer=true;s.dataset.wlTerminal='1';document.head.appendChild(s)}
 if(!document.querySelector('script[data-wl-final]')){const s=document.createElement('script');s.src='final-ui.js';s.defer=true;s.dataset.wlFinal='1';document.head.appendChild(s)}
+if((p==='index.html'||!p)&&!document.querySelector('script[data-wl-observation]')){const s=document.createElement('script');s.src='observation-experience.js';s.defer=true;s.dataset.wlObservation='1';document.head.appendChild(s)}
 })();
