@@ -16,3 +16,4 @@ async function liveMark(){if(liveBusy||!paperSnapshot||(paperSnapshot.open_posit
 async function load(){const [r,p,h]=await Promise.allSettled([j('opportunity-radar.json'),j('paper-portfolio.json'),j('paper-history.json')]);if(r.status==='fulfilled')renderRadar(r.value);if(p.status==='fulfilled'){paperSnapshot=p.value;renderHeat(p.value)}if(h.status==='fulfilled'){historySnapshot=h.value;renderHistory(h.value)}liveMark()}
 load();setInterval(load,60000);setInterval(liveMark,10000);
 })();
+const wavelengthPro=document.createElement('script');wavelengthPro.src='cockpit-pro.js';wavelengthPro.defer=true;document.head.appendChild(wavelengthPro);
