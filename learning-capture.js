@@ -1,5 +1,6 @@
 (()=>{
 'use strict';
+if(!document.querySelector('script[data-shared-nav-loader]')){const s=document.createElement('script');s.src='shared-nav.js';s.defer=true;s.dataset.sharedNavLoader='1';document.head.appendChild(s)}
 const OPPS='wavelength_opportunities';
 function num(v){if(v==null)return null;const x=parseFloat(String(v).replace(/[^0-9+\-.]/g,''));return Number.isFinite(x)?x:null}
 function txt(el){return el?.textContent?.trim()||''}
