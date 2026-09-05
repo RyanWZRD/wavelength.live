@@ -1,0 +1,38 @@
+name: Wavelength Live site checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - '*.js'
+      - '*.html'
+      - '*.css'
+      - '.github/workflows/site-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  syntax:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check JavaScript syntax
+        run: |
+          node --check app.js
+          node --check coin.js
+          node --check strategies.js
+          node --check bot.js
+      - name: Assert required cockpit files
+        run: |
+          test -s index.html
+          test -s coin.html
+          test -s strategies.html
+          test -s bot.html
+          test -s styles.css
+          test -s validation.json
