@@ -9,6 +9,7 @@ on:
       - '*.js'
       - '*.html'
       - '*.css'
+      - '*.json'
       - '.github/workflows/site-check.yml'
 
 permissions:
@@ -36,6 +37,8 @@ jobs:
           node --check cockpit-pro.js
           node --check research.js
           node --check radar-intel.js
+          node --check research-v3.js
+          node --check shared-nav.js
       - name: Assert required cockpit files
         run: |
           test -s index.html
@@ -51,8 +54,20 @@ jobs:
           test -s research.html
           test -s research.js
           test -s radar-intel.js
+          test -s research-v3.js
+          test -s research-evidence.json
+          test -s shared-nav.js
           test -s strategies.html
           test -s bot.html
           test -s styles.css
           test -s validation.json
           test -s server-learning.js
+      - name: Assert shared navigation wiring
+        run: |
+          grep -q 'shared-nav.js' paper.html
+          grep -q 'shared-nav.js' research.html
+          grep -q 'shared-nav.js' learning.html
+          grep -q 'shared-nav.js' strategies.html
+          grep -q 'shared-nav.js' bot.html
+          grep -q 'shared-nav.js' coin.html
+          grep -q 'shared-nav.js' learning-capture.js
