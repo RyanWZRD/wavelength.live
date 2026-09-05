@@ -39,6 +39,7 @@ jobs:
           node --check radar-intel.js
           node --check research-v3.js
           node --check shared-nav.js
+          node --check governance.js
       - name: Assert required cockpit files
         run: |
           test -s index.html
@@ -56,6 +57,8 @@ jobs:
           test -s radar-intel.js
           test -s research-v3.js
           test -s research-evidence.json
+          test -s governance.html
+          test -s governance.js
           test -s shared-nav.js
           test -s strategies.html
           test -s bot.html
@@ -66,8 +69,10 @@ jobs:
         run: |
           grep -q 'shared-nav.js' paper.html
           grep -q 'shared-nav.js' research.html
+          grep -q 'shared-nav.js' governance.html
           grep -q 'shared-nav.js' learning.html
           grep -q 'shared-nav.js' strategies.html
           grep -q 'shared-nav.js' bot.html
           grep -q 'shared-nav.js' coin.html
           grep -q 'shared-nav.js' learning-capture.js
+          grep -q 'governance.html' shared-nav.js

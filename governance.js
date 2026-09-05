@@ -1,0 +1,36 @@
+(()=>{'use strict';
+const $=s=>document.querySelector(s), esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const money=v=>Number.isFinite(+v)?`${+v<0?'−':''}$${Math.abs(+v).toLocaleString(undefined,{maximumFractionDigits:2})}`:'—';
+const pct=v=>Number.isFinite(+v)?`${+v>=0?'+':''}${(+v).toFixed(2)}%`:'—';
+const row=(a,b)=>`<div class="analysis-row"><span class="analysis-label">${esc(a)}</span><strong>${esc(b)}</strong></div>`;
+const list=arr=>`<div class="analysis-list">${arr.join('')}</div>`;
+let DATA=null;
+function render(d){DATA=d;$('#govStatus').className='status-pill up';$('#govStatus').innerHTML='<span class="dot"></span>SERVER EVIDENCE';$('#lockState').textContent=d.research_lock?.enabled?'FROZEN / VERSIONED':'UNKNOWN';
+$('#experiments').innerHTML=(d.experiments||[]).map(x=>`<div class="strategy-history"><p><strong>${esc(x.name)} · ${esc(x.version)}</strong> <span class="badge warn">${esc(x.status)}</span></p><p>${esc(x.hypothesis)}</p><p class="card-meta">Started ${esc(x.started_at)} · automatic promotion: NO</p></div>`).join('')||'<div class="empty">No registry entries.</div>';
+$('#changeLog').innerHTML=list((d.change_log||[]).map(x=>row(`${x.name} · ${x.version}`,`${x.started_at} · ${x.status}`)));
+$('#promotionBoard').innerHTML=list((d.promotion_board||[]).map(x=>row(`${x.experiment} · ${x.version}`,`${x.stage} → ${x.next_gate}`)));
+$('#decisionAudit').innerHTML=list((d.decision_audit||[]).slice(0,12).map(x=>row(`${x.symbol} · ${x.score}`,`${x.decision}: ${(x.reasons||[]).join(', ')||'—'}`)));
+$('#tradeReplay').innerHTML=(d.paper_trade_replay||[]).length?list(d.paper_trade_replay.map(x=>row(x.symbol,`${x.reason||'exit'} · ${money(x.pnl)} · ${x.status}`))):'<div class="empty">No closed trades yet. Replay activates from recorded trade fields.</div>';
+$('#maturity').innerHTML=list([row('Resolved 4h radar outcomes',d.resolved_radar_4h??0),row('Evidence stage',d.sample_stage||'—'),row('Bootstrap mean 4h CI',d.bootstrap_mean_4h_ci?`${pct(d.bootstrap_mean_4h_ci[0])} to ${pct(d.bootstrap_mean_4h_ci[1])}`:'Not enough data')].concat((d.score_calibration||[]).map(x=>row(`${x.bucket} · n=${x.n}`,`${pct(x.avg_4h)} · ${esc(x.warning)}`))));
+const rt=d.regime_transition||{};$('#regimeTransition').innerHTML=list([row('State',rt.state||'UNKNOWN'),row('Improving',rt.improving??'—'),row('Fading',rt.fading??'—'),row('Interpretation',rt.note||'—')]);
+$('#stress').innerHTML=list((d.stress_tests||[]).map(x=>row(x.name,`${money(x.estimated_pnl)} → ${money(x.estimated_equity)}`)));
+$('#costs').innerHTML=list((d.cost_sensitivity||[]).map(x=>row(`${x.round_trip_cost_pct}% round trip`,money(x.estimated_incremental_drag))));
+$('#counterfactuals').innerHTML=(d.counterfactuals||[]).map(x=>`<div class="strategy-history"><p><strong>${esc(x.change)}</strong></p><p>${esc(x.effect)}</p><p class="card-meta">${esc(x.status)}</p></div>`).join('');
+const sec=d.sector_exposure||{};$('#sector').innerHTML=list(Object.entries(sec).map(([k,v])=>row(k,money(v))).concat([row('Largest theme concentration',pct(d.sector_concentration_pct))]));
+$('#overlap').innerHTML=(d.signal_overlap||[]).length?list(d.signal_overlap.map(x=>row(x.symbol,(x.overlap_with||[]).map(y=>`${y.symbol} ${Number(y.correlation).toFixed(2)}`).join(' · ')))):'<div class="empty">No high-overlap candidates in the latest server evidence.</div>';
+const mc=d.market_cap_buckets||{};$('#marketCaps').innerHTML=list([row('Status',mc.status||'—'),row('Method',mc.note||'—')]);
+const ce=d.capital_efficiency||{};$('#capital').innerHTML=list([row('Invested',pct(ce.invested_pct)),row('Cash',pct(ce.cash_pct)),row('Interpretation',ce.note||'—')]);
+const li=d.liquidity_policy||{};$('#liquidity').innerHTML=list([row('Minimum quote volume',li.minimum_quote_volume?`$${Number(li.minimum_quote_volume).toLocaleString()}`:'—'),row('Selection status',li.status||'—'),row('Slippage model / side',li.slippage_model_pct_per_side!=null?`${li.slippage_model_pct_per_side}%`:'—'),row('Spread proxy',li.spread_proxy||'—')]);
+const drift=d.evidence_drift||{};$('#drift').innerHTML=list([row('Status',drift.status||'—'),row('Rule',drift.rule||'—')]);
+const ts=d.trajectory_stability||[];$('#halfLife').innerHTML=list([row('Opportunity half-life',d.opportunity_freshness||'Collecting')].concat(ts.slice(0,10).map(x=>row(`${x.symbol} · ${x.observations} obs`,`score ${x.latest_score} · range ${x.score_range} · ${x.direction} · ${x.half_life_status}`))));
+const fm=d.failure_modes||{};$('#failureModes').innerHTML=list(Object.entries(fm).map(([k,v])=>row(k.replaceAll('_',' '),v)));
+const oc=d.opportunity_cost||{};$('#opportunityCost').innerHTML=list([row('Status',oc.status||'—'),row('Method',oc.note||'—')]);
+const ra=d.risk_adjusted||{};$('#riskAdjusted').innerHTML=list([row('Status',ra.status||'—'),row('Metrics',(ra.metrics||[]).join(' · ')||'—')]);
+const pc=d.probability_calibration||{};$('#probability').innerHTML=list([row('Status',pc.status||'—'),row('Interpretation',pc.note||'—')]);
+$('#wrong').innerHTML=`<div class="analysis-list">${(d.why_might_be_wrong||[]).map(x=>`<div class="analysis-row"><span class="analysis-label">Counterpoint</span><strong>${esc(x)}</strong></div>`).join('')}</div>`;
+const dg=d.weekly_digest||{};$('#digest').innerHTML=list([row('Headline',dg.headline||'—'),row('Paper equity',money(dg.paper_equity)),row('Paper return',pct(dg.paper_return_pct)),row('Radar stage',dg.radar_stage||'—'),row('Regime transition',dg.regime_transition||'—')]);
+}
+async function load(){try{const r=await fetch(`governance-status.json?t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw Error('feed unavailable');render(await r.json())}catch(e){$('#govStatus').className='status-pill warn';$('#govStatus').innerHTML='<span class="dot"></span>WAITING FOR SERVER';document.querySelectorAll('.empty').forEach(x=>x.textContent='Governance server feed is being initialized.')}}
+$('#exportGov')?.addEventListener('click',()=>{if(!DATA)return;const b=new Blob([JSON.stringify(DATA,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`wavelength-governance-${new Date().toISOString().slice(0,10)}.json`;a.click();URL.revokeObjectURL(a.href);$('#exportState').textContent='Export created.'});
+load();setInterval(load,60000);
+})();
