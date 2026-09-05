@@ -1,0 +1,194 @@
+{
+  "mode": "STRATEGY_FACTORY_V3_PUBLIC_READ_ONLY",
+  "generated_at": "2026-09-05T21:32:20.151902+00:00",
+  "orders_enabled": false,
+  "live_money_enabled": false,
+  "automatic_promotion": false,
+  "capital_allocation_authority": false,
+  "ranked_strategies": [
+    {
+      "rank": 1,
+      "id": "candidate_v3",
+      "name": "Candidate V3 ETH/USD",
+      "version": "v3.0-frozen",
+      "stage": "FORWARD_SHADOW",
+      "factory_rank_score": 74.8,
+      "quality_score": 65.0,
+      "robustness_score": 100.0,
+      "diversification_score": 50,
+      "evidence_state": "COLLECTING",
+      "blockers": [
+        "FORWARD_EVIDENCE_STILL_COLLECTING",
+        "MIN_FORWARD_SIGNALS_NOT_MET"
+      ]
+    },
+    {
+      "rank": 2,
+      "id": "crowding_v2",
+      "name": "Derivatives Crowding v2",
+      "version": "v2.0-pre2025-survivor",
+      "stage": "FORWARD_SHADOW",
+      "factory_rank_score": 71.8,
+      "quality_score": 65.0,
+      "robustness_score": 100.0,
+      "diversification_score": 50,
+      "evidence_state": "COLLECTING",
+      "blockers": [
+        "FORWARD_EVIDENCE_STILL_COLLECTING"
+      ]
+    },
+    {
+      "rank": 3,
+      "id": "btc_sol_trend_lab",
+      "name": "BTC/SOL Trend Lab",
+      "version": "lab-1",
+      "stage": "RESEARCH",
+      "factory_rank_score": 51.4,
+      "quality_score": 40.5,
+      "robustness_score": 73.0,
+      "diversification_score": 50,
+      "evidence_state": "COLLECTING",
+      "blockers": [
+        "HISTORICAL_VALIDATION_NOT_COMPLETE"
+      ]
+    },
+    {
+      "rank": 4,
+      "id": "breakout_mean_reversion_lab",
+      "name": "Breakout + Mean Reversion Lab",
+      "version": "lab-1",
+      "stage": "RESEARCH",
+      "factory_rank_score": 51.4,
+      "quality_score": 40.5,
+      "robustness_score": 73.0,
+      "diversification_score": 50,
+      "evidence_state": "COLLECTING",
+      "blockers": [
+        "HISTORICAL_VALIDATION_NOT_COMPLETE"
+      ]
+    },
+    {
+      "rank": 5,
+      "id": "regime_crowding_allocator_lab",
+      "name": "Regime/Crowding Allocator Lab",
+      "version": "lab-1",
+      "stage": "RESEARCH",
+      "factory_rank_score": 51.4,
+      "quality_score": 40.5,
+      "robustness_score": 73.0,
+      "diversification_score": 50,
+      "evidence_state": "COLLECTING",
+      "blockers": [
+        "HISTORICAL_VALIDATION_NOT_COMPLETE"
+      ]
+    }
+  ],
+  "overlap_matrix": [
+    {
+      "a": "candidate_v3",
+      "b": "crowding_v2",
+      "structural_overlap_score": 45,
+      "reasons": [
+        "SAME_VALIDATION_STAGE"
+      ]
+    },
+    {
+      "a": "candidate_v3",
+      "b": "btc_sol_trend_lab",
+      "structural_overlap_score": 40,
+      "reasons": [
+        "POTENTIAL_CRYPTO_BETA_OR_TREND_EXPOSURE"
+      ]
+    },
+    {
+      "a": "candidate_v3",
+      "b": "breakout_mean_reversion_lab",
+      "structural_overlap_score": 30,
+      "reasons": [
+        "INSUFFICIENT_REALIZED_RETURN_HISTORY"
+      ]
+    },
+    {
+      "a": "candidate_v3",
+      "b": "regime_crowding_allocator_lab",
+      "structural_overlap_score": 30,
+      "reasons": [
+        "INSUFFICIENT_REALIZED_RETURN_HISTORY"
+      ]
+    },
+    {
+      "a": "crowding_v2",
+      "b": "btc_sol_trend_lab",
+      "structural_overlap_score": 40,
+      "reasons": [
+        "POTENTIAL_CRYPTO_BETA_OR_TREND_EXPOSURE"
+      ]
+    },
+    {
+      "a": "crowding_v2",
+      "b": "breakout_mean_reversion_lab",
+      "structural_overlap_score": 30,
+      "reasons": [
+        "INSUFFICIENT_REALIZED_RETURN_HISTORY"
+      ]
+    },
+    {
+      "a": "crowding_v2",
+      "b": "regime_crowding_allocator_lab",
+      "structural_overlap_score": 60,
+      "reasons": [
+        "CROWDING_FACTOR_OVERLAP"
+      ]
+    },
+    {
+      "a": "btc_sol_trend_lab",
+      "b": "breakout_mean_reversion_lab",
+      "structural_overlap_score": 40,
+      "reasons": [
+        "POTENTIAL_CRYPTO_BETA_OR_TREND_EXPOSURE"
+      ]
+    },
+    {
+      "a": "btc_sol_trend_lab",
+      "b": "regime_crowding_allocator_lab",
+      "structural_overlap_score": 40,
+      "reasons": [
+        "POTENTIAL_CRYPTO_BETA_OR_TREND_EXPOSURE"
+      ]
+    },
+    {
+      "a": "breakout_mean_reversion_lab",
+      "b": "regime_crowding_allocator_lab",
+      "structural_overlap_score": 30,
+      "reasons": [
+        "INSUFFICIENT_REALIZED_RETURN_HISTORY"
+      ]
+    }
+  ],
+  "portfolio_construction_lab": {
+    "state": "WAITING_FOR_ELIGIBLE_STRATEGIES",
+    "eligible_strategy_ids": [],
+    "rules": {
+      "max_strategy_weight_pct": 35,
+      "max_correlated_cluster_weight_pct": 60,
+      "portfolio_drawdown_breaker_pct": -12,
+      "correlation_penalty": true,
+      "risk_budgeting": "RESEARCH_ONLY",
+      "real_capital": false
+    },
+    "proposed_weights": {},
+    "capital_allocation_authority": false,
+    "note": "No weights are produced until strategies reach eligible review stages."
+  },
+  "challenger_tests": [
+    "FEE_STRESS",
+    "EXECUTION_DELAY",
+    "EX_BEST_TRADE",
+    "PARAMETER_PERTURBATION",
+    "LEAVE_ONE_YEAR_OUT",
+    "REGIME_SEGMENTATION",
+    "MISSING_FILL_STRESS"
+  ],
+  "research_graveyard_entries": 0,
+  "note": "Research ranking only. No order controls, automatic promotion or capital allocation authority."
+}
