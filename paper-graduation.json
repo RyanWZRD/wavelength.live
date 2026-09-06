@@ -1,0 +1,150 @@
+{
+  "automatic_promotion": false,
+  "capital_allocation_authority": false,
+  "controlled_paper_execution": {
+    "candidate_v3_plumbing_present": true,
+    "crowding_v2_plumbing_present": false,
+    "entry_gate": "runtime/paper_graduation.json",
+    "exits_and_reconciliation_must_remain_available": true,
+    "fail_closed_if_gate_missing_or_stale": true
+  },
+  "execution_authority": false,
+  "execution_reality": {
+    "avg_fill_latency_seconds": null,
+    "avg_slippage_bps": null,
+    "broker_or_eligibility_rejections": 4,
+    "broker_snapshot_errors": 1,
+    "evidence_state": "PRE_FILL_OPERATIONAL_EVIDENCE",
+    "execution_attempts": 3,
+    "execution_errors": 3,
+    "fills_with_price_evidence": 0,
+    "guardian_status": "FLAT_OK",
+    "median_slippage_bps": null,
+    "paper_scans_observed": 6,
+    "partial_fills": 0,
+    "reconciliation_confidence": 60.0,
+    "worst_slippage_bps": null
+  },
+  "generated_at": "2026-09-06T09:40:18.174027+00:00",
+  "hypothesis_context": {
+    "count": 0,
+    "source": null,
+    "states": {}
+  },
+  "live_money_enabled": false,
+  "mode": "PAPER_GRADUATION_V1_PUBLIC_READ_ONLY",
+  "note": "Graduation framework only. It never promotes a strategy or enables live money automatically.",
+  "orders_enabled": false,
+  "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
+  "policy": {
+    "candidate_v3": {
+      "minimum_completed_trades": 8,
+      "minimum_forward_days": 120.0
+    },
+    "crowding_v2": {
+      "minimum_completed_trades": 8,
+      "minimum_forward_days": 90.0
+    },
+    "paper_validation": {
+      "maximum_broker_snapshot_errors": 0,
+      "maximum_execution_errors_for_graduation": 0,
+      "meaningful_fills_with_price_evidence": 30,
+      "minimum_fills_with_price_evidence": 8,
+      "required_guardian_states": [
+        "FLAT_OK",
+        "PROTECTED"
+      ]
+    },
+    "production": {
+      "automatic_live_money_enablement": false,
+      "limited_capital_only_after_paper_validated": true,
+      "live_execution_implemented": false,
+      "manual_capital_approval_required": true
+    }
+  },
+  "portfolio_paper_risk_gate": {
+    "hard_threshold_pct": 12.0,
+    "risk_flags": [
+      "SHADOW_SIMULTANEOUS_DRAWDOWN_EXCEEDS_WARNING_THRESHOLD",
+      "MULTIPLE_CRYPTO_BETA_STRATEGIES_REQUIRE_PORTFOLIO_LEVEL_REVIEW_BEFORE_ANY_FUTURE_ADMISSION"
+    ],
+    "simultaneous_drawdown_stress_pct": 11.749,
+    "simultaneous_new_entries_allowed": false,
+    "state": "WARNING_BLOCK_CO_ADMISSION",
+    "warning_threshold_pct": 8.0
+  },
+  "production_eligibility": {
+    "automatic_transitions": false,
+    "ladder": [
+      "SHADOW",
+      "PAPER_ELIGIBLE",
+      "PAPER_VALIDATING",
+      "PAPER_VALIDATED",
+      "LIMITED_CAPITAL_ELIGIBLE"
+    ],
+    "live_execution_implemented": false,
+    "live_money_enabled": false,
+    "manual_approval_required_at_capital_boundary": true
+  },
+  "strategies": [
+    {
+      "blockers": [
+        "MINIMUM_FORWARD_DAYS_NOT_MET",
+        "MINIMUM_FORWARD_TRADES_NOT_MET"
+      ],
+      "challenger": {
+        "execution_delay_method": "LITERAL_EXTRA_BAR_OPEN_SIMULATION",
+        "execution_delay_thin_pass": false,
+        "failed_tests": [],
+        "status": "PASS",
+        "unresolved_tests": []
+      },
+      "forward": {
+        "completed_trades": 0,
+        "days_observed": 0.903,
+        "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
+        "forward_start": "2026-09-05T12:00:00+00:00"
+      },
+      "lifecycle_state": "SHADOW",
+      "limited_capital_eligible": false,
+      "manual_review_required_before_first_paper_entry": true,
+      "new_paper_entries_allowed": false,
+      "requirements": {
+        "minimum_completed_trades": 8,
+        "minimum_forward_days": 120.0
+      },
+      "state": "WATCH",
+      "strategy_id": "candidate_v3"
+    },
+    {
+      "blockers": [
+        "MINIMUM_FORWARD_DAYS_NOT_MET",
+        "MINIMUM_FORWARD_TRADES_NOT_MET"
+      ],
+      "challenger": {
+        "execution_delay_method": "LITERAL_EXTRA_BAR_OPEN_SIMULATION",
+        "execution_delay_thin_pass": true,
+        "failed_tests": [],
+        "status": "PASS",
+        "unresolved_tests": []
+      },
+      "forward": {
+        "completed_trades": 0,
+        "days_observed": 0.07,
+        "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
+        "forward_start": "2026-09-06T08:00:00+00:00"
+      },
+      "lifecycle_state": "SHADOW",
+      "limited_capital_eligible": false,
+      "manual_review_required_before_first_paper_entry": true,
+      "new_paper_entries_allowed": false,
+      "requirements": {
+        "minimum_completed_trades": 8,
+        "minimum_forward_days": 90.0
+      },
+      "state": "WATCH",
+      "strategy_id": "crowding_v2"
+    }
+  ],
+  "strategy_rule_mutation": false
+}
