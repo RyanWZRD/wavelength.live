@@ -41,6 +41,7 @@ jobs:
           python scripts/update_hypothesis_challengers.py
       - name: Syntax and wiring
         run: |
+          python -m py_compile scripts/update_hypothesis_challengers.py
           node --check coin-history.js
           node --check coin-outcomes.js
           node --check outcomes.js
@@ -51,6 +52,7 @@ jobs:
           grep -q 'hypothesisTable' outcomes.html
           grep -q 'challengerTable' outcomes.html
           grep -q 'hypothesis-challengers.json' outcomes.js
+          grep -q 'Statistical Challenger v2' outcomes.js
           test -s outcomes.html
           test -s outcome-warehouse.json
           test -s outcome-analytics.json
@@ -69,6 +71,12 @@ jobs:
               assert x['automatic_promotion'] is False
               assert x['strategy_rule_mutation'] is False
           assert c['capital_allocation_authority'] is False
+          assert c['mode']=='WAVELENGTH_FORWARD_HYPOTHESIS_CHALLENGERS_V2_STATISTICAL_READ_ONLY'
+          p=c['statistical_policy']
+          assert p['bootstrap_draws']>=5000
+          assert p['confidence_level']>=0.90
+          assert p['minimum_effect_lift_pct']>0
+          assert p['multiple_testing']=='BONFERRONI_ACTIVE_CHALLENGERS'
           assert a['event_count']==w['event_count']
           assert a['minimum_established_sample']>=30
           assert a['minimum_fresh_confirmation']>=10
@@ -97,7 +105,11 @@ jobs:
               assert h['execution_authority'] is False
               assert h['status'] in c['lifecycle']
               assert h['fresh_evidence']['n']==h['progress']['resolved_matching_events']
-              if h['status'] in ('CONFIRMED','FALSIFIED'):
+              assert 'statistical_robustness' in h
+              if h['status']=='CONFIRMED':
                   assert h['fresh_evidence']['n']>=h['minimum_fresh_matching_events']
-          print('Regime analytics and forward-only hypothesis challengers remain research-only and falsification-gated')
+                  assert h['statistical_robustness']['blocking_checks_passed'] is True
+              if h['status']=='FALSIFIED':
+                  assert h['fresh_evidence']['n']>=h['minimum_fresh_matching_events']
+          print('Statistical Challenger v2 remains forward-only, research-only and robustness-gated')
           PY
