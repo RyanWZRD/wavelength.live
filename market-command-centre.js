@@ -6,86 +6,13 @@ const n=(v,d=2)=>v==null||!Number.isFinite(+v)?'—':(+v).toLocaleString('en-GB'
 const pct=v=>v==null||!Number.isFinite(+v)?'—':`${+v>=0?'+':''}${n(+v,2)}%`;
 const tone=s=>/PASS|ELIGIBLE|CLEAR|READY/.test(String(s||''))?'good':/FAIL|BLOCK|ERROR/.test(String(s||''))?'bad':'warn';
 const get=async u=>{const r=await fetch(`${u}${u.includes('?')?'&':'?'}t=${Date.now()}`,{cache:'no-store'});if(!r.ok)throw new Error(`${r.status} ${u}`);return r.json()};
-
-function injectStyles(){
-  const st=document.createElement('style');st.textContent=`
-  .command-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.watch-now-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.watch-tile{border:1px solid var(--line,#263143);border-radius:14px;padding:14px;background:rgba(255,255,255,.018);cursor:pointer;transition:.18s transform,.18s border-color}.watch-tile:hover{transform:translateY(-2px);border-color:#5d769b}.watch-symbol{font:700 15px 'IBM Plex Mono',monospace}.watch-score{font:800 27px 'Bricolage Grotesque',sans-serif;margin:5px 0}.watch-reason{font-size:12px;line-height:1.45;color:var(--muted,#94a3b8);min-height:50px}.watch-state{margin-top:9px;font-size:11px;font-weight:800;letter-spacing:.06em}.command-card{border:1px solid var(--line,#263143);border-radius:14px;padding:16px;background:rgba(255,255,255,.015)}.command-card .headline{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.command-card h3{margin:0;font-size:17px}.mini-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}.mini-stat{padding:10px;border:1px solid var(--line,#263143);border-radius:11px}.mini-stat b{display:block;font-size:18px;margin-top:4px}.mini-stat span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted,#94a3b8)}.gate-box{font-size:12px;line-height:1.55;color:var(--muted,#94a3b8)}.test-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.test-pill{font:700 10px 'IBM Plex Mono',monospace;padding:5px 7px;border-radius:999px;border:1px solid var(--line,#263143)}.test-pill.good{border-color:rgba(70,200,130,.45)}.test-pill.bad{border-color:rgba(240,90,90,.5)}.test-pill.warn{border-color:rgba(230,180,70,.5)}.asset-link{color:inherit;text-decoration:none;font-weight:800}.asset-link:hover{text-decoration:underline}.scanner-hint{margin-left:8px;font-size:10px;opacity:.65}@media(max-width:1050px){.watch-now-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.command-grid{grid-template-columns:1fr}}@media(max-width:620px){.watch-now-grid{grid-template-columns:1fr}.mini-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-  `;document.head.appendChild(st);
-}
-
-function ensureWatchingSection(){
-  if($('#watchingNow'))return;
-  const validation=$('#validationGrid')?.closest('section');
-  if(!validation)return;
-  const sec=document.createElement('section');sec.className='card';sec.id='watchingNow';sec.innerHTML=`<div class="card-head"><div><div class="card-title">What Wavelength is watching now</div><div class="card-meta" id="watchingMeta">Ranking markets by proximity to actionable technical conditions…</div></div><span class="badge warn">LIVE WATCH</span></div><div class="watch-now-grid" id="watchingGrid"><div class="empty">Waiting for scanner data…</div></div><div class="card-meta" style="margin-top:12px">Research prioritisation only. Near-signal status does not authorise a trade.</div>`;
-  validation.parentNode.insertBefore(sec,validation);
-}
-
-function parseScannerRows(){
-  const body=$('#marketBody');if(!body)return[];
-  return [...body.querySelectorAll('tr')].map(tr=>{
-    const td=[...tr.querySelectorAll('td')];if(td.length<10)return null;
-    const coin=(td[1]?.textContent||'').trim().split(/\s+/)[0].replace(/[^A-Z0-9]/gi,'').toUpperCase();
-    if(!coin)return null;
-    const num=i=>{const m=(td[i]?.textContent||'').replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return m?+m[0]:null};
-    return {symbol:coin,change:num(3),rsi:num(6),adx:num(7),rs:num(8),intel:num(10),row:tr};
-  }).filter(Boolean);
-}
-
-function watchingScore(x){
-  let s=0,reasons=[];
-  if(x.intel!=null){s+=Math.min(45,x.intel*.45);reasons.push(`intel ${n(x.intel,0)}`)}
-  if(x.adx!=null){s+=Math.min(20,x.adx/2);if(x.adx>=30)reasons.push(`ADX ${n(x.adx,1)}`)}
-  if(x.rsi!=null&&x.rsi>=48&&x.rsi<=74){s+=15;reasons.push(`RSI ${n(x.rsi,1)} in trend zone`)}
-  if(x.rs!=null&&x.rs>0){s+=10;reasons.push(`+${n(x.rs,1)}% vs BTC 30d`)}
-  if(x.change!=null&&Math.abs(x.change)>=2){s+=5;reasons.push(`${pct(x.change)} today`)}
-  return {score:Math.min(99,Math.round(s)),reasons};
-}
-
-function enhanceScannerAndWatching(){
-  const rows=parseScannerRows();if(!rows.length)return;
-  rows.forEach(x=>{
-    const td=x.row.querySelectorAll('td')[1];if(td&&!td.querySelector('a.asset-link')){
-      const label=td.innerHTML;td.innerHTML=`<a class="asset-link" href="asset.html?symbol=${encodeURIComponent(x.symbol)}">${label}</a><span class="scanner-hint">↗</span>`;
-      x.row.style.cursor='pointer';x.row.addEventListener('click',e=>{if(e.target.closest('button,a,input'))return;location.href=`asset.html?symbol=${encodeURIComponent(x.symbol)}`});
-    }
-  });
-  const ranked=rows.map(x=>({...x,...watchingScore(x)})).sort((a,b)=>b.score-a.score).slice(0,5);
-  const g=$('#watchingGrid');if(!g)return;
-  g.innerHTML=ranked.map((x,i)=>{
-    const state=x.score>=75?'NEAR SIGNAL':x.score>=58?'DEVELOPING':'WATCH';
-    return `<article class="watch-tile" data-symbol="${esc(x.symbol)}"><div class="watch-symbol">${i+1}. ${esc(x.symbol)}</div><div class="watch-score">${x.score}<span style="font-size:12px;opacity:.55">/100</span></div><div class="watch-reason">${esc(x.reasons.slice(0,3).join(' · ')||'Scanner conditions still developing.')}</div><div class="watch-state">${state}</div></article>`
-  }).join('');
-  g.querySelectorAll('.watch-tile').forEach(el=>el.addEventListener('click',()=>location.href=`asset.html?symbol=${encodeURIComponent(el.dataset.symbol)}`));
-  const meta=$('#watchingMeta');if(meta)meta.textContent=`Top ${ranked.length} developing markets from the live scanner · click any coin for full drill-down`;
-}
-
-async function upgradeValidation(){
-  const section=$('#validationGrid')?.closest('section');if(!section)return;
-  const title=section.querySelector('.card-title');if(title)title.textContent='Validation Command Centre';
-  try{
-    const [val,challenger,graduation]=await Promise.all([get('validation.json').catch(()=>({})),get('strategy-challenger-results.json').catch(()=>({})),get('paper-graduation.json').catch(()=>({}))]);
-    const cmap=Object.fromEntries((challenger.strategies||[]).map(s=>[s.strategy_id,s]));
-    const grows=graduation.strategies||graduation.strategy_gates||[];
-    const gmap=Array.isArray(grows)?Object.fromEntries(grows.map(s=>[s.strategy_id,s])):grows;
-    const strategies=val.strategies||{};
-    const out=[];
-    for(const [id,s] of Object.entries(strategies)){
-      const c=cmap[id]||{},gr=gmap?.[id]||{};const min=s.minimums||{};
-      const tests=c.tests||[];const passed=tests.filter(t=>t.status==='PASS').length;const total=tests.length||7;
-      const blockers=[...(gr.blockers||[]),...(gr.hard_blockers||[]),...(s.unmet_gates||[])].filter((v,i,a)=>v&&a.indexOf(v)===i);
-      out.push(`<article class="command-card"><div class="headline"><div><h3>${esc(s.name||id)}</h3><div class="card-meta">${esc((gr.lifecycle_state||gr.lifecycle||s.lifecycle||'SHADOW').replaceAll('_',' '))} · position ${esc(s.position||'FLAT')}</div></div><span class="badge ${tone(c.status||s.status)}">${esc(c.status||s.status||'WAITING')}</span></div><div class="mini-stats"><div class="mini-stat"><span>Fresh trades</span><b>${s.completed_trades||0}/${min.completed_trades||'—'}</b></div><div class="mini-stat"><span>Observed</span><b>${n(s.observation_days||0,1)}d</b></div><div class="mini-stat"><span>Return</span><b>${pct(s.return_pct)}</b></div><div class="mini-stat"><span>PF</span><b>${s.profit_factor==null?'—':n(s.profit_factor,2)}</b></div></div><div class="gate-box"><b>Challenger:</b> ${passed}/${total} passing${c.failed_tests?.length?` · failed: ${esc(c.failed_tests.join(', '))}`:''}<br><b>Next blockers:</b> ${blockers.length?esc(blockers.slice(0,5).join(' · ')):'No currently reported blockers'}</div><div class="test-pills">${tests.map(t=>`<span class="test-pill ${tone(t.status)}" title="${esc(t.detail||'')}">${esc(t.test.replaceAll('_',' '))}: ${esc(t.status)}</span>`).join('')}</div></article>`);
-    }
-    if(out.length)$('#validationGrid').outerHTML=`<div class="command-grid" id="validationGrid">${out.join('')}</div>`;
-    const meta=$('#validationMeta');if(meta)meta.textContent='Fresh forward evidence + falsification challengers + PAPER graduation blockers · no live authority';
-  }catch(e){console.warn('Validation command centre upgrade unavailable',e)}
-}
-
-function observeScanner(){
-  const body=$('#marketBody');if(!body)return setTimeout(observeScanner,600);
-  let timer;const run=()=>{clearTimeout(timer);timer=setTimeout(enhanceScannerAndWatching,80)};
-  new MutationObserver(run).observe(body,{childList:true,subtree:true});run();
-}
-
-document.addEventListener('DOMContentLoaded',()=>{injectStyles();ensureWatchingSection();observeScanner();upgradeValidation()});
+function injectStyles(){if(document.querySelector('style[data-market-command]'))return;const st=document.createElement('style');st.dataset.marketCommand='1';st.textContent=`.command-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.watch-now-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}.watch-tile{border:1px solid var(--line,#263143);border-radius:14px;padding:14px;background:rgba(255,255,255,.018);cursor:pointer;transition:.18s transform,.18s border-color}.watch-tile:hover{transform:translateY(-2px);border-color:#5d769b}.watch-symbol{font:700 15px 'IBM Plex Mono',monospace}.watch-score{font:800 27px 'Bricolage Grotesque',sans-serif;margin:5px 0}.watch-reason{font-size:12px;line-height:1.45;color:var(--muted,#94a3b8);min-height:50px}.watch-state{margin-top:9px;font-size:11px;font-weight:800;letter-spacing:.06em}.command-card{border:1px solid var(--line,#263143);border-radius:14px;padding:16px;background:rgba(255,255,255,.015)}.command-card .headline{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}.command-card h3{margin:0;font-size:17px}.mini-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:14px 0}.mini-stat{padding:10px;border:1px solid var(--line,#263143);border-radius:11px}.mini-stat b{display:block;font-size:18px;margin-top:4px}.mini-stat span{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted,#94a3b8)}.gate-box{font-size:12px;line-height:1.55;color:var(--muted,#94a3b8)}.test-pills{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.test-pill{font:700 10px 'IBM Plex Mono',monospace;padding:5px 7px;border-radius:999px;border:1px solid var(--line,#263143)}.test-pill.good{border-color:rgba(70,200,130,.45)}.test-pill.bad{border-color:rgba(240,90,90,.5)}.test-pill.warn{border-color:rgba(230,180,70,.5)}.asset-link{color:inherit;text-decoration:none;font-weight:800}.asset-link:hover{text-decoration:underline}.scanner-hint{margin-left:8px;font-size:10px;opacity:.65}@media(max-width:1050px){.watch-now-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.command-grid{grid-template-columns:1fr}}@media(max-width:620px){.watch-now-grid{grid-template-columns:1fr}.mini-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}`;document.head.appendChild(st)}
+function ensureWatchingSection(){if($('#watchingNow'))return;const validation=$('#validationGrid')?.closest('section');if(!validation)return;const sec=document.createElement('section');sec.className='card';sec.id='watchingNow';sec.innerHTML=`<div class="card-head"><div><div class="card-title">What Wavelength is watching now</div><div class="card-meta" id="watchingMeta">Ranking markets by proximity to actionable technical conditions…</div></div><span class="badge warn">LIVE WATCH</span></div><div class="watch-now-grid" id="watchingGrid"><div class="empty">Waiting for scanner data…</div></div><div class="card-meta" style="margin-top:12px">Research prioritisation only. Near-signal status does not authorise a trade.</div>`;validation.parentNode.insertBefore(sec,validation)}
+function parseScannerRows(){const body=$('#marketBody');if(!body)return[];return [...body.querySelectorAll('tr')].map(tr=>{const td=[...tr.querySelectorAll('td')];if(td.length<11)return null;const coin=(td[1]?.textContent||'').trim().split(/\s+/)[0].replace(/[^A-Z0-9]/gi,'').toUpperCase();if(!coin)return null;const num=i=>{const m=(td[i]?.textContent||'').replace(/,/g,'').match(/-?\d+(?:\.\d+)?/);return m?+m[0]:null};return{symbol:coin,change:num(3),rsi:num(6),adx:num(7),rs:num(8),intel:num(10),row:tr}}).filter(Boolean)}
+function watchingScore(x){let s=0,reasons=[];if(x.intel!=null){s+=Math.min(45,x.intel*.45);reasons.push(`intel ${n(x.intel,0)}`)}if(x.adx!=null){s+=Math.min(20,x.adx/2);if(x.adx>=30)reasons.push(`ADX ${n(x.adx,1)}`)}if(x.rsi!=null&&x.rsi>=48&&x.rsi<=74){s+=15;reasons.push(`RSI ${n(x.rsi,1)} in trend zone`)}if(x.rs!=null&&x.rs>0){s+=10;reasons.push(`+${n(x.rs,1)}% vs BTC 30d`)}if(x.change!=null&&Math.abs(x.change)>=2){s+=5;reasons.push(`${pct(x.change)} today`)}return{score:Math.min(99,Math.round(s)),reasons}}
+function enhanceScannerAndWatching(){const rows=parseScannerRows();if(!rows.length)return;rows.forEach(x=>{const td=x.row.querySelectorAll('td')[1];if(td&&!td.querySelector('a.asset-link')){const label=td.innerHTML;td.innerHTML=`<a class="asset-link" href="asset.html?symbol=${encodeURIComponent(x.symbol)}">${label}</a><span class="scanner-hint">↗</span>`;x.row.style.cursor='pointer';x.row.addEventListener('click',e=>{if(e.target.closest('button,a,input'))return;location.href=`asset.html?symbol=${encodeURIComponent(x.symbol)}`})}});const ranked=rows.map(x=>({...x,...watchingScore(x)})).sort((a,b)=>b.score-a.score).slice(0,5),g=$('#watchingGrid');if(!g)return;g.innerHTML=ranked.map((x,i)=>{const state=x.score>=75?'NEAR SIGNAL':x.score>=58?'DEVELOPING':'WATCH';return `<article class="watch-tile" data-symbol="${esc(x.symbol)}"><div class="watch-symbol">${i+1}. ${esc(x.symbol)}</div><div class="watch-score">${x.score}<span style="font-size:12px;opacity:.55">/100</span></div><div class="watch-reason">${esc(x.reasons.slice(0,3).join(' · ')||'Scanner conditions still developing.')}</div><div class="watch-state">${state}</div></article>`}).join('');g.querySelectorAll('.watch-tile').forEach(el=>el.addEventListener('click',()=>location.href=`asset.html?symbol=${encodeURIComponent(el.dataset.symbol)}`));const meta=$('#watchingMeta');if(meta)meta.textContent=`Top ${ranked.length} developing markets from the live scanner · click any coin for full drill-down`}
+async function upgradeValidation(){const section=$('#validationGrid')?.closest('section');if(!section)return;const title=section.querySelector('.card-title');if(title)title.textContent='Validation Command Centre';try{const[val,challenger,graduation]=await Promise.all([get('validation.json').catch(()=>({})),get('strategy-challenger-results.json').catch(()=>({})),get('paper-graduation.json').catch(()=>({}))]);const cmap=Object.fromEntries((challenger.strategies||[]).map(s=>[s.strategy_id,s])),grows=graduation.strategies||graduation.strategy_gates||[],gmap=Array.isArray(grows)?Object.fromEntries(grows.map(s=>[s.strategy_id,s])):grows,strategies=val.strategies||{},out=[];for(const[id,s]of Object.entries(strategies)){const c=cmap[id]||{},gr=gmap?.[id]||{},min=s.minimums||{},tests=c.tests||[],passed=tests.filter(t=>t.status==='PASS').length,total=tests.length||7,blockers=[...(gr.blockers||[]),...(gr.hard_blockers||[]),...(s.unmet_gates||[])].filter((v,i,a)=>v&&a.indexOf(v)===i);out.push(`<article class="command-card"><div class="headline"><div><h3>${esc(s.name||id)}</h3><div class="card-meta">${esc((gr.lifecycle_state||gr.lifecycle||s.lifecycle||'SHADOW').replaceAll('_',' '))} · position ${esc(s.position||'FLAT')}</div></div><span class="badge ${tone(c.status||s.status)}">${esc(c.status||s.status||'WAITING')}</span></div><div class="mini-stats"><div class="mini-stat"><span>Fresh trades</span><b>${s.completed_trades||0}/${min.completed_trades||'—'}</b></div><div class="mini-stat"><span>Observed</span><b>${n(s.observation_days||0,1)}d</b></div><div class="mini-stat"><span>Return</span><b>${pct(s.return_pct)}</b></div><div class="mini-stat"><span>PF</span><b>${s.profit_factor==null?'—':n(s.profit_factor,2)}</b></div></div><div class="gate-box"><b>Challenger:</b> ${passed}/${total} passing${c.failed_tests?.length?` · failed: ${esc(c.failed_tests.join(', '))}`:''}<br><b>Next blockers:</b> ${blockers.length?esc(blockers.slice(0,5).join(' · ')):'No currently reported blockers'}</div><div class="test-pills">${tests.map(t=>`<span class="test-pill ${tone(t.status)}" title="${esc(t.detail||'')}">${esc(t.test.replaceAll('_',' '))}: ${esc(t.status)}</span>`).join('')}</div></article>`)}if(out.length)$('#validationGrid').outerHTML=`<div class="command-grid" id="validationGrid">${out.join('')}</div>`;const meta=$('#validationMeta');if(meta)meta.textContent='Fresh forward evidence + falsification challengers + PAPER graduation blockers · no live authority'}catch(e){console.warn('Validation command centre upgrade unavailable',e)}}
+function observeScanner(){const body=$('#marketBody');if(!body)return setTimeout(observeScanner,600);let timer;const run=()=>{clearTimeout(timer);timer=setTimeout(enhanceScannerAndWatching,80)};new MutationObserver(run).observe(body,{childList:true,subtree:true});run()}
+function init(){injectStyles();ensureWatchingSection();observeScanner();setTimeout(upgradeValidation,1200);setTimeout(upgradeValidation,3500)}
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
 })();
