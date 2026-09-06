@@ -53,6 +53,13 @@ jobs:
           assert w['horizons']==['4h','12h','24h','3d','7d']
           assert a['minimum_established_sample']>=30
           assert a['event_count']==w['event_count']
+          assert a['canonical_score_model']=='WAVELENGTH_INTELLIGENCE_V1'
+          assert a['canonical_score_version']==1
+          assert a['hypothesis_governance']['canonical_forward_only'] is True
+          assert a['hypothesis_eligible_event_count']+a['legacy_descriptive_event_count']==a['event_count']
+          for q in a.get('hypotheses',[]):
+              assert q['score_model']=='WAVELENGTH_INTELLIGENCE_V1'
+              assert q['score_version']==1
           assert h['lifecycle']==['PENDING','SURVIVING','FALSIFIED','CONFIRMED']
           for c in h['challengers']:
               assert c['fresh_forward_only'] is True
@@ -65,7 +72,7 @@ jobs:
               assert c['progress']['resolved_matching_events']==c['fresh_evidence']['n']
               if c['status'] in ('FALSIFIED','CONFIRMED'):
                   assert c['progress']['resolved_matching_events']>=c['minimum_fresh_matching_events']
-          print('Outcome evidence and forward hypothesis challengers remain research-only')
+          print('Outcome evidence is research-only; new discovery is canonical-V1 forward-only')
           PY
       - name: Commit durable evidence
         run: |
