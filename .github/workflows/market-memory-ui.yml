@@ -1,0 +1,51 @@
+name: Market Memory UI checks
+
+on:
+  pull_request:
+    paths:
+      - 'market-memory.html'
+      - 'market-memory.js'
+      - 'asset-memory.js'
+      - 'asset.html'
+      - 'shared-nav.js'
+      - '.github/workflows/market-memory-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'market-memory.html'
+      - 'market-memory.js'
+      - 'asset-memory.js'
+      - 'asset.html'
+      - 'shared-nav.js'
+      - '.github/workflows/market-memory-ui.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Market Memory wiring
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          page=Path('market-memory.html').read_text()
+          js=Path('market-memory.js').read_text()
+          asset=Path('asset.html').read_text()
+          asset_js=Path('asset-memory.js').read_text()
+          nav=Path('shared-nav.js').read_text()
+          assert 'Market Memory' in page
+          assert 'market-memory.json' in js
+          assert 'similarity' in js.lower()
+          assert 'assetMemory' in asset
+          assert 'asset-memory.js' in asset
+          assert 'market-memory.json' in asset_js
+          assert "['market-memory.html','Market Memory']" in nav
+          for text in (page, js, asset_js):
+              assert 'submit_order' not in text
+              assert 'TradingClient' not in text
+          print('Market Memory UI wiring OK')
+          PY
