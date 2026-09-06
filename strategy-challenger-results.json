@@ -1,0 +1,204 @@
+{
+  "mode": "STRATEGY_CHALLENGER_PUBLIC_READ_ONLY",
+  "generated_at": "2026-09-06T08:03:13.947223+00:00",
+  "orders_enabled": false,
+  "live_money_enabled": false,
+  "automatic_rule_change": false,
+  "automatic_promotion": false,
+  "strategies": [
+    {
+      "strategy_id": "candidate_v3",
+      "status": "PASS",
+      "passed_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "failed_tests": [],
+      "unresolved_tests": [],
+      "tests": [
+        {
+          "test": "FEE_STRESS",
+          "status": "PASS",
+          "metric": {
+            "baseline_fee_pct_per_side": 0.25,
+            "stressed_fee_pct_per_side": 0.375,
+            "stressed_pnl": 21132.41,
+            "profit_factor": 3.282
+          },
+          "threshold": "P&L > 0 and PF > 1 at 1.5x historical fee",
+          "method": "TRADE_LEVEL_REPRICE"
+        },
+        {
+          "test": "EXECUTION_DELAY",
+          "status": "PASS",
+          "metric": {
+            "adverse_bps_each_side": 25,
+            "stressed_pnl": 19988.11,
+            "profit_factor": 2.998
+          },
+          "threshold": "stressed P&L > 0 and PF > 1",
+          "method": "ADVERSE_PRICE_DELAY_PROXY"
+        },
+        {
+          "test": "EX_BEST_TRADE",
+          "status": "PASS",
+          "metric": {
+            "return_ex_best_trade_pct": 77.886
+          },
+          "threshold": "return excluding best trade > 0",
+          "method": "DIRECT"
+        },
+        {
+          "test": "PARAMETER_PERTURBATION",
+          "status": "PASS",
+          "metric": {
+            "robust_pass_pct": 84.36,
+            "profitable_ex_best_pct": 97.12,
+            "combinations": 243
+          },
+          "threshold": "robust pass >= 70% and ex-best profitable >= 70%",
+          "method": "DIRECT"
+        },
+        {
+          "test": "LEAVE_ONE_YEAR_OUT",
+          "status": "PASS",
+          "metric": {
+            "ex_year_pnl": {
+              "2021": 14159.79,
+              "2022": 22467.09,
+              "2023": 15726.17,
+              "2024": 13609.56,
+              "2025": 21964.46,
+              "2026": 23456.43
+            },
+            "worst_ex_year_pnl": 13609.56
+          },
+          "threshold": "aggregate P&L remains > 0 with every single year removed",
+          "method": "DIRECT"
+        },
+        {
+          "test": "REGIME_SEGMENTATION",
+          "status": "PASS",
+          "metric": {
+            "populated_regimes": 3,
+            "profitable_pf_gt_1_pct": 100.0
+          },
+          "threshold": "at least half of populated ADX regimes have positive P&L and PF > 1",
+          "method": "DIRECT"
+        },
+        {
+          "test": "MISSING_FILL_STRESS",
+          "status": "PASS",
+          "metric": {
+            "trades": 42,
+            "missed_best_fills": 5,
+            "stressed_pnl": 1143.03,
+            "profit_factor": 1.134
+          },
+          "threshold": "drop best 10% of fills; remaining P&L > 0 and PF > 1",
+          "method": "DETERMINISTIC_WORST_CASE"
+        }
+      ]
+    },
+    {
+      "strategy_id": "crowding_v2",
+      "status": "PASS",
+      "passed_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "failed_tests": [],
+      "unresolved_tests": [],
+      "tests": [
+        {
+          "test": "FEE_STRESS",
+          "status": "PASS",
+          "metric": {
+            "baseline_return_pct": 24.911,
+            "extra_round_trip_pct": 0.5,
+            "stressed_return_pct": 12.911
+          },
+          "threshold": "stressed return > 0",
+          "method": "FULL_NOTIONAL_TURNOVER_STRESS"
+        },
+        {
+          "test": "EXECUTION_DELAY",
+          "status": "PASS",
+          "metric": {
+            "adverse_bps_each_side": 25,
+            "stressed_return_pct": 12.911
+          },
+          "threshold": "stressed return > 0",
+          "method": "FULL_NOTIONAL_ADVERSE_DELAY_PROXY"
+        },
+        {
+          "test": "EX_BEST_TRADE",
+          "status": "PASS",
+          "metric": {
+            "ex_best_return_pct": 16.27
+          },
+          "threshold": "return excluding best trade > 0",
+          "method": "DIRECT"
+        },
+        {
+          "test": "PARAMETER_PERTURBATION",
+          "status": "PASS",
+          "metric": {
+            "local_neighbours": 14,
+            "eligible_pct": 50.0
+          },
+          "threshold": "at least 50% of one-parameter neighbours remain eligible",
+          "method": "DIRECT"
+        },
+        {
+          "test": "LEAVE_ONE_YEAR_OUT",
+          "status": "PASS",
+          "metric": {
+            "ex_year_pnl": {
+              "2021": 1480.09,
+              "2022": 1885.47,
+              "2023": 2157.85,
+              "2024": 1949.95
+            },
+            "worst_ex_year_pnl": 1480.09
+          },
+          "threshold": "aggregate P&L remains > 0 with every single year removed",
+          "method": "DIRECT"
+        },
+        {
+          "test": "REGIME_SEGMENTATION",
+          "status": "PASS",
+          "metric": {
+            "folds": 5,
+            "positive_folds": 3,
+            "pf_gt_1_05_folds": 3
+          },
+          "threshold": ">=60% of time segments positive and PF > 1.05",
+          "method": "DIRECT"
+        },
+        {
+          "test": "MISSING_FILL_STRESS",
+          "status": "PASS",
+          "metric": {
+            "trades": 24,
+            "missed_best_fills": 3,
+            "stressed_pnl": 744.95,
+            "profit_factor": 1.667
+          },
+          "threshold": "drop best 10% of fills; remaining P&L > 0 and PF > 1",
+          "method": "DETERMINISTIC_WORST_CASE"
+        }
+      ]
+    }
+  ]
+}
