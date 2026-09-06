@@ -1,0 +1,39 @@
+name: Decision Intelligence UI check
+
+on:
+  pull_request:
+    paths:
+      - 'decision-intelligence.html'
+      - 'decision-intelligence.js'
+      - 'shared-nav.js'
+      - '.github/workflows/decision-intelligence-ui-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'decision-intelligence.html'
+      - 'decision-intelligence.js'
+      - 'shared-nav.js'
+      - '.github/workflows/decision-intelligence-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate suite wiring
+        run: |
+          test -f decision-intelligence.html
+          test -f decision-intelligence.js
+          grep -q 'Decision Intelligence Suite' decision-intelligence.html
+          grep -q "purchase-intelligence.json" decision-intelligence.js
+          grep -q "decision-journal.json" decision-intelligence.js
+          grep -q "strategy-attribution.json" decision-intelligence.js
+          grep -q "asset-portfolio-construction.json" decision-intelligence.js
+          grep -q "decision-intelligence.html','Decision Intel" shared-nav.js
+          grep -q 'no order authority' decision-intelligence.js
+          grep -q 'read-only research system' decision-intelligence.html
+          echo 'Decision Intelligence UI wiring validated'
