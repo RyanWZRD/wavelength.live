@@ -1,0 +1,297 @@
+{
+  "automatic_promotion": false,
+  "capital_allocation_authority": false,
+  "counters": {
+    "crowding_completed_episodes": 0,
+    "crowding_completed_trades": 0,
+    "crowding_entries": 0,
+    "v3_completed_trades": 0,
+    "v3_entries": 0
+  },
+  "data_loss_protection": {
+    "checks": [
+      {
+        "check": "MONOTONIC_COUNTER:v3_entries",
+        "current": 0,
+        "passed": true,
+        "previous": 0
+      },
+      {
+        "check": "MONOTONIC_COUNTER:crowding_entries",
+        "current": 0,
+        "passed": true,
+        "previous": 0
+      },
+      {
+        "check": "MONOTONIC_COUNTER:crowding_completed_episodes",
+        "current": 0,
+        "passed": true,
+        "previous": 0
+      },
+      {
+        "check": "MONOTONIC_COUNTER:v3_completed_trades",
+        "current": 0,
+        "passed": true,
+        "previous": 0
+      },
+      {
+        "check": "MONOTONIC_COUNTER:crowding_completed_trades",
+        "current": 0,
+        "passed": true,
+        "previous": 0
+      },
+      {
+        "check": "APPEND_ONLY:runtime/readiness_decision_journal.jsonl",
+        "current_lines": 1,
+        "passed": true,
+        "previous_lines": 1
+      },
+      {
+        "check": "APPEND_ONLY:runtime/monthly_evidence_checkpoints.jsonl",
+        "current_lines": 0,
+        "passed": true,
+        "previous_lines": 0
+      }
+    ],
+    "failures": [],
+    "manifest": {
+      "runtime/candidate_v3_forward_evidence_public.json": {
+        "exists": true,
+        "readable_json": true,
+        "sha256": "aa3bcf2677e9081c9073179fe572e429b36947dcb80e18c8d39ff7570c756ef1"
+      },
+      "runtime/crowding_v2_forward_evidence_public.json": {
+        "exists": true,
+        "readable_json": true,
+        "sha256": "3ee7eadd1ecb43117baae9a484a80bd275853139c61dc3ecb76d84054eb3d034"
+      },
+      "runtime/paper_graduation_public.json": {
+        "exists": true,
+        "readable_json": true,
+        "sha256": "59b9d0d8c9a5dd15b780876c67955777fd30ef86f6bb709305c6e4a77ec24b7c"
+      },
+      "runtime/readiness_lab_public.json": {
+        "exists": true,
+        "readable_json": true,
+        "sha256": "9180733ac72b48903430f6b136c33015f1ca6df673e8d9aa25035670a3d4b3ef"
+      },
+      "runtime/wavelength_alerts_public.json": {
+        "exists": true,
+        "readable_json": true,
+        "sha256": "59e7880d4e9115a9edfb245e4fdf6c9a55bb92b415f1b7b62a102309370aa76c"
+      }
+    },
+    "principle": "Evidence counters and append-only histories may grow or remain unchanged; regression is actionable.",
+    "recoverability_checks_passed": true,
+    "state": "PASS"
+  },
+  "execution_authority": false,
+  "first_forward_trade_review": {
+    "candidate_v3": {
+      "completed_trades": 0,
+      "principle": "No judgement is made before a genuine forward trade completes.",
+      "review_created": false,
+      "state": "WAITING_FOR_FIRST_COMPLETED_GENUINE_FORWARD_TRADE",
+      "strategy_id": "candidate_v3"
+    },
+    "crowding_v2": {
+      "completed_trades": 0,
+      "principle": "No judgement is made before a genuine forward trade completes.",
+      "review_created": false,
+      "state": "WAITING_FOR_FIRST_COMPLETED_GENUINE_FORWARD_TRADE",
+      "strategy_id": "crowding_v2"
+    }
+  },
+  "generated_at": "2026-09-06T12:21:50.528096+00:00",
+  "live_money_enabled": false,
+  "material_change_monitoring": {
+    "notification_delivery": "WAVELENGTH_ALERT_ENGINE_GITHUB_ISSUE",
+    "state": "ARMED",
+    "watched_events": [
+      "FIRST_GENUINE_V3_ENTRY_OR_COMPLETED_TRADE",
+      "FIRST_GENUINE_CROWDING_ENTRY_OR_COMPLETED_EPISODE",
+      "FIRST_FORWARD_TRADE_REVIEW_AVAILABLE",
+      "CHALLENGER_OR_PAPER_GATE_CHANGE",
+      "EVIDENCE_INTEGRITY_FAILURE",
+      "MONTHLY_CHECKPOINT_CREATED"
+    ]
+  },
+  "mode": "WAVELENGTH_EVIDENCE_SAFEGUARDS_V1_READ_ONLY",
+  "monthly_checkpoint": {
+    "archive_path": "runtime/monthly_evidence_checkpoints.jsonl",
+    "created_this_run": true,
+    "current_month": "2026-09",
+    "latest": {
+      "at": "2026-09-06T12:21:50.528096+00:00",
+      "automatic_promotion": false,
+      "capital_allocation_authority": false,
+      "counters": {
+        "crowding_completed_episodes": 0,
+        "crowding_completed_trades": 0,
+        "crowding_entries": 0,
+        "v3_completed_trades": 0,
+        "v3_entries": 0
+      },
+      "evidence_quality": {
+        "execution_measurement_completeness_pct": 0.0,
+        "operational_sources_fresh": 6,
+        "operational_sources_total": 6,
+        "principle": "Missing evidence remains missing; no data is imputed.",
+        "quality_warnings": [],
+        "score_0_to_100": 60.0,
+        "sources": [
+          {
+            "age_hours": 1.444,
+            "max_age_hours": 2.5,
+            "source": "paper_graduation",
+            "state": "FRESH"
+          },
+          {
+            "age_hours": 7.125,
+            "max_age_hours": 30.0,
+            "source": "execution_intelligence",
+            "state": "FRESH"
+          },
+          {
+            "age_hours": 3.152,
+            "max_age_hours": 48.0,
+            "source": "portfolio_risk",
+            "state": "FRESH"
+          },
+          {
+            "age_hours": 1.356,
+            "max_age_hours": 8.0,
+            "source": "candidate_v3_forward",
+            "state": "FRESH"
+          },
+          {
+            "age_hours": 1.568,
+            "max_age_hours": 8.0,
+            "source": "crowding_v2_forward",
+            "state": "FRESH"
+          },
+          {
+            "age_hours": 2.59,
+            "max_age_hours": 72.0,
+            "source": "strategy_challenger",
+            "state": "FRESH"
+          }
+        ],
+        "state": "DEVELOPING"
+      },
+      "graduation_state": "WAITING_FOR_FORWARD_EVIDENCE",
+      "lifecycle": {
+        "automatic_transitions": false,
+        "ladder": [
+          "SHADOW",
+          "PAPER_ELIGIBLE",
+          "PAPER_VALIDATING",
+          "PAPER_VALIDATED",
+          "LIMITED_CAPITAL_ELIGIBLE"
+        ],
+        "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
+        "strategies": [
+          {
+            "blockers": [
+              "MINIMUM_FORWARD_DAYS_NOT_MET",
+              "MINIMUM_FORWARD_TRADES_NOT_MET"
+            ],
+            "days": {
+              "current": 0.945,
+              "progress_pct": 0.8,
+              "required": 120.0
+            },
+            "hard_blockers": [],
+            "lifecycle_state": "SHADOW",
+            "limited_capital_eligible": false,
+            "next_state": "PAPER_ELIGIBLE",
+            "paper_entries_allowed": false,
+            "strategy_id": "candidate_v3",
+            "trades": {
+              "current": 0,
+              "progress_pct": 0.0,
+              "required": 8
+            }
+          },
+          {
+            "blockers": [
+              "MINIMUM_FORWARD_DAYS_NOT_MET",
+              "MINIMUM_FORWARD_TRADES_NOT_MET",
+              "PAPER_EXECUTION_ADAPTER_NOT_READY",
+              "PROTECTIVE_EXIT_FORWARD_EVIDENCE_INSUFFICIENT",
+              "PROTECTIVE_EXIT_CANDIDATE_NOT_MANUALLY_SELECTED"
+            ],
+            "days": {
+              "current": 0.112,
+              "progress_pct": 0.1,
+              "required": 90.0
+            },
+            "hard_blockers": [
+              "PAPER_EXECUTION_ADAPTER_NOT_READY",
+              "PROTECTIVE_EXIT_FORWARD_EVIDENCE_INSUFFICIENT",
+              "PROTECTIVE_EXIT_CANDIDATE_NOT_MANUALLY_SELECTED"
+            ],
+            "lifecycle_state": "SHADOW",
+            "limited_capital_eligible": false,
+            "next_state": "PAPER_ELIGIBLE",
+            "paper_entries_allowed": false,
+            "strategy_id": "crowding_v2",
+            "trades": {
+              "current": 0,
+              "progress_pct": 0.0,
+              "required": 8
+            }
+          }
+        ]
+      },
+      "mode": "MONTHLY_FORWARD_EVIDENCE_CHECKPOINT_V1_READ_ONLY",
+      "month": "2026-09",
+      "paper_readiness": {
+        "blockers": [
+          "MINIMUM_PRICE_EVIDENCE",
+          "MEANINGFUL_FILL_SAMPLE",
+          "EXECUTION_ERRORS",
+          "BROKER_SNAPSHOT_ERRORS"
+        ],
+        "checks": [
+          {
+            "current": 0,
+            "gate": "MINIMUM_PRICE_EVIDENCE",
+            "passed": false,
+            "required": 8
+          },
+          {
+            "current": 0,
+            "gate": "MEANINGFUL_FILL_SAMPLE",
+            "passed": false,
+            "required": 30
+          },
+          {
+            "current": 3,
+            "gate": "EXECUTION_ERRORS",
+            "passed": false,
+            "required": 0
+          },
+          {
+            "current": 1,
+            "gate": "BROKER_SNAPSHOT_ERRORS",
+            "passed": false,
+            "required": 0
+          },
+          {
+            "current": "FLAT_OK",
+            "gate": "GUARDIAN_STATE",
+            "passed": true,
+            "required": "FLAT_OK or PROTECTED"
+          }
+        ],
+        "note": "Rehearsal only. This does not submit PAPER or live orders.",
+        "reconciliation_confidence_pct": 60.0,
+        "state": "BLOCKED"
+      },
+      "strategy_rule_mutation": false
+    }
+  },
+  "orders_enabled": false,
+  "strategy_rule_mutation": false
+}
