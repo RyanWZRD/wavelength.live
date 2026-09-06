@@ -1,0 +1,44 @@
+name: Coin intelligence history UI checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'coin-history.js'
+      - 'coin.html'
+      - 'intelligence-history.json'
+      - 'scripts/update_intelligence_history.py'
+      - '.github/workflows/coin-history-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and wiring
+        run: |
+          node --check coin-history.js
+          test -s intelligence-history.json
+          grep -q 'coin-history.js' coin.html
+          grep -q 'intelligence-history.json' coin-history.js
+      - name: History governance schema
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('intelligence-history.json'))
+          assert x['orders_enabled'] is False
+          assert x['live_money_enabled'] is False
+          assert x['execution_authority'] is False
+          assert x['sample_interval_hours']==4
+          assert x['retention_points_per_symbol']==540
+          assert isinstance(x['symbols'], dict)
+          print('Coin history is read-only and structurally valid')
+          PY
