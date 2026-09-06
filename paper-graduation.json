@@ -4,12 +4,13 @@
   "controlled_paper_execution": {
     "candidate_v3_plumbing_present": true,
     "candidate_v3_preeligibility_rehearsal_enabled": true,
-    "crowding_v2_blocker": "Protective exit candidates are now defined and forward-shadowed, but no candidate may be selected automatically and PAPER plumbing remains blocked until manual review plus separate implementation.",
+    "crowding_v2_blocker": "Protective exit candidates are forward-shadowed; no candidate may be selected automatically and PAPER plumbing remains blocked until manual review plus separate implementation.",
     "crowding_v2_plumbing_present": false,
     "crowding_v2_protective_exit_shadow_present": true,
     "crowding_v2_protective_exit_state": "WAITING_FOR_FORWARD_EPISODES",
     "crowding_v2_selected_protective_candidate": null,
     "entry_gate": "runtime/paper_graduation.json + runtime/preeligibility_paper_rehearsal_policy.json",
+    "execution_evidence_is_strategy_scoped": true,
     "exits_and_reconciliation_must_remain_available": true,
     "fail_closed_if_gate_missing_or_stale": true,
     "preeligibility_rehearsal_counts_toward_graduation": false
@@ -24,11 +25,13 @@
     "execution_attempts": 4,
     "execution_errors": 4,
     "fills_with_price_evidence": 0,
+    "guardian_recorded_at": null,
     "guardian_status": "FLAT_OK",
     "median_slippage_bps": null,
     "paper_scans_observed": 7,
     "partial_fills": 0,
     "reconciliation_confidence": 60.0,
+    "strategy_id": null,
     "worst_slippage_bps": null
   },
   "formal_paper_validation": {
@@ -45,7 +48,7 @@
       "formal_validation_fills_with_price_evidence": 0
     }
   },
-  "generated_at": "2026-09-06T13:49:53.101136+00:00",
+  "generated_at": "2026-09-06T14:56:55.024070+00:00",
   "hypothesis_context": {
     "count": 0,
     "source": null,
@@ -53,7 +56,7 @@
   },
   "live_money_enabled": false,
   "mode": "PAPER_GRADUATION_V1_PUBLIC_READ_ONLY",
-  "note": "Graduation framework only. Candidate V3 may collect separate pre-eligibility Alpaca PAPER rehearsal evidence; that evidence is baselined out of formal PAPER graduation. Live money remains disabled.",
+  "note": "Graduation framework only. Forward completed-trade counts and PAPER execution evidence are strategy-scoped. Live money remains disabled.",
   "orders_enabled": false,
   "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
   "policy": {
@@ -121,7 +124,8 @@
       },
       "forward": {
         "completed_trades": 0,
-        "days_observed": 1.076,
+        "days_observed": 1.123,
+        "entry_events": 0,
         "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
         "forward_start": "2026-09-05T12:00:00+00:00"
       },
@@ -155,7 +159,8 @@
       },
       "forward": {
         "completed_trades": 0,
-        "days_observed": 0.243,
+        "days_observed": 0.29,
+        "entry_events": 0,
         "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
         "forward_start": "2026-09-06T08:00:00+00:00"
       },
@@ -222,5 +227,43 @@
       "strategy_id": "crowding_v2"
     }
   ],
+  "strategy_execution_reality": {
+    "candidate_v3": {
+      "avg_fill_latency_seconds": null,
+      "avg_slippage_bps": null,
+      "broker_or_eligibility_rejections": 0,
+      "broker_snapshot_errors": 1,
+      "evidence_state": "NO_STRATEGY_EXECUTION_EVIDENCE",
+      "execution_attempts": 0,
+      "execution_errors": 0,
+      "fills_with_price_evidence": 0,
+      "guardian_recorded_at": null,
+      "guardian_status": "FLAT_OK",
+      "median_slippage_bps": null,
+      "paper_scans_observed": 7,
+      "partial_fills": 0,
+      "reconciliation_confidence": 60.0,
+      "strategy_id": "candidate_v3",
+      "worst_slippage_bps": null
+    },
+    "crowding_v2": {
+      "avg_fill_latency_seconds": null,
+      "avg_slippage_bps": null,
+      "broker_or_eligibility_rejections": 0,
+      "broker_snapshot_errors": 1,
+      "evidence_state": "NO_STRATEGY_EXECUTION_EVIDENCE",
+      "execution_attempts": 0,
+      "execution_errors": 0,
+      "fills_with_price_evidence": 0,
+      "guardian_recorded_at": null,
+      "guardian_status": "UNKNOWN",
+      "median_slippage_bps": null,
+      "paper_scans_observed": 7,
+      "partial_fills": 0,
+      "reconciliation_confidence": 60.0,
+      "strategy_id": "crowding_v2",
+      "worst_slippage_bps": null
+    }
+  },
   "strategy_rule_mutation": false
 }
