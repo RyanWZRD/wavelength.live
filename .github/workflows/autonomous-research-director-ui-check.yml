@@ -1,0 +1,41 @@
+name: Autonomous Research Director UI checks
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'autonomous-research-director.js'
+      - 'autonomous-research-director.json'
+      - 'decision-governance.js'
+      - '.github/workflows/autonomous-research-director-ui-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'autonomous-research-director.js'
+      - 'autonomous-research-director.json'
+      - 'decision-governance.js'
+      - '.github/workflows/autonomous-research-director-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check autonomous-research-director.js
+          node --check decision-governance.js
+      - name: Wiring
+        run: |
+          test -s autonomous-research-director.js
+          test -s autonomous-research-director.json
+          grep -q 'autonomous-research-director.js' decision-governance.js
+          grep -q 'autonomous-research-director.json' autonomous-research-director.js
+          grep -q 'automatic_experiment_launch' autonomous-research-director.json
+          grep -q 'manual_approval_required' autonomous-research-director.json
