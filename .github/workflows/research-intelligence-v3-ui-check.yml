@@ -1,0 +1,56 @@
+name: Research Intelligence v3 UI checks
+on:
+  pull_request:
+    paths:
+      - 'research-intelligence.html'
+      - 'research-intelligence.js'
+      - 'research-events.json'
+      - 'wavelength-today.html'
+      - 'wavelength-today.js'
+      - 'shared-nav.js'
+      - '.github/workflows/research-intelligence-v3-ui-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'research-intelligence.html'
+      - 'research-intelligence.js'
+      - 'research-events.json'
+      - 'wavelength-today.html'
+      - 'wavelength-today.js'
+      - 'shared-nav.js'
+      - '.github/workflows/research-intelligence-v3-ui-check.yml'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check research-intelligence.js
+          node --check wavelength-today.js
+      - name: Assert v3 research surfaces
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('research-intelligence.html').read_text()
+          j=Path('research-intelligence.js').read_text()
+          t=Path('wavelength-today.html').read_text()
+          tj=Path('wavelength-today.js').read_text()
+          nav=Path('shared-nav.js').read_text()
+          for token in ['Market regime dashboard','Relative rotation board','Opportunity age & persistence','Correlation & concentration map','Catalyst / event layer','Research outcome scorecard']:
+              assert token in h, token
+          for token in ['Everything worth knowing in 30 seconds','Top 5 now','Rotation','Your watchlist','New replay outcomes','Validation','Operations']:
+              assert token in t, token
+          for feed in ['opportunity-radar.json','intelligence-history.json','hourly-radar-outcomes.json','research-events.json']:
+              assert feed in j, feed
+          for feed in ['opportunity-radar.json','intelligence-history.json','hourly-radar-outcomes.json','paper-graduation.json']:
+              assert feed in tj, feed
+          assert 'research-intelligence.html' in nav and 'wavelength-today.html' in nav
+          forbidden=['submit_order','TradingClient','/v2/orders','automatic_promotion=true','strategy_rule_mutation=true']
+          for x in forbidden:
+              assert x not in h+j+t+tj
+          print('Research Intelligence v3 remains research-only')
+          PY
