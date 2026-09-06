@@ -8,4 +8,5 @@ function render(x){ensure();const t=x.trial_state||{},p=x.policy||{},bs=t.baseli
 async function load(){ensure();try{render(await get())}catch(e){$('#pvtMeta').textContent='Portfolio validation feed unavailable';$('#pvtGrid').innerHTML='<div class="empty">No allocator verdict is inferred from a missing feed.</div>'}}
 load();setInterval(load,60000);
 const stress=document.createElement('script');stress.src='institutional-risk-stress.js';stress.defer=true;document.head.appendChild(stress);
+const governance=document.createElement('script');governance.src='decision-governance.js';governance.defer=true;document.head.appendChild(governance);
 })();

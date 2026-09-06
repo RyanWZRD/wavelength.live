@@ -1,0 +1,36 @@
+name: Decision governance UI checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'decision-governance.js'
+      - 'decision-governance.json'
+      - 'portfolio-validation-trials.js'
+      - '.github/workflows/decision-governance-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check decision-governance.js
+          node --check portfolio-validation-trials.js
+      - name: Required feed and wiring
+        run: |
+          test -s decision-governance.js
+          test -s decision-governance.json
+          grep -q 'decision-governance.json' decision-governance.js
+          grep -q 'decision-governance.js' portfolio-validation-trials.js
+          grep -q 'automatic_action' decision-governance.js
+          grep -q 'manual_approval_required' decision-governance.js
