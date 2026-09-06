@@ -4,6 +4,7 @@ on:
     paths:
       - 'control-centre.html'
       - 'control-centre.js'
+      - 'operator-incident-centre.js'
       - 'shared-nav.js'
       - '.github/workflows/control-centre-ui-check.yml'
   push:
@@ -11,6 +12,7 @@ on:
     paths:
       - 'control-centre.html'
       - 'control-centre.js'
+      - 'operator-incident-centre.js'
       - 'shared-nav.js'
       - '.github/workflows/control-centre-ui-check.yml'
 jobs:
@@ -22,20 +24,25 @@ jobs:
         with:
           node-version: '22'
       - name: JavaScript syntax
-        run: node --check control-centre.js
+        run: node --check control-centre.js && node --check operator-incident-centre.js
       - name: Assert read-only control centre wiring
         run: |
           python - <<'PY'
           from pathlib import Path
           h=Path('control-centre.html').read_text()
           j=Path('control-centre.js').read_text()
+          o=Path('operator-incident-centre.js').read_text()
           n=Path('shared-nav.js').read_text()
-          for token in ['System health','Wavelength alerts','Evidence safeguards','Limited Capital Mandate v1','Readiness lab','PAPER readiness rehearsal','Evidence quality','Lifecycle milestones','Limited-capital sandbox','Research decision journal','Strategy validation','PAPER graduation','Market regime','Portfolio risk','Forward hypothesis challengers']:
+          for token in ['System health','Operator incident centre','Wavelength alerts','Evidence safeguards','Limited Capital Mandate v1','Readiness lab','PAPER readiness rehearsal','Evidence quality','Lifecycle milestones','Limited-capital sandbox','Research decision journal','Strategy validation','PAPER graduation','Market regime','Portfolio risk','Forward hypothesis challengers']:
+              assert token in h, token
+          for token in ['operatorMeta','operatorBadge','operatorGrid','operatorComponentTable','operatorActionTable','baselineDriftTable','brokerTruthTable']:
               assert token in h, token
           for token in ['alertMeta','alertBadge','alertGrid','alertHistory','safeguardMeta','safeguardBadge','safeguardGrid','firstTradeReviewTable','integrityTable','mandateMeta','mandateBadge','mandateGrid','mandateStrategyTable','mandateExampleTable','readinessMeta','readinessBadge','readinessGrid','paperRehearsalTable','evidenceQualityTable','milestoneTable','capitalSandboxTable','decisionJournal']:
               assert token in h, token
           for feed in ['validation.json','strategy-challenger-results.json','outcome-analytics.json','intelligence-history.json','paper-graduation.json','institutional-risk-stress.json','wavelength-alerts.json','readiness-lab.json','evidence-safeguards.json','limited-capital-mandate.json']:
               assert feed in j, feed
+          assert 'operator-incident-centre.json' in o
+          assert 'baseline_drift' in o and 'evidence_integrity' in o and 'broker_reconciliation' in o
           assert 'notification_delivery' in j
           assert 'recoverability_checks_passed' in j
           assert 'capital_ceiling_set' in j and 'one_time_activation_granted' in j
@@ -45,6 +52,6 @@ jobs:
           assert 'control-centre.html' in n
           forbidden=['submit_order','TradingClient','/v2/orders','live_money_enabled=true','automatic_promotion=true']
           for x in forbidden:
-              assert x not in j
-          print('Research Control Centre read-only mandate/safeguard/readiness assertions passed')
+              assert x not in j and x not in o
+          print('Research Control Centre read-only operator/safeguard/readiness assertions passed')
           PY
