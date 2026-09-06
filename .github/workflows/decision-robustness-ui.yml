@@ -1,0 +1,22 @@
+name: Decision Robustness UI
+on:
+  pull_request:
+    paths: ['decision-robustness.html','decision-robustness.js','shared-nav.js','.github/workflows/decision-robustness-ui.yml']
+  push:
+    branches: [main]
+    paths: ['decision-robustness.html','decision-robustness.js','shared-nav.js','.github/workflows/decision-robustness-ui.yml']
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('decision-robustness.html').read_text();j=Path('decision-robustness.js').read_text();n=Path('shared-nav.js').read_text()
+          assert 'Decision Robustness' in h
+          assert 'decision-robustness.json' in j
+          for marker in ['drDecay','drRegime','drConfidence','drContagion','drOpportunity','drReplay','drConflicts','drSourceFail','drStability','drBudget']: assert marker in h
+          assert 'decision-robustness.html' in n
+          for bad in ['submit_order','TradingClient']: assert bad not in h+j
+          PY
