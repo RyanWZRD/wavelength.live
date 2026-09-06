@@ -1,6 +1,6 @@
 {
   "mode": "WAVELENGTH_READINESS_LAB_V1_READ_ONLY",
-  "generated_at": "2026-09-06T21:12:27.927585+00:00",
+  "generated_at": "2026-09-06T23:41:06.411374+00:00",
   "orders_enabled": false,
   "live_money_enabled": false,
   "execution_authority": false,
@@ -51,8 +51,8 @@
     "note": "Rehearsal only. This does not submit PAPER or live orders."
   },
   "evidence_quality": {
-    "score_0_to_100": 52.5,
-    "state": "DEVELOPING",
+    "score_0_to_100": 37.5,
+    "state": "THIN",
     "operational_sources_fresh": 5,
     "operational_sources_total": 6,
     "execution_measurement_completeness_pct": 0.0,
@@ -60,47 +60,93 @@
       {
         "source": "paper_graduation",
         "state": "FRESH",
-        "age_hours": 0.322,
+        "age_hours": 1.19,
         "max_age_hours": 2.5
       },
       {
         "source": "execution_intelligence",
         "state": "FRESH",
-        "age_hours": 2.622,
+        "age_hours": 1.42,
         "max_age_hours": 30.0
       },
       {
         "source": "portfolio_risk",
         "state": "FRESH",
-        "age_hours": 1.867,
+        "age_hours": 0.75,
         "max_age_hours": 48.0
       },
       {
         "source": "candidate_v3_forward",
-        "state": "AGING",
-        "age_hours": 6.232,
+        "state": "STALE",
+        "age_hours": 8.71,
         "max_age_hours": 8.0
       },
       {
         "source": "crowding_v2_forward",
         "state": "FRESH",
-        "age_hours": 2.855,
+        "age_hours": 1.524,
         "max_age_hours": 8.0
       },
       {
         "source": "strategy_challenger",
         "state": "FRESH",
-        "age_hours": 1.996,
+        "age_hours": 0.783,
         "max_age_hours": 72.0
       }
     ],
-    "quality_warnings": [],
+    "quality_warnings": [
+      "candidate_v3_forward:STALE"
+    ],
     "principle": "Missing evidence remains missing; no data is imputed."
   },
   "decision_journal": {
-    "state_fingerprint": "8ea5541d158b38c7a24d",
-    "new_event_count": 0,
-    "latest_event": null,
+    "state_fingerprint": "ad26e1508f848341ad49",
+    "new_event_count": 1,
+    "latest_event": {
+      "at": "2026-09-06T23:41:06.411374+00:00",
+      "type": "READINESS_STATE_CHANGED",
+      "fingerprint": "ad26e1508f848341ad49",
+      "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
+      "quality_state": "THIN",
+      "summary": {
+        "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
+        "strategies": [
+          {
+            "id": "candidate_v3",
+            "lifecycle": "SHADOW",
+            "trades": 0,
+            "blockers": [
+              "MINIMUM_FORWARD_DAYS_NOT_MET",
+              "MINIMUM_FORWARD_TRADES_NOT_MET"
+            ]
+          },
+          {
+            "id": "crowding_v2",
+            "lifecycle": "SHADOW",
+            "trades": 0,
+            "blockers": [
+              "MINIMUM_FORWARD_DAYS_NOT_MET",
+              "MINIMUM_FORWARD_TRADES_NOT_MET",
+              "PAPER_EXECUTION_ADAPTER_NOT_READY",
+              "PROTECTIVE_EXIT_FORWARD_EVIDENCE_INSUFFICIENT",
+              "PROTECTIVE_EXIT_CANDIDATE_NOT_MANUALLY_SELECTED"
+            ]
+          }
+        ],
+        "execution": {
+          "fills": 0,
+          "errors": 4,
+          "broker_errors": 1,
+          "guardian": "FLAT_OK"
+        },
+        "portfolio": {
+          "state": "WARNING_BLOCK_CO_ADMISSION",
+          "allowed": false
+        },
+        "quality_state": "THIN"
+      },
+      "authority": "READ_ONLY"
+    },
     "journal_path": "runtime/readiness_decision_journal.jsonl",
     "principle": "Lifecycle evidence changes are recorded; strategy rules are never edited by the journal."
   },
@@ -195,9 +241,9 @@
         "lifecycle_state": "SHADOW",
         "next_state": "PAPER_ELIGIBLE",
         "days": {
-          "current": 1.37,
+          "current": 1.437,
           "required": 120.0,
-          "progress_pct": 1.1
+          "progress_pct": 1.2
         },
         "trades": {
           "current": 0,
@@ -217,9 +263,9 @@
         "lifecycle_state": "SHADOW",
         "next_state": "PAPER_ELIGIBLE",
         "days": {
-          "current": 0.537,
+          "current": 0.604,
           "required": 90.0,
-          "progress_pct": 0.6
+          "progress_pct": 0.7
         },
         "trades": {
           "current": 0,
