@@ -1,6 +1,6 @@
 {
   "mode": "INSTITUTIONAL_PORTFOLIO_RISK_STRESS_V1_PUBLIC_READ_ONLY",
-  "generated_at": "2026-09-06T06:07:46.891392+00:00",
+  "generated_at": "2026-09-06T08:58:38.820618+00:00",
   "orders_enabled": false,
   "live_money_enabled": false,
   "automatic_allocation": false,
@@ -101,5 +101,67 @@
     "execution_authority": false,
     "promotion_authority": false
   },
-  "note": "Sanitised simulation-only portfolio stress evidence. No balances, quantities, orders, stops, credentials or executable controls."
+  "note": "Sanitised simulation-only portfolio stress evidence. No balances, quantities, orders, stops, credentials or executable controls.",
+  "shadow_candidate_research": {
+    "mode": "FORWARD_SHADOW_CANDIDATE_PORTFOLIO_RISK_V1_RESEARCH_ONLY",
+    "generated_at": "2026-09-06T08:58:38.902904+00:00",
+    "orders_enabled": false,
+    "live_money_enabled": false,
+    "execution_authority": false,
+    "automatic_allocation": false,
+    "capital_allocation_authority": false,
+    "automatic_promotion": false,
+    "strategy_rule_mutation": false,
+    "candidate_ids": [
+      "candidate_v3",
+      "crowding_v2"
+    ],
+    "stress_weight_convention": {
+      "kind": "EQUAL_WEIGHT_WHAT_IF_ONLY",
+      "weights": {
+        "candidate_v3": 0.5,
+        "crowding_v2": 0.5
+      },
+      "is_allocation_recommendation": false,
+      "can_change_portfolio": false
+    },
+    "candidate_risk_profiles": {
+      "candidate_v3": {
+        "asset": "ETH/USD",
+        "style": "DIRECTIONAL_TREND",
+        "historical_max_dd_pct": 15.275,
+        "historical_scope": "FULL_FORENSIC_SAMPLE_DESCRIPTIVE",
+        "forward_stage": "FORWARD_SHADOW"
+      },
+      "crowding_v2": {
+        "asset": "BTC/USD",
+        "style": "DELEVERAGING_CROWDING",
+        "historical_max_dd_pct": 5.847,
+        "historical_scope": "PRE_2025_SELECTION_SAMPLE; 2025_PLUS_EXCLUDED_FROM_VALIDATION",
+        "forward_stage": "FORWARD_SHADOW"
+      }
+    },
+    "structural_overlap_score": 45.0,
+    "overlap_reasons": [
+      "SAME_VALIDATION_STAGE"
+    ],
+    "weighted_historical_drawdown_pct": 10.561,
+    "correlation_amplification_factor": 1.1125,
+    "simultaneous_drawdown_stress_pct": 11.749,
+    "warning_threshold_pct": 8.0,
+    "hard_threshold_pct": 12.0,
+    "risk_flags": [
+      "SHADOW_SIMULTANEOUS_DRAWDOWN_EXCEEDS_WARNING_THRESHOLD",
+      "MULTIPLE_CRYPTO_BETA_STRATEGIES_REQUIRE_PORTFOLIO_LEVEL_REVIEW_BEFORE_ANY_FUTURE_ADMISSION"
+    ],
+    "admission_state": "RESEARCH_ONLY_NOT_CAPITAL_ELIGIBILITY",
+    "required_before_future_portfolio_admission": [
+      "BOTH_STRATEGIES_MUST_CLEAR_THEIR_OWN_FORWARD_VALIDATION_GATES",
+      "PAPER_EXECUTION_EVIDENCE_MUST_EXIST",
+      "REALIZED_CROSS_STRATEGY_CORRELATION_MUST_REPLACE_STRUCTURAL_PROXY",
+      "PORTFOLIO_STRESS_MUST_CLEAR_WARNING_AND_HARD_THRESHOLDS",
+      "MANUAL_ADMISSION_REVIEW_REQUIRED"
+    ],
+    "note": "Historical drawdown combination is a conservative research stress convention. It is not a forecast, target allocation or permission to deploy capital."
+  }
 }
