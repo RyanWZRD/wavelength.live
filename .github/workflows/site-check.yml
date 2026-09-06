@@ -35,6 +35,7 @@ jobs:
           node --check bot-first-trade.js
           node --check pre-trade-evidence.js
           node --check auto-paper-ui.js
+          node --check manual-v3-close-ui.js
           node --check learning.js
           node --check learning-capture.js
           node --check server-learning.js
@@ -114,6 +115,7 @@ jobs:
           test -s bot-first-trade.js
           test -s pre-trade-evidence.js
           test -s auto-paper-ui.js
+          test -s manual-v3-close-ui.js
           test -s automatic-paper-status.json
           test -s multi-asset-paper-status.json
           test -s paper-ops-status.json
@@ -151,6 +153,9 @@ jobs:
           grep -q 'bot-first-trade.js' bot.html
           grep -q 'pre-trade-evidence.js' bot.html
           grep -q 'auto-paper-ui.js' bot.html
+          grep -q 'manual-v3-close-ui.js' bot.html
+          grep -q 'manual-candidate-v3-paper-close.yml' manual-v3-close-ui.js
+          grep -q 'MANUAL_USER_CLOSE' manual-v3-close-ui.js
           grep -q 'multi-asset-paper-status.json' auto-paper-ui.js
           grep -q 'paper-ops-status.json' auto-paper-ui.js
           grep -q 'shared-nav.js' coin.html
