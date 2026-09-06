@@ -13,6 +13,8 @@ on:
       - 'outcomes.js'
       - 'outcome-warehouse.json'
       - 'outcome-analytics.json'
+      - 'scripts/build_outcome_warehouse.py'
+      - 'scripts/build_outcome_analytics.py'
       - 'shared-nav.js'
       - '.github/workflows/outcome-analytics-ui-check.yml'
 
@@ -27,6 +29,13 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild outcome evidence
+        run: |
+          python scripts/build_outcome_warehouse.py
+          python scripts/build_outcome_analytics.py
       - name: Syntax and wiring
         run: |
           node --check coin-history.js
@@ -35,6 +44,8 @@ jobs:
           grep -q 'coin-history.js' coin.html
           grep -q 'coin-outcomes.js' coin.html
           grep -q 'outcomes.html' shared-nav.js
+          grep -q 'regimeTable' outcomes.html
+          grep -q 'hypothesisTable' outcomes.html
           test -s outcomes.html
           test -s outcome-warehouse.json
           test -s outcome-analytics.json
@@ -52,6 +63,21 @@ jobs:
               assert x['strategy_rule_mutation'] is False
           assert a['event_count']==w['event_count']
           assert a['minimum_established_sample']>=30
+          assert a['minimum_fresh_confirmation']>=10
           assert a['overall']['4h']['n'] <= w['event_count']
-          print('Forward outcome UI is research-only and evidence-linked')
+          assert 'by_regime' in a and 'regime_coverage' in a and 'hypotheses' in a
+          g=a['hypothesis_governance']
+          assert g['same_sample_discovery_only'] is True
+          assert g['fresh_forward_confirmation_required'] is True
+          assert g['can_change_strategy_rules'] is False
+          assert g['can_promote_strategy'] is False
+          assert g['can_allocate_capital'] is False
+          for h in a['hypotheses']:
+              assert h['same_sample_discovery'] is True
+              assert h['fresh_confirmation_required'] is True
+              assert h['automatic_strategy_change'] is False
+              assert h['automatic_promotion'] is False
+              assert h['discovery_sample_n']>=a['minimum_discovery_segment']
+              assert h['comparison_sample_n']>=a['minimum_discovery_comparison']
+          print('Regime analytics and hypothesis generation remain research-only and falsification-gated')
           PY
