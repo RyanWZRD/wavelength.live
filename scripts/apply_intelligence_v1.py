@@ -39,13 +39,13 @@ if(typeof module!=='undefined'&&module.exports)module.exports=api;
 
 Path('scripts/intelligence_model.py').write_text('''MODEL="WAVELENGTH_INTELLIGENCE_V1"\nVERSION=1\n\ndef canonical_score(*, ema20=None, ema80=None, close=None, ema200=None, rsi=None, adx=None, volume_ratio=None, vs_btc_30=None, d90=None, atr_pct=None):\n    s=0\n    if ema20 is not None and ema80 is not None and ema20>ema80:s+=20\n    if close is not None and ema200 is not None and close>ema200:s+=20\n    if rsi is not None and 50<=rsi<=75:s+=20\n    if adx is not None and adx>=35:s+=20\n    if volume_ratio is not None and volume_ratio>=1:s+=10\n    if (vs_btc_30 or 0)>5:s+=8\n    elif (vs_btc_30 or 0)>0:s+=4\n    if (d90 or 0)>20:s+=5\n    if volume_ratio is not None and volume_ratio>=1.25:s+=5\n    if atr_pct is not None and atr_pct>7:s-=8\n    if rsi is not None and rsi>75:s-=8\n    return max(0,min(100,round(s)))\n''')
 
-Path('scripts/check_intelligence_v1.py').write_text('''from intelligence_model import MODEL,VERSION,canonical_score\nfixtures=[\n ({"ema20":110,"ema80":100,"close":120,"ema200":90,"rsi":60,"adx":40,"volume_ratio":1.4,"vs_btc_30":8,"d90":30,"atr_pct":3},100),\n ({"ema20":90,"ema80":100,"close":80,"ema200":100,"rsi":80,"adx":15,"volume_ratio":0.7,"vs_btc_30":-8,"d90":-20,"atr_pct":9},0),\n ({"ema20":110,"ema80":100,"close":120,"ema200":90,"rsi":80,"adx":40,"volume_ratio":1.1,"vs_btc_30":2,"d90":25,"atr_pct":8},51),\n]\nassert MODEL=="WAVELENGTH_INTELLIGENCE_V1" and VERSION==1\nfor x,expected in fixtures:\n    got=canonical_score(**x)\n    assert got==expected,(x,got,expected)\nprint('python canonical fixtures pass')\n''')
+Path('scripts/check_intelligence_v1.py').write_text('''from intelligence_model import MODEL,VERSION,canonical_score\nfixtures=[\n ({"ema20":110,"ema80":100,"close":120,"ema200":90,"rsi":60,"adx":40,"volume_ratio":1.4,"vs_btc_30":8,"d90":30,"atr_pct":3},100),\n ({"ema20":90,"ema80":100,"close":80,"ema200":100,"rsi":80,"adx":15,"volume_ratio":0.7,"vs_btc_30":-8,"d90":-20,"atr_pct":9},0),\n ({"ema20":110,"ema80":100,"close":120,"ema200":90,"rsi":80,"adx":40,"volume_ratio":1.1,"vs_btc_30":2,"d90":25,"atr_pct":8},63),\n]\nassert MODEL=="WAVELENGTH_INTELLIGENCE_V1" and VERSION==1\nfor x,expected in fixtures:\n    got=canonical_score(**x)\n    assert got==expected,(x,got,expected)\nprint('python canonical fixtures pass')\n''')
 
 Path('scripts/check_intelligence_v1.js').write_text(r'''const m=require('../intelligence-model.js');
 const fixtures=[
  [{ema20:110,ema80:100,close:120,ema200:90,rsi:60,adx:40,volumeRatio:1.4,vsBtc30:8,d90:30,atrPct:3},100],
  [{ema20:90,ema80:100,close:80,ema200:100,rsi:80,adx:15,volumeRatio:.7,vsBtc30:-8,d90:-20,atrPct:9},0],
- [{ema20:110,ema80:100,close:120,ema200:90,rsi:80,adx:40,volumeRatio:1.1,vsBtc30:2,d90:25,atrPct:8},51],
+ [{ema20:110,ema80:100,close:120,ema200:90,rsi:80,adx:40,volumeRatio:1.1,vsBtc30:2,d90:25,atrPct:8},63],
 ];
 if(m.MODEL!=='WAVELENGTH_INTELLIGENCE_V1'||m.VERSION!==1)throw new Error('bad model metadata');
 for(const [x,e] of fixtures){const g=m.score(x);if(g!==e)throw new Error(`score ${g} != ${e}`)}
