@@ -1,6 +1,6 @@
 {
   "mode": "STRATEGY_CHALLENGER_PUBLIC_READ_ONLY",
-  "generated_at": "2026-09-06T09:01:05.698263+00:00",
+  "generated_at": "2026-09-06T09:32:20.961498+00:00",
   "orders_enabled": false,
   "live_money_enabled": false,
   "automatic_rule_change": false,
@@ -37,12 +37,19 @@
           "test": "EXECUTION_DELAY",
           "status": "PASS",
           "metric": {
-            "adverse_bps_each_side": 25,
-            "stressed_pnl": 19988.11,
-            "profit_factor": 2.998
+            "canonical_fill_offset_bars": 1,
+            "stressed_fill_offset_bars": 2,
+            "additional_delay_bars": 1,
+            "bar_duration_hours": 4,
+            "stressed_return_pct": 142.92,
+            "max_drawdown_pct": -19.89,
+            "trades": 42,
+            "profit_factor": 2.838,
+            "ending_equity": 24292.02,
+            "reconstruction": "RAW_BAR_FROZEN_RULE_REPLAY"
           },
-          "threshold": "stressed P&L > 0 and PF > 1",
-          "method": "ADVERSE_PRICE_DELAY_PROXY"
+          "threshold": "literal +1 full 4h bar delay: return > 0 and PF > 1",
+          "method": "LITERAL_EXTRA_BAR_OPEN_SIMULATION"
         },
         {
           "test": "EX_BEST_TRADE",
@@ -135,11 +142,25 @@
           "test": "EXECUTION_DELAY",
           "status": "PASS",
           "metric": {
-            "adverse_bps_each_side": 25,
-            "stressed_return_pct": 12.911
+            "canonical_fill_offset_bars": 1,
+            "stressed_fill_offset_bars": 2,
+            "additional_delay_bars": 1,
+            "bar_duration_hours": 4,
+            "stressed_return_pct": 0.911,
+            "max_drawdown_pct": -5.821,
+            "trades": 24,
+            "profit_factor": 1.053,
+            "ending_equity": 10091.09,
+            "reconstruction": "FROZEN_PRE_2025_TRADE_TIMESTAMPS_SHIFTED_TO_NEXT_4H_OPEN",
+            "sample_scope": "PRE_2025_ONLY",
+            "ex_best_return_pct": -6.448,
+            "win_rate_pct": 41.67,
+            "canonical_trades": 24,
+            "shifted_trades": 24,
+            "crowding_method": "FROZEN_SIGNAL_SEQUENCE_EXACT_REPRICE"
           },
-          "threshold": "stressed return > 0",
-          "method": "FULL_NOTIONAL_ADVERSE_DELAY_PROXY"
+          "threshold": "literal +1 full 4h bar delay: return > 0 and PF > 1",
+          "method": "LITERAL_EXTRA_BAR_OPEN_SIMULATION"
         },
         {
           "test": "EX_BEST_TRADE",
