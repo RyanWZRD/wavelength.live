@@ -1,0 +1,29 @@
+name: Crowding v2 forward evidence UI checks
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'crowding-v2-forward-evidence.js'
+      - 'crowding-v2-forward-evidence.json'
+      - 'research.html'
+      - '.github/workflows/crowding-v2-forward-evidence-ui-check.yml'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check crowding-v2-forward-evidence.js
+      - run: grep -q 'crowding-v2-forward-evidence.js' research.html
+      - run: grep -q 'crowding-v2-forward-evidence.json' crowding-v2-forward-evidence.js
+      - name: Validate feed when present
+        run: |
+          if [ -f crowding-v2-forward-evidence.json ]; then
+            node -e "const x=require('./crowding-v2-forward-evidence.json'); if(x.orders_enabled!==false||x.live_money_enabled!==false) process.exit(1);"
+          else
+            echo 'Feed not published yet; UI remains fail-soft.'
+          fi
