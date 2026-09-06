@@ -37,7 +37,7 @@ jobs:
           for feed in ['validation.json','strategy-challenger-results.json','outcome-analytics.json','intelligence-history.json','paper-graduation.json','institutional-risk-stress.json','wavelength-alerts.json','readiness-lab.json']:
               assert feed in j, feed
           assert 'delivery?.channel' in j
-          assert 'ILLUSTRATIVE_ONLY' in j
+          assert 'sb.state' in j and 'portfolio_gate_state' in j
           assert 'automatic transitions disabled' in j
           assert 'STALE' in j and 'MISSING' in j and 'AGING' in j
           assert 'control-centre.html' in n
