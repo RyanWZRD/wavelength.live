@@ -14,6 +14,8 @@ on:
       - 'outcome-warehouse.json'
       - 'outcome-analytics.json'
       - 'hypothesis-challengers.json'
+      - 'intelligence-history.json'
+      - 'scripts/update_intelligence_history.py'
       - 'scripts/build_outcome_warehouse.py'
       - 'scripts/build_outcome_analytics.py'
       - 'scripts/update_hypothesis_challengers.py'
@@ -41,16 +43,14 @@ jobs:
           python scripts/update_hypothesis_challengers.py
       - name: Syntax and wiring
         run: |
-          python -m py_compile scripts/update_hypothesis_challengers.py
+          python -m py_compile scripts/update_intelligence_history.py scripts/build_outcome_warehouse.py scripts/build_outcome_analytics.py scripts/update_hypothesis_challengers.py
           node --check coin-history.js
           node --check coin-outcomes.js
           node --check outcomes.js
           grep -q 'coin-history.js' coin.html
           grep -q 'coin-outcomes.js' coin.html
           grep -q 'outcomes.html' shared-nav.js
-          grep -q 'regimeTable' outcomes.html
-          grep -q 'hypothesisTable' outcomes.html
-          grep -q 'challengerTable' outcomes.html
+          for id in regimeTable hypothesisTable challengerTable contextGrid btcTrendTable btcVolTable breadthTable marketRegimeTable coinVolTable volumeTable; do grep -q "$id" outcomes.html; done
           grep -q 'hypothesis-challengers.json' outcomes.js
           grep -q 'Statistical Challenger v2' outcomes.js
           test -s outcomes.html
@@ -61,55 +61,37 @@ jobs:
         run: |
           python - <<'PY'
           import json
-          w=json.load(open('outcome-warehouse.json'))
-          a=json.load(open('outcome-analytics.json'))
-          c=json.load(open('hypothesis-challengers.json'))
+          w=json.load(open('outcome-warehouse.json'));a=json.load(open('outcome-analytics.json'));c=json.load(open('hypothesis-challengers.json'))
           for x in (w,a,c):
-              assert x['orders_enabled'] is False
-              assert x['live_money_enabled'] is False
-              assert x['execution_authority'] is False
-              assert x['automatic_promotion'] is False
-              assert x['strategy_rule_mutation'] is False
+              assert x['orders_enabled'] is False and x['live_money_enabled'] is False and x['execution_authority'] is False
+              assert x['automatic_promotion'] is False and x['strategy_rule_mutation'] is False
           assert c['capital_allocation_authority'] is False
           assert c['mode']=='WAVELENGTH_FORWARD_HYPOTHESIS_CHALLENGERS_V2_STATISTICAL_READ_ONLY'
-          p=c['statistical_policy']
-          assert p['bootstrap_draws']>=5000
-          assert p['confidence_level']>=0.90
-          assert p['minimum_effect_lift_pct']>0
-          assert p['multiple_testing']=='BONFERRONI_ACTIVE_CHALLENGERS'
-          assert a['event_count']==w['event_count']
-          assert a['minimum_established_sample']>=30
-          assert a['minimum_fresh_confirmation']>=10
+          p=c['statistical_policy'];assert p['bootstrap_draws']>=5000 and p['confidence_level']>=0.90 and p['minimum_effect_lift_pct']>0 and p['multiple_testing']=='BONFERRONI_ACTIVE_CHALLENGERS'
+          assert a['event_count']==w['event_count'] and a['minimum_established_sample']>=30 and a['minimum_fresh_confirmation']>=10
           assert a['overall']['4h']['n'] <= w['event_count']
-          assert 'by_regime' in a and 'regime_coverage' in a and 'hypotheses' in a
+          assert a['market_context_model']=='WAVELENGTH_MARKET_CONTEXT_V1' and a['market_context_version']==1
+          assert a['hypothesis_policy']['search_space']=='PREDECLARED_SINGLE_AND_TWO_FACTOR_SEGMENTS_ONLY'
+          assert a['hypothesis_policy']['derivatives_dimensions_enabled'] is False
+          assert 'by_market_regime' in a and 'by_btc_trend' in a and 'by_breadth_regime' in a and 'hypotheses' in a
           assert c['lifecycle']==['PENDING','SURVIVING','FALSIFIED','CONFIRMED']
-          g=a['hypothesis_governance']
-          assert g['same_sample_discovery_only'] is True
-          assert g['fresh_forward_confirmation_required'] is True
-          assert g['can_change_strategy_rules'] is False
-          assert g['can_promote_strategy'] is False
-          assert g['can_allocate_capital'] is False
+          g=a['hypothesis_governance'];assert g['same_sample_discovery_only'] is True and g['fresh_forward_confirmation_required'] is True and g['market_context_v1_required'] is True
+          assert g['can_change_strategy_rules'] is False and g['can_promote_strategy'] is False and g['can_allocate_capital'] is False
+          allowed=set(a['hypothesis_policy']['single_dimensions'])|set(a['hypothesis_policy']['multifactor_dimensions'])
           for h in a['hypotheses']:
-              assert h['same_sample_discovery'] is True
-              assert h['fresh_confirmation_required'] is True
-              assert h['automatic_strategy_change'] is False
-              assert h['automatic_promotion'] is False
-              assert h['discovery_sample_n']>=a['minimum_discovery_segment']
+              assert h['same_sample_discovery'] is True and h['fresh_confirmation_required'] is True
+              assert h['automatic_strategy_change'] is False and h['automatic_promotion'] is False
+              assert h['dimension'] in allowed and h['predeclared_dimension'] is True
               assert h['comparison_sample_n']>=a['minimum_discovery_comparison']
+              if h['hypothesis_family']=='MULTI_FACTOR_PREDECLARED': assert h['discovery_sample_n']>=a['minimum_multifactor_segment']
+              else: assert h['discovery_sample_n']>=a['minimum_discovery_segment']
           for h in c['challengers']:
-              assert h['fresh_forward_only'] is True
-              assert h['same_sample_discovery'] is True
-              assert h['automatic_strategy_change'] is False
-              assert h['automatic_promotion'] is False
-              assert h['capital_allocation_authority'] is False
-              assert h['execution_authority'] is False
-              assert h['status'] in c['lifecycle']
-              assert h['fresh_evidence']['n']==h['progress']['resolved_matching_events']
+              assert h['fresh_forward_only'] is True and h['same_sample_discovery'] is True
+              assert h['automatic_strategy_change'] is False and h['automatic_promotion'] is False
+              assert h['capital_allocation_authority'] is False and h['execution_authority'] is False
+              assert h['status'] in c['lifecycle'] and h['fresh_evidence']['n']==h['progress']['resolved_matching_events']
               assert 'statistical_robustness' in h
-              if h['status']=='CONFIRMED':
-                  assert h['fresh_evidence']['n']>=h['minimum_fresh_matching_events']
-                  assert h['statistical_robustness']['blocking_checks_passed'] is True
-              if h['status']=='FALSIFIED':
-                  assert h['fresh_evidence']['n']>=h['minimum_fresh_matching_events']
-          print('Statistical Challenger v2 remains forward-only, research-only and robustness-gated')
+              if h['status']=='CONFIRMED': assert h['fresh_evidence']['n']>=h['minimum_fresh_matching_events'] and h['statistical_robustness']['blocking_checks_passed'] is True
+              if h['status']=='FALSIFIED': assert h['fresh_evidence']['n']>=h['minimum_fresh_matching_events']
+          print('Market-context hypothesis v2 remains canonical, predeclared, forward-only and research-only')
           PY
