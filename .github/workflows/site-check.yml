@@ -29,6 +29,10 @@ jobs:
         run: |
           node --check app.js
           node --check coin.js
+          node --check coin-intelligence.js
+          node --check coin-terminal.js
+          node --check coin-history.js
+          node --check coin-outcomes.js
           node --check strategies.js
           node --check bot.js
           node --check bot-ops.js
@@ -67,6 +71,11 @@ jobs:
         run: |
           test -s index.html
           test -s coin.html
+          test -s coin.js
+          test -s coin-intelligence.js
+          test -s coin-terminal.js
+          test -s coin-history.js
+          test -s coin-outcomes.js
           test -s learning.html
           test -s paper.html
           test -s paper.js
@@ -159,6 +168,12 @@ jobs:
           grep -q 'multi-asset-paper-status.json' auto-paper-ui.js
           grep -q 'paper-ops-status.json' auto-paper-ui.js
           grep -q 'shared-nav.js' coin.html
+          grep -q 'coin-intelligence.js' coin.html
+          grep -q 'coin-terminal.js' coin.html
+          grep -q 'Multi-timeframe regime' coin-terminal.js
+          grep -q 'Historical analogue explorer' coin-terminal.js
+          grep -q 'Strategy permission boundary' coin-terminal.js
+          grep -q 'CONTEXT ONLY · NO STRATEGY RULE CHANGES' coin-terminal.js
           grep -q 'shared-nav.js' compare.html
           grep -q 'shared-nav.js' mobile.html
           grep -q 'shared-nav.js' learning-capture.js
