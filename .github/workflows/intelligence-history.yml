@@ -1,0 +1,40 @@
+name: Coin intelligence history
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */4 * * *'
+
+permissions:
+  contents: write
+
+jobs:
+  snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Update read-only intelligence history
+        run: python scripts/update_intelligence_history.py
+      - name: Governance assertions
+        run: |
+          python - <<'PY'
+          import json
+          x=json.load(open('intelligence-history.json'))
+          assert x['orders_enabled'] is False
+          assert x['live_money_enabled'] is False
+          assert x['execution_authority'] is False
+          assert x['sample_interval_hours']==4
+          print('History feed is read-only')
+          PY
+      - name: Commit history snapshot
+        run: |
+          git config user.name 'wavelength-history[bot]'
+          git config user.email 'wavelength-history[bot]@users.noreply.github.com'
+          git add intelligence-history.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Update coin intelligence history'
+          git pull --rebase origin main
+          git push origin HEAD:main
