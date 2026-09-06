@@ -1,0 +1,41 @@
+name: Data Truth v3 UI check
+
+on:
+  pull_request:
+    paths:
+      - 'data-truth-v3.html'
+      - 'data-truth-v3.js'
+      - 'shared-nav.js'
+      - '.github/workflows/data-truth-v3-ui-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data-truth-v3.html'
+      - 'data-truth-v3.js'
+      - 'shared-nav.js'
+      - '.github/workflows/data-truth-v3-ui-check.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Assert Data Truth v3 surfaces and guardrails
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html=Path('data-truth-v3.html').read_text()
+          js=Path('data-truth-v3.js').read_text()
+          nav=Path('shared-nav.js').read_text()
+          assert 'Evidence quality, not just evidence quantity' in html
+          assert 'data-truth-v3.json' in js
+          for marker in ['Completeness','Reliability','Empirical usefulness','Overall evidence quality']:
+              assert marker in js
+          for marker in ['Provider reliability','Evidence usefulness','Direct evidence maturity']:
+              assert marker in html
+          assert 'observational usefulness is not causal proof' in html.lower()
+          assert "data-truth-v3.html','Data Truth v3" in nav
+          PY
