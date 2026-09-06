@@ -1,0 +1,60 @@
+name: Outcome warehouse and analytics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'hourly-radar-outcomes.json'
+      - 'intelligence-history.json'
+      - 'scripts/build_outcome_warehouse.py'
+      - 'scripts/build_outcome_analytics.py'
+      - '.github/workflows/outcome-warehouse.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: outcome-warehouse-main
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build forward outcome warehouse
+        run: python scripts/build_outcome_warehouse.py
+      - name: Build research outcome analytics
+        run: python scripts/build_outcome_analytics.py
+      - name: Governance and schema assertions
+        run: |
+          python - <<'PY'
+          import json
+          w=json.load(open('outcome-warehouse.json'))
+          a=json.load(open('outcome-analytics.json'))
+          for x in (w,a):
+              assert x['orders_enabled'] is False
+              assert x['live_money_enabled'] is False
+              assert x['execution_authority'] is False
+              assert x['automatic_promotion'] is False
+              assert x['strategy_rule_mutation'] is False
+          assert w['horizons']==['4h','12h','24h','3d','7d']
+          assert a['minimum_established_sample']>=30
+          assert a['event_count']==w['event_count']
+          print('Outcome evidence remains research-only')
+          PY
+      - name: Commit durable evidence
+        run: |
+          git config user.name 'wavelength-outcomes[bot]'
+          git config user.email 'wavelength-outcomes[bot]@users.noreply.github.com'
+          git add outcome-warehouse.json outcome-analytics.json
+          git diff --cached --quiet && exit 0
+          git commit -m 'Update forward outcome evidence'
+          git pull --rebase origin main
+          git push origin HEAD:main
