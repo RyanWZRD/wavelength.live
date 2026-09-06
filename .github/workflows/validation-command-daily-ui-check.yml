@@ -1,0 +1,43 @@
+name: Validation command briefing UI checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'validation-dashboard.*'
+      - 'daily-briefing.*'
+      - 'command-palette.js'
+      - 'shared-nav.js'
+      - '.github/workflows/validation-command-daily-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        run: |
+          node --check validation-dashboard.js
+          node --check daily-briefing.js
+          node --check command-palette.js
+      - name: Required files and frozen-strategy boundaries
+        run: |
+          test -s validation-dashboard.html
+          test -s daily-briefing.html
+          test -s command-palette.js
+          grep -q 'paper-graduation.json' validation-dashboard.js
+          grep -q 'Candidate V3 + Crowding v2' validation-dashboard.html
+          grep -q 'opportunity-radar.json' daily-briefing.js
+          grep -q 'frozen strategy rules remain unchanged' daily-briefing.html
+          grep -q 'validation-dashboard.html' shared-nav.js
+          grep -q 'daily-briefing.html' shared-nav.js
+          grep -q 'command-palette.js' shared-nav.js
+          grep -q 'Ctrl/Cmd+K' shared-nav.js
