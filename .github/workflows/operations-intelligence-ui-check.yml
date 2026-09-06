@@ -1,0 +1,53 @@
+name: Operations intelligence UI checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'portfolio-command.*'
+      - 'data-quality.*'
+      - 'hypotheses.*'
+      - 'alerts.*'
+      - 'shared-nav.js'
+      - '.github/workflows/operations-intelligence-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        run: |
+          node --check portfolio-command.js
+          node --check data-quality.js
+          node --check hypotheses.js
+          node --check alerts.js
+      - name: Required files and governance boundaries
+        run: |
+          test -s portfolio-command.html
+          test -s portfolio-command.js
+          test -s data-quality.html
+          test -s data-quality.js
+          test -s hypotheses.html
+          test -s hypotheses.js
+          test -s alerts.html
+          test -s alerts.js
+          grep -q 'portfolio-command.html' shared-nav.js
+          grep -q 'data-quality.html' shared-nav.js
+          grep -q 'hypotheses.html' shared-nav.js
+          grep -q 'alerts.html' shared-nav.js
+          grep -q 'automatic-paper-status.json' portfolio-command.js
+          grep -q 'Trade timeline' portfolio-command.html
+          grep -q 'Second-source price comparison' data-quality.html
+          grep -q 'autonomous-research-director.json' hypotheses.js
+          grep -q 'Hypothesis ≠ strategy change' hypotheses.html
+          grep -q 'wavelength-alerts.json' alerts.js
+          grep -q 'cannot modify Candidate V3 or Crowding v2' alerts.html
