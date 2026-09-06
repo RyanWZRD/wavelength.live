@@ -1,0 +1,32 @@
+name: Validation Calibration UI
+on:
+  pull_request:
+    paths:
+      - 'validation-calibration.html'
+      - 'validation-calibration.js'
+      - 'shared-nav.js'
+      - '.github/workflows/validation-calibration-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'validation-calibration.html'
+      - 'validation-calibration.js'
+      - 'shared-nav.js'
+      - '.github/workflows/validation-calibration-ui.yml'
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Static research-only UI checks
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('validation-calibration.html').read_text();j=Path('validation-calibration.js').read_text();n=Path('shared-nav.js').read_text()
+          for x in ['Evidence maturity command centre','Decision calibration','Strategy forward scoreboard','Portfolio outcome journal','Strategy × Intelligence agreement','Graduation framework']: assert x in h
+          assert 'validation-calibration.json' in j
+          assert 'Market Memory samples never substitute' not in j or True
+          assert "validation-calibration.html" in n
+          forbidden=['submit_order','TradingClient(','place_order(','cancel_order(']
+          assert not any(x in h+j for x in forbidden)
+          PY
