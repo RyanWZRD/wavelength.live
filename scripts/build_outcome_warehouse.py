@@ -31,6 +31,13 @@ def band(v,cuts,labels):
         if x<c:return l
     return labels[-1]
 
+def regime_label(trend, adx_band, rs_band):
+    trend=str(trend or 'UNKNOWN').upper()
+    adx_band=str(adx_band or 'UNKNOWN')
+    rs_band=str(rs_band or 'UNKNOWN').upper()
+    if trend=='UNKNOWN' and adx_band=='UNKNOWN' and rs_band=='UNKNOWN':return 'UNKNOWN'
+    return f'{trend}|ADX:{adx_band}|RS:{rs_band}'
+
 def main():
     history=load(HISTORY,{'symbols':{}});radar=load(RADAR,{'recent_events':[]})
     rows=[]
@@ -50,6 +57,9 @@ def main():
                 'mae_pct':o.get('mae_pct'),
             }
         score=e.get('score')
+        trend=snap.get('trend') if snap else 'UNKNOWN'
+        adx_band=band(snap.get('adx') if snap else None,[20,35,1e9],['<20','20-34','35+'])
+        rs_band=band(snap.get('vs_btc_30d_pct') if snap else None,[-5,5,1e9],['LAGGING','NEUTRAL','LEADING'])
         row={
             'event_id':e.get('event_id') or f"radar:{sym}:{capt}",
             'source':'HOURLY_RADAR_FORWARD_EPISODE',
@@ -67,25 +77,28 @@ def main():
             },
             'segments':{
                 'score_band':band(score,[65,75,85,101],['<65','65-74','75-84','85+']),
-                'adx_band':band(snap.get('adx') if snap else None,[20,35,1e9],['<20','20-34','35+']),
-                'relative_strength_band':band(snap.get('vs_btc_30d_pct') if snap else None,[-5,5,1e9],['LAGGING','NEUTRAL','LEADING']),
-                'trend':snap.get('trend') if snap else 'UNKNOWN',
+                'adx_band':adx_band,
+                'relative_strength_band':rs_band,
+                'trend':trend,
                 'setup':bool(snap.get('setup')) if snap else None,
+                'regime':regime_label(trend,adx_band,rs_band),
             },
             'outcomes':outcomes,
         }
         rows.append(row)
     rows.sort(key=lambda x:x['captured_at'])
     resolved={h:sum(1 for r in rows if r['outcomes'][h]['status']=='RESOLVED') for h in HORIZONS}
+    known_regimes=sum(1 for r in rows if (r.get('segments') or {}).get('regime')!='UNKNOWN')
     payload={
-        'mode':'WAVELENGTH_OUTCOME_WAREHOUSE_V1_READ_ONLY','generated_at':datetime.now(timezone.utc).isoformat(),
+        'mode':'WAVELENGTH_OUTCOME_WAREHOUSE_V2_REGIME_AWARE_READ_ONLY','generated_at':datetime.now(timezone.utc).isoformat(),
         'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,
         'automatic_promotion':False,'strategy_rule_mutation':False,
         'source_lineage':['hourly-radar-outcomes.json','intelligence-history.json'],
         'horizons':list(HORIZONS),'event_count':len(rows),'resolved_counts':resolved,
+        'regime_context_events':known_regimes,
         'events':rows,
-        'notes':['Forward outcomes are observational research evidence, not trading instructions.','Feature enrichment is nearest durable intelligence snapshot within six hours; absent context remains null rather than guessed.']
+        'notes':['Forward outcomes are observational research evidence, not trading instructions.','Feature enrichment is nearest durable intelligence snapshot within six hours; absent context remains null rather than guessed.','Composite regimes combine trend, ADX band and BTC-relative-strength state and are descriptive only.']
     }
     OUT.write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
-    print(f"warehouse events={len(rows)} resolved4h={resolved['4h']}")
+    print(f"warehouse events={len(rows)} resolved4h={resolved['4h']} regime_context={known_regimes}")
 if __name__=='__main__':main()
