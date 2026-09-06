@@ -23,7 +23,7 @@ jobs:
           python-version: '3.12'
       - name: Update read-only intelligence history
         run: python scripts/update_intelligence_history.py
-      - name: Governance assertions
+      - name: Governance and market-context assertions
         run: |
           python - <<'PY'
           import json
@@ -32,7 +32,19 @@ jobs:
           assert x['live_money_enabled'] is False
           assert x['execution_authority'] is False
           assert x['sample_interval_hours']==4
-          print('History feed is read-only')
+          assert x['score_model']=='WAVELENGTH_INTELLIGENCE_V1'
+          assert x['score_version']==1
+          assert x['market_context_model']=='WAVELENGTH_MARKET_CONTEXT_V1'
+          assert x['market_context_version']==1
+          assert x['durable_derivatives_history'] is False
+          assert x.get('market_context')
+          latest=x['market_context'][-1]
+          assert latest['context_model']=='WAVELENGTH_MARKET_CONTEXT_V1'
+          assert latest['context_version']==1
+          assert latest['durable_derivatives_context'] is False
+          assert latest['derivatives_context_state']=='UNAVAILABLE_DURABLE_PROVIDER'
+          assert latest['market_regime'].startswith('BTC:')
+          print('History feed is read-only and market-context lineage is explicit')
           PY
       - name: Commit history snapshot
         run: |
