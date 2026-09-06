@@ -30,6 +30,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Syntax checks
+        run: |
+          python -m py_compile scripts/update_intelligence_history.py scripts/build_outcome_warehouse.py scripts/build_outcome_analytics.py scripts/update_hypothesis_challengers.py
+          node --check outcomes.js
       - name: Build forward outcome warehouse
         run: python scripts/build_outcome_warehouse.py
       - name: Build research outcome analytics
@@ -40,9 +44,7 @@ jobs:
         run: |
           python - <<'PY'
           import json
-          w=json.load(open('outcome-warehouse.json'))
-          a=json.load(open('outcome-analytics.json'))
-          h=json.load(open('hypothesis-challengers.json'))
+          w=json.load(open('outcome-warehouse.json'));a=json.load(open('outcome-analytics.json'));h=json.load(open('hypothesis-challengers.json'))
           for x in (w,a,h):
               assert x['orders_enabled'] is False
               assert x['live_money_enabled'] is False
@@ -51,28 +53,36 @@ jobs:
               assert x['strategy_rule_mutation'] is False
           assert h['capital_allocation_authority'] is False
           assert w['horizons']==['4h','12h','24h','3d','7d']
+          assert w['market_context_model']=='WAVELENGTH_MARKET_CONTEXT_V1'
+          assert w['market_context_version']==1
           assert a['minimum_established_sample']>=30
+          assert a['minimum_multifactor_segment']>=8
           assert a['event_count']==w['event_count']
           assert a['canonical_score_model']=='WAVELENGTH_INTELLIGENCE_V1'
           assert a['canonical_score_version']==1
+          assert a['market_context_model']=='WAVELENGTH_MARKET_CONTEXT_V1'
+          assert a['market_context_version']==1
           assert a['hypothesis_governance']['canonical_forward_only'] is True
-          assert a['hypothesis_eligible_event_count']+a['legacy_descriptive_event_count']==a['event_count']
+          assert a['hypothesis_governance']['market_context_v1_required'] is True
+          assert a['hypothesis_policy']['search_space']=='PREDECLARED_SINGLE_AND_TWO_FACTOR_SEGMENTS_ONLY'
+          assert a['hypothesis_policy']['derivatives_dimensions_enabled'] is False
+          assert a['canonical_score_event_count']+a['legacy_descriptive_event_count']==a['event_count']
+          assert a['hypothesis_eligible_event_count']<=a['canonical_score_event_count']
+          allowed=set(a['hypothesis_policy']['single_dimensions'])|set(a['hypothesis_policy']['multifactor_dimensions'])
           for q in a.get('hypotheses',[]):
-              assert q['score_model']=='WAVELENGTH_INTELLIGENCE_V1'
-              assert q['score_version']==1
+              assert q['score_model']=='WAVELENGTH_INTELLIGENCE_V1' and q['score_version']==1
+              assert q['market_context_model']=='WAVELENGTH_MARKET_CONTEXT_V1' and q['market_context_version']==1
+              assert q['dimension'] in allowed and q['predeclared_dimension'] is True
+              if q['hypothesis_family']=='MULTI_FACTOR_PREDECLARED': assert q['discovery_sample_n']>=a['minimum_multifactor_segment']
           assert h['lifecycle']==['PENDING','SURVIVING','FALSIFIED','CONFIRMED']
           for c in h['challengers']:
-              assert c['fresh_forward_only'] is True
-              assert c['same_sample_discovery'] is True
-              assert c['automatic_strategy_change'] is False
-              assert c['automatic_promotion'] is False
-              assert c['capital_allocation_authority'] is False
-              assert c['execution_authority'] is False
+              assert c['fresh_forward_only'] is True and c['same_sample_discovery'] is True
+              assert c['automatic_strategy_change'] is False and c['automatic_promotion'] is False
+              assert c['capital_allocation_authority'] is False and c['execution_authority'] is False
               assert c['status'] in h['lifecycle']
               assert c['progress']['resolved_matching_events']==c['fresh_evidence']['n']
-              if c['status'] in ('FALSIFIED','CONFIRMED'):
-                  assert c['progress']['resolved_matching_events']>=c['minimum_fresh_matching_events']
-          print('Outcome evidence is research-only; new discovery is canonical-V1 forward-only')
+              if c['status'] in ('FALSIFIED','CONFIRMED'): assert c['progress']['resolved_matching_events']>=c['minimum_fresh_matching_events']
+          print('Outcome evidence remains research-only; discovery is canonical score + market-context v1 over a predeclared search space')
           PY
       - name: Commit durable evidence
         run: |

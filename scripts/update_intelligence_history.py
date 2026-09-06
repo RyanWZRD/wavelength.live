@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json, math, urllib.request
+import json, math, statistics, urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
@@ -11,6 +11,8 @@ MAX_COINS=40
 KEEP=540
 SPOT='https://data-api.binance.vision/api/v3'
 EXCLUDE={'USDC','BUSD','TUSD','FDUSD','USDP','DAI','EUR','GBP','EURI','USTC','PAX','UST','WBTC','WBETH'}
+MARKET_CONTEXT_MODEL='WAVELENGTH_MARKET_CONTEXT_V1'
+MARKET_CONTEXT_VERSION=1
 
 def get(url):
     req=urllib.request.Request(url,headers={'User-Agent':'wavelength-intelligence-history/1.0'})
@@ -50,6 +52,13 @@ def perf(ks,days):
 
 def safe_round(v,d=4):return None if v is None or not math.isfinite(v) else round(v,d)
 
+def band(v,cuts,labels):
+    if v is None:return 'UNKNOWN'
+    x=float(v)
+    for c,l in zip(cuts,labels):
+        if x<c:return l
+    return labels[-1]
+
 def fetch_symbol(symbol,btc30):
     pair=symbol+'USDT';k4=get(f'{SPOT}/klines?symbol={pair}&interval=4h&limit=240');kd=get(f'{SPOT}/klines?symbol={pair}&interval=1d&limit=120');tick=get(f'{SPOT}/ticker/24hr?symbol={pair}')
     closes=[float(k[4]) for k in k4];vols=[float(k[5]) for k in k4];close=closes[-1];e20=ema(closes,20);e80=ema(closes,80);e200=ema(closes,200);R=rsi(closes);atr,A=atr_adx(k4)
@@ -58,6 +67,30 @@ def fetch_symbol(symbol,btc30):
     score=canonical_score(ema20=e20,ema80=e80,close=close,ema200=e200,rsi=R,adx=A,volume_ratio=vr,vs_btc_30=vs30,d90=d90,atr_pct=atr_pct);setup=bool(bull and R is not None and 50<=R<=75 and A is not None and A>=35)
     return symbol,{'ts':datetime.now(timezone.utc).isoformat(),'price':safe_round(float(tick['lastPrice']),8),'chg_24h_pct':safe_round(chg,3),'score':score,'score_model':MODEL,'score_version':VERSION,'trend':'BULLISH' if bull else 'BEARISH' if bear else 'MIXED','rsi':safe_round(R,2),'adx':safe_round(A,2),'atr_pct':safe_round(atr_pct,3),'volume_ratio':safe_round(vr,3),'vs_btc_30d_pct':safe_round(vs30,3),'setup':setup}
 
+def market_context(now, snapshots):
+    btc=snapshots.get('BTC') or {}
+    usable=list(snapshots.values())
+    bullish=sum(x.get('trend')=='BULLISH' for x in usable)
+    setups=sum(x.get('setup') is True for x in usable)
+    high_score=sum(isinstance(x.get('score'),(int,float)) and x['score']>=80 for x in usable)
+    n=len(usable)
+    adxs=[float(x['adx']) for x in usable if isinstance(x.get('adx'),(int,float))]
+    atrs=[float(x['atr_pct']) for x in usable if isinstance(x.get('atr_pct'),(int,float))]
+    btc_atr=btc.get('atr_pct');btc_adx=btc.get('adx');btc_trend=btc.get('trend') or 'UNKNOWN'
+    bullish_pct=100*bullish/n if n else None;setup_pct=100*setups/n if n else None;high_score_pct=100*high_score/n if n else None
+    breadth='BROAD' if bullish_pct is not None and bullish_pct>=65 else 'MIXED' if bullish_pct is not None and bullish_pct>=40 else 'NARROW' if bullish_pct is not None else 'UNKNOWN'
+    volatility=band(btc_atr,[2.0,4.0,1e9],['LOW','NORMAL','HIGH'])
+    btc_strength=band(btc_adx,[20,35,1e9],['WEAK','MODERATE','STRONG'])
+    return {
+        'ts':now,'context_model':MARKET_CONTEXT_MODEL,'context_version':MARKET_CONTEXT_VERSION,
+        'btc_trend':btc_trend,'btc_adx':btc_adx,'btc_adx_regime':btc_strength,'btc_atr_pct':btc_atr,'btc_volatility_regime':volatility,
+        'btc_chg_24h_pct':btc.get('chg_24h_pct'),'btc_score':btc.get('score'),
+        'universe_n':n,'bullish_breadth_pct':safe_round(bullish_pct,2),'setup_breadth_pct':safe_round(setup_pct,2),'high_score_breadth_pct':safe_round(high_score_pct,2),
+        'breadth_regime':breadth,'median_adx':safe_round(statistics.median(adxs),2) if adxs else None,'median_atr_pct':safe_round(statistics.median(atrs),3) if atrs else None,
+        'market_regime':f'BTC:{btc_trend}|VOL:{volatility}|BREADTH:{breadth}',
+        'durable_derivatives_context':False,'derivatives_context_state':'UNAVAILABLE_DURABLE_PROVIDER'
+    }
+
 def main():
     data=json.loads(OUT.read_text()) if OUT.exists() else {'symbols':{}};tickers=get(f'{SPOT}/ticker/24hr');universe=[]
     for t in sorted((x for x in tickers if x['symbol'].endswith('USDT')),key=lambda x:float(x.get('quoteVolume') or 0),reverse=True):
@@ -65,14 +98,15 @@ def main():
         if s in EXCLUDE or s in universe:continue
         universe.append(s)
         if len(universe)>=MAX_COINS:break
-    btc=get(f'{SPOT}/klines?symbol=BTCUSDT&interval=1d&limit=120');btc30=perf(btc,30);now=datetime.now(timezone.utc).isoformat();updated=0
+    btc=get(f'{SPOT}/klines?symbol=BTCUSDT&interval=1d&limit=120');btc30=perf(btc,30);now=datetime.now(timezone.utc).isoformat();updated=0;snapshots={}
     with ThreadPoolExecutor(max_workers=8) as pool:
         futures={pool.submit(fetch_symbol,s,btc30):s for s in universe}
         for fut in as_completed(futures):
             s=futures[fut]
             try:
-                symbol,snap=fut.result();arr=data.setdefault('symbols',{}).setdefault(symbol,[]);arr.append(snap);data['symbols'][symbol]=arr[-KEEP:];updated+=1;print(symbol,snap['score'],snap['trend'])
+                symbol,snap=fut.result();snapshots[symbol]=snap;arr=data.setdefault('symbols',{}).setdefault(symbol,[]);arr.append(snap);data['symbols'][symbol]=arr[-KEEP:];updated+=1;print(symbol,snap['score'],snap['trend'])
             except Exception as e:print('WARN',s,e)
-    data.update({'mode':'WAVELENGTH_COIN_INTELLIGENCE_HISTORY_READ_ONLY','generated_at':now,'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,'retention_points_per_symbol':KEEP,'sample_interval_hours':4,'universe_size':len(universe),'updated_symbols':updated,'durable_derivatives_history':False,'score_model':MODEL,'score_version':VERSION});OUT.write_text(json.dumps(data,indent=2,sort_keys=True)+'\n')
+    contexts=data.setdefault('market_context',[]);contexts.append(market_context(now,snapshots));data['market_context']=contexts[-KEEP:]
+    data.update({'mode':'WAVELENGTH_COIN_INTELLIGENCE_HISTORY_READ_ONLY','generated_at':now,'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,'retention_points_per_symbol':KEEP,'sample_interval_hours':4,'universe_size':len(universe),'updated_symbols':updated,'durable_derivatives_history':False,'score_model':MODEL,'score_version':VERSION,'market_context_model':MARKET_CONTEXT_MODEL,'market_context_version':MARKET_CONTEXT_VERSION});OUT.write_text(json.dumps(data,indent=2,sort_keys=True)+'\n')
 
 if __name__=='__main__':main()
