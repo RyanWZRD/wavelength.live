@@ -8,5 +8,5 @@ const top=document.querySelector('.topbar');if(top&&!document.querySelector('.st
 window.addEventListener('DOMContentLoaded',()=>{document.querySelectorAll('.metric,.ev-kpi,.analysis-row,.pro-kpi').forEach(el=>{if(!el.title)el.title='Metric source/timeframe may differ. See Sources / Governance for evidence provenance, maturity and research locks.'})});
 function load(src,key){if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=src;s.defer=true;s.setAttribute(`data-${key}`,'1');document.head.appendChild(s)}
 load('command-palette.js','wl-command');load('provenance-core.js','wl-provenance');load('workspace-ui.js','wl-workspace');load('terminal-ui.js','wl-terminal');load('final-ui.js','wl-final');
-if((p==='index.html'||!p))load('observation-experience.js','wl-observation');
+if((p==='index.html'||!p)){load('observation-experience.js','wl-observation');load('market-command-centre.js','wl-market-command')}
 })();
