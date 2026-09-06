@@ -1,0 +1,105 @@
+{
+  "mode": "INSTITUTIONAL_PORTFOLIO_RISK_STRESS_V1_PUBLIC_READ_ONLY",
+  "generated_at": "2026-09-06T00:25:02.508671+00:00",
+  "orders_enabled": false,
+  "live_money_enabled": false,
+  "automatic_allocation": false,
+  "capital_allocation_authority": false,
+  "execution_authority": false,
+  "state": "STRESS_ENGINE_READY_WAITING_FOR_PORTFOLIO_EXPOSURE",
+  "current_market_regime": "RISK_ON",
+  "eligible_strategy_count": 0,
+  "stressed_strategy_count": 0,
+  "scenario_results": [
+    {
+      "id": "BROAD_CRYPTO_SHOCK",
+      "kind": "MARKET",
+      "estimated_portfolio_loss_pct": null,
+      "severity": "UNMEASURED"
+    },
+    {
+      "id": "LIQUIDITY_AIR_POCKET",
+      "kind": "LIQUIDITY",
+      "estimated_portfolio_loss_pct": null,
+      "severity": "UNMEASURED"
+    },
+    {
+      "id": "CORRELATION_ONE_EVENT",
+      "kind": "CORRELATION",
+      "estimated_portfolio_loss_pct": null,
+      "severity": "UNMEASURED"
+    },
+    {
+      "id": "REGIME_FLIP_RISK_OFF",
+      "kind": "REGIME",
+      "estimated_portfolio_loss_pct": null,
+      "severity": "UNMEASURED"
+    },
+    {
+      "id": "SIMULTANEOUS_STRATEGY_DRAWDOWN",
+      "kind": "STRATEGY",
+      "estimated_portfolio_loss_pct": null,
+      "severity": "UNMEASURED"
+    },
+    {
+      "id": "EXTREME_GAP_AND_SLIPPAGE",
+      "kind": "EXECUTION",
+      "estimated_portfolio_loss_pct": null,
+      "severity": "UNMEASURED"
+    }
+  ],
+  "monte_carlo": null,
+  "overlap_concentration": {
+    "pairs": 0,
+    "average_structural_overlap": null,
+    "max_structural_overlap": null,
+    "state": "UNMEASURED"
+  },
+  "blockers": [
+    "NO_SIMULATED_ALLOCATIONS_TO_STRESS",
+    "NO_MANUALLY_ELIGIBLE_CONTROLLED_PAPER_STRATEGY",
+    "ADAPTIVE_ALLOCATOR_NOT_YET_VALIDATED"
+  ],
+  "capital_preservation_protocol": {
+    "warning_threshold_pct": 8.0,
+    "hard_threshold_pct": 12.0,
+    "warning_action": "NO_ALLOCATION_INCREASE; MANUAL_REVIEW_REQUIRED",
+    "hard_action": "SIMULATED_PORTFOLIO_HALT; NO_NEW_ADMISSION",
+    "automatic_broker_action": false
+  },
+  "policy": {
+    "simulation_paths": 5000,
+    "random_seed_policy": "DETERMINISTIC_FROM_INPUT_FINGERPRINT",
+    "portfolio_warning_loss_pct": 8.0,
+    "portfolio_hard_loss_pct": 12.0,
+    "tail_percentiles": [
+      95,
+      99
+    ],
+    "correlation_spike_levels": [
+      0.7,
+      0.85,
+      0.95
+    ],
+    "liquidity_slippage_shock_bps": [
+      25,
+      75,
+      150
+    ],
+    "gap_shock_pct": [
+      -3.0,
+      -7.0,
+      -12.0
+    ],
+    "dependency_failure_modes": [
+      "MARKET_DATA_STALE",
+      "BROKER_OBSERVER_UNAVAILABLE",
+      "EXECUTION_RECONCILIATION_DEGRADED",
+      "PUBLICATION_PIPELINE_UNAVAILABLE"
+    ],
+    "allocation_authority": false,
+    "execution_authority": false,
+    "promotion_authority": false
+  },
+  "note": "Sanitised simulation-only portfolio stress evidence. No balances, quantities, orders, stops, credentials or executable controls."
+}
