@@ -1,6 +1,6 @@
 {
-  "schema": "wavelength-exact-measurement-v1",
-  "generated_at": "2026-09-06T20:26:40.325364+00:00",
+  "schema": "wavelength-exact-measurement-v2",
+  "generated_at": "2026-09-06T20:28:32.323702+00:00",
   "mode": "EXACT_EVIDENCE_RESEARCH_PAPER_READ_ONLY",
   "orders_enabled": false,
   "live_money_enabled": false,
@@ -30,13 +30,23 @@
   "paper_execution_summary": {
     "measured_events": 0,
     "avg_execution_delay_seconds": null,
-    "avg_slippage_bps_vs_signal_close": null
+    "avg_slippage_bps_vs_signal_close": null,
+    "trade_episodes": 0,
+    "closed_trade_episodes": 0,
+    "avg_closed_realised_return_pct": null
   },
   "paper_execution_events": [],
+  "paper_trade_episodes": [],
+  "methodology": {
+    "mae_mfe": "Binance spot 1m high/low path from actual Alpaca PAPER fill timestamp to exit/now",
+    "target_stop_ordering": "first 1m candle touching entry-snapshotted target versus original stop; same-candle ordering is labelled ambiguous",
+    "target_snapshot": "captured once when a new audited PAPER entry is first observed; source timestamp retained"
+  },
   "guardrails": {
     "read_only": true,
     "no_order_submission": true,
     "legacy_outcomes_not_rewritten": true,
-    "no_strategy_mutation": true
+    "no_strategy_mutation": true,
+    "same_candle_path_order_not_invented": true
   }
 }
