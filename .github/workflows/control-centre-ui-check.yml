@@ -1,0 +1,43 @@
+name: Research Control Centre UI checks
+on:
+  pull_request:
+    paths:
+      - 'control-centre.html'
+      - 'control-centre.js'
+      - 'shared-nav.js'
+      - '.github/workflows/control-centre-ui-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'control-centre.html'
+      - 'control-centre.js'
+      - 'shared-nav.js'
+      - '.github/workflows/control-centre-ui-check.yml'
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        run: node --check control-centre.js
+      - name: Assert read-only control centre wiring
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('control-centre.html').read_text()
+          j=Path('control-centre.js').read_text()
+          n=Path('shared-nav.js').read_text()
+          for token in ['System health','Strategy validation','PAPER graduation','Market regime','Portfolio risk','Forward hypothesis challengers']:
+              assert token in h, token
+          for feed in ['validation.json','strategy-challenger-results.json','outcome-analytics.json','intelligence-history.json','paper-graduation.json','institutional-risk-stress.json']:
+              assert feed in j, feed
+          assert 'STALE' in j and 'MISSING' in j and 'AGING' in j
+          assert 'control-centre.html' in n
+          forbidden=['submit_order','TradingClient','/v2/orders','live_money_enabled=true','automatic_promotion=true']
+          for x in forbidden:
+              assert x not in j
+          print('Research Control Centre read-only/freshness assertions passed')
+          PY
