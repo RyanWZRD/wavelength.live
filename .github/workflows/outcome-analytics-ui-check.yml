@@ -13,8 +13,10 @@ on:
       - 'outcomes.js'
       - 'outcome-warehouse.json'
       - 'outcome-analytics.json'
+      - 'hypothesis-challengers.json'
       - 'scripts/build_outcome_warehouse.py'
       - 'scripts/build_outcome_analytics.py'
+      - 'scripts/update_hypothesis_challengers.py'
       - 'shared-nav.js'
       - '.github/workflows/outcome-analytics-ui-check.yml'
 
@@ -32,10 +34,11 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Rebuild outcome evidence
+      - name: Rebuild outcome evidence and challengers
         run: |
           python scripts/build_outcome_warehouse.py
           python scripts/build_outcome_analytics.py
+          python scripts/update_hypothesis_challengers.py
       - name: Syntax and wiring
         run: |
           node --check coin-history.js
@@ -46,26 +49,32 @@ jobs:
           grep -q 'outcomes.html' shared-nav.js
           grep -q 'regimeTable' outcomes.html
           grep -q 'hypothesisTable' outcomes.html
+          grep -q 'challengerTable' outcomes.html
+          grep -q 'hypothesis-challengers.json' outcomes.js
           test -s outcomes.html
           test -s outcome-warehouse.json
           test -s outcome-analytics.json
+          test -s hypothesis-challengers.json
       - name: Research-only evidence schema
         run: |
           python - <<'PY'
           import json
           w=json.load(open('outcome-warehouse.json'))
           a=json.load(open('outcome-analytics.json'))
-          for x in (w,a):
+          c=json.load(open('hypothesis-challengers.json'))
+          for x in (w,a,c):
               assert x['orders_enabled'] is False
               assert x['live_money_enabled'] is False
               assert x['execution_authority'] is False
               assert x['automatic_promotion'] is False
               assert x['strategy_rule_mutation'] is False
+          assert c['capital_allocation_authority'] is False
           assert a['event_count']==w['event_count']
           assert a['minimum_established_sample']>=30
           assert a['minimum_fresh_confirmation']>=10
           assert a['overall']['4h']['n'] <= w['event_count']
           assert 'by_regime' in a and 'regime_coverage' in a and 'hypotheses' in a
+          assert c['lifecycle']==['PENDING','SURVIVING','FALSIFIED','CONFIRMED']
           g=a['hypothesis_governance']
           assert g['same_sample_discovery_only'] is True
           assert g['fresh_forward_confirmation_required'] is True
@@ -79,5 +88,16 @@ jobs:
               assert h['automatic_promotion'] is False
               assert h['discovery_sample_n']>=a['minimum_discovery_segment']
               assert h['comparison_sample_n']>=a['minimum_discovery_comparison']
-          print('Regime analytics and hypothesis generation remain research-only and falsification-gated')
+          for h in c['challengers']:
+              assert h['fresh_forward_only'] is True
+              assert h['same_sample_discovery'] is True
+              assert h['automatic_strategy_change'] is False
+              assert h['automatic_promotion'] is False
+              assert h['capital_allocation_authority'] is False
+              assert h['execution_authority'] is False
+              assert h['status'] in c['lifecycle']
+              assert h['fresh_evidence']['n']==h['progress']['resolved_matching_events']
+              if h['status'] in ('CONFIRMED','FALSIFIED'):
+                  assert h['fresh_evidence']['n']>=h['minimum_fresh_matching_events']
+          print('Regime analytics and forward-only hypothesis challengers remain research-only and falsification-gated')
           PY
