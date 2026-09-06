@@ -3,33 +3,49 @@
   "capital_allocation_authority": false,
   "controlled_paper_execution": {
     "candidate_v3_plumbing_present": true,
+    "candidate_v3_preeligibility_rehearsal_enabled": true,
     "crowding_v2_blocker": "Protective exit candidates are now defined and forward-shadowed, but no candidate may be selected automatically and PAPER plumbing remains blocked until manual review plus separate implementation.",
     "crowding_v2_plumbing_present": false,
     "crowding_v2_protective_exit_shadow_present": true,
     "crowding_v2_protective_exit_state": "WAITING_FOR_FORWARD_EPISODES",
     "crowding_v2_selected_protective_candidate": null,
-    "entry_gate": "runtime/paper_graduation.json",
+    "entry_gate": "runtime/paper_graduation.json + runtime/preeligibility_paper_rehearsal_policy.json",
     "exits_and_reconciliation_must_remain_available": true,
-    "fail_closed_if_gate_missing_or_stale": true
+    "fail_closed_if_gate_missing_or_stale": true,
+    "preeligibility_rehearsal_counts_toward_graduation": false
   },
   "execution_authority": false,
   "execution_reality": {
     "avg_fill_latency_seconds": null,
     "avg_slippage_bps": null,
-    "broker_or_eligibility_rejections": 4,
+    "broker_or_eligibility_rejections": 7,
     "broker_snapshot_errors": 1,
     "evidence_state": "PRE_FILL_OPERATIONAL_EVIDENCE",
-    "execution_attempts": 3,
-    "execution_errors": 3,
+    "execution_attempts": 4,
+    "execution_errors": 4,
     "fills_with_price_evidence": 0,
     "guardian_status": "FLAT_OK",
     "median_slippage_bps": null,
-    "paper_scans_observed": 6,
+    "paper_scans_observed": 7,
     "partial_fills": 0,
     "reconciliation_confidence": 60.0,
     "worst_slippage_bps": null
   },
-  "generated_at": "2026-09-06T12:08:55.049681+00:00",
+  "formal_paper_validation": {
+    "candidate_v3": {
+      "formal_validation_baseline_captured": false,
+      "formal_validation_broker_snapshot_errors": 0,
+      "formal_validation_execution_errors": 0,
+      "formal_validation_fills_with_price_evidence": 0
+    },
+    "crowding_v2": {
+      "formal_validation_baseline_captured": false,
+      "formal_validation_broker_snapshot_errors": 0,
+      "formal_validation_execution_errors": 0,
+      "formal_validation_fills_with_price_evidence": 0
+    }
+  },
+  "generated_at": "2026-09-06T12:48:38.477049+00:00",
   "hypothesis_context": {
     "count": 0,
     "source": null,
@@ -37,7 +53,7 @@
   },
   "live_money_enabled": false,
   "mode": "PAPER_GRADUATION_V1_PUBLIC_READ_ONLY",
-  "note": "Graduation framework only. It never promotes a strategy or enables live money automatically.",
+  "note": "Graduation framework only. Candidate V3 may collect separate pre-eligibility Alpaca PAPER rehearsal evidence; that evidence is baselined out of formal PAPER graduation. Live money remains disabled.",
   "orders_enabled": false,
   "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
   "policy": {
@@ -105,15 +121,16 @@
       },
       "forward": {
         "completed_trades": 0,
-        "days_observed": 1.006,
+        "days_observed": 1.034,
         "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
         "forward_start": "2026-09-05T12:00:00+00:00"
       },
       "hard_blockers": [],
       "lifecycle_state": "SHADOW",
       "limited_capital_eligible": false,
-      "manual_review_required_before_first_paper_entry": true,
+      "manual_review_required_before_first_paper_entry": false,
       "new_paper_entries_allowed": false,
+      "preeligibility_paper_rehearsal_allowed": true,
       "requirements": {
         "minimum_completed_trades": 8,
         "minimum_forward_days": 120.0
@@ -138,7 +155,7 @@
       },
       "forward": {
         "completed_trades": 0,
-        "days_observed": 0.173,
+        "days_observed": 0.2,
         "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
         "forward_start": "2026-09-06T08:00:00+00:00"
       },
@@ -149,7 +166,7 @@
       ],
       "lifecycle_state": "SHADOW",
       "limited_capital_eligible": false,
-      "manual_review_required_before_first_paper_entry": true,
+      "manual_review_required_before_first_paper_entry": false,
       "new_paper_entries_allowed": false,
       "protective_exit_research": {
         "candidate_stop_loss_pcts": [
