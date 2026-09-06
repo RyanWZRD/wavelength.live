@@ -1,0 +1,292 @@
+{
+  "mode": "WAVELENGTH_READINESS_LAB_V1_READ_ONLY",
+  "generated_at": "2026-09-06T12:07:45.058596+00:00",
+  "orders_enabled": false,
+  "live_money_enabled": false,
+  "execution_authority": false,
+  "automatic_promotion": false,
+  "capital_allocation_authority": false,
+  "strategy_rule_mutation": false,
+  "paper_readiness_rehearsal": {
+    "state": "BLOCKED",
+    "checks": [
+      {
+        "gate": "MINIMUM_PRICE_EVIDENCE",
+        "current": 0,
+        "required": 8,
+        "passed": false
+      },
+      {
+        "gate": "MEANINGFUL_FILL_SAMPLE",
+        "current": 0,
+        "required": 30,
+        "passed": false
+      },
+      {
+        "gate": "EXECUTION_ERRORS",
+        "current": 3,
+        "required": 0,
+        "passed": false
+      },
+      {
+        "gate": "BROKER_SNAPSHOT_ERRORS",
+        "current": 1,
+        "required": 0,
+        "passed": false
+      },
+      {
+        "gate": "GUARDIAN_STATE",
+        "current": "FLAT_OK",
+        "required": "FLAT_OK or PROTECTED",
+        "passed": true
+      }
+    ],
+    "blockers": [
+      "MINIMUM_PRICE_EVIDENCE",
+      "MEANINGFUL_FILL_SAMPLE",
+      "EXECUTION_ERRORS",
+      "BROKER_SNAPSHOT_ERRORS"
+    ],
+    "reconciliation_confidence_pct": 60.0,
+    "note": "Rehearsal only. This does not submit PAPER or live orders."
+  },
+  "evidence_quality": {
+    "score_0_to_100": 60.0,
+    "state": "DEVELOPING",
+    "operational_sources_fresh": 6,
+    "operational_sources_total": 6,
+    "execution_measurement_completeness_pct": 0.0,
+    "sources": [
+      {
+        "source": "paper_graduation",
+        "state": "FRESH",
+        "age_hours": 1.444,
+        "max_age_hours": 2.5
+      },
+      {
+        "source": "execution_intelligence",
+        "state": "FRESH",
+        "age_hours": 7.125,
+        "max_age_hours": 30.0
+      },
+      {
+        "source": "portfolio_risk",
+        "state": "FRESH",
+        "age_hours": 3.152,
+        "max_age_hours": 48.0
+      },
+      {
+        "source": "candidate_v3_forward",
+        "state": "FRESH",
+        "age_hours": 1.356,
+        "max_age_hours": 8.0
+      },
+      {
+        "source": "crowding_v2_forward",
+        "state": "FRESH",
+        "age_hours": 1.568,
+        "max_age_hours": 8.0
+      },
+      {
+        "source": "strategy_challenger",
+        "state": "FRESH",
+        "age_hours": 2.59,
+        "max_age_hours": 72.0
+      }
+    ],
+    "quality_warnings": [],
+    "principle": "Missing evidence remains missing; no data is imputed."
+  },
+  "decision_journal": {
+    "state_fingerprint": "077e34125fd3a9183d17",
+    "new_event_count": 1,
+    "latest_event": {
+      "at": "2026-09-06T12:07:45.058596+00:00",
+      "type": "BASELINE_ESTABLISHED",
+      "fingerprint": "077e34125fd3a9183d17",
+      "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
+      "quality_state": "DEVELOPING",
+      "summary": {
+        "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
+        "strategies": [
+          {
+            "id": "candidate_v3",
+            "lifecycle": "SHADOW",
+            "trades": 0,
+            "blockers": [
+              "MINIMUM_FORWARD_DAYS_NOT_MET",
+              "MINIMUM_FORWARD_TRADES_NOT_MET"
+            ]
+          },
+          {
+            "id": "crowding_v2",
+            "lifecycle": "SHADOW",
+            "trades": 0,
+            "blockers": [
+              "MINIMUM_FORWARD_DAYS_NOT_MET",
+              "MINIMUM_FORWARD_TRADES_NOT_MET",
+              "PAPER_EXECUTION_ADAPTER_NOT_READY",
+              "PROTECTIVE_EXIT_FORWARD_EVIDENCE_INSUFFICIENT",
+              "PROTECTIVE_EXIT_CANDIDATE_NOT_MANUALLY_SELECTED"
+            ]
+          }
+        ],
+        "execution": {
+          "fills": 0,
+          "errors": 3,
+          "broker_errors": 1,
+          "guardian": "FLAT_OK"
+        },
+        "portfolio": {
+          "state": "WARNING_BLOCK_CO_ADMISSION",
+          "allowed": false
+        },
+        "quality_state": "DEVELOPING"
+      },
+      "authority": "READ_ONLY"
+    },
+    "journal_path": "runtime/readiness_decision_journal.jsonl",
+    "principle": "Lifecycle evidence changes are recorded; strategy rules are never edited by the journal."
+  },
+  "limited_capital_sandbox": {
+    "state": "ILLUSTRATIVE_ONLY",
+    "strategies_currently_limited_capital_eligible": [],
+    "portfolio_gate_state": "WARNING_BLOCK_CO_ADMISSION",
+    "simultaneous_new_entries_allowed": false,
+    "scenarios": [
+      {
+        "capital_gbp": 100,
+        "illustrative_loss_budgets": [
+          {
+            "loss_budget_pct": 1,
+            "max_loss_gbp": 1.0
+          },
+          {
+            "loss_budget_pct": 2,
+            "max_loss_gbp": 2.0
+          },
+          {
+            "loss_budget_pct": 5,
+            "max_loss_gbp": 5.0
+          }
+        ]
+      },
+      {
+        "capital_gbp": 250,
+        "illustrative_loss_budgets": [
+          {
+            "loss_budget_pct": 1,
+            "max_loss_gbp": 2.5
+          },
+          {
+            "loss_budget_pct": 2,
+            "max_loss_gbp": 5.0
+          },
+          {
+            "loss_budget_pct": 5,
+            "max_loss_gbp": 12.5
+          }
+        ]
+      },
+      {
+        "capital_gbp": 500,
+        "illustrative_loss_budgets": [
+          {
+            "loss_budget_pct": 1,
+            "max_loss_gbp": 5.0
+          },
+          {
+            "loss_budget_pct": 2,
+            "max_loss_gbp": 10.0
+          },
+          {
+            "loss_budget_pct": 5,
+            "max_loss_gbp": 25.0
+          }
+        ]
+      },
+      {
+        "capital_gbp": 1000,
+        "illustrative_loss_budgets": [
+          {
+            "loss_budget_pct": 1,
+            "max_loss_gbp": 10.0
+          },
+          {
+            "loss_budget_pct": 2,
+            "max_loss_gbp": 20.0
+          },
+          {
+            "loss_budget_pct": 5,
+            "max_loss_gbp": 50.0
+          }
+        ]
+      }
+    ],
+    "note": "Loss-budget arithmetic only; not a position-size recommendation and never authorises capital deployment."
+  },
+  "lifecycle_milestones": {
+    "ladder": [
+      "SHADOW",
+      "PAPER_ELIGIBLE",
+      "PAPER_VALIDATING",
+      "PAPER_VALIDATED",
+      "LIMITED_CAPITAL_ELIGIBLE"
+    ],
+    "strategies": [
+      {
+        "strategy_id": "candidate_v3",
+        "lifecycle_state": "SHADOW",
+        "next_state": "PAPER_ELIGIBLE",
+        "days": {
+          "current": 0.945,
+          "required": 120.0,
+          "progress_pct": 0.8
+        },
+        "trades": {
+          "current": 0,
+          "required": 8,
+          "progress_pct": 0.0
+        },
+        "blockers": [
+          "MINIMUM_FORWARD_DAYS_NOT_MET",
+          "MINIMUM_FORWARD_TRADES_NOT_MET"
+        ],
+        "hard_blockers": [],
+        "paper_entries_allowed": false,
+        "limited_capital_eligible": false
+      },
+      {
+        "strategy_id": "crowding_v2",
+        "lifecycle_state": "SHADOW",
+        "next_state": "PAPER_ELIGIBLE",
+        "days": {
+          "current": 0.112,
+          "required": 90.0,
+          "progress_pct": 0.1
+        },
+        "trades": {
+          "current": 0,
+          "required": 8,
+          "progress_pct": 0.0
+        },
+        "blockers": [
+          "MINIMUM_FORWARD_DAYS_NOT_MET",
+          "MINIMUM_FORWARD_TRADES_NOT_MET",
+          "PAPER_EXECUTION_ADAPTER_NOT_READY",
+          "PROTECTIVE_EXIT_FORWARD_EVIDENCE_INSUFFICIENT",
+          "PROTECTIVE_EXIT_CANDIDATE_NOT_MANUALLY_SELECTED"
+        ],
+        "hard_blockers": [
+          "PAPER_EXECUTION_ADAPTER_NOT_READY",
+          "PROTECTIVE_EXIT_FORWARD_EVIDENCE_INSUFFICIENT",
+          "PROTECTIVE_EXIT_CANDIDATE_NOT_MANUALLY_SELECTED"
+        ],
+        "paper_entries_allowed": false,
+        "limited_capital_eligible": false
+      }
+    ],
+    "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
+    "automatic_transitions": false
+  }
+}
