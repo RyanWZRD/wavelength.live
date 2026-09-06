@@ -1,0 +1,40 @@
+name: Data Truth v2 UI check
+
+on:
+  pull_request:
+    paths:
+      - 'data-truth-v2.html'
+      - 'data-truth-v2.js'
+      - 'shared-nav.js'
+      - '.github/workflows/data-truth-v2-ui-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data-truth-v2.html'
+      - 'data-truth-v2.js'
+      - 'shared-nav.js'
+      - '.github/workflows/data-truth-v2-ui-check.yml'
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Data Truth v2 wiring
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html=Path('data-truth-v2.html').read_text()
+          js=Path('data-truth-v2.js').read_text()
+          nav=Path('shared-nav.js').read_text()
+          assert 'Coverage matrix' in html
+          assert 'data-truth-v2.json' in js
+          for marker in ['Coverage','Source','Decision evidence','Overall truth']:
+              assert marker in js
+          for state in ['FRESH','AGING','MISSING']:
+              assert state in js
+          assert 'data-truth-v2.html' in nav
+          assert 'not probabilities of profit' in html.lower()
+          assert 'no strategy mutation' in html.lower()
+          print('Data Truth v2 UI wiring OK')
+          PY
