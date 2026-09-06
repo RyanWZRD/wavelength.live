@@ -1,0 +1,64 @@
+name: Canonical intelligence v1 migration
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - scripts/apply_intelligence_v1.py
+      - .github/workflows/intelligence-v1-migration.yml
+
+permissions:
+  contents: write
+
+concurrency:
+  group: intelligence-v1-migration
+  cancel-in-progress: false
+
+jobs:
+  migrate-and-verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply canonical model migration
+        run: python scripts/apply_intelligence_v1.py
+      - name: JavaScript syntax checks
+        run: |
+          node --check intelligence-model.js
+          node --check app.js
+          node --check coin-intelligence.js
+      - name: Canonical parity fixtures
+        run: |
+          python scripts/check_intelligence_v1.py
+          node scripts/check_intelligence_v1.js
+      - name: Lineage and separation assertions
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          app=Path('app.js').read_text()
+          coin=Path('coin-intelligence.js').read_text()
+          hist=Path('scripts/update_intelligence_history.py').read_text()
+          ware=Path('scripts/build_outcome_warehouse.py').read_text()
+          assert 'WavelengthIntelligence.score' in app
+          assert 'WavelengthIntelligence.score' in coin
+          assert 'canonical_score' in hist
+          assert 'score_model_band' in ware
+          assert 'Math.abs(c.deriv.funding' not in app.split('function intelligenceScore',1)[1].split('function intelExplanation',1)[0]
+          assert 'Math.abs(funding||0)' not in coin
+          print('canonical score separated from derivatives and versioned')
+          PY
+      - name: Commit canonicalisation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add intelligence-model.js app.js coin-intelligence.js index.html coin.html scripts/intelligence_model.py scripts/check_intelligence_v1.py scripts/check_intelligence_v1.js scripts/update_intelligence_history.py scripts/build_outcome_warehouse.py scripts/build_outcome_analytics.py
+          if git diff --cached --quiet; then
+            echo "No migration changes to commit"
+          else
+            git commit -m "Canonicalise Wavelength intelligence score v1"
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
