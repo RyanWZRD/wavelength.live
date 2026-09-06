@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json, math, time, urllib.request
+import json, math, urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -12,7 +13,7 @@ EXCLUDE={'USDC','BUSD','TUSD','FDUSD','USDP','DAI','EUR','GBP','EURI','USTC','PA
 
 def get(url):
     req=urllib.request.Request(url,headers={'User-Agent':'wavelength-intelligence-history/1.0'})
-    with urllib.request.urlopen(req,timeout=20) as r:return json.load(r)
+    with urllib.request.urlopen(req,timeout=8) as r:return json.load(r)
 
 def ema(vals,p):
     if len(vals)<p:return None
@@ -64,7 +65,7 @@ def fetch_symbol(symbol,btc30):
     if vr is not None and vr>=1.25:score+=5
     if R is not None and R>75:score-=8
     score=max(0,min(100,round(score)));setup=bool(bull and R is not None and 50<=R<=75 and A is not None and A>=35)
-    return {'ts':datetime.now(timezone.utc).isoformat(),'price':safe_round(float(tick['lastPrice']),8),'chg_24h_pct':safe_round(chg,3),'score':score,'trend':'BULLISH' if bull else 'BEARISH' if bear else 'MIXED','rsi':safe_round(R,2),'adx':safe_round(A,2),'atr_pct':safe_round(100*atr/close if atr and close else None,3),'volume_ratio':safe_round(vr,3),'vs_btc_30d_pct':safe_round(vs30,3),'setup':setup}
+    return symbol,{'ts':datetime.now(timezone.utc).isoformat(),'price':safe_round(float(tick['lastPrice']),8),'chg_24h_pct':safe_round(chg,3),'score':score,'trend':'BULLISH' if bull else 'BEARISH' if bear else 'MIXED','rsi':safe_round(R,2),'adx':safe_round(A,2),'atr_pct':safe_round(100*atr/close if atr and close else None,3),'volume_ratio':safe_round(vr,3),'vs_btc_30d_pct':safe_round(vs30,3),'setup':setup}
 
 def main():
     data=json.loads(OUT.read_text()) if OUT.exists() else {'symbols':{}};tickers=get(f'{SPOT}/ticker/24hr');universe=[]
@@ -74,10 +75,13 @@ def main():
         universe.append(s)
         if len(universe)>=MAX_COINS:break
     btc=get(f'{SPOT}/klines?symbol=BTCUSDT&interval=1d&limit=120');btc30=perf(btc,30);now=datetime.now(timezone.utc).isoformat();updated=0
-    for s in universe:
-        try:
-            snap=fetch_symbol(s,btc30);arr=data.setdefault('symbols',{}).setdefault(s,[]);arr.append(snap);data['symbols'][s]=arr[-KEEP:];updated+=1;print(s,snap['score'],snap['trend']);time.sleep(.04)
-        except Exception as e:print('WARN',s,e)
+    with ThreadPoolExecutor(max_workers=8) as pool:
+        futures={pool.submit(fetch_symbol,s,btc30):s for s in universe}
+        for fut in as_completed(futures):
+            s=futures[fut]
+            try:
+                symbol,snap=fut.result();arr=data.setdefault('symbols',{}).setdefault(symbol,[]);arr.append(snap);data['symbols'][symbol]=arr[-KEEP:];updated+=1;print(symbol,snap['score'],snap['trend'])
+            except Exception as e:print('WARN',s,e)
     data.update({'mode':'WAVELENGTH_COIN_INTELLIGENCE_HISTORY_READ_ONLY','generated_at':now,'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,'retention_points_per_symbol':KEEP,'sample_interval_hours':4,'universe_size':len(universe),'updated_symbols':updated,'durable_derivatives_history':False});OUT.write_text(json.dumps(data,indent=2,sort_keys=True)+'\n')
 
 if __name__=='__main__':main()
