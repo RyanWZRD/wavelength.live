@@ -3,6 +3,7 @@
   "capital_allocation_authority": false,
   "controlled_paper_execution": {
     "candidate_v3_plumbing_present": true,
+    "crowding_v2_blocker": "Protective exit/stop semantics are not yet defined in the genuine-forward shadow methodology; PAPER order plumbing must not invent them.",
     "crowding_v2_plumbing_present": false,
     "entry_gate": "runtime/paper_graduation.json",
     "exits_and_reconciliation_must_remain_available": true,
@@ -25,7 +26,7 @@
     "reconciliation_confidence": 60.0,
     "worst_slippage_bps": null
   },
-  "generated_at": "2026-09-06T09:40:18.174027+00:00",
+  "generated_at": "2026-09-06T09:46:20.436266+00:00",
   "hypothesis_context": {
     "count": 0,
     "source": null,
@@ -101,10 +102,11 @@
       },
       "forward": {
         "completed_trades": 0,
-        "days_observed": 0.903,
+        "days_observed": 0.907,
         "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
         "forward_start": "2026-09-05T12:00:00+00:00"
       },
+      "hard_blockers": [],
       "lifecycle_state": "SHADOW",
       "limited_capital_eligible": false,
       "manual_review_required_before_first_paper_entry": true,
@@ -119,7 +121,9 @@
     {
       "blockers": [
         "MINIMUM_FORWARD_DAYS_NOT_MET",
-        "MINIMUM_FORWARD_TRADES_NOT_MET"
+        "MINIMUM_FORWARD_TRADES_NOT_MET",
+        "PAPER_EXECUTION_ADAPTER_NOT_READY",
+        "PROTECTIVE_EXIT_SEMANTICS_NOT_DEFINED_FOR_PAPER"
       ],
       "challenger": {
         "execution_delay_method": "LITERAL_EXTRA_BAR_OPEN_SIMULATION",
@@ -130,10 +134,14 @@
       },
       "forward": {
         "completed_trades": 0,
-        "days_observed": 0.07,
+        "days_observed": 0.074,
         "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
         "forward_start": "2026-09-06T08:00:00+00:00"
       },
+      "hard_blockers": [
+        "PAPER_EXECUTION_ADAPTER_NOT_READY",
+        "PROTECTIVE_EXIT_SEMANTICS_NOT_DEFINED_FOR_PAPER"
+      ],
       "lifecycle_state": "SHADOW",
       "limited_capital_eligible": false,
       "manual_review_required_before_first_paper_entry": true,
@@ -142,7 +150,7 @@
         "minimum_completed_trades": 8,
         "minimum_forward_days": 90.0
       },
-      "state": "WATCH",
+      "state": "NOT_ELIGIBLE",
       "strategy_id": "crowding_v2"
     }
   ],
