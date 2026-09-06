@@ -1,6 +1,6 @@
 {
   "mode": "RESEARCH_INTELLIGENCE_V2_PUBLIC_READ_ONLY",
-  "generated_at": "2026-09-06T07:13:12.128845+00:00",
+  "generated_at": "2026-09-06T07:33:26.142288+00:00",
   "orders_enabled": false,
   "live_money_enabled": false,
   "automatic_promotion": false,
@@ -24,15 +24,14 @@
     "state": "OK",
     "issues": [],
     "observation_count": 2,
-    "latest_age_hours": 2.13,
+    "latest_age_hours": 2.47,
     "lineage": {
       "market_source": "Binance public klines via research observatory",
       "strategy_registry_source": "strategy_registry.json",
       "outcome_resolution_source": "Binance public 4h klines",
       "calculation_version": "research-intelligence-v2.0",
       "closed_bar_policy": true,
-      "candidate_v3_forward_event_source": "canonical V3 lifecycle WOULD_ENTER_NEXT_OPEN evidence",
-      "candidate_v3_raw_snapshot_events_disabled": true
+      "crowding_v2_forward_event_source": "canonical closed-bar Crowding v2 WOULD_ENTER_NEXT_OPEN evidence"
     }
   },
   "strategy_scorecards": [
@@ -48,9 +47,7 @@
       "positive_24h_pct": null,
       "manual_promotion_required": true,
       "automatic_promotion": false,
-      "evidence_state": "COLLECTING",
-      "forward_event_definition": "genuine lifecycle WOULD_ENTER_NEXT_OPEN only",
-      "canonical_forward_evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY"
+      "evidence_state": "COLLECTING"
     },
     {
       "id": "crowding_v2",
@@ -58,13 +55,15 @@
       "version": "v2.0-pre2025-survivor",
       "status": "FORWARD_SHADOW",
       "days_observed": 0.32,
-      "forward_signal_events": null,
-      "resolved_24h": null,
+      "forward_signal_events": 0,
+      "resolved_24h": 0,
       "avg_24h_after_signal_pct": null,
       "positive_24h_pct": null,
       "manual_promotion_required": true,
       "automatic_promotion": false,
-      "evidence_state": "COLLECTING"
+      "evidence_state": "COLLECTING",
+      "forward_event_definition": "genuine closed-bar lifecycle WOULD_ENTER_NEXT_OPEN only",
+      "canonical_forward_evidence_state": null
     },
     {
       "id": "btc_sol_trend_lab",
@@ -128,7 +127,7 @@
   },
   "weekly_review": {
     "mode": "WEEKLY_RESEARCH_REVIEW_READ_ONLY",
-    "generated_at": "2026-09-06T07:13:12.128670+00:00",
+    "generated_at": "2026-09-06T07:33:26.142022+00:00",
     "window_days": 7,
     "observations": 2,
     "regime_counts": {
@@ -146,7 +145,7 @@
         "id": "crowding_v2",
         "status": "FORWARD_SHADOW",
         "evidence_state": "COLLECTING",
-        "forward_signal_events": null
+        "forward_signal_events": 0
       },
       {
         "id": "btc_sol_trend_lab",
@@ -192,7 +191,8 @@
       "current_stage": "FORWARD_SHADOW",
       "recommendation": "DO_NOT_PROMOTE",
       "blockers": [
-        "FORWARD_EVIDENCE_STILL_COLLECTING"
+        "FORWARD_EVIDENCE_STILL_COLLECTING",
+        "MIN_FORWARD_SIGNALS_NOT_MET"
       ]
     },
     {
@@ -220,5 +220,12 @@
       ]
     }
   ],
-  "note": "Longitudinal research evidence only. Candidate V3 events are canonical lifecycle entries, not repeated raw snapshots. No broker controls, allocation authority or automatic promotion."
+  "note": "Longitudinal research evidence only. Candidate V3 events are canonical lifecycle entries, not repeated raw snapshots. No broker controls, allocation authority or automatic promotion.",
+  "crowding_v2_lineage": {
+    "canonical_lifecycle_feed": true,
+    "closed_bar_only": true,
+    "legacy_incomplete_bar_rows_excluded": true,
+    "genuine_forward_entry_events": 0,
+    "evidence_state": null
+  }
 }
