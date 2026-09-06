@@ -1,0 +1,49 @@
+name: Hourly radar outcome lineage UI checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'hourly-radar-outcomes.js'
+      - 'hourly-radar-outcomes.json'
+      - 'autonomous-research-director.js'
+      - '.github/workflows/hourly-radar-outcomes-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check hourly-radar-outcomes.js
+          node --check autonomous-research-director.js
+      - name: Wiring and feed
+        run: |
+          test -s hourly-radar-outcomes.js
+          test -s hourly-radar-outcomes.json
+          grep -q 'hourly-radar-outcomes.js' autonomous-research-director.js
+          grep -q 'hourly-radar-outcomes.json' hourly-radar-outcomes.js
+          grep -q 'Hourly Radar Outcome Lineage' hourly-radar-outcomes.js
+          python - <<'PY'
+          import json
+          x=json.load(open('hourly-radar-outcomes.json'))
+          assert x['orders_enabled'] is False
+          assert x['live_money_enabled'] is False
+          assert x['execution_authority'] is False
+          l=x['lineage']
+          assert l['lineage_complete'] is True
+          assert l['durable_opportunity_ids'] is True
+          assert l['actual_radar_row_schema_confirmed'] is True
+          assert l['mfe_mae_enabled'] is True
+          assert l['outcome_horizons']==['4h','12h','24h','3d','7d']
+          print('Hourly radar outcome cockpit is read-only and wired')
+          PY
