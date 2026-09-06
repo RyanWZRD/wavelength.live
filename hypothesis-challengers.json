@@ -17,7 +17,8 @@
       "decision_checks": {
         "mean_return_beats_frozen_comparison": null,
         "positive_rate_beats_frozen_comparison": null,
-        "sample_requirement_met": false
+        "sample_requirement_met": false,
+        "statistical_robustness_established": null
       },
       "dimension": "score_band",
       "discovery_baseline": {
@@ -51,13 +52,24 @@
       },
       "same_sample_discovery": true,
       "statement": "score_band=65-74 may improve 4h forward outcomes versus the rest of the observed sample; this is a discovery hypothesis, not an edge claim.",
+      "statistical_robustness": {
+        "blocking_checks_passed": false,
+        "checks": {},
+        "policy": {
+          "bootstrap_draws": 5000,
+          "confidence_level": 0.9,
+          "family_alpha": 0.1,
+          "minimum_effect_lift_pct": 0.25,
+          "multiple_testing": "BONFERRONI_ACTIVE_CHALLENGERS"
+        }
+      },
       "status": "PENDING",
-      "updated_at": "2026-09-06T08:46:50.915158+00:00",
+      "updated_at": "2026-09-06T08:58:46.222168+00:00",
       "value": "65-74"
     }
   ],
   "execution_authority": false,
-  "generated_at": "2026-09-06T08:46:50.915158+00:00",
+  "generated_at": "2026-09-06T08:58:46.222168+00:00",
   "lifecycle": [
     "PENDING",
     "SURVIVING",
@@ -65,14 +77,22 @@
     "CONFIRMED"
   ],
   "live_money_enabled": false,
-  "mode": "WAVELENGTH_FORWARD_HYPOTHESIS_CHALLENGERS_V1_READ_ONLY",
+  "mode": "WAVELENGTH_FORWARD_HYPOTHESIS_CHALLENGERS_V2_STATISTICAL_READ_ONLY",
   "orders_enabled": false,
   "principles": [
     "Birth timestamps and discovery/comparison baselines are immutable once a challenger is created.",
     "Only resolved matching outcomes captured strictly after challenger creation count as fresh evidence.",
-    "A challenger cannot confirm or falsify until its minimum fresh sample is reached.",
+    "Core return/hit-rate failure after minimum sample falsifies; passing core gates is not enough to confirm.",
+    "Confirmation additionally requires deterministic bootstrap, effect-size, median, hit-rate and ex-best robustness gates; leave-one-asset/month checks become blocking when diversity exists.",
     "Confirmation is research evidence only and cannot change strategy rules, promote strategies, allocate capital or execute orders."
   ],
+  "statistical_policy": {
+    "bootstrap_draws": 5000,
+    "confidence_level": 0.9,
+    "family_alpha": 0.1,
+    "minimum_effect_lift_pct": 0.25,
+    "multiple_testing": "BONFERRONI_ACTIVE_CHALLENGERS"
+  },
   "status_counts": {
     "CONFIRMED": 0,
     "FALSIFIED": 0,
