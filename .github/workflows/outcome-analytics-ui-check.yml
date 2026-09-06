@@ -1,0 +1,57 @@
+name: Outcome warehouse and analytics UI checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'coin.html'
+      - 'coin-history.js'
+      - 'coin-outcomes.js'
+      - 'outcomes.html'
+      - 'outcomes.js'
+      - 'outcome-warehouse.json'
+      - 'outcome-analytics.json'
+      - 'shared-nav.js'
+      - '.github/workflows/outcome-analytics-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and wiring
+        run: |
+          node --check coin-history.js
+          node --check coin-outcomes.js
+          node --check outcomes.js
+          grep -q 'coin-history.js' coin.html
+          grep -q 'coin-outcomes.js' coin.html
+          grep -q 'outcomes.html' shared-nav.js
+          test -s outcomes.html
+          test -s outcome-warehouse.json
+          test -s outcome-analytics.json
+      - name: Research-only evidence schema
+        run: |
+          python - <<'PY'
+          import json
+          w=json.load(open('outcome-warehouse.json'))
+          a=json.load(open('outcome-analytics.json'))
+          for x in (w,a):
+              assert x['orders_enabled'] is False
+              assert x['live_money_enabled'] is False
+              assert x['execution_authority'] is False
+              assert x['automatic_promotion'] is False
+              assert x['strategy_rule_mutation'] is False
+          assert a['event_count']==w['event_count']
+          assert a['minimum_established_sample']>=30
+          assert a['overall']['4h']['n'] <= w['event_count']
+          print('Forward outcome UI is research-only and evidence-linked')
+          PY
