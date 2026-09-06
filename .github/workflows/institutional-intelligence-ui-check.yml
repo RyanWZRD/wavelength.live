@@ -1,0 +1,40 @@
+name: Institutional Intelligence UI check
+
+on:
+  pull_request:
+    paths:
+      - 'institutional-intelligence.html'
+      - 'institutional-intelligence.js'
+      - 'shared-nav.js'
+      - '.github/workflows/institutional-intelligence-ui-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'institutional-intelligence.html'
+      - 'institutional-intelligence.js'
+      - 'shared-nav.js'
+      - '.github/workflows/institutional-intelligence-ui-check.yml'
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify seven-layer workspace wiring
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          html=Path('institutional-intelligence.html').read_text()
+          js=Path('institutional-intelligence.js').read_text()
+          nav=Path('shared-nav.js').read_text()
+          for marker in [
+              'Cross-Market Regime','Counterfactual Decision Lab','Catalyst Intelligence','Data Truth Engine',
+              'Portfolio Digital Twin','Causal Evidence Lab','Research Knowledge Graph']:
+              assert marker in html, marker
+          assert 'institutional-intelligence.json' in js
+          assert 'NOT CAUSAL PROOF' in js
+          assert 'institutional-intelligence.html' in nav
+          assert 'strategy mutation' in html.lower()
+          assert 'allocate capital' in html.lower()
+          print('Institutional Intelligence UI wiring OK')
+          PY
