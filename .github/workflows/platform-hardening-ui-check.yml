@@ -1,0 +1,52 @@
+name: Platform hardening UI checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'source-manifest.json'
+      - 'provenance*'
+      - 'activity*'
+      - 'workspace-ui.js'
+      - 'platform-hardening.css'
+      - 'command-palette.js'
+      - 'shared-nav.js'
+      - '.github/workflows/platform-hardening-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        run: |
+          node --check provenance-core.js
+          node --check provenance-page.js
+          node --check activity.js
+          node --check workspace-ui.js
+          node --check command-palette.js
+          node --check shared-nav.js
+      - name: Manifest and required surfaces
+        run: |
+          node -e "JSON.parse(require('fs').readFileSync('source-manifest.json','utf8'))"
+          test -s provenance.html
+          test -s activity.html
+          test -s platform-hardening.css
+          grep -q 'CANONICAL_GOVERNANCE' source-manifest.json
+          grep -q 'activity.html' shared-nav.js
+          grep -q 'provenance.html' shared-nav.js
+          grep -q 'provenance-core.js' shared-nav.js
+          grep -q 'workspace-ui.js' shared-nav.js
+          grep -q 'strategy_rule_mutation' source-manifest.json
+          grep -q 'execution_authority' source-manifest.json
+          grep -q 'Browser-local preferences only' workspace-ui.js
+          grep -q 'Activity is observational evidence' activity.html
+          grep -q 'cannot change strategy rules' provenance.html
