@@ -85,7 +85,7 @@ def main():
       'minimum_established_sample':MIN_ESTABLISHED,'minimum_discovery_segment':MIN_DISCOVERY_SEGMENT,'minimum_discovery_comparison':MIN_DISCOVERY_COMPARISON,
       'minimum_fresh_confirmation':MIN_FRESH_CONFIRMATION,'event_count':len(events),'horizons':list(HORIZONS),
       'overall':{h:summarize(events,h) for h in HORIZONS},
-      'by_score_band':table(events,'score_band'),'by_adx_band':table(events,'adx_band'),'by_relative_strength':table(events,'relative_strength_band'),'by_trend':table(events,'trend'),'by_setup':table(events,'setup'),'by_regime':table(events,'regime'),
+      'by_score_band':table(events,'score_band'),'by_score_model_band':table(events,'score_model_band'),'by_adx_band':table(events,'adx_band'),'by_relative_strength':table(events,'relative_strength_band'),'by_trend':table(events,'trend'),'by_setup':table(events,'setup'),'by_regime':table(events,'regime'),
     }
     stage_groups={}
     for e in events:stage_groups.setdefault(str(e.get('stage') or 'UNKNOWN'),[]).append(e)
@@ -93,7 +93,7 @@ def main():
     known=[e for e in events if (e.get('segments') or {}).get('regime') not in (None,'UNKNOWN')]
     payload['regime_coverage']={'known_context_events':len(known),'total_events':len(events),'coverage_pct':100*len(known)/len(events) if events else 0.0,'state':'BUILDING' if len(known)<MIN_ESTABLISHED else 'ESTABLISHED_CONTEXT_SAMPLE'}
     leaders=[]
-    dimensions=[('score_band',payload['by_score_band']),('stage',payload['by_stage']),('adx_band',payload['by_adx_band']),('relative_strength_band',payload['by_relative_strength']),('trend',payload['by_trend']),('setup',payload['by_setup']),('regime',payload['by_regime'])]
+    dimensions=[('score_model_band',payload['by_score_model_band']),('stage',payload['by_stage']),('adx_band',payload['by_adx_band']),('relative_strength_band',payload['by_relative_strength']),('trend',payload['by_trend']),('setup',payload['by_setup']),('regime',payload['by_regime'])]
     for dim,tab in dimensions:
         for name,stats in tab.items():
             s=stats['4h']
@@ -106,7 +106,7 @@ def main():
         'same_sample_discovery_only':True,'fresh_forward_confirmation_required':True,'can_change_strategy_rules':False,'can_promote_strategy':False,'can_allocate_capital':False,
         'principle':'Generate hypotheses from observed effects, then try to falsify them on fresh forward evidence before any research conclusion.'
     }
-    payload['warnings']=['All segments with n < 30 are explicitly provisional.','Hypotheses are generated from the same sample that discovered them and therefore require fresh independent confirmation.','These summaries and hypotheses cannot promote, allocate, execute or mutate strategy rules.']
+    payload['warnings']=['All segments with n < 30 are explicitly provisional.','Score-band hypotheses are model-qualified so legacy and canonical scores are not pooled.','Hypotheses are generated from the same sample that discovered them and therefore require fresh independent confirmation.','These summaries and hypotheses cannot promote, allocate, execute or mutate strategy rules.']
     OUT.write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
     print('analytics events',len(events),'4h',payload['overall']['4h']['n'],'hypotheses',len(payload['hypotheses']),'regime_context',len(known))
 if __name__=='__main__':main()

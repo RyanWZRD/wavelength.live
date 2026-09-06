@@ -57,13 +57,15 @@ def main():
                 'mae_pct':o.get('mae_pct'),
             }
         score=e.get('score')
+        score_model=e.get('score_model') or 'LEGACY_RADAR_UNVERSIONED'
+        score_version=e.get('score_version')
         trend=snap.get('trend') if snap else 'UNKNOWN'
         adx_band=band(snap.get('adx') if snap else None,[20,35,1e9],['<20','20-34','35+'])
         rs_band=band(snap.get('vs_btc_30d_pct') if snap else None,[-5,5,1e9],['LAGGING','NEUTRAL','LEADING'])
         row={
             'event_id':e.get('event_id') or f"radar:{sym}:{capt}",
             'source':'HOURLY_RADAR_FORWARD_EPISODE',
-            'symbol':sym,'captured_at':capt,'rank':e.get('rank'),'score':score,
+            'symbol':sym,'captured_at':capt,'rank':e.get('rank'),'score':score,'score_model':score_model,'score_version':score_version,
             'peak_score':e.get('peak_score'),'stage':e.get('stage'),'entry_reference':e.get('entry_reference'),
             'features':{
                 'trend':snap.get('trend') if snap else None,
@@ -77,6 +79,8 @@ def main():
             },
             'segments':{
                 'score_band':band(score,[65,75,85,101],['<65','65-74','75-84','85+']),
+                'score_model':score_model,
+                'score_model_band':f"{score_model}:{band(score,[65,75,85,101],['<65','65-74','75-84','85+'])}",
                 'adx_band':adx_band,
                 'relative_strength_band':rs_band,
                 'trend':trend,
@@ -97,7 +101,7 @@ def main():
         'horizons':list(HORIZONS),'event_count':len(rows),'resolved_counts':resolved,
         'regime_context_events':known_regimes,
         'events':rows,
-        'notes':['Forward outcomes are observational research evidence, not trading instructions.','Feature enrichment is nearest durable intelligence snapshot within six hours; absent context remains null rather than guessed.','Composite regimes combine trend, ADX band and BTC-relative-strength state and are descriptive only.']
+        'notes':['Forward outcomes are observational research evidence, not trading instructions.','Feature enrichment is nearest durable intelligence snapshot within six hours; absent context remains null rather than guessed.','Composite regimes combine trend, ADX band and BTC-relative-strength state and are descriptive only.','Score lineage is explicit; legacy/unversioned radar scores are never silently treated as WAVELENGTH_INTELLIGENCE_V1.']
     }
     OUT.write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
     print(f"warehouse events={len(rows)} resolved4h={resolved['4h']} regime_context={known_regimes}")

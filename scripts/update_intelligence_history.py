@@ -4,6 +4,7 @@ import json, math, urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
+from intelligence_model import MODEL, VERSION, canonical_score
 
 OUT=Path('intelligence-history.json')
 MAX_COINS=40
@@ -53,19 +54,9 @@ def fetch_symbol(symbol,btc30):
     pair=symbol+'USDT';k4=get(f'{SPOT}/klines?symbol={pair}&interval=4h&limit=240');kd=get(f'{SPOT}/klines?symbol={pair}&interval=1d&limit=120');tick=get(f'{SPOT}/ticker/24hr?symbol={pair}')
     closes=[float(k[4]) for k in k4];vols=[float(k[5]) for k in k4];close=closes[-1];e20=ema(closes,20);e80=ema(closes,80);e200=ema(closes,200);R=rsi(closes);atr,A=atr_adx(k4)
     recent=sum(vols[-4:])/4;prior=vols[-24:-4];vr=recent/(sum(prior)/len(prior)) if prior and sum(prior) else None;bull=bool(e20 is not None and e80 is not None and e200 is not None and e20>e80 and close>e200);bear=bool(e20 is not None and e80 is not None and e200 is not None and e20<e80 and close<e200)
-    a30=perf(kd,30);d90=perf(kd,90);vs30=(a30-btc30) if a30 is not None and btc30 is not None else 0.0;chg=float(tick['priceChangePercent']);score=0
-    if e20 is not None and e80 is not None and e20>e80:score+=20
-    if e200 is not None and close>e200:score+=20
-    if R is not None and 50<=R<=75:score+=20
-    if A is not None and A>=35:score+=20
-    if vr is not None and vr>=1:score+=10
-    if vs30>5:score+=8
-    elif vs30>0:score+=4
-    if d90 is not None and d90>20:score+=5
-    if vr is not None and vr>=1.25:score+=5
-    if R is not None and R>75:score-=8
-    score=max(0,min(100,round(score)));setup=bool(bull and R is not None and 50<=R<=75 and A is not None and A>=35)
-    return symbol,{'ts':datetime.now(timezone.utc).isoformat(),'price':safe_round(float(tick['lastPrice']),8),'chg_24h_pct':safe_round(chg,3),'score':score,'trend':'BULLISH' if bull else 'BEARISH' if bear else 'MIXED','rsi':safe_round(R,2),'adx':safe_round(A,2),'atr_pct':safe_round(100*atr/close if atr and close else None,3),'volume_ratio':safe_round(vr,3),'vs_btc_30d_pct':safe_round(vs30,3),'setup':setup}
+    a30=perf(kd,30);d90=perf(kd,90);vs30=(a30-btc30) if a30 is not None and btc30 is not None else 0.0;chg=float(tick['priceChangePercent']);atr_pct=(100*atr/close if atr and close else None)
+    score=canonical_score(ema20=e20,ema80=e80,close=close,ema200=e200,rsi=R,adx=A,volume_ratio=vr,vs_btc_30=vs30,d90=d90,atr_pct=atr_pct);setup=bool(bull and R is not None and 50<=R<=75 and A is not None and A>=35)
+    return symbol,{'ts':datetime.now(timezone.utc).isoformat(),'price':safe_round(float(tick['lastPrice']),8),'chg_24h_pct':safe_round(chg,3),'score':score,'score_model':MODEL,'score_version':VERSION,'trend':'BULLISH' if bull else 'BEARISH' if bear else 'MIXED','rsi':safe_round(R,2),'adx':safe_round(A,2),'atr_pct':safe_round(atr_pct,3),'volume_ratio':safe_round(vr,3),'vs_btc_30d_pct':safe_round(vs30,3),'setup':setup}
 
 def main():
     data=json.loads(OUT.read_text()) if OUT.exists() else {'symbols':{}};tickers=get(f'{SPOT}/ticker/24hr');universe=[]
@@ -82,6 +73,6 @@ def main():
             try:
                 symbol,snap=fut.result();arr=data.setdefault('symbols',{}).setdefault(symbol,[]);arr.append(snap);data['symbols'][symbol]=arr[-KEEP:];updated+=1;print(symbol,snap['score'],snap['trend'])
             except Exception as e:print('WARN',s,e)
-    data.update({'mode':'WAVELENGTH_COIN_INTELLIGENCE_HISTORY_READ_ONLY','generated_at':now,'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,'retention_points_per_symbol':KEEP,'sample_interval_hours':4,'universe_size':len(universe),'updated_symbols':updated,'durable_derivatives_history':False});OUT.write_text(json.dumps(data,indent=2,sort_keys=True)+'\n')
+    data.update({'mode':'WAVELENGTH_COIN_INTELLIGENCE_HISTORY_READ_ONLY','generated_at':now,'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,'retention_points_per_symbol':KEEP,'sample_interval_hours':4,'universe_size':len(universe),'updated_symbols':updated,'durable_derivatives_history':False,'score_model':MODEL,'score_version':VERSION});OUT.write_text(json.dumps(data,indent=2,sort_keys=True)+'\n')
 
 if __name__=='__main__':main()
