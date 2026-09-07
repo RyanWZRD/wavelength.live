@@ -8,6 +8,9 @@ on:
       - 'terminal-workspace-v2.css'
       - 'terminal-workspace-v2.js'
       - 'terminal-workspace-v2-panes.js'
+      - 'terminal-workspace-v3.css'
+      - 'terminal-workspace-v3.js'
+      - 'terminal-workspace-v3-compat.js'
       - 'live-market-repaint.js'
       - 'live-market-repaint-loader.js'
       - 'shared-nav.js'
@@ -26,6 +29,9 @@ on:
       - 'terminal-workspace-v2.css'
       - 'terminal-workspace-v2.js'
       - 'terminal-workspace-v2-panes.js'
+      - 'terminal-workspace-v3.css'
+      - 'terminal-workspace-v3.js'
+      - 'terminal-workspace-v3-compat.js'
       - 'live-market-repaint.js'
       - 'live-market-repaint-loader.js'
       - 'shared-nav.js'
@@ -45,12 +51,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify terminal shell, workspace v2 and live market repaint
+      - name: Verify terminal shell, workspace v3 and live market repaint
         run: |
           node --check live-market-repaint.js
           node --check live-market-repaint-loader.js
           node --check terminal-workspace-v2.js
           node --check terminal-workspace-v2-panes.js
+          node --check terminal-workspace-v3.js
+          node --check terminal-workspace-v3-compat.js
           python - <<'PY'
           from pathlib import Path
           css=Path('terminal-shell.css').read_text()
@@ -58,6 +66,9 @@ jobs:
           wcss=Path('terminal-workspace-v2.css').read_text()
           wjs=Path('terminal-workspace-v2.js').read_text()
           panes=Path('terminal-workspace-v2-panes.js').read_text()
+          v3css=Path('terminal-workspace-v3.css').read_text()
+          v3=Path('terminal-workspace-v3.js').read_text()
+          compat=Path('terminal-workspace-v3-compat.js').read_text()
           live=Path('live-market-repaint.js').read_text()
           loader=Path('live-market-repaint-loader.js').read_text()
           nav=Path('shared-nav.js').read_text()
@@ -74,6 +85,14 @@ jobs:
               assert marker in wjs
           for marker in ['wlv2WorkspaceGrid','data-linked-frame','decision-quality-v2-history.jsonl','wlv2-rank-history','pointermove','workspaceSplit']:
               assert marker in panes
+          for marker in ['wlv3-pane-tabs','wlv3-hotlist','wlv3-stale','wlv3-launcher','wlv3-split-live','wlv3-alert-row']:
+              assert marker in v3css
+          for marker in ['ALT+1/2/3','runPaneCommand','toggleLock','toggleMax','applySnap','Morning Scan','Replay Lab','F6','F7','F8','wavelength:crosshair','wlv3.session']:
+              assert marker in v3
+          assert 'WavelengthTerminalV2' in compat and 'modal' in compat
+          assert "style('terminal-workspace-v3.css','wl-terminal-workspace-v3')" in nav
+          assert "load('terminal-workspace-v3-compat.js','wl-terminal-workspace-v3-compat')" in nav
+          assert "load('terminal-workspace-v3.js','wl-terminal-workspace-v3')" in nav
           assert "style('terminal-workspace-v2.css','wl-terminal-workspace-v2')" in nav
           assert "load('terminal-workspace-v2.js','wl-terminal-workspace-v2')" in nav
           assert "load('terminal-workspace-v2-panes.js','wl-terminal-workspace-v2-panes')" in nav
@@ -87,5 +106,5 @@ jobs:
           assert '.wl-tape{position:relative!important;top:auto!important}' in hard
           assert 'position:sticky' not in css
           assert 'href="styles.css"' in cr and 'href="style.css"' not in cr
-          print('Wavelength Terminal Workspace v2 + live price regression contracts passed')
+          print('Wavelength Terminal Workspace v3 + v2 + live price regression contracts passed')
           PY
