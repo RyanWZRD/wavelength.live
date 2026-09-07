@@ -48,7 +48,6 @@ jobs:
           assert 'intelligence-expansion-research.js?v=20260907-expansion30-1' in r
           for forbidden in ['submit_order','submit_market_order','TradingClient','/v2/orders','automatic_promotion:true','orders_enabled:true']:
               assert forbidden not in j, forbidden
-          for guard in ['NO ORDERS','NO AUTO-PROMOTION','NO RULE MUTATION']:
-              assert guard in j, guard
-          print('All 30 Wavelength expansion capabilities locked; no execution authority')
+          assert 'Research-only. No order placement, capital allocation, automatic promotion, rule mutation or live-money authority.' in j
+          print('All 30 Wavelength expansion capabilities locked; explicit no-execution boundary present')
           PY
