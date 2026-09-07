@@ -1,5 +1,5 @@
 (()=>{
-const BUILD='20260907-terminal-workspace-v3-1-dq31';
+const BUILD='20260907-provenance-shadow-continuity-v1';
 const versioned=src=>`${src}${src.includes('?')?'&':'?'}v=${BUILD}`;
 const nav=document.querySelector('.nav');if(!nav)return;
 const p=(location.pathname.split('/').pop()||'index.html').toLowerCase();
