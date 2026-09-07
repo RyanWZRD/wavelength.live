@@ -4,7 +4,6 @@ import assert from 'node:assert/strict';
 
 const baseURL=process.env.WL_TEST_URL||'http://127.0.0.1:4173';
 
-// Source-level invariants catch the exact regressions that previously reached production.
 const normalizer=fs.readFileSync('asset-symbol-normalizer.js','utf8');
 const asset=fs.readFileSync('asset.js','utf8');
 const liveChart=fs.readFileSync('asset-live-chart-v3.js','utf8');
@@ -18,8 +17,14 @@ assert.match(asset,/applyLiveKline/,'live candle updater missing');
 assert.match(liveChart,/@aggTrade/,'live chart aggregate-trade stream missing');
 assert.match(liveChart,/@kline_/,'live chart kline stream missing');
 assert.match(liveChart,/\['1s','1m','5m','15m','30m','1h','4h','1d'\]/,'expanded live chart intervals missing');
+assert.match(liveChart,/data-chart-overlay="ema"/,'EMA overlay control missing');
+assert.match(liveChart,/data-chart-panel="rsi"/,'RSI analysis pane missing');
+assert.match(liveChart,/data-chart-panel="adx"/,'ADX analysis pane missing');
+assert.match(liveChart,/pointerdown/,'chart pan interaction missing');
+assert.match(liveChart,/replayMarkers/,'Wavelength decision markers missing');
 assert.match(shell,/e\.ctrlKey\|\|e\.metaKey\|\|e\.altKey\|\|e\.shiftKey/,'browser modifier/F-key guard missing');
 assert.match(html,/asset-decision-evidence\.js/,'Decision Evidence is not wired into asset page');
+assert.match(html,/asset-decision-priority-v1\.js/,'Decision Snapshot is not wired into asset page');
 assert.match(html,/data-chart-type="candles"/,'candles control missing');
 assert.match(html,/data-chart-type="line"/,'line control missing');
 assert.match(html,/data-chart-interval="1s"/,'1s chart interval missing');
@@ -36,48 +41,19 @@ const lastOpen=candles.at(-1)[0];
 
 const browser=await chromium.launch({headless:true});
 const page=await browser.newPage({viewport:{width:1440,height:1000}});
-
 await page.addInitScript(({lastOpen})=>{
   class FakeWebSocket {
     static CONNECTING=0; static OPEN=1; static CLOSING=2; static CLOSED=3;
-    constructor(url){
-      this.url=url;this.readyState=FakeWebSocket.CONNECTING;window.__wlFakeSocketURL=url;window.__wlFakeTickerCount=0;
-      setTimeout(()=>{
-        this.readyState=FakeWebSocket.OPEN;this.onopen?.({type:'open'});
-        const send=(data)=>this.onmessage?.({data:JSON.stringify({stream:'mock',data})});
-        setTimeout(()=>{window.__wlFakeTickerCount++;send({e:'24hrTicker',c:'60001.00',P:'1.10',h:'61000',l:'58000',q:'2500000000',n:123456});},120);
-        setTimeout(()=>{window.__wlFakeTickerCount++;send({e:'24hrTicker',c:'60002.50',P:'1.12',h:'61000',l:'58000',q:'2501000000',n:123500});},360);
-        setTimeout(()=>send({e:'aggTrade',p:'60003.25',T:lastOpen+1000}),430);
-        setTimeout(()=>send({e:'kline',k:{t:lastOpen,T:lastOpen+14399999,o:'58970',h:'60100',l:'58800',c:'60003.25',v:'155',q:'9300000',n:1200,V:'80',Q:'4800000'}}),520);
-      },60);
-    }
-    close(){this.readyState=FakeWebSocket.CLOSED;this.onclose?.({type:'close'});}
-    send(){}
+    constructor(url){this.url=url;this.readyState=FakeWebSocket.CONNECTING;window.__wlFakeSocketURL=url;window.__wlFakeTickerCount=0;setTimeout(()=>{this.readyState=FakeWebSocket.OPEN;this.onopen?.({type:'open'});const send=(data)=>this.onmessage?.({data:JSON.stringify({stream:'mock',data})});setTimeout(()=>{window.__wlFakeTickerCount++;send({e:'24hrTicker',c:'60001.00',P:'1.10',h:'61000',l:'58000',q:'2500000000',n:123456});},120);setTimeout(()=>{window.__wlFakeTickerCount++;send({e:'24hrTicker',c:'60002.50',P:'1.12',h:'61000',l:'58000',q:'2501000000',n:123500});},360);setTimeout(()=>send({e:'aggTrade',p:'60003.25',T:lastOpen+1000}),430);setTimeout(()=>send({e:'kline',k:{t:lastOpen,T:lastOpen+14399999,o:'58970',h:'60100',l:'58800',c:'60003.25',v:'155',q:'9300000',n:1200,V:'80',Q:'4800000'}}),520);},60)}
+    close(){this.readyState=FakeWebSocket.CLOSED;this.onclose?.({type:'close'})} send(){}
   }
   window.WebSocket=FakeWebSocket;
 }, {lastOpen});
+await page.route('https://api.binance.com/**',async route=>{const u=new URL(route.request().url());if(u.pathname.includes('/ticker/24hr'))return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({lastPrice:'60000.00',priceChangePercent:'1.00',highPrice:'61000',lowPrice:'58000',quoteVolume:'2500000000',count:123000})});if(u.pathname.includes('/klines'))return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(candles)});return route.fulfill({status:404,body:'{}'})});
+await page.route('https://fapi.binance.com/**',async route=>{const u=new URL(route.request().url());if(u.pathname.includes('/premiumIndex'))return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({lastFundingRate:'0.0001'})});if(u.pathname.includes('/openInterestHist'))return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify([{sumOpenInterestValue:'1000000'},{sumOpenInterestValue:'1030000'}])});return route.fulfill({status:404,body:'{}'})});
+await page.route('https://api.coingecko.com/**',async route=>{const u=new URL(route.request().url());if(u.pathname.endsWith('/search'))return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({coins:[{id:'bitcoin',symbol:'btc',market_cap_rank:1}]})});return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'bitcoin',name:'Bitcoin',symbol:'btc',market_cap_rank:1,categories:['Layer 1'],genesis_date:'2009-01-03',market_data:{market_cap:{usd:1200000000000},fully_diluted_valuation:{usd:1250000000000},total_volume:{usd:30000000000},circulating_supply:19900000,total_supply:19900000,max_supply:21000000,ath:{usd:70000},ath_change_percentage:{usd:-14},price_change_percentage_7d:2,price_change_percentage_30d:4,price_change_percentage_1y:45,market_cap_change_percentage_24h:1},description:{en:'Bitcoin test fixture.'},links:{homepage:['https://bitcoin.org'],blockchain_site:['https://mempool.space']}})})});
+await page.route('https://fonts.googleapis.com/**',r=>r.abort());await page.route('https://fonts.gstatic.com/**',r=>r.abort());
 
-await page.route('https://api.binance.com/**',async route=>{
-  const u=new URL(route.request().url());
-  if(u.pathname.includes('/ticker/24hr')) return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({lastPrice:'60000.00',priceChangePercent:'1.00',highPrice:'61000',lowPrice:'58000',quoteVolume:'2500000000',count:123000})});
-  if(u.pathname.includes('/klines')) return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(candles)});
-  return route.fulfill({status:404,body:'{}'});
-});
-await page.route('https://fapi.binance.com/**',async route=>{
-  const u=new URL(route.request().url());
-  if(u.pathname.includes('/premiumIndex')) return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({lastFundingRate:'0.0001'})});
-  if(u.pathname.includes('/openInterestHist')) return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify([{sumOpenInterestValue:'1000000'},{sumOpenInterestValue:'1030000'}])});
-  return route.fulfill({status:404,body:'{}'});
-});
-await page.route('https://api.coingecko.com/**',async route=>{
-  const u=new URL(route.request().url());
-  if(u.pathname.endsWith('/search')) return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({coins:[{id:'bitcoin',symbol:'btc',market_cap_rank:1}]})});
-  return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({id:'bitcoin',name:'Bitcoin',symbol:'btc',market_cap_rank:1,categories:['Layer 1'],genesis_date:'2009-01-03',market_data:{market_cap:{usd:1200000000000},fully_diluted_valuation:{usd:1250000000000},total_volume:{usd:30000000000},circulating_supply:19900000,total_supply:19900000,max_supply:21000000,ath:{usd:70000},ath_change_percentage:{usd:-14},price_change_percentage_7d:2,price_change_percentage_30d:4,price_change_percentage_1y:45,market_cap_change_percentage_24h:1},description:{en:'Bitcoin test fixture.'},links:{homepage:['https://bitcoin.org'],blockchain_site:['https://mempool.space']}})});
-});
-await page.route('https://fonts.googleapis.com/**',r=>r.abort());
-await page.route('https://fonts.gstatic.com/**',r=>r.abort());
-
-// Hard regression: duplicated ticker must be canonical before any market request.
 await page.goto(`${baseURL}/asset.html?symbol=BTCBTC`,{waitUntil:'domcontentloaded'});
 await page.waitForFunction(()=>new URLSearchParams(location.search).get('symbol')==='BTC');
 assert.equal(new URL(page.url()).searchParams.get('symbol'),'BTC');
@@ -87,25 +63,15 @@ await page.waitForFunction(()=>!/Loading/i.test(document.querySelector('#fundame
 await page.waitForFunction(()=>(window.__wlFakeTickerCount||0)>=2);
 await page.waitForFunction(()=>document.querySelector('#assetPrice')?.textContent?.includes('60,002.50'));
 assert.match(await page.locator('#assetPrice').innerText(),/60,002\.50/,'headline price did not receive live ticker update');
-await page.waitForSelector('#livePriceChart');
-assert.ok((await page.locator('#livePriceChart').evaluate(c=>c.width))>0,'live chart canvas was not rendered');
+await page.waitForSelector('#livePriceChart');assert.ok((await page.locator('#livePriceChart').evaluate(c=>c.width))>0,'live chart canvas was not rendered');
 await page.waitForFunction(()=>document.querySelector('#chartMeta')?.textContent?.includes('LIVE'));
-assert.match(await page.locator('#chartMeta').innerText(),/LIVE/,'current candle did not receive live kline update');
-assert.equal(await page.locator('[data-chart-type="candles"]').count(),1,'candles toggle not visible');
-assert.equal(await page.locator('[data-chart-type="line"]').count(),1,'line toggle not visible');
-assert.equal(await page.locator('[data-chart-interval="1s"]').count(),1,'1s interval not visible');
-await page.waitForSelector('#decisionEvidence');
-assert.doesNotMatch(await page.locator('#decisionEvidence').innerText(),/Waiting for market evidence/i);
-assert.match(await page.locator('#decisionEvidenceBoundary').innerText(),/RESEARCH PRIORITISATION ONLY/);
-assert.match(await page.evaluate(()=>window.__wlFakeSocketURL||''),/btcusdt@aggTrade\/btcusdt@kline_4h/,'wrong live-chart websocket symbol/timeframe');
+assert.match(await page.locator('#chartMeta').innerText(),/wheel zoom/,'chart interaction guidance missing');
+for(const sel of ['[data-chart-type="candles"]','[data-chart-type="line"]','[data-chart-interval="1s"]','[data-chart-overlay="ema"]','[data-chart-overlay="sma"]','[data-chart-overlay="sr"]','[data-chart-overlay="signals"]','[data-chart-panel="volume"]','[data-chart-panel="rsi"]','[data-chart-panel="adx"]'])assert.equal(await page.locator(sel).count(),1,`${sel} not visible`);
+assert.equal((await page.evaluate(()=>window.WavelengthAssetChart?.version)),'analysis-v1','chart analysis API missing');
+const before=await page.evaluate(()=>window.WavelengthAssetChart.getState().visibleCount);const box=await page.locator('#livePriceChart').boundingBox();await page.mouse.move(box.x+box.width/2,box.y+box.height/2);await page.mouse.wheel(0,-400);await page.waitForTimeout(100);const after=await page.evaluate(()=>window.WavelengthAssetChart.getState().visibleCount);assert.ok(after<before,'wheel did not zoom chart');
+await page.mouse.move(box.x+box.width*.7,box.y+box.height*.45);await page.mouse.down();await page.mouse.move(box.x+box.width*.88,box.y+box.height*.45,{steps:4});await page.mouse.up();await page.waitForTimeout(80);assert.ok((await page.evaluate(()=>window.WavelengthAssetChart.getState().endOffset))>0,'drag did not pan chart into history');
+await page.locator('[data-chart-reset="1"]').click();assert.equal(await page.evaluate(()=>window.WavelengthAssetChart.getState().endOffset),0,'chart reset did not return to live edge');
+await page.waitForSelector('#decisionEvidence');await page.waitForSelector('#decisionPriority');assert.doesNotMatch(await page.locator('#decisionEvidence').innerText(),/Waiting for market evidence/i);assert.match(await page.locator('#decisionEvidenceBoundary').innerText(),/RESEARCH PRIORITISATION ONLY/);assert.match(await page.evaluate(()=>window.__wlFakeSocketURL||''),/btcusdt@aggTrade\/btcusdt@kline_4h/,'wrong live-chart websocket symbol/timeframe');
 
-// Navigation regression: one Markets click must settle directly on #markets.
-await page.goto(`${baseURL}/index.html`,{waitUntil:'domcontentloaded'});
-await page.waitForSelector('#markets');
-const marketsLink=page.locator('a[href*="#markets"]').first();
-await marketsLink.click();
-await page.waitForFunction(()=>location.hash==='#markets');
-assert.equal(new URL(page.url()).hash,'#markets');
-
-await browser.close();
-console.log('Wavelength Markets + Asset regression suite passed');
+await page.goto(`${baseURL}/index.html`,{waitUntil:'domcontentloaded'});await page.waitForSelector('#markets');const marketsLink=page.locator('a[href*="#markets"]').first();await marketsLink.click();await page.waitForFunction(()=>location.hash==='#markets');assert.equal(new URL(page.url()).hash,'#markets');
+await browser.close();console.log('Wavelength Markets + Asset regression suite passed');
