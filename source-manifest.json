@@ -1,6 +1,6 @@
 {
   "mode": "WAVELENGTH_PUBLIC_SOURCE_MANIFEST_V2_READ_ONLY",
-  "schema": "wavelength-source-manifest-v2.2",
+  "schema": "wavelength-source-manifest-v2.3",
   "strategy_rule_mutation": false,
   "execution_authority": false,
   "freshness_policy": {
@@ -18,17 +18,17 @@
     {"id":"decision_quality_v3","label":"Decision Quality v3 forward evaluation","path":"decision-quality-v3-evaluation.json","scope":"Forward model proof","authority":"PUBLIC_CONTINUITY","criticality":"PRIMARY","max_age_minutes":300,"cadence":"SCHEDULED","dependencies":["decision_quality"]},
     {"id":"decision_quality_v31","label":"Decision Quality v3.1 diagnostics","path":"decision-quality-v3-diagnostics.json","scope":"Forward diagnostics and challenger evidence","authority":"PUBLIC_CONTINUITY","criticality":"PRIMARY","max_age_minutes":300,"cadence":"SCHEDULED","dependencies":["decision_quality_v3"]},
     {"id":"dynamic_universe","label":"Dynamic Market Universe v2 continuity","path":"dynamic-market-universe-v2-continuity.json","scope":"Current research universe","authority":"PUBLIC_CONTINUITY","criticality":"PRIMARY","max_age_minutes":300,"cadence":"SCHEDULED","dependencies":[]},
-    {"id":"heartbeats","label":"Event-driven source heartbeat","path":"source-heartbeats.json","scope":"Event-driven collector liveness","authority":"PUBLIC_CONTINUITY","criticality":"PRIMARY","max_age_minutes":150,"cadence":"HOURLY","expected_interval_minutes":60,"dependencies":[]},
+    {"id":"heartbeats","label":"Source liveness & shadow progress","path":"source-heartbeats.json","scope":"Event-driven liveness and private shadow progress","authority":"PUBLIC_CONTINUITY","criticality":"PRIMARY","max_age_minutes":150,"cadence":"HOURLY","expected_interval_minutes":60,"dependencies":[]},
 
     {"id":"graduation","label":"Graduation evidence","path":"paper-graduation.json","scope":"Candidate V3 + Crowding v2","authority":"CANONICAL_GOVERNANCE","criticality":"ADVISORY","max_age_minutes":180,"cadence":"EVENT_DRIVEN","observed_at_paths":["execution_reality.guardian_recorded_at"],"dependencies":["v3_forward","crowding"]},
-    {"id":"v3_forward","label":"Candidate V3 forward evidence","path":"candidate-v3-forward-evidence.json","scope":"Candidate V3","authority":"CANONICAL_EVIDENCE","criticality":"ADVISORY","max_age_minutes":300,"cadence":"SCHEDULED","observed_at_paths":["summary.latest_shadow_bar"],"dependencies":[]},
+    {"id":"v3_forward","label":"Candidate V3 forward evidence","path":"candidate-v3-forward-evidence.json","scope":"Candidate V3 · private canonical publisher","authority":"CANONICAL_EVIDENCE","criticality":"ADVISORY","max_age_minutes":300,"cadence":"SCHEDULED","freshness_basis":"HEARTBEAT_PROGRESS","progress_path":"summary.latest_shadow_bar","observed_at_paths":["summary.latest_shadow_bar"],"dependencies":[]},
     {"id":"radar","label":"Legacy opportunity radar","path":"opportunity-radar.json","scope":"Legacy market research feed","authority":"DERIVED_RESEARCH","criticality":"ADVISORY","max_age_minutes":120,"cadence":"HOURLY","expected_interval_minutes":60,"dependencies":[]},
     {"id":"auto_paper","label":"Automatic PAPER status","path":"automatic-paper-status.json","scope":"Candidate V3 PAPER","authority":"CANONICAL_OPERATIONAL","criticality":"ADVISORY","max_age_minutes":300,"cadence":"EVENT_DRIVEN_AFTER_V3_SHADOW","dependencies":["graduation","v3_forward"]},
     {"id":"execution","label":"Execution intelligence","path":"execution-intelligence.json","scope":"PAPER execution","authority":"CANONICAL_OPERATIONAL","criticality":"ADVISORY","max_age_minutes":300,"cadence":"EVENT_DRIVEN","dependencies":["auto_paper"]},
-    {"id":"bot_ops","label":"Bot operations","path":"bot-operations-status.json","scope":"Legacy/private platform operations","authority":"CANONICAL_OPERATIONAL","criticality":"ADVISORY","max_age_minutes":300,"cadence":"SCHEDULED","dependencies":[]},
-    {"id":"alerts","label":"Legacy Wavelength alerts","path":"wavelength-alerts.json","scope":"Legacy/private platform alerts","authority":"DERIVED_NOTIFICATION","criticality":"ADVISORY","max_age_minutes":180,"cadence":"SCHEDULED","dependencies":["bot_ops"]},
+    {"id":"bot_ops","label":"Bot operations continuity","path":"bot-operations-status.json","scope":"Public operational continuity while private runner unavailable","authority":"PUBLIC_CONTINUITY","criticality":"ADVISORY","max_age_minutes":300,"cadence":"HOURLY","expected_interval_minutes":60,"dependencies":[]},
+    {"id":"alerts","label":"Wavelength alerts continuity","path":"wavelength-alerts.json","scope":"Public alert continuity while private runner unavailable","authority":"PUBLIC_CONTINUITY","criticality":"ADVISORY","max_age_minutes":180,"cadence":"HOURLY","expected_interval_minutes":60,"dependencies":["bot_ops"]},
     {"id":"portfolio","label":"Paper portfolio","path":"paper-portfolio.json","scope":"Simulated PAPER accounting","authority":"CANONICAL_ACCOUNTING","criticality":"ADVISORY","max_age_minutes":360,"cadence":"EVENT_DRIVEN","dependencies":["auto_paper"]},
     {"id":"research","label":"Research director","path":"autonomous-research-director.json","scope":"Legacy/private research hypotheses","authority":"DERIVED_RESEARCH","criticality":"ADVISORY","max_age_minutes":720,"cadence":"SCHEDULED","dependencies":["v3_forward","crowding","execution"]},
-    {"id":"crowding","label":"Crowding forward evidence","path":"crowding-v2-forward-evidence.json","scope":"Crowding v2","authority":"CANONICAL_EVIDENCE","criticality":"ADVISORY","max_age_minutes":300,"cadence":"SCHEDULED","dependencies":[]}
+    {"id":"crowding","label":"Crowding forward evidence","path":"crowding-v2-forward-evidence.json","scope":"Crowding v2 · private canonical publisher","authority":"CANONICAL_EVIDENCE","criticality":"ADVISORY","max_age_minutes":300,"cadence":"SCHEDULED","freshness_basis":"HEARTBEAT_PROGRESS","progress_path":"summary.latest_shadow_bar","dependencies":[]}
   ]
 }
