@@ -1,0 +1,60 @@
+name: Operations continuity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '13 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'operations-continuity.py'
+      - '.github/workflows/operations-continuity.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: operations-continuity
+  cancel-in-progress: true
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build public operational continuity
+        run: |
+          python -m py_compile operations-continuity.py
+          python operations-continuity.py
+      - name: Validate read-only authority
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          bot=json.loads(Path('bot-operations-status.json').read_text())
+          alerts=json.loads(Path('wavelength-alerts.json').read_text())
+          assert bot['authority']=='PUBLIC_CONTINUITY_WHILE_PRIVATE_RUNNER_UNAVAILABLE'
+          assert alerts['authority']=='PUBLIC_CONTINUITY_WHILE_PRIVATE_RUNNER_UNAVAILABLE'
+          for p in (bot,alerts):
+              assert p['orders_enabled'] is False
+              assert p['execution_authority'] is False
+              assert p['automatic_promotion'] is False
+          assert bot['live_money_enabled'] is False
+          assert alerts['live_money_enabled'] is False
+          assert alerts['strategy_rule_mutation'] is False
+          print(bot['generated_at'],alerts['generated_at'])
+          PY
+      - name: Commit continuity outputs
+        run: |
+          git config user.name 'wavelength-continuity[bot]'
+          git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'
+          git add bot-operations-status.json wavelength-alerts.json
+          git diff --cached --quiet || git commit -m 'Update public operations continuity'
+          git pull --rebase origin main
+          git push origin HEAD:main
