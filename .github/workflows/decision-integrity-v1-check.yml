@@ -1,10 +1,11 @@
-name: Decision Integrity v1 contract
+name: Decision Integrity v1 + Decision Science v2 contract
 
 on:
   pull_request:
     branches: [main]
     paths:
       - 'decision-integrity-v1.js'
+      - 'decision-science-v2.js'
       - 'asset.html'
       - 'research-autopilot-v2.js'
       - 'research.html'
@@ -13,6 +14,7 @@ on:
     branches: [main]
     paths:
       - 'decision-integrity-v1.js'
+      - 'decision-science-v2.js'
       - 'asset.html'
       - 'research-autopilot-v2.js'
       - 'research.html'
@@ -32,12 +34,14 @@ jobs:
       - name: Syntax
         run: |
           node --check decision-integrity-v1.js
+          node --check decision-science-v2.js
           node --check research-autopilot-v2.js
       - name: Twelve capability contract
         run: |
           python3 - <<'PY'
           from pathlib import Path
           j=Path('decision-integrity-v1.js').read_text()
+          s=Path('decision-science-v2.js').read_text()
           h=Path('asset.html').read_text()
           r=Path('research-autopilot-v2.js').read_text()
           rh=Path('research.html').read_text()
@@ -59,13 +63,17 @@ jobs:
           }
           for name,token in required.items():
               assert token in j, f'{name}: {token}'
+          for token in ['brier','baselineModels','deterministicHalf','analogueRows','distance(current,r)']:
+              assert token in s, token
           assert 'decision-integrity-v1.js?v=20260907-di12-1' in h
+          assert 'decision-science-v2.js?v=20260907-ds2-1' in h
           assert 'research-autopilot-v2.js?v=20260907-autopilot2-1' in rh
           assert 'research-autopilot-v2.json' in r
           for forbidden in ['submit_order','submit_market_order','TradingClient','/v2/orders','automatic_promotion:true','orders_enabled:true']:
               assert forbidden not in j, forbidden
+              assert forbidden not in s, forbidden
               assert forbidden not in r, forbidden
           for guard in ['NO ORDERS','NO AUTO-PROMOTION','NO RULE MUTATION']:
               assert guard in j, guard
-          print('Decision Integrity v1 + all twelve ambitious capabilities locked')
+          print('Decision Integrity v1 + Decision Science v2 + all twelve capabilities locked')
           PY
