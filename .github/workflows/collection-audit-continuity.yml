@@ -9,6 +9,10 @@ on:
     paths:
       - 'collection-audit-continuity.py'
       - '.github/workflows/collection-audit-continuity.yml'
+      - 'decision-quality-v2.json'
+      - 'decision-quality-v2-history.jsonl'
+      - 'dynamic-market-universe-v2-continuity.json'
+      - 'dynamic-market-universe-v2-continuity-history.jsonl'
 
 permissions:
   contents: write
@@ -40,7 +44,8 @@ jobs:
           p=json.loads(Path('collection-audit-continuity.json').read_text())
           assert p['orders_enabled'] is False and p['execution_authority'] is False
           assert p['collector_count'] >= 3
-          print(p['overall_state'],p['evidence_confidence_pct'])
+          assert 'universe_coverage' in p
+          print(p['overall_state'],p['evidence_confidence_pct'],p['universe_coverage'].get('counts'))
           PY
       - name: Commit continuity audit evidence
         run: |
