@@ -1,0 +1,54 @@
+name: Intelligence Expansion v1 contract
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'intelligence-expansion-v1.js'
+      - 'intelligence-expansion-research.js'
+      - 'asset.html'
+      - 'research.html'
+      - '.github/workflows/intelligence-expansion-v1-check.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'intelligence-expansion-v1.js'
+      - 'intelligence-expansion-research.js'
+      - 'asset.html'
+      - 'research.html'
+      - '.github/workflows/intelligence-expansion-v1-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax
+        run: |
+          node --check intelligence-expansion-v1.js
+          node --check intelligence-expansion-research.js
+      - name: Exact 30 capability contract
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          j=Path('intelligence-expansion-v1.js').read_text()
+          h=Path('asset.html').read_text()
+          r=Path('research.html').read_text()
+          required=[
+          'uncertainty','causal','eventShock','crossMarket','liquidity','halfLife','featureValue','drift','ensemble','breadth','theme','anomaly','pathDependency','scenarios','portfolioStress','capitalEfficiency','outcomeDecomp','errorsReview','debt','infoGain','experimentDesign','versionLedger','tournament','reputation','certificate','timeline','marketMemory','transitionPredictor','sourceReputation','selfAudit']
+          assert len(required)==30
+          for token in required: assert token in j, token
+          assert 'intelligence-expansion-v1.js?v=20260907-expansion30-1' in h
+          assert 'intelligence-expansion-research.js?v=20260907-expansion30-1' in r
+          for forbidden in ['submit_order','submit_market_order','TradingClient','/v2/orders','automatic_promotion:true','orders_enabled:true']:
+              assert forbidden not in j, forbidden
+          for guard in ['NO ORDERS','NO AUTO-PROMOTION','NO RULE MUTATION']:
+              assert guard in j, guard
+          print('All 30 Wavelength expansion capabilities locked; no execution authority')
+          PY
