@@ -1,0 +1,37 @@
+name: Conviction Room UI
+
+on:
+  pull_request:
+    paths:
+      - 'conviction-room.html'
+      - 'conviction-room.js'
+      - 'shared-nav.js'
+      - '.github/workflows/conviction-room-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'conviction-room.html'
+      - 'conviction-room.js'
+      - 'shared-nav.js'
+      - '.github/workflows/conviction-room-ui.yml'
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Conviction Room surface
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('conviction-room.html').read_text()
+          j=Path('conviction-room.js').read_text()
+          n=Path('shared-nav.js').read_text()
+          for x in ['Conviction Room','Ask Wavelength','Challenge this decision','What changes my mind?']:
+              assert x in h
+          for x in ['conviction-room.json','BEST.*','ROBUST','syms.length>=2']:
+              assert x in j
+          assert "conviction-room.html','Conviction Room" in n
+          assert 'submit_order' not in h+j
+          print('Conviction Room UI checks passed')
+          PY
