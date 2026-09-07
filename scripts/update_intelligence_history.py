@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
 from __future__ import annotations
-import json, math, statistics, urllib.request
+import hashlib, json, math, statistics, urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
 from intelligence_model import MODEL, VERSION, canonical_score
 
 OUT=Path('intelligence-history.json')
-MAX_COINS=40
+RESEARCH_LIMIT=180
+DEEP_LIMIT=60
+MIN_RESEARCH_QUOTE_VOLUME=5_000_000.0
 KEEP=540
 SPOT='https://data-api.binance.vision/api/v3'
-EXCLUDE={'USDC','BUSD','TUSD','FDUSD','USDP','DAI','EUR','GBP','EURI','USTC','PAX','UST','WBTC','WBETH'}
+EXCLUDE={'USDC','BUSD','TUSD','FDUSD','USDP','DAI','EUR','GBP','EURI','USTC','PAX','UST','WBTC','WBETH','ETHW','BTTC'}
 MARKET_CONTEXT_MODEL='WAVELENGTH_MARKET_CONTEXT_V1'
 MARKET_CONTEXT_VERSION=1
+UNIVERSE_MODEL='WAVELENGTH_DYNAMIC_MARKET_UNIVERSE_V2'
 
 def get(url):
-    req=urllib.request.Request(url,headers={'User-Agent':'wavelength-intelligence-history/1.0'})
+    req=urllib.request.Request(url,headers={'User-Agent':'wavelength-intelligence-history/2.0'})
     with urllib.request.urlopen(req,timeout=8) as r:return json.load(r)
 
 def ema(vals,p):
@@ -91,13 +94,21 @@ def market_context(now, snapshots):
         'durable_derivatives_context':False,'derivatives_context_state':'UNAVAILABLE_DURABLE_PROVIDER'
     }
 
-def main():
-    data=json.loads(OUT.read_text()) if OUT.exists() else {'symbols':{}};tickers=get(f'{SPOT}/ticker/24hr');universe=[]
-    for t in sorted((x for x in tickers if x['symbol'].endswith('USDT')),key=lambda x:float(x.get('quoteVolume') or 0),reverse=True):
+def dynamic_universe(tickers):
+    eligible=[]
+    for t in sorted((x for x in tickers if str(x.get('symbol') or '').endswith('USDT')),key=lambda x:float(x.get('quoteVolume') or 0),reverse=True):
         s=t['symbol'][:-4]
-        if s in EXCLUDE or s in universe:continue
-        universe.append(s)
-        if len(universe)>=MAX_COINS:break
+        if s in EXCLUDE or not s:continue
+        qv=float(t.get('quoteVolume') or 0)
+        if qv<=0:continue
+        eligible.append((s,qv))
+    liquid=[s for s,qv in eligible if qv>=MIN_RESEARCH_QUOTE_VOLUME][:RESEARCH_LIMIT]
+    deep=liquid[:DEEP_LIMIT]
+    fingerprint=hashlib.sha256(json.dumps({'eligible':[s for s,_ in eligible],'liquid':liquid,'deep':deep},sort_keys=True,separators=(',',':')).encode()).hexdigest()[:18]
+    return eligible,liquid,deep,fingerprint
+
+def main():
+    data=json.loads(OUT.read_text()) if OUT.exists() else {'symbols':{}};tickers=get(f'{SPOT}/ticker/24hr');eligible,liquid,universe,universe_fp=dynamic_universe(tickers)
     btc=get(f'{SPOT}/klines?symbol=BTCUSDT&interval=1d&limit=120');btc30=perf(btc,30);now=datetime.now(timezone.utc).isoformat();updated=0;snapshots={}
     with ThreadPoolExecutor(max_workers=8) as pool:
         futures={pool.submit(fetch_symbol,s,btc30):s for s in universe}
@@ -107,6 +118,9 @@ def main():
                 symbol,snap=fut.result();snapshots[symbol]=snap;arr=data.setdefault('symbols',{}).setdefault(symbol,[]);arr.append(snap);data['symbols'][symbol]=arr[-KEEP:];updated+=1;print(symbol,snap['score'],snap['trend'])
             except Exception as e:print('WARN',s,e)
     contexts=data.setdefault('market_context',[]);contexts.append(market_context(now,snapshots));data['market_context']=contexts[-KEEP:]
-    data.update({'mode':'WAVELENGTH_COIN_INTELLIGENCE_HISTORY_READ_ONLY','generated_at':now,'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,'retention_points_per_symbol':KEEP,'sample_interval_hours':4,'universe_size':len(universe),'updated_symbols':updated,'durable_derivatives_history':False,'score_model':MODEL,'score_version':VERSION,'market_context_model':MARKET_CONTEXT_MODEL,'market_context_version':MARKET_CONTEXT_VERSION});OUT.write_text(json.dumps(data,indent=2,sort_keys=True)+'\n')
+    data.update({'mode':'WAVELENGTH_COIN_INTELLIGENCE_HISTORY_READ_ONLY','generated_at':now,'orders_enabled':False,'live_money_enabled':False,'execution_authority':False,'retention_points_per_symbol':KEEP,'sample_interval_hours':4,
+                 'universe_model':UNIVERSE_MODEL,'universe_fingerprint':universe_fp,'eligible_market_count':len(eligible),'liquid_research_count':len(liquid),'deep_intelligence_count':len(universe),'universe_size':len(universe),'updated_symbols':updated,
+                 'research_min_quote_volume_24h_usd_proxy':MIN_RESEARCH_QUOTE_VOLUME,'frozen_strategy_cohorts_unchanged':True,
+                 'durable_derivatives_history':False,'score_model':MODEL,'score_version':VERSION,'market_context_model':MARKET_CONTEXT_MODEL,'market_context_version':MARKET_CONTEXT_VERSION});OUT.write_text(json.dumps(data,indent=2,sort_keys=True)+'\n')
 
 if __name__=='__main__':main()
