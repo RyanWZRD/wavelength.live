@@ -1,0 +1,59 @@
+name: Dynamic Market Universe continuity
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'dynamic-market-universe-continuity.py'
+      - '.github/workflows/dynamic-market-universe-continuity.yml'
+  schedule:
+    - cron: '17 */4 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: dynamic-market-universe-continuity
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and authority guardrails
+        run: |
+          python -m py_compile dynamic-market-universe-continuity.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('dynamic-market-universe-continuity.py').read_text()
+          for bad in ['submit_order(', 'TradingClient(', '/v2/orders', 'automatic_promotion=True', 'orders_enabled=True']:
+              assert bad not in s,bad
+          for required in ["'orders_enabled':False","'execution_authority':False","'frozen_strategy_cohorts_unchanged':True"]:
+              assert required in s,required
+          print('universe continuity collector is research-only')
+          PY
+      - name: Rebuild clean crypto universe
+        run: python dynamic-market-universe-continuity.py
+      - name: Validate universe feed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('dynamic-market-universe-v2-continuity.json').read_text())
+          assert d['schema']=='wavelength-dynamic-market-universe-v2-continuity'
+          assert d['counts']['eligible']>=d['counts']['liquid_research']>=d['counts']['deep_intelligence']>=d['counts']['active_opportunity']
+          assert d['policy']['tradfi_wrappers_excluded'] is True
+          assert d['execution_authority'] is False
+          assert len(d['universe_fingerprint'])>=16
+          print(d['counts'])
+          PY
+      - name: Commit append-only universe evidence
+        run: |
+          git config user.name 'wavelength-research-bot'
+          git config user.email '85081495+RyanWZRD@users.noreply.github.com'
+          git add dynamic-market-universe-v2-continuity.json dynamic-market-universe-v2-continuity-history.jsonl
+          if git diff --cached --quiet; then exit 0; fi
+          git commit -m 'Update dynamic market universe continuity evidence'
+          git push
