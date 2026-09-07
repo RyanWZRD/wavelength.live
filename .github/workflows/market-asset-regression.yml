@@ -1,0 +1,62 @@
+name: Markets + Asset regression
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'index.html'
+      - 'app.js'
+      - 'shared-nav.js'
+      - 'terminal-shell.js'
+      - 'asset.html'
+      - 'asset.js'
+      - 'asset-symbol-normalizer.js'
+      - 'asset-data-fallbacks.js'
+      - 'asset-decision-evidence.js'
+      - 'tests/market-asset-regression.mjs'
+      - '.github/workflows/market-asset-regression.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: market-asset-regression-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and critical invariants
+        run: |
+          node --check asset.js
+          node --check asset-symbol-normalizer.js
+          node --check asset-decision-evidence.js
+          node --check shared-nav.js
+          node --check terminal-shell.js
+          grep -q 'asset.js?v=20260907-live-asset-1' asset.html
+          grep -q 'asset-decision-evidence.js' asset.html
+          grep -q 'LIVE STREAM' asset.js
+          grep -q 'applyLiveTicker' asset.js
+          grep -q 'applyLiveKline' asset.js
+          grep -q 'window.WavelengthAssetSymbol' asset.js
+      - name: Install browser test dependency
+        run: |
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start local site
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 > /tmp/wavelength-http.log 2>&1 &
+          echo $! > /tmp/wavelength-http.pid
+          for i in {1..20}; do curl -fsS http://127.0.0.1:4173/asset.html >/dev/null && break; sleep 0.5; done
+      - name: Run deterministic browser regression
+        env:
+          WL_TEST_URL: http://127.0.0.1:4173
+        run: node tests/market-asset-regression.mjs
