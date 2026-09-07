@@ -1,0 +1,34 @@
+name: System Integrity UI
+
+on:
+  pull_request:
+    paths:
+      - 'system-integrity.html'
+      - 'system-integrity.js'
+      - 'shared-nav.js'
+      - '.github/workflows/system-integrity-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'system-integrity.html'
+      - 'system-integrity.js'
+      - 'shared-nav.js'
+      - '.github/workflows/system-integrity-ui.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify integrity workspace
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('system-integrity.html').read_text();j=Path('system-integrity.js').read_text();n=Path('shared-nav.js').read_text()
+          for x in ['Integrity Findings','Module Freshness','Proof & Reproducibility','Lineage & Consistency','Semantic Data Truth','Safety & Workflow Assurance']:
+              assert x in h
+          assert 'system-integrity.json' in j
+          assert "['system-integrity.html','Integrity']" in n
+          assert 'No trading, capital, strategy, promotion or parameter authority' in h
+          print('System Integrity UI checks passed')
+          PY
