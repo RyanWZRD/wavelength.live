@@ -5,6 +5,9 @@ on:
     paths:
       - 'terminal-shell.css'
       - 'terminal-shell.js'
+      - 'terminal-workspace-v2.css'
+      - 'terminal-workspace-v2.js'
+      - 'terminal-workspace-v2-panes.js'
       - 'live-market-repaint.js'
       - 'live-market-repaint-loader.js'
       - 'shared-nav.js'
@@ -20,6 +23,9 @@ on:
     paths:
       - 'terminal-shell.css'
       - 'terminal-shell.js'
+      - 'terminal-workspace-v2.css'
+      - 'terminal-workspace-v2.js'
+      - 'terminal-workspace-v2-panes.js'
       - 'live-market-repaint.js'
       - 'live-market-repaint-loader.js'
       - 'shared-nav.js'
@@ -39,14 +45,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify terminal shell, unfrozen workspace and live market repaint
+      - name: Verify terminal shell, workspace v2 and live market repaint
         run: |
           node --check live-market-repaint.js
           node --check live-market-repaint-loader.js
+          node --check terminal-workspace-v2.js
+          node --check terminal-workspace-v2-panes.js
           python - <<'PY'
           from pathlib import Path
           css=Path('terminal-shell.css').read_text()
           js=Path('terminal-shell.js').read_text()
+          wcss=Path('terminal-workspace-v2.css').read_text()
+          wjs=Path('terminal-workspace-v2.js').read_text()
+          panes=Path('terminal-workspace-v2-panes.js').read_text()
           live=Path('live-market-repaint.js').read_text()
           loader=Path('live-market-repaint-loader.js').read_text()
           nav=Path('shared-nav.js').read_text()
@@ -57,6 +68,15 @@ jobs:
               assert marker in css
           for marker in ["'market-command.html'","'data-truth-v4.html'","'conviction-room.html'","'asset.html'",'F1','F5','WL&gt;','MODE RESEARCH-ONLY']:
               assert marker in js
+          for marker in ['wlv2-context','wlv2-workspace','wlv2-dock','wlv2-event-tape','wlv2-status','data-wlv2-density']:
+              assert marker in wcss
+          for marker in ['RANK','REPLAY','COMPARE','AUDIT','DENSITY','wlv2Dock','wlv2Status','wlv2Tape','contextmenu','wavelength:symbol']:
+              assert marker in wjs
+          for marker in ['wlv2WorkspaceGrid','data-linked-frame','decision-quality-v2-history.jsonl','wlv2-rank-history','pointermove','workspaceSplit']:
+              assert marker in panes
+          assert "style('terminal-workspace-v2.css','wl-terminal-workspace-v2')" in nav
+          assert "load('terminal-workspace-v2.js','wl-terminal-workspace-v2')" in nav
+          assert "load('terminal-workspace-v2-panes.js','wl-terminal-workspace-v2-panes')" in nav
           for marker in ['wss://stream.binance.com:9443/stream?streams=','schedulePaint()','#marketBody tr[data-sym=','.mover[data-open=','setTimeout(flush,120)','lastTickAt']:
               assert marker in live, marker
           assert 'live-market-repaint.js?v=${VERSION}' in loader
@@ -67,5 +87,5 @@ jobs:
           assert '.wl-tape{position:relative!important;top:auto!important}' in hard
           assert 'position:sticky' not in css
           assert 'href="styles.css"' in cr and 'href="style.css"' not in cr
-          print('Wavelength Terminal UI v1 + direct visible live price regression checks passed')
+          print('Wavelength Terminal Workspace v2 + live price regression contracts passed')
           PY
