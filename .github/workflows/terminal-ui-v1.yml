@@ -1,0 +1,54 @@
+name: Wavelength Terminal UI v1
+
+on:
+  pull_request:
+    paths:
+      - 'terminal-shell.css'
+      - 'terminal-shell.js'
+      - 'shared-nav.js'
+      - 'platform-hardening.css'
+      - 'conviction-room.html'
+      - 'market-command.html'
+      - 'data-truth-v4.html'
+      - 'asset.html'
+      - 'index.html'
+      - '.github/workflows/terminal-ui-v1.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'terminal-shell.css'
+      - 'terminal-shell.js'
+      - 'shared-nav.js'
+      - 'platform-hardening.css'
+      - 'conviction-room.html'
+      - 'market-command.html'
+      - 'data-truth-v4.html'
+      - 'asset.html'
+      - 'index.html'
+      - '.github/workflows/terminal-ui-v1.yml'
+
+jobs:
+  terminal-ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify terminal shell and unfrozen workspace
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          css=Path('terminal-shell.css').read_text()
+          js=Path('terminal-shell.js').read_text()
+          nav=Path('shared-nav.js').read_text()
+          hard=Path('platform-hardening.css').read_text()
+          cr=Path('conviction-room.html').read_text()
+          for marker in ['wl-terminal-v1','wlt-strip','wlt-rail','wlt-commandline','--term-accent']:
+              assert marker in css
+          for marker in ["'market-command.html'","'data-truth-v4.html'","'conviction-room.html'","'asset.html'",'F1','F5','WL&gt;','MODE RESEARCH-ONLY']:
+              assert marker in js
+          assert "style('terminal-shell.css','wl-terminal-shell')" in nav
+          assert "load('terminal-shell.js','wl-terminal-shell')" in nav
+          assert '.wl-tape{position:relative!important;top:auto!important}' in hard
+          assert 'position:sticky' not in css
+          assert 'href="styles.css"' in cr and 'href="style.css"' not in cr
+          print('Wavelength Terminal UI v1 regression checks passed')
+          PY
