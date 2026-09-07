@@ -1,4 +1,4 @@
-name: Data Truth v4 UI
+name: Canonical Data Truth UI
 
 on:
   pull_request:
@@ -24,12 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify Data Truth v4 workspace
+      - name: Verify canonical Data Truth workspace
         run: |
           python - <<'PY'
           from pathlib import Path
           h=Path('data-truth-v4.html').read_text();j=Path('data-truth-v4.js').read_text();n=Path('shared-nav.js').read_text();nf=Path('nansen-flow-v2.js').read_text();fb=Path('freshness-banner.js').read_text()
-          for x in ['SEMANTIC_DIRECT','LIVE_PROXY','CACHE','MISSING','Derivatives Cross-Check','Hyperliquid Provider Health']:
+          for x in ['CANONICAL DATA TRUTH','SEMANTIC_DIRECT','LIVE_PROXY','CACHE','MISSING','Derivatives Cross-Check','Hyperliquid Provider Health']:
               assert x in h
           for x in ['data-truth-v4.json','exchange-flow-intelligence.json','NANSEN_PRIMARY_CRYPTOQUANT_SECONDARY','Nansen calls this run']:
               assert x in j
@@ -39,7 +39,10 @@ jobs:
               assert x in fb
           assert "load('freshness-banner.js','wl-freshness-banner')" in n
           assert "load('nansen-flow-v2.js','wl-nansen-flow-v2')" in n
-          assert "['data-truth-v4.html','Data Truth v4']" in n
+          assert "['data-truth-v4.html','Data Truth']" in n
+          assert "['data-truth-v3.html','Data Truth v3']" not in n
+          assert "['data-truth-v2.html','Data Truth v2']" not in n
+          assert 'Legacy methodology remains available for audit' in h
           assert 'No trading, capital, promotion, strategy or parameter authority' in h
-          print('Data Truth v4 + Nansen flow v2 + freshness UI checks passed')
+          print('Canonical Data Truth + legacy retirement UI checks passed')
           PY
