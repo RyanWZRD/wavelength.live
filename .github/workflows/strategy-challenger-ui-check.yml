@@ -1,0 +1,57 @@
+name: Strategy challenger UI check
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'strategies.html'
+      - 'strategy-challenger-ui.js'
+      - 'strategy-challenger-results.json'
+      - 'strategy-challenger-audit.json'
+      - '.github/workflows/strategy-challenger-ui-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Syntax and wiring
+        run: |
+          node --check strategy-challenger-ui.js
+          grep -q 'strategy-challenger-ui.js' strategies.html
+          grep -q 'strategy-challenger-audit.json' strategy-challenger-ui.js
+          grep -q 'strategy-challenger-results.json' strategy-challenger-ui.js
+      - name: Strict seven-test public schema
+        run: |
+          python - <<'PY'
+          import json
+          required={'FEE_STRESS','EXECUTION_DELAY','EX_BEST_TRADE','PARAMETER_PERTURBATION','LEAVE_ONE_YEAR_OUT','REGIME_SEGMENTATION','MISSING_FILL_STRESS'}
+          a=json.load(open('strategy-challenger-audit.json'))
+          r=json.load(open('strategy-challenger-results.json'))
+          assert a['orders_enabled'] is False
+          assert a['live_money_enabled'] is False
+          assert a['automatic_rule_change'] is False
+          assert a['automatic_promotion'] is False
+          assert a['capital_allocation_authority'] is False
+          assert a['all_strategy_test_infrastructure_complete'] is True
+          assert set(a['required_tests'])==required
+          for row in a['strategies']:
+              assert row['infrastructure_complete'] is True
+              assert row['present_tests']==7
+              assert not row['missing_tests']
+              assert not row['extra_tests']
+              assert not row['duplicate_tests']
+              assert not row['unresolved_tests']
+          for row in r['strategies']:
+              assert set(x['test'] for x in row['tests'])==required
+              assert len(row['tests'])==7
+          print('Public Strategy Factory challenger audit is complete and read-only')
+          PY
