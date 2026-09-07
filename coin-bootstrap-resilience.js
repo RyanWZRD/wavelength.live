@@ -11,6 +11,7 @@ const camelTail=raw.match(/([A-Z][A-Z0-9]{1,9})$/);
 if(camelTail&&/[a-z]/.test(raw.slice(0,camelTail.index)))raw=camelTail[1];
 let canonical=raw.toUpperCase().replace(/[^A-Z0-9]/g,'');
 for(const quote of ['USDT','USDC','BUSD','USD'])if(canonical.endsWith(quote)&&canonical.length>quote.length){canonical=canonical.slice(0,-quote.length);break}
+if(canonical.length%2===0){const half=canonical.length/2;if(canonical.slice(0,half)===canonical.slice(half))canonical=canonical.slice(0,half)}
 canonical=aliases[canonical]||canonical||'BTC';
 if(q.get('symbol')!==canonical){q.set('symbol',canonical);history.replaceState(null,'',`${location.pathname}?${q.toString()}${location.hash}`)}
 window.WavelengthCoinSymbol=canonical;
