@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const MAX_COINS=40, EXCLUDE=new Set(['USDC','BUSD','TUSD','FDUSD','USDP','DAI','EUR','GBP','EURI','USTC','PAX','UST','WBTC','WBETH']);
+const MAX_COINS=60, EXCLUDE=new Set(['USDC','BUSD','TUSD','FDUSD','USDP','DAI','EUR','GBP','EURI','USTC','PAX','UST','WBTC','WBETH']);
 const coins={}, order=[]; let ws=null, filter=null, search='', sort='intel', cgBySymbol={}, validation=null, botBrain=null, currentRegime=null;
 const watch=new Set(JSON.parse(localStorage.getItem('wavelength_watchlist')||'[]'));
 const alerts=JSON.parse(localStorage.getItem('wavelength_alert_log')||'[]');
