@@ -8,6 +8,7 @@ on:
     branches: [main]
     paths:
       - 'forward-shadow-continuity.py'
+      - 'forward-shadow-runner.py'
       - '.github/workflows/forward-shadow-continuity.yml'
 
 permissions:
@@ -32,10 +33,10 @@ jobs:
         run: python -m pip install pandas numpy requests
       - name: Syntax and authority guard
         run: |
-          python -m py_compile forward-shadow-continuity.py
+          python -m py_compile forward-shadow-continuity.py forward-shadow-runner.py
           python - <<'PY'
           from pathlib import Path
-          s=Path('forward-shadow-continuity.py').read_text()
+          s=Path('forward-shadow-continuity.py').read_text()+Path('forward-shadow-runner.py').read_text()
           forbidden=['submit_order(', 'cancel_order(', 'place_order(', 'broker.submit', 'requests.post(', 'automatic_promotion=true', 'strategy_rule_mutation=true']
           assert not any(x in s for x in forbidden)
           PY
@@ -43,7 +44,7 @@ jobs:
         env:
           ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
           ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
-        run: python forward-shadow-continuity.py
+        run: python forward-shadow-runner.py
       - name: Validate frozen read-only evidence
         run: |
           python - <<'PY'
