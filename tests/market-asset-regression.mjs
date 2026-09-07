@@ -7,6 +7,7 @@ const baseURL=process.env.WL_TEST_URL||'http://127.0.0.1:4173';
 // Source-level invariants catch the exact regressions that previously reached production.
 const normalizer=fs.readFileSync('asset-symbol-normalizer.js','utf8');
 const asset=fs.readFileSync('asset.js','utf8');
+const liveChart=fs.readFileSync('asset-live-chart-v3.js','utf8');
 const shell=fs.readFileSync('terminal-shell.js','utf8');
 const html=fs.readFileSync('asset.html','utf8');
 assert.match(normalizer,/s\.slice\(0,half\)===s\.slice\(half\)/,'duplicated ticker invariant missing');
@@ -14,8 +15,14 @@ assert.match(asset,/window\.WavelengthAssetSymbol/,'asset engine must consume ca
 assert.match(asset,/wss:\/\/stream\.binance\.com:9443\/stream\?streams=/,'asset live combined stream missing');
 assert.match(asset,/applyLiveTicker/,'live ticker updater missing');
 assert.match(asset,/applyLiveKline/,'live candle updater missing');
+assert.match(liveChart,/@aggTrade/,'live chart aggregate-trade stream missing');
+assert.match(liveChart,/@kline_/,'live chart kline stream missing');
+assert.match(liveChart,/\['1s','1m','5m','15m','30m','1h','4h','1d'\]/,'expanded live chart intervals missing');
 assert.match(shell,/e\.ctrlKey\|\|e\.metaKey\|\|e\.altKey\|\|e\.shiftKey/,'browser modifier/F-key guard missing');
 assert.match(html,/asset-decision-evidence\.js/,'Decision Evidence is not wired into asset page');
+assert.match(html,/data-chart-type="candles"/,'candles control missing');
+assert.match(html,/data-chart-type="line"/,'line control missing');
+assert.match(html,/data-chart-interval="1s"/,'1s chart interval missing');
 
 const candles=[];
 const start=Date.UTC(2026,0,1);
@@ -40,7 +47,8 @@ await page.addInitScript(({lastOpen})=>{
         const send=(data)=>this.onmessage?.({data:JSON.stringify({stream:'mock',data})});
         setTimeout(()=>{window.__wlFakeTickerCount++;send({e:'24hrTicker',c:'60001.00',P:'1.10',h:'61000',l:'58000',q:'2500000000',n:123456});},120);
         setTimeout(()=>{window.__wlFakeTickerCount++;send({e:'24hrTicker',c:'60002.50',P:'1.12',h:'61000',l:'58000',q:'2501000000',n:123500});},360);
-        setTimeout(()=>send({e:'kline',k:{t:lastOpen,T:lastOpen+14399999,o:'58970',h:'60100',l:'58800',c:'60002.50',v:'155',q:'9300000',n:1200,V:'80',Q:'4800000'}}),520);
+        setTimeout(()=>send({e:'aggTrade',p:'60003.25',T:lastOpen+1000}),430);
+        setTimeout(()=>send({e:'kline',k:{t:lastOpen,T:lastOpen+14399999,o:'58970',h:'60100',l:'58800',c:'60003.25',v:'155',q:'9300000',n:1200,V:'80',Q:'4800000'}}),520);
       },60);
     }
     close(){this.readyState=FakeWebSocket.CLOSED;this.onclose?.({type:'close'});}
@@ -79,13 +87,17 @@ await page.waitForFunction(()=>!/Loading/i.test(document.querySelector('#fundame
 await page.waitForFunction(()=>(window.__wlFakeTickerCount||0)>=2);
 await page.waitForFunction(()=>document.querySelector('#assetPrice')?.textContent?.includes('60,002.50'));
 assert.match(await page.locator('#assetPrice').innerText(),/60,002\.50/,'headline price did not receive live ticker update');
-assert.ok((await page.locator('#priceChart').evaluate(c=>c.width))>0,'chart canvas was not rendered');
+await page.waitForSelector('#livePriceChart');
+assert.ok((await page.locator('#livePriceChart').evaluate(c=>c.width))>0,'live chart canvas was not rendered');
 await page.waitForFunction(()=>document.querySelector('#chartMeta')?.textContent?.includes('LIVE'));
 assert.match(await page.locator('#chartMeta').innerText(),/LIVE/,'current candle did not receive live kline update');
+assert.equal(await page.locator('[data-chart-type="candles"]').count(),1,'candles toggle not visible');
+assert.equal(await page.locator('[data-chart-type="line"]').count(),1,'line toggle not visible');
+assert.equal(await page.locator('[data-chart-interval="1s"]').count(),1,'1s interval not visible');
 await page.waitForSelector('#decisionEvidence');
 assert.doesNotMatch(await page.locator('#decisionEvidence').innerText(),/Waiting for market evidence/i);
 assert.match(await page.locator('#decisionEvidenceBoundary').innerText(),/RESEARCH PRIORITISATION ONLY/);
-assert.match(await page.evaluate(()=>window.__wlFakeSocketURL||''),/btcusdt@ticker\/btcusdt@kline_4h/,'wrong websocket symbol/timeframe');
+assert.match(await page.evaluate(()=>window.__wlFakeSocketURL||''),/btcusdt@aggTrade\/btcusdt@kline_4h/,'wrong live-chart websocket symbol/timeframe');
 
 // Navigation regression: one Markets click must settle directly on #markets.
 await page.goto(`${baseURL}/index.html`,{waitUntil:'domcontentloaded'});
