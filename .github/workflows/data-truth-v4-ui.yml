@@ -27,7 +27,8 @@ jobs:
           h=Path('data-truth-v4.html').read_text();j=Path('data-truth-v4.js').read_text();n=Path('shared-nav.js').read_text()
           for x in ['SEMANTIC_DIRECT','LIVE_PROXY','CACHE','MISSING','Derivatives Cross-Check','Hyperliquid Provider Health']:
               assert x in h
-          assert 'data-truth-v4.json' in j
+          for x in ['data-truth-v4.json','exchange-flow-intelligence.json','NANSEN_PRIMARY_CRYPTOQUANT_SECONDARY','Nansen calls this run']:
+              assert x in j
           assert "['data-truth-v4.html','Data Truth v4']" in n
           assert 'No trading, capital, promotion, strategy or parameter authority' in h
           print('Data Truth v4 UI checks passed')
