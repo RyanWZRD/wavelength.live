@@ -9,7 +9,7 @@ const normalizer=fs.readFileSync('asset-symbol-normalizer.js','utf8');
 const asset=fs.readFileSync('asset.js','utf8');
 const shell=fs.readFileSync('terminal-shell.js','utf8');
 const html=fs.readFileSync('asset.html','utf8');
-assert.match(normalizer,/s\.slice\(0,h\)===s\.slice\(h\)/,'duplicated ticker invariant missing');
+assert.match(normalizer,/s\.slice\(0,half\)===s\.slice\(half\)/,'duplicated ticker invariant missing');
 assert.match(asset,/window\.WavelengthAssetSymbol/,'asset engine must consume canonical symbol');
 assert.match(asset,/wss:\/\/stream\.binance\.com:9443\/stream\?streams=/,'asset live combined stream missing');
 assert.match(asset,/applyLiveTicker/,'live ticker updater missing');
