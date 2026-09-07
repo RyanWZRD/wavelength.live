@@ -1,6 +1,6 @@
 {
   "mode": "WAVELENGTH_PUBLIC_SOURCE_MANIFEST_V2_READ_ONLY",
-  "schema": "wavelength-source-manifest-v2.3",
+  "schema": "wavelength-source-manifest-v2.4",
   "strategy_rule_mutation": false,
   "execution_authority": false,
   "freshness_policy": {
@@ -11,7 +11,7 @@
     "event_driven_heartbeat_max_age_minutes": 150,
     "event_driven_no_new_event_state": "CURRENT_NO_NEW_EVENT",
     "top_level_health_criticality": "PRIMARY",
-    "states": ["FRESH", "CURRENT_NO_NEW_EVENT", "AGING", "STALE", "DEGRADED", "MISSING", "CONFLICT"]
+    "states": ["FRESH", "CURRENT_NO_NEW_EVENT", "ARCHIVAL", "AGING", "STALE", "DEGRADED", "MISSING", "CONFLICT"]
   },
   "sources": [
     {"id":"decision_quality","label":"Decision Quality v2 continuity","path":"decision-quality-v2.json","scope":"Current opportunity ranking","authority":"PUBLIC_CONTINUITY","criticality":"PRIMARY","max_age_minutes":300,"cadence":"SCHEDULED","dependencies":[]},
@@ -22,7 +22,7 @@
 
     {"id":"graduation","label":"Graduation evidence","path":"paper-graduation.json","scope":"Candidate V3 + Crowding v2","authority":"CANONICAL_GOVERNANCE","criticality":"ADVISORY","max_age_minutes":180,"cadence":"EVENT_DRIVEN","observed_at_paths":["execution_reality.guardian_recorded_at"],"dependencies":["v3_forward","crowding"]},
     {"id":"v3_forward","label":"Candidate V3 forward evidence","path":"candidate-v3-forward-evidence.json","scope":"Candidate V3 · private canonical publisher","authority":"CANONICAL_EVIDENCE","criticality":"ADVISORY","max_age_minutes":300,"cadence":"SCHEDULED","freshness_basis":"HEARTBEAT_PROGRESS","progress_path":"summary.latest_shadow_bar","observed_at_paths":["summary.latest_shadow_bar"],"dependencies":[]},
-    {"id":"radar","label":"Legacy opportunity radar","path":"opportunity-radar.json","scope":"Legacy market research feed","authority":"DERIVED_RESEARCH","criticality":"ADVISORY","max_age_minutes":120,"cadence":"HOURLY","expected_interval_minutes":60,"dependencies":[]},
+    {"id":"radar","label":"Legacy opportunity radar","path":"opportunity-radar.json","scope":"Retired legacy market research feed · retained for lineage/history only","authority":"DERIVED_RESEARCH_ARCHIVAL","criticality":"ARCHIVAL","cadence":"RETIRED_ARCHIVAL","retired":true,"replacement_source":"decision_quality","dependencies":[]},
     {"id":"auto_paper","label":"Automatic PAPER status","path":"automatic-paper-status.json","scope":"Candidate V3 PAPER","authority":"CANONICAL_OPERATIONAL","criticality":"ADVISORY","max_age_minutes":300,"cadence":"EVENT_DRIVEN_AFTER_V3_SHADOW","dependencies":["graduation","v3_forward"]},
     {"id":"execution","label":"Execution intelligence","path":"execution-intelligence.json","scope":"PAPER execution","authority":"CANONICAL_OPERATIONAL","criticality":"ADVISORY","max_age_minutes":300,"cadence":"EVENT_DRIVEN","dependencies":["auto_paper"]},
     {"id":"bot_ops","label":"Bot operations continuity","path":"bot-operations-status.json","scope":"Public operational continuity while private runner unavailable","authority":"PUBLIC_CONTINUITY","criticality":"ADVISORY","max_age_minutes":300,"cadence":"HOURLY","expected_interval_minutes":60,"dependencies":[]},
