@@ -1,0 +1,70 @@
+name: Decision Quality v3.1 diagnostics
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 */4 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'decision-quality-v3-diagnostics.py'
+      - 'decision-quality-v3-evaluator.py'
+      - '.github/workflows/decision-quality-v3-diagnostics.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: decision-quality-v3-diagnostics
+  cancel-in-progress: false
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and authority guardrails
+        run: |
+          python -m py_compile decision-quality-v3-diagnostics.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('decision-quality-v3-diagnostics.py').read_text()
+          for bad in ['submit_order(', 'TradingClient(', '/v2/orders', "'automatic_promotion':True", "'orders_enabled':True", "'execution_authority':True"]:
+              assert bad not in s,bad
+          for required in ['HOLM_BONFERRONI','fresh_forward_cohort_required','survivorship','path_analysis','decision_certificates_count']:
+              assert required in s,required
+          print('Decision Quality v3.1 diagnostics are read-only and multiple-testing protected')
+          PY
+      - name: Build diagnostics and append path evidence
+        run: python decision-quality-v3-diagnostics.py
+      - name: Validate diagnostics feed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('decision-quality-v3-diagnostics.json').read_text())
+          assert d['orders_enabled'] is False and d['execution_authority'] is False
+          assert d['automatic_promotion'] is False and d['parameter_mutation'] is False
+          x=d['diagnostics']
+          for k in ['regime_proof','rank_band_proof','confidence_calibration','model_disagreement','penalty_attribution','factor_stability','rank_persistence_decay','path_analysis','false_positive_taxonomy','missed_winner_taxonomy','survivorship','evidence_quality','multiple_testing','champion_challenger_registry']:
+              assert k in x,k
+          assert x['multiple_testing']['method']=='HOLM_BONFERRONI'
+          c=json.loads(Path('decision-quality-v3-certificates.json').read_text())
+          assert c['orders_enabled'] is False
+          print('Decision Quality v3.1 diagnostics feed valid')
+          PY
+      - name: Commit durable diagnostics evidence
+        run: |
+          git config user.name 'wavelength-diagnostics[bot]'
+          git config user.email 'wavelength-diagnostics[bot]@users.noreply.github.com'
+          git add decision-quality-v3-diagnostics.json decision-quality-v3-diagnostics-history.jsonl decision-quality-v3-certificates.json
+          test ! -f decision-quality-v3-paths.jsonl || git add decision-quality-v3-paths.jsonl
+          git diff --cached --quiet || git commit -m 'Update Decision Quality v3.1 diagnostics evidence'
+          git pull --rebase origin main
+          git push origin HEAD:main
