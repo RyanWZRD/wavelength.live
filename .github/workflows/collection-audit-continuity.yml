@@ -11,6 +11,12 @@ on:
       - '.github/workflows/collection-audit-continuity.yml'
       - 'decision-quality-v2.json'
       - 'decision-quality-v2-history.jsonl'
+      - 'decision-quality-v3-evaluation.json'
+      - 'decision-quality-v3-resolved.jsonl'
+      - 'decision-quality-v3-diagnostics.json'
+      - 'decision-quality-v3-diagnostics-history.jsonl'
+      - 'decision-quality-v3-paths.jsonl'
+      - 'decision-quality-v3-certificates.json'
       - 'dynamic-market-universe-v2-continuity.json'
       - 'dynamic-market-universe-v2-continuity-history.jsonl'
 
@@ -43,8 +49,9 @@ jobs:
           from pathlib import Path
           p=json.loads(Path('collection-audit-continuity.json').read_text())
           assert p['orders_enabled'] is False and p['execution_authority'] is False
-          assert p['collector_count'] >= 3
+          assert p['collector_count'] >= 5
           assert 'universe_coverage' in p
+          assert 'decision_quality_v31_walk_forward_eligible' in p
           print(p['overall_state'],p['evidence_confidence_pct'],p['universe_coverage'].get('counts'))
           PY
       - name: Commit continuity audit evidence
