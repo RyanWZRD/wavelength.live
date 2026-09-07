@@ -5,6 +5,8 @@ on:
     paths:
       - 'data-truth-v4.html'
       - 'data-truth-v4.js'
+      - 'nansen-flow-v2.js'
+      - 'freshness-banner.js'
       - 'shared-nav.js'
       - '.github/workflows/data-truth-v4-ui.yml'
   push:
@@ -12,6 +14,8 @@ on:
     paths:
       - 'data-truth-v4.html'
       - 'data-truth-v4.js'
+      - 'nansen-flow-v2.js'
+      - 'freshness-banner.js'
       - 'shared-nav.js'
       - '.github/workflows/data-truth-v4-ui.yml'
 
@@ -24,12 +28,18 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          h=Path('data-truth-v4.html').read_text();j=Path('data-truth-v4.js').read_text();n=Path('shared-nav.js').read_text()
+          h=Path('data-truth-v4.html').read_text();j=Path('data-truth-v4.js').read_text();n=Path('shared-nav.js').read_text();nf=Path('nansen-flow-v2.js').read_text();fb=Path('freshness-banner.js').read_text()
           for x in ['SEMANTIC_DIRECT','LIVE_PROXY','CACHE','MISSING','Derivatives Cross-Check','Hyperliquid Provider Health']:
               assert x in h
           for x in ['data-truth-v4.json','exchange-flow-intelligence.json','NANSEN_PRIMARY_CRYPTOQUANT_SECONDARY','Nansen calls this run']:
               assert x in j
+          for x in ['nansen-flow-intelligence-v2.json','direction_reversal','absolute_magnitude_percentile','flow_conviction_conflict','Resolved 24h']:
+              assert x in nf
+          for x in ['Data freshness notice:','Core feeds remain available','Data availability warning:','system-integrity.json']:
+              assert x in fb
+          assert "load('freshness-banner.js','wl-freshness-banner')" in n
+          assert "load('nansen-flow-v2.js','wl-nansen-flow-v2')" in n
           assert "['data-truth-v4.html','Data Truth v4']" in n
           assert 'No trading, capital, promotion, strategy or parameter authority' in h
-          print('Data Truth v4 UI checks passed')
+          print('Data Truth v4 + Nansen flow v2 + freshness UI checks passed')
           PY
