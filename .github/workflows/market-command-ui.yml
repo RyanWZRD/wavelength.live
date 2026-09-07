@@ -1,0 +1,37 @@
+name: Market Command UI
+
+on:
+  pull_request:
+    paths:
+      - 'market-command.html'
+      - 'market-command.js'
+      - 'shared-nav.js'
+      - '.github/workflows/market-command-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'market-command.html'
+      - 'market-command.js'
+      - 'shared-nav.js'
+      - '.github/workflows/market-command-ui.yml'
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Market Command flagship
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('market-command.html').read_text()
+          j=Path('market-command.js').read_text()
+          n=Path('shared-nav.js').read_text()
+          for x in ['Market Opportunity Map','Wavelength Radar','Replay Time Machine','Scenario Theatre','Portfolio X-Ray','Decision Story','Thesis Autopsy','Why Not?','Evidence Heatmap','Explainable Opportunity Alerts']:
+              assert x in h
+          for x in ['market-command.json','replay_mode','scenario_theatre','portfolio_xray','thesis_autopsy','why_not_engine']:
+              assert x in j
+          assert "market-command.html','Market Command" in n
+          assert 'submit_order' not in h+j
+          print('Market Command UI checks passed')
+          PY
