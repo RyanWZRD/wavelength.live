@@ -41,6 +41,18 @@ jobs:
           test -s activity.html
           test -s platform-hardening.css
           grep -q 'CANONICAL_GOVERNANCE' source-manifest.json
+          grep -q 'WAVELENGTH_PUBLIC_SOURCE_MANIFEST_V2_READ_ONLY' source-manifest.json
+          grep -q 'transitive' source-manifest.json
+          grep -q 'dependencies' source-manifest.json
+          grep -q 'observed_at_paths' source-manifest.json
+          grep -q "fresh_generated_from_stale_upstream" source-manifest.json
+          for state in FRESH AGING STALE DEGRADED MISSING CONFLICT; do grep -q "$state" source-manifest.json; done
+          grep -q 'effective_state' provenance-core.js
+          grep -q 'lineage' provenance-core.js
+          grep -q 'observed_at' provenance-core.js
+          grep -q 'generated_at' provenance-core.js
+          grep -q 'Scheduled/source freshness SLA breached' provenance-core.js
+          grep -q 'Event-driven source has not regenerated' provenance-core.js
           grep -q 'activity.html' shared-nav.js
           grep -q 'provenance.html' shared-nav.js
           grep -q 'provenance-core.js' shared-nav.js
