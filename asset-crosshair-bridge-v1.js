@@ -1,0 +1,12 @@
+(()=>{'use strict';
+if(window.__wavelengthAssetCrosshairBridgeV1)return;window.__wavelengthAssetCrosshairBridgeV1=true;
+const $=(s,r=document)=>r.querySelector(s);let rows=[],interval='1m',lastLoad=0,pending=false;
+const symbol=()=>new URLSearchParams(location.search).get('symbol')?.toUpperCase()||'BTC';
+const api='https://data-api.binance.vision/api/v3/klines';
+function activeInterval(){const a=document.querySelector('[data-chart-interval].active,[data-chart-interval][aria-pressed="true"]');return a?.dataset?.chartInterval||a?.dataset?.interval||'1m'}
+async function load(){if(pending)return;const iv=activeInterval();if(iv==='1s'){rows=[];interval=iv;return}if(Date.now()-lastLoad<5000&&iv===interval&&rows.length)return;pending=true;interval=iv;try{const u=`${api}?symbol=${encodeURIComponent(symbol()+'USDT')}&interval=${encodeURIComponent(iv)}&limit=1000`;const r=await fetch(u,{cache:'no-store'});if(r.ok)rows=await r.json();lastLoad=Date.now()}catch{}finally{pending=false}}
+function visibleSlice(){const st=window.WavelengthAssetChart?.getState?.()||{};const n=Math.max(1,Number(st.visibleCount)||180),off=Math.max(0,Number(st.endOffset)||0);const end=Math.max(0,rows.length-off),start=Math.max(0,end-n);return rows.slice(start,end)}
+function emit(e){const c=e.currentTarget,rect=c.getBoundingClientRect(),x=Math.max(0,Math.min(rect.width,e.clientX-rect.left)),ratio=rect.width?x/rect.width:0;const vs=visibleSlice();let t=null,price=null;if(vs.length){const idx=Math.min(vs.length-1,Math.max(0,Math.round(ratio*(vs.length-1)))),k=vs[idx];t=Number(k?.[0])||null;const vals=vs.flatMap(r=>[Number(r?.[2]),Number(r?.[3])]).filter(Number.isFinite);if(vals.length){const hi=Math.max(...vals),lo=Math.min(...vals),yr=Math.max(0,Math.min(1,(e.clientY-rect.top)/Math.max(1,rect.height)));price=hi-(hi-lo)*yr}}window.parent?.postMessage?.({type:'wavelength:crosshair',symbol:symbol(),time:t,price:Number.isFinite(price)?price:null,interval,ratio},location.origin)}
+function bind(){const c=$('#livePriceChart');if(!c||c.dataset.crosshairBridge)return;c.dataset.crosshairBridge='1';c.addEventListener('pointermove',emit,{passive:true});c.addEventListener('pointerenter',()=>load());document.addEventListener('click',e=>{if(e.target.closest('[data-chart-interval]'))setTimeout(load,80)},true);load()}
+const mo=new MutationObserver(bind);mo.observe(document.documentElement,{childList:true,subtree:true});if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',bind);else bind();
+})();
