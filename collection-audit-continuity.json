@@ -1,10 +1,10 @@
 {
-  "audit_run": 2,
+  "audit_run": 3,
   "collector_count": 3,
   "collectors": [
     {
       "advance_cycles": 1,
-      "age_minutes": 1.7,
+      "age_minutes": 4.6,
       "audit_cycles_observed": 2,
       "cadence": "4_HOURLY",
       "count": 2,
@@ -23,26 +23,26 @@
     },
     {
       "advance_cycles": 0,
-      "age_minutes": 83.7,
+      "age_minutes": 0.3,
       "audit_cycles_observed": 1,
       "cadence": "4_HOURLY",
-      "count": 468,
+      "count": 1,
       "delta_records": 0,
       "expected_min": 300,
       "id": "dynamic_universe",
       "kind": "universe",
-      "label": "Dynamic Market Universe v2",
+      "label": "Dynamic Market Universe v2 continuity",
       "model_version": null,
-      "path": "dynamic-market-universe-v2.json",
-      "proof_status": "RUNNING_NO_DISTINCT_EVENT",
-      "reason": "Feed is present within its expected window.",
-      "semantic_fingerprint": "42e06b5d445ddbc0",
-      "source_observation_at": "2026-09-07T17:44:01.973611+00:00",
-      "state": "NO_NEW_EVENT"
+      "path": "dynamic-market-universe-v2-continuity.json",
+      "proof_status": "WAITING",
+      "reason": "1 frozen history snapshots persisted.",
+      "semantic_fingerprint": "694abcd118975d35",
+      "source_observation_at": "2026-09-07T19:10:22.978722+00:00",
+      "state": "COLLECTING"
     },
     {
       "advance_cycles": 0,
-      "age_minutes": 86.2,
+      "age_minutes": 89.2,
       "audit_cycles_observed": 1,
       "cadence": "HOURLY",
       "count": 1,
@@ -63,7 +63,7 @@
   "decision_quality_model": "v2.1",
   "evidence_confidence_pct": 70,
   "execution_authority": false,
-  "generated_at": "2026-09-07T19:07:46.608214+00:00",
+  "generated_at": "2026-09-07T19:10:42.540284+00:00",
   "interpretation": "Fallback audit only. It explicitly surfaces stale private authority rather than allowing stale data to look healthy.",
   "mode": "PUBLIC_READ_ONLY_CONTINUITY",
   "operational_collectors": 3,
@@ -72,26 +72,36 @@
   "proven_accumulating_collectors": 1,
   "schema": "wavelength-collection-audit-continuity-v1",
   "state_counts": {
-    "COLLECTING": 1,
+    "COLLECTING": 2,
     "DUPLICATE": 0,
     "FAILED": 0,
     "NEW": 0,
-    "NO_NEW_EVENT": 2,
+    "NO_NEW_EVENT": 1,
     "STALLED": 0,
     "WAITING_FOR_OUTCOME": 0
   },
   "universe_coverage": {
+    "authority": "FALLBACK_WHILE_PRIVATE_RUNNER_UNAVAILABLE",
     "counts": {
       "active_opportunity": 20,
       "deep_intelligence": 60,
-      "eligible": 468,
-      "liquid_research": 74
+      "eligible": 408,
+      "liquid_research": 70,
+      "raw_usdt_pairs": 739
     },
     "coverage": {
-      "deep_of_liquid_pct": 81.08,
-      "discovery_pct": 100.0
+      "deep_of_liquid_pct": 85.71,
+      "discovery_pct": 100.0,
+      "liquid_of_eligible_pct": 17.16
     },
-    "excluded_counts": {},
-    "fingerprint": "f23f8244f6dd4dc4c4"
+    "excluded_counts": {
+      "below_liquid_threshold": 338,
+      "invalid_symbol": 1,
+      "leveraged": 2,
+      "non_trading_or_non_spot": 252,
+      "stable_or_wrapped": 19,
+      "tradfi_wrapper": 57
+    },
+    "fingerprint": "1ea2744e6f25e29320b9"
   }
 }
