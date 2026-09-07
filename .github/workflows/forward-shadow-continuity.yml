@@ -1,0 +1,70 @@
+name: Forward shadow continuity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 */4 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'forward-shadow-continuity.py'
+      - '.github/workflows/forward-shadow-continuity.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: forward-shadow-continuity
+  cancel-in-progress: true
+
+jobs:
+  shadow:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install read-only research dependencies
+        run: python -m pip install pandas numpy requests
+      - name: Syntax and authority guard
+        run: |
+          python -m py_compile forward-shadow-continuity.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('forward-shadow-continuity.py').read_text()
+          forbidden=['submit_order(', 'cancel_order(', 'place_order(', 'broker.submit', 'requests.post(', 'automatic_promotion=true', 'strategy_rule_mutation=true']
+          assert not any(x in s for x in forbidden)
+          PY
+      - name: Continue frozen V3 and Crowding shadows
+        env:
+          ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
+          ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
+        run: python forward-shadow-continuity.py
+      - name: Validate frozen read-only evidence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in ['candidate-v3-forward-evidence.json','crowding-v2-forward-evidence.json']:
+              p=json.loads(Path(path).read_text())
+              assert p['orders_enabled'] is False
+              assert p['execution_authority'] is False
+              assert p['automatic_promotion'] is False
+              assert p['strategy_rule_mutation'] is False
+              assert p['authority']=='PUBLIC_CONTINUITY_WHILE_PRIVATE_RUNNER_UNAVAILABLE'
+              assert (p.get('summary') or {}).get('latest_shadow_bar')
+          state=json.loads(Path('forward-shadow-continuity-state.json').read_text())
+          print(state)
+          PY
+      - name: Commit forward shadow continuity
+        run: |
+          git config user.name 'wavelength-continuity[bot]'
+          git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'
+          git add candidate-v3-forward-evidence.json crowding-v2-forward-evidence.json forward-shadow-continuity-state.json forward-shadow-continuity-history.jsonl
+          git diff --cached --quiet || git commit -m 'Update frozen forward shadow continuity'
+          git pull --rebase origin main
+          git push origin HEAD:main
