@@ -17,6 +17,8 @@ OUT=Path('decision-quality-v3-evaluation.json')
 HORIZONS={24:24,72:72,168:168}
 MIN_SNAPSHOTS_MEASURED=5
 MIN_ASSET_OUTCOMES_CALIBRATION=50
+MIN_SNAPSHOTS_CHALLENGER=10
+MIN_ASSET_OUTCOMES_CHALLENGER=100
 
 
 def now(): return datetime.now(timezone.utc).isoformat()
@@ -87,11 +89,6 @@ def resolve_snapshot(snapshot,hours):
         'baseline_top10':baseline_syms
     }
 
-def bucket(v,cuts):
-    for name,lo,hi in cuts:
-        if lo<=v<hi:return name
-    return cuts[-1][0]
-
 def pearson(xs,ys):
     if len(xs)<3 or len(xs)!=len(ys): return None
     mx,my=mean(xs),mean(ys);dx=[x-mx for x in xs];dy=[y-my for y in ys]
@@ -115,13 +112,33 @@ def aggregate(records):
     missed=sorted([a for a in assets if (a.get('rank') or 0)>10 and a['forward_return_pct']>=5],key=lambda x:x['forward_return_pct'],reverse=True)[:20]
     by_horizon=[]
     for h in sorted(HORIZONS):
-        rs=[r for r in records if r['horizon_hours']==h];
+        rs=[r for r in records if r['horizon_hours']==h]
         vals=lambda key:[r['benchmarks'].get(key) for r in rs if r['benchmarks'].get(key) is not None]
         v21=vals('v2_1_top10_mean_return_pct');v20=vals('v2_0_top10_mean_return_pct');full=vals('full_universe_mean_return_pct');btc=vals('btc_return_pct')
         by_horizon.append({'horizon_hours':h,'resolved_snapshots':len(rs),'v2_1_top10_mean_return_pct':safe_round(mean(v21)),'v2_0_top10_mean_return_pct':safe_round(mean(v20)),'full_universe_mean_return_pct':safe_round(mean(full)),'btc_mean_return_pct':safe_round(mean(btc)),'v2_1_minus_v2_0_pct_points':safe_round((mean(v21)-mean(v20)) if v21 and v20 else None),'v2_1_minus_universe_pct_points':safe_round((mean(v21)-mean(full)) if v21 and full else None)})
     snapshots=len({r['snapshot_generated_at'] for r in records});nassets=len(assets)
-    state='MEASURED' if snapshots>=MIN_SNAPSHOTS_MEASURED and nassets>=MIN_ASSET_OUTCOMES_CALIBRATION else 'COLLECTING_FORWARD_EVIDENCE'
-    return {'state':state,'resolved_snapshots':snapshots,'resolved_asset_outcomes':nassets,'minimums':{'snapshots_for_measured':MIN_SNAPSHOTS_MEASURED,'asset_outcomes_for_calibration':MIN_ASSET_OUTCOMES_CALIBRATION},'by_horizon':by_horizon,'score_calibration':score_buckets,'factor_diagnostics':factors,'false_positives':false_pos,'missed_winners':missed}
+    measured=snapshots>=MIN_SNAPSHOTS_MEASURED and nassets>=MIN_ASSET_OUTCOMES_CALIBRATION
+    challenger=snapshots>=MIN_SNAPSHOTS_CHALLENGER and nassets>=MIN_ASSET_OUTCOMES_CHALLENGER
+    state='CHALLENGER_ELIGIBLE' if challenger else ('MEASURED' if measured else 'COLLECTING_FORWARD_EVIDENCE')
+    gates={
+        'measured':{
+            'passed':measured,
+            'required_resolved_snapshots':MIN_SNAPSHOTS_MEASURED,
+            'required_asset_outcomes':MIN_ASSET_OUTCOMES_CALIBRATION,
+            'current_resolved_snapshots':snapshots,
+            'current_asset_outcomes':nassets,
+        },
+        'challenger_eligible':{
+            'passed':challenger,
+            'required_resolved_snapshots':MIN_SNAPSHOTS_CHALLENGER,
+            'required_asset_outcomes':MIN_ASSET_OUTCOMES_CHALLENGER,
+            'current_resolved_snapshots':snapshots,
+            'current_asset_outcomes':nassets,
+            'manual_review_required':True,
+            'automatic_promotion':False,
+        }
+    }
+    return {'state':state,'resolved_snapshots':snapshots,'resolved_asset_outcomes':nassets,'minimums':{'snapshots_for_measured':MIN_SNAPSHOTS_MEASURED,'asset_outcomes_for_calibration':MIN_ASSET_OUTCOMES_CALIBRATION,'snapshots_for_challenger':MIN_SNAPSHOTS_CHALLENGER,'asset_outcomes_for_challenger':MIN_ASSET_OUTCOMES_CHALLENGER},'gates':gates,'by_horizon':by_horizon,'score_calibration':score_buckets,'factor_diagnostics':factors,'false_positives':false_pos,'missed_winners':missed}
 
 def main():
     snapshots=load_jsonl(HISTORY);existing=load_jsonl(RESOLVED)
@@ -141,8 +158,8 @@ def main():
             for r in new:f.write(json.dumps(r,sort_keys=True)+'\n')
     all_records=existing+new
     evaluation=aggregate(all_records)
-    payload={'schema':'wavelength-decision-quality-v3-evaluation-v1','mode':'READ_ONLY_FORWARD_EVALUATION','generated_at':now(),'orders_enabled':False,'execution_authority':False,'automatic_promotion':False,'automatic_allocation':False,'strategy_rule_mutation':False,'parameter_mutation':False,'horizons_hours':sorted(HORIZONS),'snapshot_count':len(snapshots),'new_resolutions':len(new),'evaluation':evaluation,'interpretation':'Model weights remain frozen. Results are descriptive until minimum forward-evidence gates are satisfied.'}
+    payload={'schema':'wavelength-decision-quality-v3-evaluation-v1','mode':'READ_ONLY_FORWARD_EVALUATION','generated_at':now(),'orders_enabled':False,'execution_authority':False,'automatic_promotion':False,'automatic_allocation':False,'strategy_rule_mutation':False,'parameter_mutation':False,'horizons_hours':sorted(HORIZONS),'snapshot_count':len(snapshots),'new_resolutions':len(new),'evaluation':evaluation,'interpretation':'Model weights remain frozen. Results are descriptive until explicit forward-evidence gates are satisfied; challenger eligibility still requires manual review.'}
     OUT.write_text(json.dumps(payload,indent=2,sort_keys=True)+'\n')
-    print(json.dumps({'snapshots':len(snapshots),'new_resolutions':len(new),'state':evaluation['state'],'resolved_asset_outcomes':evaluation['resolved_asset_outcomes']},indent=2))
+    print(json.dumps({'snapshots':len(snapshots),'new_resolutions':len(new),'state':evaluation['state'],'resolved_asset_outcomes':evaluation['resolved_asset_outcomes'],'gates':evaluation['gates']},indent=2))
 
 if __name__=='__main__':main()
