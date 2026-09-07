@@ -1,0 +1,34 @@
+name: Data Truth v4 UI
+
+on:
+  pull_request:
+    paths:
+      - 'data-truth-v4.html'
+      - 'data-truth-v4.js'
+      - 'shared-nav.js'
+      - '.github/workflows/data-truth-v4-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data-truth-v4.html'
+      - 'data-truth-v4.js'
+      - 'shared-nav.js'
+      - '.github/workflows/data-truth-v4-ui.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Data Truth v4 workspace
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('data-truth-v4.html').read_text();j=Path('data-truth-v4.js').read_text();n=Path('shared-nav.js').read_text()
+          for x in ['SEMANTIC_DIRECT','LIVE_PROXY','CACHE','MISSING','Derivatives Cross-Check','Hyperliquid Provider Health']:
+              assert x in h
+          assert 'data-truth-v4.json' in j
+          assert "['data-truth-v4.html','Data Truth v4']" in n
+          assert 'No trading, capital, promotion, strategy or parameter authority' in h
+          print('Data Truth v4 UI checks passed')
+          PY
