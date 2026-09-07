@@ -1,0 +1,34 @@
+name: Proof Programme UI
+
+on:
+  pull_request:
+    paths:
+      - 'proof-programme.html'
+      - 'proof-programme.js'
+      - 'shared-nav.js'
+      - '.github/workflows/proof-programme-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'proof-programme.html'
+      - 'proof-programme.js'
+      - 'shared-nav.js'
+      - '.github/workflows/proof-programme-ui.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify proof workspace
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('proof-programme.html').read_text();j=Path('proof-programme.js').read_text();n=Path('shared-nav.js').read_text()
+          for x in ['Proof Ledger','Champion / Challenger League','Calibration','Prospective Challenger Experiments','Edge Attribution']:
+              assert x in h
+          assert 'proof-programme.json' in j
+          assert "['proof-programme.html','Proof']" in n
+          assert 'No trading, capital, promotion, strategy or parameter authority' in h
+          print('Proof Programme UI checks passed')
+          PY
