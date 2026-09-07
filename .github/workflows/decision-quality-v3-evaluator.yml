@@ -1,0 +1,71 @@
+name: Decision Quality v3 forward evaluation
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '29 */4 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'decision-quality-v3-evaluator.py'
+      - '.github/workflows/decision-quality-v3-evaluator.yml'
+      - 'decision-quality-v2-history.jsonl'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: decision-quality-v3-forward-evaluation
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and authority guardrails
+        run: |
+          python -m py_compile decision-quality-v3-evaluator.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('decision-quality-v3-evaluator.py').read_text()
+          for bad in ['submit_order(', 'TradingClient(', '/v2/orders', 'automatic_promotion=True', 'orders_enabled=True']:
+              assert bad not in s,bad
+          for required in ["'orders_enabled':False","'execution_authority':False","'strategy_rule_mutation':False","'parameter_mutation':False"]:
+              assert required in s,required
+          for required in ['HORIZONS={24:24,72:72,168:168}','v2_1_top10_mean_return_pct','v2_0_top10_mean_return_pct','full_universe_mean_return_pct','factor_diagnostics','score_calibration']:
+              assert required in s,required
+          print('Decision Quality v3 evaluator is read-only and horizon-locked')
+          PY
+      - name: Resolve matured frozen snapshots
+        run: python decision-quality-v3-evaluator.py
+      - name: Validate evaluation feed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('decision-quality-v3-evaluation.json').read_text())
+          assert p['mode']=='READ_ONLY_FORWARD_EVALUATION'
+          assert p['orders_enabled'] is False and p['execution_authority'] is False
+          assert p['automatic_promotion'] is False and p['parameter_mutation'] is False
+          assert p['horizons_hours']==[24,72,168]
+          e=p['evaluation']
+          assert e['state'] in {'COLLECTING_FORWARD_EVIDENCE','MEASURED'}
+          assert 'score_calibration' in e and 'factor_diagnostics' in e
+          print('Decision Quality v3 evaluation valid:',e['state'],e['resolved_asset_outcomes'])
+          PY
+      - name: Commit durable evaluation evidence
+        run: |
+          git config user.name 'wavelength-evaluation[bot]'
+          git config user.email 'wavelength-evaluation[bot]@users.noreply.github.com'
+          git add decision-quality-v3-evaluation.json
+          test ! -f decision-quality-v3-resolved.jsonl || git add decision-quality-v3-resolved.jsonl
+          git diff --cached --quiet || git commit -m 'Update Decision Quality v3 forward evaluation'
+          git pull --rebase origin main
+          git push origin HEAD:main
