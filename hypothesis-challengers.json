@@ -31,30 +31,69 @@
       },
       "execution_authority": false,
       "falsification_rule": "Collect at least 15 fresh matching 4h outcomes after hypothesis creation; reject if fresh mean return <= comparison baseline or fresh positive rate does not exceed baseline.",
-      "fresh_event_ids": [],
+      "fresh_event_ids": [
+        "episode:BTC:2026-09-07T00:57:02.019567+00:00",
+        "episode:ADA:2026-09-07T00:57:02.019567+00:00"
+      ],
       "fresh_evidence": {
-        "mean_mae_pct": null,
-        "mean_mfe_pct": null,
-        "mean_return_pct": null,
-        "median_return_pct": null,
-        "n": 0,
-        "positive_rate_pct": null
+        "mean_mae_pct": -1.761098987874704,
+        "mean_mfe_pct": 0.30790183418740735,
+        "mean_return_pct": -1.399183968337686,
+        "median_return_pct": -1.399183968337686,
+        "n": 2,
+        "positive_rate_pct": 0.0
       },
       "fresh_forward_only": true,
       "horizon": "4h",
       "hypothesis_id": "4h:score_band:65-74",
       "minimum_fresh_matching_events": 15,
       "progress": {
-        "pct": 0.0,
-        "remaining": 15,
+        "pct": 13.333333333333334,
+        "remaining": 13,
         "required_matching_events": 15,
-        "resolved_matching_events": 0
+        "resolved_matching_events": 2
       },
       "same_sample_discovery": true,
       "statement": "score_band=65-74 may improve 4h forward outcomes versus the rest of the observed sample; this is a discovery hypothesis, not an edge claim.",
       "statistical_robustness": {
         "blocking_checks_passed": false,
-        "checks": {},
+        "bootstrap_mean_return_pct": {
+          "confidence": 0.9,
+          "draws": 5000,
+          "high": -0.5236132533569027,
+          "low": -2.2747546833184695,
+          "probability_mean_gt_baseline": 0.0
+        },
+        "checks": {
+          "bootstrap_90pct_lower_above_baseline": false,
+          "bootstrap_probability_ge_90pct": false,
+          "ex_best_mean_above_baseline": false,
+          "hit_rate_family_adjusted_p_le_alpha": false,
+          "leave_one_asset_out": false,
+          "median_positive": false,
+          "minimum_effect_size": false
+        },
+        "ex_best_mean_return_pct": -2.2747546833184695,
+        "hit_rate_test": {
+          "baseline_positive_rate_pct": 54.54545454545454,
+          "bonferroni_p": 1.0,
+          "family_size": 1,
+          "n": 2,
+          "raw_one_sided_p": 1.0,
+          "wins": 0
+        },
+        "leave_one_asset_out": {
+          "all_means_beat_baseline": false,
+          "groups": 2,
+          "state": "MEASURED",
+          "worst_mean_return_pct": -2.2747546833184695
+        },
+        "leave_one_month_out": {
+          "all_means_beat_baseline": null,
+          "groups": 1,
+          "state": "INSUFFICIENT_GROUP_DIVERSITY",
+          "worst_mean_return_pct": null
+        },
         "policy": {
           "bootstrap_draws": 5000,
           "confidence_level": 0.9,
@@ -63,13 +102,13 @@
           "multiple_testing": "BONFERRONI_ACTIVE_CHALLENGERS"
         }
       },
-      "status": "PENDING",
-      "updated_at": "2026-09-07T01:16:47.825531+00:00",
+      "status": "SURVIVING",
+      "updated_at": "2026-09-07T05:00:11.515534+00:00",
       "value": "65-74"
     }
   ],
   "execution_authority": false,
-  "generated_at": "2026-09-07T01:16:47.825531+00:00",
+  "generated_at": "2026-09-07T05:00:11.515534+00:00",
   "lifecycle": [
     "PENDING",
     "SURVIVING",
@@ -96,8 +135,8 @@
   "status_counts": {
     "CONFIRMED": 0,
     "FALSIFIED": 0,
-    "PENDING": 1,
-    "SURVIVING": 0
+    "PENDING": 0,
+    "SURVIVING": 1
   },
   "strategy_rule_mutation": false
 }
