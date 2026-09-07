@@ -1,13 +1,16 @@
 {
   "mode": "WAVELENGTH_PUBLIC_SOURCE_MANIFEST_V2_READ_ONLY",
-  "schema": "wavelength-source-manifest-v2",
+  "schema": "wavelength-source-manifest-v2.1",
   "strategy_rule_mutation": false,
   "execution_authority": false,
   "freshness_policy": {
     "aging_fraction": 0.75,
     "transitive": true,
     "fresh_generated_from_stale_upstream": "DEGRADED",
-    "states": ["FRESH", "AGING", "STALE", "DEGRADED", "MISSING", "CONFLICT"]
+    "event_driven_heartbeat_path": "source-heartbeats.json",
+    "event_driven_heartbeat_max_age_minutes": 150,
+    "event_driven_no_new_event_state": "CURRENT_NO_NEW_EVENT",
+    "states": ["FRESH", "CURRENT_NO_NEW_EVENT", "AGING", "STALE", "DEGRADED", "MISSING", "CONFLICT"]
   },
   "sources": [
     {"id":"graduation","label":"Graduation evidence","path":"paper-graduation.json","scope":"Candidate V3 + Crowding v2","authority":"CANONICAL_GOVERNANCE","max_age_minutes":180,"cadence":"EVENT_DRIVEN","observed_at_paths":["execution_reality.guardian_recorded_at"],"dependencies":["v3_forward","crowding"]},
