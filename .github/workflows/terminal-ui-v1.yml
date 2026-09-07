@@ -11,6 +11,9 @@ on:
       - 'terminal-workspace-v3.css'
       - 'terminal-workspace-v3.js'
       - 'terminal-workspace-v3-compat.js'
+      - 'terminal-workspace-v3-1.css'
+      - 'terminal-workspace-v3-1.js'
+      - 'asset-crosshair-bridge-v1.js'
       - 'live-market-repaint.js'
       - 'live-market-repaint-loader.js'
       - 'shared-nav.js'
@@ -32,6 +35,9 @@ on:
       - 'terminal-workspace-v3.css'
       - 'terminal-workspace-v3.js'
       - 'terminal-workspace-v3-compat.js'
+      - 'terminal-workspace-v3-1.css'
+      - 'terminal-workspace-v3-1.js'
+      - 'asset-crosshair-bridge-v1.js'
       - 'live-market-repaint.js'
       - 'live-market-repaint-loader.js'
       - 'shared-nav.js'
@@ -51,7 +57,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-      - name: Verify terminal shell, workspace v3 and live market repaint
+      - name: Verify terminal shell, workspace v3.1 and live market repaint
         run: |
           node --check live-market-repaint.js
           node --check live-market-repaint-loader.js
@@ -59,6 +65,8 @@ jobs:
           node --check terminal-workspace-v2-panes.js
           node --check terminal-workspace-v3.js
           node --check terminal-workspace-v3-compat.js
+          node --check terminal-workspace-v3-1.js
+          node --check asset-crosshair-bridge-v1.js
           python - <<'PY'
           from pathlib import Path
           css=Path('terminal-shell.css').read_text()
@@ -69,6 +77,9 @@ jobs:
           v3css=Path('terminal-workspace-v3.css').read_text()
           v3=Path('terminal-workspace-v3.js').read_text()
           compat=Path('terminal-workspace-v3-compat.js').read_text()
+          v31css=Path('terminal-workspace-v3-1.css').read_text()
+          v31=Path('terminal-workspace-v3-1.js').read_text()
+          bridge=Path('asset-crosshair-bridge-v1.js').read_text()
           live=Path('live-market-repaint.js').read_text()
           loader=Path('live-market-repaint-loader.js').read_text()
           nav=Path('shared-nav.js').read_text()
@@ -89,10 +100,19 @@ jobs:
               assert marker in v3css
           for marker in ['ALT+1/2/3','runPaneCommand','toggleLock','toggleMax','applySnap','Morning Scan','Replay Lab','F6','F7','F8','wavelength:crosshair','wlv3.session']:
               assert marker in v3
+          for marker in ['wlv31-drag-handle','wlv31-freshness','wlv31-column-picker','wlv31-alert-row','wlv31-crosshair','wlv31-hidden-col']:
+              assert marker in v31css
+          for marker in ['dragPanes','customColumns','openInbox','sourceAge','saveIframeScroll','restoreIframeScroll','wavelength:crosshair','SESSION RESTORE ON','JUMP','ACK ALL']:
+              assert marker in v31
+          for marker in ['livePriceChart','WavelengthAssetChart','data-api.binance.vision','postMessage','wavelength:crosshair','visibleCount','endOffset']:
+              assert marker in bridge
           assert 'WavelengthTerminalV2' in compat and 'modal' in compat
           assert "style('terminal-workspace-v3.css','wl-terminal-workspace-v3')" in nav
+          assert "style('terminal-workspace-v3-1.css','wl-terminal-workspace-v3-1')" in nav
           assert "load('terminal-workspace-v3-compat.js','wl-terminal-workspace-v3-compat')" in nav
           assert "load('terminal-workspace-v3.js','wl-terminal-workspace-v3')" in nav
+          assert "load('terminal-workspace-v3-1.js','wl-terminal-workspace-v3-1')" in nav
+          assert "load('asset-crosshair-bridge-v1.js','wl-asset-crosshair-bridge')" in nav
           assert "style('terminal-workspace-v2.css','wl-terminal-workspace-v2')" in nav
           assert "load('terminal-workspace-v2.js','wl-terminal-workspace-v2')" in nav
           assert "load('terminal-workspace-v2-panes.js','wl-terminal-workspace-v2-panes')" in nav
@@ -106,5 +126,5 @@ jobs:
           assert '.wl-tape{position:relative!important;top:auto!important}' in hard
           assert 'position:sticky' not in css
           assert 'href="styles.css"' in cr and 'href="style.css"' not in cr
-          print('Wavelength Terminal Workspace v3 + v2 + live price regression contracts passed')
+          print('Wavelength Terminal Workspace v3.1 + v3 + v2 + live price regression contracts passed')
           PY
