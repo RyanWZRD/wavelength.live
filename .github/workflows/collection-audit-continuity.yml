@@ -1,0 +1,52 @@
+name: Collection Audit continuity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '52 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'collection-audit-continuity.py'
+      - '.github/workflows/collection-audit-continuity.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: collection-audit-continuity
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build continuity audit
+        run: |
+          python -m py_compile collection-audit-continuity.py
+          python collection-audit-continuity.py
+      - name: Validate read-only audit
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('collection-audit-continuity.json').read_text())
+          assert p['orders_enabled'] is False and p['execution_authority'] is False
+          assert p['collector_count'] >= 3
+          print(p['overall_state'],p['evidence_confidence_pct'])
+          PY
+      - name: Commit continuity audit evidence
+        run: |
+          git config user.name 'wavelength-continuity[bot]'
+          git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'
+          git add collection-audit-continuity.json collection-audit-continuity-history.jsonl
+          git diff --cached --quiet || git commit -m 'Update collection audit continuity evidence'
+          git pull --rebase origin main
+          git push origin HEAD:main
