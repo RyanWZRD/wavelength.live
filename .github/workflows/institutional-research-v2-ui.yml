@@ -23,5 +23,7 @@ jobs:
           test -s institutional-research-v2.html
           test -s institutional-research-v2.js
           grep -q 'Research v2' shared-nav.js
+          grep -q 'href="styles.css"' institutional-research-v2.html
+          ! grep -q 'href="style.css"' institutional-research-v2.html
           grep -q 'Meta-Learner deliberately disabled' institutional-research-v2.html
           ! grep -Eqi 'submit_order|TradingClient|place_order|automatic allocation' institutional-research-v2.js
