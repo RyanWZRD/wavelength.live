@@ -1,0 +1,54 @@
+name: Source heartbeat continuity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 * * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'source-heartbeat-continuity.py'
+      - 'source-manifest.json'
+      - '.github/workflows/source-heartbeat-continuity.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: source-heartbeat-continuity
+  cancel-in-progress: true
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build event-driven source heartbeat
+        run: |
+          python -m py_compile source-heartbeat-continuity.py
+          python source-heartbeat-continuity.py
+      - name: Validate read-only heartbeat
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('source-heartbeats.json').read_text())
+          assert p['orders_enabled'] is False and p['execution_authority'] is False
+          assert p['strategy_rule_mutation'] is False
+          assert all('checked_at' in x for x in p['sources'])
+          print('heartbeat sources',len(p['sources']))
+          PY
+      - name: Commit heartbeat
+        run: |
+          git config user.name 'wavelength-continuity[bot]'
+          git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'
+          git add source-heartbeats.json
+          git diff --cached --quiet || git commit -m 'Update source heartbeat continuity'
+          git pull --rebase origin main
+          git push origin HEAD:main
