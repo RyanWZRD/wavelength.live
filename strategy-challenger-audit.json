@@ -1,0 +1,60 @@
+{
+  "schema": "wavelength-strategy-challenger-audit-v1",
+  "generated_at": "2026-09-07T15:30:00+00:00",
+  "source_generated_at": "2026-09-07T15:04:08.213482+00:00",
+  "mode": "STRICT_FALSIFICATION_AUDIT_RESEARCH_ONLY",
+  "orders_enabled": false,
+  "live_money_enabled": false,
+  "automatic_rule_change": false,
+  "automatic_promotion": false,
+  "capital_allocation_authority": false,
+  "required_tests": [
+    "FEE_STRESS",
+    "EXECUTION_DELAY",
+    "EX_BEST_TRADE",
+    "PARAMETER_PERTURBATION",
+    "LEAVE_ONE_YEAR_OUT",
+    "REGIME_SEGMENTATION",
+    "MISSING_FILL_STRESS"
+  ],
+  "all_strategy_test_infrastructure_complete": true,
+  "policy": "Every strategy must contain the exact seven challenger tests with approved methods and durable source evidence. Strategy FAIL results are published, never suppressed or auto-optimised away.",
+  "strategies": [
+    {
+      "strategy_id": "candidate_v3",
+      "reported_result": "PASS",
+      "infrastructure_complete": true,
+      "required_tests": 7,
+      "present_tests": 7,
+      "passed_tests": ["FEE_STRESS","EXECUTION_DELAY","EX_BEST_TRADE","PARAMETER_PERTURBATION","LEAVE_ONE_YEAR_OUT","REGIME_SEGMENTATION","MISSING_FILL_STRESS"],
+      "failed_tests": [],
+      "unresolved_tests": [],
+      "missing_tests": [],
+      "extra_tests": [],
+      "duplicate_tests": [],
+      "thin_pass_warnings": [
+        {"test":"MISSING_FILL_STRESS","warning":"Missing-fill PF is thin at 1.134."}
+      ],
+      "important_interpretation": "A legitimate FAIL is falsification evidence, not an infrastructure failure. Missing/unresolved/invalid tests are infrastructure failures."
+    },
+    {
+      "strategy_id": "crowding_v2",
+      "reported_result": "PASS",
+      "infrastructure_complete": true,
+      "required_tests": 7,
+      "present_tests": 7,
+      "passed_tests": ["FEE_STRESS","EXECUTION_DELAY","EX_BEST_TRADE","PARAMETER_PERTURBATION","LEAVE_ONE_YEAR_OUT","REGIME_SEGMENTATION","MISSING_FILL_STRESS"],
+      "failed_tests": [],
+      "unresolved_tests": [],
+      "missing_tests": [],
+      "extra_tests": [],
+      "duplicate_tests": [],
+      "thin_pass_warnings": [
+        {"test":"EXECUTION_DELAY","warning":"Execution-delay PF is thin at 1.053."},
+        {"test":"EXECUTION_DELAY","warning":"Execution-delay stressed return is thin at 0.911%."},
+        {"test":"PARAMETER_PERTURBATION","warning":"Parameter-neighbour eligibility is close to the floor at 50.0%."}
+      ],
+      "important_interpretation": "A legitimate FAIL is falsification evidence, not an infrastructure failure. Missing/unresolved/invalid tests are infrastructure failures."
+    }
+  ]
+}
