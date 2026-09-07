@@ -1,6 +1,6 @@
 (()=>{
 'use strict';
-const esc=s=>String(s??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot',"'":'&#39;'}[c]));
+const esc=s=>String(s??'—').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const cls=s=>({COLLECTING:'ok',NO_NEW_EVENT:'',WAITING_FOR_OUTCOME:'warn',STALLED:'bad',FAILED:'bad',DUPLICATE:'',NEW:'warn'}[s]||'warn');
 const age=m=>m==null?'—':m<60?`${Math.round(m)}m`:`${(m/60).toFixed(1)}h`;
 const proofLabel=s=>({PROVEN_ACCUMULATING:'PROVEN',RUNNING_NO_DISTINCT_EVENT:'RUNNING',WAITING:'WAITING',ISSUE:'ISSUE'}[s]||s||'—');
