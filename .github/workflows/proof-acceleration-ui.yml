@@ -1,0 +1,30 @@
+name: Proof Acceleration UI
+on:
+  pull_request:
+    paths:
+      - 'proof-acceleration.html'
+      - 'proof-acceleration.js'
+      - 'shared-nav.js'
+      - '.github/workflows/proof-acceleration-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'proof-acceleration.html'
+      - 'proof-acceleration.js'
+      - 'shared-nav.js'
+      - '.github/workflows/proof-acceleration-ui.yml'
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert proof audit page and research boundary
+        run: |
+          test -s proof-acceleration.html
+          test -s proof-acceleration.js
+          grep -q 'styles.css' proof-acceleration.html
+          grep -q 'proof-acceleration-evidence-audit.json' proof-acceleration.js
+          grep -q 'Proof Audit' shared-nav.js
+          grep -q 'no order authority' proof-acceleration.html
+          ! grep -Eqi 'submit_order|TradingClient|place_order|automatic allocation' proof-acceleration.js
+          node --check proof-acceleration.js
