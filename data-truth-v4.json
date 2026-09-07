@@ -1999,13 +1999,34 @@
     },
     "true_exchange_flow_assets": 0,
     "true_exchange_flow_pct": 0.0,
+    "true_exchange_flow_provider_status": "CREDENTIAL_MISSING",
     "warnings": [
       "COIN_METRICS_NETWORK_ACTIVITY_IS_NOT_TRUE_EXCHANGE_FLOW",
       "GITHUB_RELEASES_ARE_NOT_DIRECT_UNLOCK_OR_MARKET_CATALYST_FEEDS",
       "SINGLE_SOURCE_DERIVATIVES_IS_NOT_CONSENSUS"
     ]
   },
-  "generated_at": "2026-09-07T08:08:24.749654+00:00",
+  "exchange_flow_intelligence": {
+    "coverage": {
+      "direct_assets": 0,
+      "direct_pct": 0.0,
+      "routable_assets": 5,
+      "routable_direct_pct": 0.0,
+      "universe_assets": 22
+    },
+    "generated_at": "2026-09-07T08:39:10.917268+00:00",
+    "provider": {
+      "credential_present": false,
+      "definition": "Direct on-chain exchange-wallet inflow, outflow and netflow observations.",
+      "exchange": "binance",
+      "history_runs": 1,
+      "name": "CRYPTOQUANT_API",
+      "status": "CREDENTIAL_MISSING",
+      "window": "day"
+    },
+    "semantic_policy": "Only a returned exchange-flow observation with timestamp and non-null netflow is SEMANTIC_DIRECT. Credentials/endpoints alone never count as coverage."
+  },
+  "generated_at": "2026-09-07T08:39:12.301214+00:00",
   "guardrails": [
     "RESEARCH_ONLY",
     "NO_ORDER_AUTHORITY",
@@ -2017,7 +2038,8 @@
     "NO_PI_MUTATION",
     "NO_PORTFOLIO_WEIGHT_MUTATION",
     "MISSING_EVIDENCE_STAYS_MISSING",
-    "PROXY_EVIDENCE_NEVER_RELABELED_AS_SEMANTIC_DIRECT"
+    "PROXY_EVIDENCE_NEVER_RELABELED_AS_SEMANTIC_DIRECT",
+    "DIRECT_EXCHANGE_FLOW_REQUIRES_RETURNED_TIMESTAMPED_OBSERVATION"
   ],
   "hyperliquid_provider_health": {
     "availability_pct": 100.0,
@@ -2026,7 +2048,7 @@
     "latest_funding_direction_consensus_assets": 15,
     "latest_status": "AVAILABLE",
     "provider": "HYPERLIQUID_PUBLIC",
-    "runs_observed": 2,
+    "runs_observed": 3,
     "semantic_role": "INDEPENDENT_DERIVATIVES_DIRECTION_CROSS_CHECK"
   },
   "mode": "DATA_TRUTH_V4_SEMANTIC_HARDENING_RESEARCH_ONLY",
@@ -2080,6 +2102,7 @@
     "COIN_METRICS_NETWORK_ACTIVITY_IS_LIVE_PROXY_NOT_TRUE_EXCHANGE_FLOW",
     "GITHUB_RELEASES_ARE_LIVE_PROXY_NOT_DIRECT_UNLOCK_OR_MARKET_CATALYST_FEEDS",
     "YAHOO_MACRO_FALLBACK_IS_LIVE_PROXY_CONTEXT",
-    "HYPERLIQUID_CONSENSUS_IS_DIRECTION_ONLY"
+    "HYPERLIQUID_CONSENSUS_IS_DIRECTION_ONLY",
+    "EXCHANGE_FLOW_HISTORY_CAN_BE_REVISED_AS_PROVIDER_WALLET_CLUSTERING_EVOLVES"
   ]
 }
