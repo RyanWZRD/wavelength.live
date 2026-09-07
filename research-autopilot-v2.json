@@ -1,0 +1,560 @@
+{
+  "schema": "wavelength-research-autopilot-v2",
+  "mode": "RESEARCH_AUTOPILOT_V2_PUBLIC_READ_ONLY",
+  "generated_at": "2026-09-07T16:29:26.137240+00:00",
+  "source_fingerprint": "96f4feaf0ca9e04aa1",
+  "orders_enabled": false,
+  "live_money_enabled": false,
+  "execution_authority": false,
+  "automatic_promotion": false,
+  "automatic_allocation": false,
+  "capital_allocation_authority": false,
+  "strategy_rule_mutation": false,
+  "parameter_mutation": false,
+  "hindsight_editing": false,
+  "automatic_strategy_deployment": false,
+  "automatic_hypothesis_creation": true,
+  "automatic_forward_cohort_creation": true,
+  "required_challenger_tests": [
+    "FEE_STRESS",
+    "EXECUTION_DELAY",
+    "EX_BEST_TRADE",
+    "PARAMETER_PERTURBATION",
+    "LEAVE_ONE_YEAR_OUT",
+    "REGIME_SEGMENTATION",
+    "MISSING_FILL_STRESS"
+  ],
+  "policy": {
+    "minimum_fresh_24h_outcomes": 20,
+    "minimum_distinct_regimes": 3,
+    "minimum_forward_calendar_days": 30,
+    "all_required_challengers_mandatory": true,
+    "fresh_forward_only_after_freeze": true,
+    "failed_hypotheses_are_retained": true,
+    "manual_promotion_required": true,
+    "automatic_strategy_deployment": false
+  },
+  "active_hypotheses": [
+    {
+      "hypothesis_id": "hyp:586dbf42413de3786c",
+      "title": "Decision robustness versus raw conviction",
+      "statement": "High-conviction decisions that survive evidence-removal and counterfactual stress outperform equally high raw-conviction but fragile decisions.",
+      "falsification_question": "In frozen forward cohorts, does robustness add information beyond the raw Wavelength score?",
+      "family": "DECISION_INTEGRITY",
+      "priority": 94,
+      "discovery_basis": [
+        "ROBUSTNESS_OBSERVATIONS:0"
+      ],
+      "required_evidence": [
+        "raw score",
+        "source-removal delta",
+        "counterfactual boundaries",
+        "exact forward outcomes"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:989279b8ccb5b0d5b1",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    },
+    {
+      "hypothesis_id": "hyp:eb5261a2c2bccbef09",
+      "title": "Independent-source consensus robustness",
+      "statement": "Asset decisions supported by independent market-data sources remain more stable under source removal than single-source decisions.",
+      "falsification_question": "After freezing the decision rule, do independently corroborated decisions show lower source-removal score decay and better 24h calibration than single-source decisions?",
+      "family": "DECISION_INTEGRITY",
+      "priority": 92,
+      "discovery_basis": [
+        "SECOND_SOURCE_COMPARISON_NOT_CONFIRMED",
+        "AUTONOMOUS_DIRECTOR_PRIORITY"
+      ],
+      "required_evidence": [
+        "secondary price source",
+        "source disagreement",
+        "source-removal stress",
+        "exact 24h outcomes"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:b02ff06c9578b27a7b",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    },
+    {
+      "hypothesis_id": "hyp:7fa3468faf68ef202d",
+      "title": "Score calibration monotonicity",
+      "statement": "Higher frozen Wavelength decision-score buckets produce monotonically better exact forward outcomes than lower score buckets.",
+      "falsification_question": "Do higher score buckets retain superior hit rate, mean return and Brier/calibration behaviour in genuinely future observations?",
+      "family": "DECISION_SCIENCE",
+      "priority": 90,
+      "discovery_basis": [
+        "CALIBRATION_STATUS:INSUFFICIENT_SAMPLE"
+      ],
+      "required_evidence": [
+        "frozen score bucket",
+        "exact 24h outcome",
+        "Brier score",
+        "reliability curve",
+        "simple baseline"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:ee7f114b68c35ee93c",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    },
+    {
+      "hypothesis_id": "hyp:0ada8ba417dce02bfa",
+      "title": "crowding_v2 parameter perturbation fragility",
+      "statement": "The apparent crowding_v2 edge is materially regime- or implementation-dependent where PARAMETER_PERTURBATION sits close to its pass threshold.",
+      "falsification_question": "Does crowding_v2 remain economically useful in fresh forward data when observations are segmented by the conditions associated with the thin PARAMETER_PERTURBATION pass?",
+      "family": "STRATEGY_FRAGILITY",
+      "priority": 88,
+      "discovery_basis": [
+        "THIN_CHALLENGER:crowding_v2:PARAMETER_PERTURBATION",
+        "neighbour eligibility 50.0%"
+      ],
+      "required_evidence": [
+        "fresh strategy observations",
+        "regime labels",
+        "exact execution assumptions",
+        "challenger re-run"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:95151563cf410ce7c6",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    },
+    {
+      "hypothesis_id": "hyp:94ec60778711f0868d",
+      "title": "crowding_v2 execution delay fragility",
+      "statement": "The apparent crowding_v2 edge is materially regime- or implementation-dependent where EXECUTION_DELAY sits close to its pass threshold.",
+      "falsification_question": "Does crowding_v2 remain economically useful in fresh forward data when observations are segmented by the conditions associated with the thin EXECUTION_DELAY pass?",
+      "family": "STRATEGY_FRAGILITY",
+      "priority": 88,
+      "discovery_basis": [
+        "THIN_CHALLENGER:crowding_v2:EXECUTION_DELAY",
+        "delayed PF 1.053, delayed return 0.911%"
+      ],
+      "required_evidence": [
+        "fresh strategy observations",
+        "regime labels",
+        "exact execution assumptions",
+        "challenger re-run"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:b99255a6af363e9a90",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    },
+    {
+      "hypothesis_id": "hyp:f06dce42dac4a5a383",
+      "title": "candidate_v3 missing fill stress fragility",
+      "statement": "The apparent candidate_v3 edge is materially regime- or implementation-dependent where MISSING_FILL_STRESS sits close to its pass threshold.",
+      "falsification_question": "Does candidate_v3 remain economically useful in fresh forward data when observations are segmented by the conditions associated with the thin MISSING_FILL_STRESS pass?",
+      "family": "STRATEGY_FRAGILITY",
+      "priority": 88,
+      "discovery_basis": [
+        "THIN_CHALLENGER:candidate_v3:MISSING_FILL_STRESS",
+        "missing-fill PF 1.134"
+      ],
+      "required_evidence": [
+        "fresh strategy observations",
+        "regime labels",
+        "exact execution assumptions",
+        "challenger re-run"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:d0ebbbaad48b6bccbf",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    },
+    {
+      "hypothesis_id": "hyp:7a9710b553845026dd",
+      "title": "Marginal portfolio contribution",
+      "statement": "Assets with attractive standalone evidence but high existing factor/correlation overlap add less portfolio value than lower-correlation alternatives.",
+      "falsification_question": "Does a frozen marginal-contribution ranking improve portfolio drawdown/diversification outcomes versus standalone decision-score ranking?",
+      "family": "PORTFOLIO_DECISION_SCIENCE",
+      "priority": 82,
+      "discovery_basis": [
+        "PORTFOLIO_STATE:UNKNOWN"
+      ],
+      "required_evidence": [
+        "frozen research basket",
+        "60d correlations",
+        "downside correlation",
+        "standalone rank",
+        "portfolio outcome"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:16838ff025d6a21a0c",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    },
+    {
+      "hypothesis_id": "hyp:c75fbec1282da541c4",
+      "title": "Nearest-failure analogue discrimination",
+      "statement": "Historical states that look similar but subsequently fail contain discriminating features that improve analogue-based decision quality.",
+      "falsification_question": "Can a frozen nearest-success versus nearest-failure discriminator improve forward calibration without hindsight feature selection?",
+      "family": "MARKET_MEMORY",
+      "priority": 76,
+      "discovery_basis": [
+        "MARKET_MEMORY_SAMPLE:0"
+      ],
+      "required_evidence": [
+        "nearest successful analogues",
+        "nearest failed analogues",
+        "frozen similarity features",
+        "future outcomes"
+      ],
+      "required_challenger_tests": [
+        "FEE_STRESS",
+        "EXECUTION_DELAY",
+        "EX_BEST_TRADE",
+        "PARAMETER_PERTURBATION",
+        "LEAVE_ONE_YEAR_OUT",
+        "REGIME_SEGMENTATION",
+        "MISSING_FILL_STRESS"
+      ],
+      "forward_horizons": [
+        "4h",
+        "24h",
+        "3d",
+        "7d"
+      ],
+      "fresh_forward_only": true,
+      "frozen_at": "2026-09-07T16:29:26.137240+00:00",
+      "first_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "last_seen_at": "2026-09-07T16:29:26.137240+00:00",
+      "times_rediscovered": 1,
+      "status": "FROZEN_FORWARD_COHORT_CREATED",
+      "cohort": {
+        "cohort_id": "cohort:61ef33c16318eaf13f",
+        "starts_after": "2026-09-07T16:29:26.137240+00:00",
+        "fresh_forward_only": true,
+        "minimum_24h_outcomes": 20,
+        "minimum_calendar_days": 30,
+        "minimum_distinct_regimes": 3,
+        "resolved_24h_outcomes": 0,
+        "distinct_regimes": 0,
+        "promotion_eligible": false
+      },
+      "falsification_contract": {
+        "required_tests": [
+          "FEE_STRESS",
+          "EXECUTION_DELAY",
+          "EX_BEST_TRADE",
+          "PARAMETER_PERTURBATION",
+          "LEAVE_ONE_YEAR_OUT",
+          "REGIME_SEGMENTATION",
+          "MISSING_FILL_STRESS"
+        ],
+        "all_tests_required": true,
+        "failed_result_retained": true,
+        "automatic_optimisation_after_fail": false,
+        "manual_promotion_required": true
+      }
+    }
+  ],
+  "active_count": 8,
+  "registry_count": 8,
+  "note": "Hypotheses and forward cohorts are created automatically, but strategy deployment, rule changes, promotion, allocation and execution remain prohibited."
+}
