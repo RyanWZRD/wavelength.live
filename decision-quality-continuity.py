@@ -9,7 +9,7 @@ import json, math, statistics, time, urllib.parse, urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-API='https://api.binance.com/api/v3'
+API='https://data-api.binance.vision/api/v3'
 OUT=Path('decision-quality-v2.json')
 HIST=Path('decision-quality-v2-history.jsonl')
 EXCLUDE={'USDC','BUSD','TUSD','FDUSD','USDP','DAI','EUR','GBP','EURI','USTC','PAX','UST','USD1','RLUSD','USDE','USDS','XUSD','BFUSD','WBTC','WBETH','BETH','BNSOL','ETHW','BTTC','PAXG','XAUT'}
@@ -136,7 +136,7 @@ def main():
         if x['rank']<=5:reasons.append('top-5 opportunity rank')
         if x['components']['relative_strength']>=70:reasons.append('strong relative strength')
         if x['regime']=='BULL':reasons.append('bull regime')
-        l=liq.get(x['symbol'],{}); 
+        l=liq.get(x['symbol'],{})
         if l.get('available') and (l.get('spread_bps') or 999)<12:reasons.append('acceptable quoted spread')
         if len(reasons)>=3:alerts.append({'symbol':x['symbol'],'reasons':reasons,'message':x['symbol']+' · '+' · '.join(reasons)})
     rs=[{'rank':i+1,'symbol':x['symbol'],'1d':round(x['ret_1d_pct'],2),'7d':round(x['ret_7d_pct'],2),'30d':round(x['ret_30d_pct'],2)} for i,x in enumerate(sorted(ranking,key=lambda x:(.2*x['ret_1d_pct']+.45*x['ret_7d_pct']+.35*x['ret_30d_pct']),reverse=True))]
