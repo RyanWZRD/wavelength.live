@@ -1,5 +1,5 @@
 (()=>{
-const BUILD='20260907-terminal-workspace-v3-1-dq3';
+const BUILD='20260907-terminal-workspace-v3-1-dq31';
 const versioned=src=>`${src}${src.includes('?')?'&':'?'}v=${BUILD}`;
 const nav=document.querySelector('.nav');if(!nav)return;
 const p=(location.pathname.split('/').pop()||'index.html').toLowerCase();
@@ -14,7 +14,7 @@ window.addEventListener('hashchange',settleHash);
 nav.addEventListener('click',e=>{const a=e.target.closest('a');if(!a)return;const u=new URL(a.href,location.href);if((p==='index.html'||!p)&&u.pathname===location.pathname&&['#markets','#intelligence'].includes(u.hash)){e.preventDefault();history.pushState(null,'',u.hash);settleHash()}});
 function load(src,key){if(document.querySelector(`script[data-${key}]`))return;const s=document.createElement('script');s.src=versioned(src);s.defer=true;s.setAttribute(`data-${key}`,'1');document.head.appendChild(s)}
 load('command-palette.js','wl-command');load('provenance-core.js','wl-provenance');load('workspace-ui.js','wl-workspace');load('terminal-ui.js','wl-terminal');load('terminal-shell.js','wl-terminal-shell');load('terminal-workspace-v2.js','wl-terminal-workspace-v2');load('terminal-workspace-v2-panes.js','wl-terminal-workspace-v2-panes');load('terminal-workspace-v3-compat.js','wl-terminal-workspace-v3-compat');load('terminal-workspace-v3.js','wl-terminal-workspace-v3');load('terminal-workspace-v3-1.js','wl-terminal-workspace-v3-1');load('final-ui.js','wl-final');load('freshness-banner.js','wl-freshness-banner');load('nansen-flow-v2.js','wl-nansen-flow-v2');
-if(p==='research.html')load('research-decision-quality-v3.js','wl-research-decision-quality-v3');
+if(p==='research.html'){load('research-decision-quality-v3.js','wl-research-decision-quality-v3');load('research-decision-quality-v3-diagnostics.js','wl-research-decision-quality-v3-diagnostics')}
 if(p==='asset.html'||p==='coin.html')load('asset-crosshair-bridge-v1.js','wl-asset-crosshair-bridge');
 if((p==='index.html'||!p)){load('live-market-repaint.js','wl-live-market-repaint');load('observation-experience.js','wl-observation');load('market-command-centre.js','wl-market-command');load('decision-journal.js','wl-decision-journal')}
 })();
