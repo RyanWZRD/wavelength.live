@@ -1,0 +1,34 @@
+name: Intelligence Stream UI
+
+on:
+  pull_request:
+    paths:
+      - 'market-command.html'
+      - 'intelligence-stream.js'
+      - '.github/workflows/intelligence-stream-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'market-command.html'
+      - 'intelligence-stream.js'
+      - '.github/workflows/intelligence-stream-ui.yml'
+
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate evidence-grounded thinking surface
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          h=Path('market-command.html').read_text()
+          j=Path('intelligence-stream.js').read_text()
+          for x in ['Wavelength Intelligence Stream','thoughtState','thinkingStages','intelligenceStream']:
+              assert x in h
+          for x in ['intelligence-stream.json','MATERIAL CHANGE','VERDICT_CHANGED','RANK_MOVE','CONVICTION_MOVE']:
+              assert x in j
+          assert 'setInterval(poll,60000)' in j
+          assert 'submit_order' not in h+j
+          print('Intelligence Stream UI checks passed')
+          PY
