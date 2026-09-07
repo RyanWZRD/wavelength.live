@@ -1,4 +1,4 @@
-name: Data Truth v2 UI check
+name: Legacy Data Truth v2 UI check
 
 on:
   pull_request:
@@ -20,21 +20,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify Data Truth v2 wiring
+      - name: Verify legacy Data Truth v2 remains auditable but hidden from main nav
         run: |
           python - <<'PY'
           from pathlib import Path
-          html=Path('data-truth-v2.html').read_text()
-          js=Path('data-truth-v2.js').read_text()
-          nav=Path('shared-nav.js').read_text()
+          html=Path('data-truth-v2.html').read_text();js=Path('data-truth-v2.js').read_text();nav=Path('shared-nav.js').read_text()
           assert 'Coverage matrix' in html
           assert 'data-truth-v2.json' in js
-          for marker in ['Coverage','Source','Decision evidence','Overall truth']:
-              assert marker in js
-          for state in ['FRESH','AGING','MISSING']:
-              assert state in js
-          assert 'data-truth-v2.html' in nav
+          for marker in ['Coverage','Source','Decision evidence','Overall truth']:assert marker in js
+          for state in ['FRESH','AGING','MISSING']:assert state in js
+          assert "['data-truth-v2.html','Data Truth v2']" not in nav
+          assert "['data-truth-v4.html','Data Truth']" in nav
           assert 'not probabilities of profit' in html.lower()
           assert 'no strategy mutation' in html.lower()
-          print('Data Truth v2 UI wiring OK')
+          print('Legacy Data Truth v2 remains directly auditable and is retired from main navigation')
           PY
