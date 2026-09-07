@@ -9,6 +9,8 @@ on:
     paths:
       - 'source-heartbeat-continuity.py'
       - 'source-manifest.json'
+      - 'candidate-v3-forward-evidence.json'
+      - 'crowding-v2-forward-evidence.json'
       - '.github/workflows/source-heartbeat-continuity.yml'
 
 permissions:
@@ -29,7 +31,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - name: Build event-driven source heartbeat
+      - name: Build source liveness and shadow-progress heartbeat
         run: |
           python -m py_compile source-heartbeat-continuity.py
           python source-heartbeat-continuity.py
@@ -42,7 +44,9 @@ jobs:
           assert p['orders_enabled'] is False and p['execution_authority'] is False
           assert p['strategy_rule_mutation'] is False
           assert all('checked_at' in x for x in p['sources'])
-          print('heartbeat sources',len(p['sources']))
+          progress={x['id']:x for x in p['sources'] if x.get('progress_check')}
+          assert {'v3_forward','crowding'} <= set(progress)
+          print('heartbeat sources',len(p['sources']),'progress',{k:v.get('authority_state') for k,v in progress.items()})
           PY
       - name: Commit heartbeat
         run: |
