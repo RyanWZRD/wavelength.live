@@ -1,0 +1,27 @@
+name: Institutional Research v2 UI
+on:
+  pull_request:
+    paths:
+      - 'institutional-research-v2.html'
+      - 'institutional-research-v2.js'
+      - 'shared-nav.js'
+      - '.github/workflows/institutional-research-v2-ui.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'institutional-research-v2.html'
+      - 'institutional-research-v2.js'
+      - 'shared-nav.js'
+      - '.github/workflows/institutional-research-v2-ui.yml'
+jobs:
+  ui:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Assert workspace and research boundary
+        run: |
+          test -s institutional-research-v2.html
+          test -s institutional-research-v2.js
+          grep -q 'Research v2' shared-nav.js
+          grep -q 'Meta-Learner deliberately disabled' institutional-research-v2.html
+          ! grep -Eqi 'submit_order|TradingClient|place_order|automatic allocation' institutional-research-v2.js
