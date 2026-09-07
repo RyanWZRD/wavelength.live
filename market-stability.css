@@ -1,0 +1,35 @@
+/* Prevent initial Markets layout/font shifts while async panels and webfonts settle. */
+#markets{scroll-margin-top:16px;overflow-anchor:none}
+#markets .market-table{table-layout:fixed;font-size:.78rem;line-height:1.35;font-variant-numeric:tabular-nums}
+#markets .market-table th,#markets .market-table td{height:47px;line-height:1.35;vertical-align:middle}
+#markets .market-table th:nth-child(1),#markets .market-table td:nth-child(1){width:38px}
+#markets .market-table th:nth-child(2),#markets .market-table td:nth-child(2){width:150px}
+#markets .market-table th:nth-child(3),#markets .market-table td:nth-child(3){width:120px}
+#markets .market-table th:nth-child(4),#markets .market-table td:nth-child(4){width:78px}
+#markets .market-table th:nth-child(5),#markets .market-table td:nth-child(5){width:105px}
+#markets .coin-cell{height:24px;min-height:24px;line-height:24px;align-items:center}
+#markets .coin-icon{width:24px;height:24px;min-width:24px;min-height:24px;flex:0 0 24px}
+#markets .coin-name{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;font-size:.78rem;font-weight:500;line-height:1.2;white-space:nowrap}
+#markets .coin-symbol{font-size:.78rem;line-height:1.2;white-space:nowrap}
+
+/* Reserve realistic space for the async dashboard blocks above #markets so
+   clicking Markets during startup does not cause repeated document-height jumps. */
+#briefingBody{min-height:92px}
+#hourlyRadar{min-height:150px}
+#portfolioHeatmap{min-height:150px}
+#equityCurve{min-height:180px}
+#pnlCalendar{min-height:180px}
+#intelligenceList{min-height:170px}
+#alertLog{min-height:120px}
+#relativeBody{min-height:120px}
+#derivativesBody{min-height:120px}
+#opportunityHistory{min-height:100px}
+#portfolioIntel{min-height:100px}
+#validationGrid{min-height:155px}
+#botGrid{min-height:100px}
+#movers{min-height:82px}
+
+@media(max-width:900px){
+  #markets .market-table{table-layout:auto}
+  #markets .market-table th,#markets .market-table td{height:45px}
+}
