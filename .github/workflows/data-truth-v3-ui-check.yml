@@ -1,4 +1,4 @@
-name: Data Truth v3 UI check
+name: Legacy Data Truth v3 UI check
 
 on:
   pull_request:
@@ -23,19 +23,17 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - name: Assert Data Truth v3 surfaces and guardrails
+      - name: Assert legacy Data Truth v3 remains auditable but hidden from main nav
         run: |
           python - <<'PY'
           from pathlib import Path
-          html=Path('data-truth-v3.html').read_text()
-          js=Path('data-truth-v3.js').read_text()
-          nav=Path('shared-nav.js').read_text()
+          html=Path('data-truth-v3.html').read_text();js=Path('data-truth-v3.js').read_text();nav=Path('shared-nav.js').read_text()
           assert 'Evidence quality, not just evidence quantity' in html
           assert 'data-truth-v3.json' in js
-          for marker in ['Completeness','Reliability','Empirical usefulness','Overall evidence quality']:
-              assert marker in js
-          for marker in ['Provider reliability','Evidence usefulness','Direct evidence maturity']:
-              assert marker in html
+          for marker in ['Completeness','Reliability','Empirical usefulness','Overall evidence quality']:assert marker in js
+          for marker in ['Provider reliability','Evidence usefulness','Direct evidence maturity']:assert marker in html
           assert 'observational usefulness is not causal proof' in html.lower()
-          assert "data-truth-v3.html','Data Truth v3" in nav
+          assert "['data-truth-v3.html','Data Truth v3']" not in nav
+          assert "['data-truth-v4.html','Data Truth']" in nav
+          print('Legacy Data Truth v3 remains directly auditable and is retired from main navigation')
           PY
