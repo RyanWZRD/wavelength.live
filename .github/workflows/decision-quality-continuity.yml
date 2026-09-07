@@ -1,0 +1,64 @@
+name: Decision Quality v2 continuity
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '11 */4 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'decision-quality-continuity.py'
+      - '.github/workflows/decision-quality-continuity.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: decision-quality-v2-continuity
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Syntax and authority guardrails
+        run: |
+          python -m py_compile decision-quality-continuity.py
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('decision-quality-continuity.py').read_text()
+          for bad in ['submit_order(', 'TradingClient(', '/v2/orders', 'automatic_promotion=True', 'orders_enabled=True']:
+              assert bad not in s,bad
+          for required in ["'orders_enabled':False","'execution_authority':False","'strategy_rule_mutation':False"]:
+              assert required in s,required
+          print('continuity collector is read-only')
+          PY
+      - name: Build frozen Decision Quality snapshot
+        run: python decision-quality-continuity.py
+      - name: Validate feed
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('decision-quality-v2.json').read_text())
+          assert p['orders_enabled'] is False and p['execution_authority'] is False
+          assert len(p['ranking']) >= 20
+          assert all(x['rank']==i+1 for i,x in enumerate(p['ranking']))
+          assert Path('decision-quality-v2-history.jsonl').read_text().strip()
+          print('Decision Quality continuity feed valid:',p['universe'])
+          PY
+      - name: Commit append-only continuity evidence
+        run: |
+          git config user.name 'wavelength-continuity[bot]'
+          git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'
+          git add decision-quality-v2.json decision-quality-v2-history.jsonl
+          git diff --cached --quiet || git commit -m 'Update Decision Quality v2 continuity evidence'
+          git pull --rebase origin main
+          git push origin HEAD:main
