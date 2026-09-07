@@ -1,0 +1,44 @@
+name: Dynamic Market Universe v2 UI patch
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/apply_dynamic_market_ui_v2.py'
+      - '.github/workflows/dynamic-market-ui-v2.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Apply safe Markets universe patch
+        run: python scripts/apply_dynamic_market_ui_v2.py
+      - name: Contract
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          app=Path('app.js').read_text()
+          idx=Path('index.html').read_text()
+          assert 'const MAX_COINS=60, EXCLUDE=' in app
+          assert 'const MAX_COINS=40, EXCLUDE=' not in app
+          assert 'Dynamic deep-intelligence tier' in idx
+          print('Markets UI deep tier expanded to 60 without changing live repaint code')
+          PY
+      - name: Commit patch
+        run: |
+          git config user.name 'wavelength-universe[bot]'
+          git config user.email 'wavelength-universe[bot]@users.noreply.github.com'
+          git add app.js index.html
+          git diff --cached --quiet || git commit -m 'Expand Markets UI to dynamic deep-intelligence tier'
+          git pull --rebase origin main
+          git push origin HEAD:main
