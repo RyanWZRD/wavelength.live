@@ -77,9 +77,10 @@ await page.waitForFunction(()=>document.querySelector('#assetSymbol')?.textConte
 await page.waitForFunction(()=>!/Loading|Calculating/i.test(document.querySelector('#technicalMetrics')?.textContent||''));
 await page.waitForFunction(()=>!/Loading/i.test(document.querySelector('#fundamentalMetrics')?.textContent||''));
 await page.waitForFunction(()=>(window.__wlFakeTickerCount||0)>=2);
-await page.waitForFunction(()=>document.querySelector('#assetFeed')?.textContent?.includes('LIVE STREAM'));
+await page.waitForFunction(()=>document.querySelector('#assetPrice')?.textContent?.includes('60,002.50'));
 assert.match(await page.locator('#assetPrice').innerText(),/60,002\.50/,'headline price did not receive live ticker update');
 assert.ok((await page.locator('#priceChart').evaluate(c=>c.width))>0,'chart canvas was not rendered');
+await page.waitForFunction(()=>document.querySelector('#chartMeta')?.textContent?.includes('LIVE'));
 assert.match(await page.locator('#chartMeta').innerText(),/LIVE/,'current candle did not receive live kline update');
 await page.waitForSelector('#decisionEvidence');
 assert.doesNotMatch(await page.locator('#decisionEvidence').innerText(),/Waiting for market evidence/i);
