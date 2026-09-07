@@ -5,6 +5,7 @@ on:
     paths:
       - 'terminal-shell.css'
       - 'terminal-shell.js'
+      - 'live-market-repaint.js'
       - 'shared-nav.js'
       - 'platform-hardening.css'
       - 'conviction-room.html'
@@ -18,6 +19,7 @@ on:
     paths:
       - 'terminal-shell.css'
       - 'terminal-shell.js'
+      - 'live-market-repaint.js'
       - 'shared-nav.js'
       - 'platform-hardening.css'
       - 'conviction-room.html'
@@ -32,12 +34,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Verify terminal shell and unfrozen workspace
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify terminal shell, unfrozen workspace and live market repaint
         run: |
+          node --check live-market-repaint.js
           python - <<'PY'
           from pathlib import Path
           css=Path('terminal-shell.css').read_text()
           js=Path('terminal-shell.js').read_text()
+          live=Path('live-market-repaint.js').read_text()
           nav=Path('shared-nav.js').read_text()
           hard=Path('platform-hardening.css').read_text()
           cr=Path('conviction-room.html').read_text()
@@ -45,10 +52,13 @@ jobs:
               assert marker in css
           for marker in ["'market-command.html'","'data-truth-v4.html'","'conviction-room.html'","'asset.html'",'F1','F5','WL&gt;','MODE RESEARCH-ONLY']:
               assert marker in js
+          for marker in ['wss://stream.binance.com:9443/stream?streams=','schedulePaint()','#marketBody tr[data-sym=','.mover[data-open=','setTimeout(flush,120)','lastTickAt']:
+              assert marker in live, marker
+          assert "load('live-market-repaint.js','wl-live-market-repaint')" in nav
           assert "style('terminal-shell.css','wl-terminal-shell')" in nav
           assert "load('terminal-shell.js','wl-terminal-shell')" in nav
           assert '.wl-tape{position:relative!important;top:auto!important}' in hard
           assert 'position:sticky' not in css
           assert 'href="styles.css"' in cr and 'href="style.css"' not in cr
-          print('Wavelength Terminal UI v1 regression checks passed')
+          print('Wavelength Terminal UI v1 + visible live price regression checks passed')
           PY
