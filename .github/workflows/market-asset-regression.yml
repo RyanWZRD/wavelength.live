@@ -12,6 +12,9 @@ on:
       - 'terminal-shell.js'
       - 'asset.html'
       - 'asset.js'
+      - 'asset-live-chart-v3.js'
+      - 'asset-decision-priority-v1.js'
+      - 'asset-chart-priority.js'
       - 'asset-symbol-normalizer.js'
       - 'asset-data-fallbacks.js'
       - 'asset-decision-evidence.js'
@@ -37,11 +40,16 @@ jobs:
       - name: Syntax and critical invariants
         run: |
           node --check asset.js
+          node --check asset-live-chart-v3.js
+          node --check asset-decision-priority-v1.js
+          node --check asset-chart-priority.js
           node --check asset-symbol-normalizer.js
           node --check asset-decision-evidence.js
           node --check shared-nav.js
           node --check terminal-shell.js
           grep -q 'asset.js?v=20260907-live-asset-1' asset.html
+          grep -q 'asset-live-chart-v3.js?v=20260907-chart-analysis-1' asset.html
+          grep -q 'asset-decision-priority-v1.js?v=20260907-evidence-first-1' asset.html
           grep -q 'asset-decision-evidence.js' asset.html
           grep -q 'LIVE STREAM' asset.js
           grep -q 'applyLiveTicker' asset.js
