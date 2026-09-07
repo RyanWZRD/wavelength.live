@@ -20,6 +20,13 @@ function canonicalSymbol(input){
     if(s.endsWith(quote)&&s.length>quote.length){s=s.slice(0,-quote.length);break;}
   }
 
+  // Repair exact duplicated tickers such as BTCBTC, ETHETH, SOLSOL, etc.
+  // This is deliberately generic so the invariant holds for every asset.
+  if(s.length%2===0){
+    const half=s.length/2;
+    if(s.slice(0,half)===s.slice(half))s=s.slice(0,half);
+  }
+
   // Defensive aliases for concatenated display-name + ticker values.
   const aliases={
     BITCOINBTC:'BTC',ETHEREUMETH:'ETH',SOLANASOL:'SOL',XRPXRP:'XRP',
