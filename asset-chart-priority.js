@@ -16,6 +16,13 @@ function pinPrimaryLayout(){
   chart.dataset.assetPrimary='chart';
 }
 
+function loadDecisionQuality(){
+  if(document.querySelector('script[data-wl-asset-dq2]'))return;
+  const s=document.createElement('script');
+  s.src='asset-decision-quality-v2.js?v=20260907-dq2-1';
+  s.defer=true;s.dataset.wlAssetDq2='1';document.head.appendChild(s);
+}
+
 let queued=false;
 function schedule(){
   if(queued)return;
@@ -25,6 +32,7 @@ function schedule(){
 
 function start(){
   pinPrimaryLayout();
+  loadDecisionQuality();
   const page=document.querySelector('.page.asset-shell')||document.querySelector('.asset-shell')||document.body;
   new MutationObserver(schedule).observe(page,{childList:true,subtree:false});
   [100,300,750,1500,3000].forEach(ms=>setTimeout(pinPrimaryLayout,ms));
