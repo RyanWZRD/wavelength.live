@@ -1,9 +1,9 @@
 (()=>{'use strict';if(window.WavelengthAccess)return;
 const CONFIG={mode:'preview',monthly_gbp:29,annual_gbp:290,session_endpoint:'/api/wavelength/session'};
-const PRO_ROUTES=new Set(['portfolio-intelligence.html','ask-wavelength.html','decision-room.html','replay.html','thesis-watch.html','evidence-map.html']);
+const PRO_ROUTES=new Set(['decision-desk.html','portfolio-intelligence.html','ask-wavelength.html','decision-room.html','replay.html','thesis-watch.html','evidence-map.html']);
 const MIXED_ROUTES=new Set(['discover.html','proof-ledger.html']);
 const FREE_ROUTES=new Set(['index.html','wavelength-today.html','cockpit.html','coin.html']);
-const LOCAL_KEYS=['wavelength_portfolio_v1','wavelength_portfolio_sample_v1','wavelength_thesis_watch_v1','wavelength_thesis_watch_v2','wavelength_research_context_v1','wavelength_customer_onboarding_v1'];
+const LOCAL_KEYS=['wavelength_portfolio_v1','wavelength_portfolio_sample_v1','wavelength_thesis_watch_v1','wavelength_thesis_watch_v2','wavelength_research_context_v1','wavelength_customer_onboarding_v1','wavelength_watchlist_v2','wavelength_user_decisions_v1','wavelength_attention_snapshot_v1'];
 let provider=null,state={status:'loading',authenticated:false,plan:'unknown',entitled:false,email:null,renewal_at:null,cancel_at_period_end:false};
 const page=()=>((location.pathname.split('/').pop()||'index.html').toLowerCase());
 const routeTier=p=>PRO_ROUTES.has(p)?'pro':MIXED_ROUTES.has(p)?'mixed':FREE_ROUTES.has(p)?'free':'unclassified';
