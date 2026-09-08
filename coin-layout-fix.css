@@ -1,5 +1,19 @@
-/* Coin workstation desktop layout: use almost all available monitor width. */
+/* Coin workstation: defeat the terminal-shell width cap on large desktops. */
 @media (min-width:1200px){
-  body .page{max-width:none;width:calc(100% - 12px);padding:12px 0 48px}
-  body .chart-shell{padding-left:16px;padding-right:16px}
+  html,body{width:100%;max-width:none}
+  body.wl-terminal-v1 .page,
+  body.wl-terminal-v1.wlv2-active .page{
+    max-width:none!important;
+    width:calc(100vw - 16px)!important;
+    margin-left:auto!important;
+    margin-right:auto!important;
+    padding-left:0!important;
+    padding-right:0!important;
+  }
+  body.wl-terminal-v1 .chart-shell{
+    width:100%!important;
+    max-width:none!important;
+    padding-left:14px!important;
+    padding-right:14px!important;
+  }
 }

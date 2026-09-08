@@ -5,17 +5,21 @@ if(LW?.createChart&&!LW.__wavelengthLayoutWrapped){
   LW.__wavelengthLayoutWrapped=true;
   const create=LW.createChart.bind(LW);
   LW.createChart=(container,options={})=>{
-    const timeScale={...(options.timeScale||{}),rightOffsetPixels:120,rightBarStaysOnScroll:true};
-    const chart=create(container,{...options,timeScale});
+    const chart=create(container,{...options,timeScale:{...(options.timeScale||{}),rightBarStaysOnScroll:true}});
     try{
       const api=chart.timeScale();
       const fit=api.fitContent.bind(api);
-      const reinforce=()=>{try{api.applyOptions({rightOffsetPixels:120,rightBarStaysOnScroll:true})}catch{}};
-      api.fitContent=()=>{fit();reinforce()};
-      document.addEventListener('click',e=>{if(e.target?.closest?.('[data-tf]'))setTimeout(reinforce,900)},true);
-      setTimeout(reinforce,1200);
-      setTimeout(reinforce,3000);
-    }catch(e){console.warn('Wavelength chart spacing fallback',e)}
+      api.fitContent=()=>{
+        fit();
+        requestAnimationFrame(()=>{
+          try{
+            const r=api.getVisibleLogicalRange?.();
+            if(!r||!Number.isFinite(r.from)||!Number.isFinite(r.to))return;
+            api.setVisibleLogicalRange({from:r.from,to:r.to+24});
+          }catch(e){console.warn('Wavelength future chart space',e)}
+        });
+      };
+    }catch(e){console.warn('Wavelength chart range fallback',e)}
     return chart;
   };
 }
