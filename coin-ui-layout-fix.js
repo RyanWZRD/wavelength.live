@@ -5,7 +5,8 @@ if(LW?.createChart&&!LW.__wavelengthLayoutWrapped){
   LW.__wavelengthLayoutWrapped=true;
   const create=LW.createChart.bind(LW);
   LW.createChart=(container,options={})=>{
-    const chart=create(container,{...options,timeScale:{...(options.timeScale||{}),rightBarStaysOnScroll:true}});
+    const chart=create(container,{...options,rightPriceScale:{...(options.rightPriceScale||{}),minimumWidth:150},timeScale:{...(options.timeScale||{}),rightBarStaysOnScroll:true}});
+    try{chart.priceScale('right').applyOptions({minimumWidth:150})}catch(e){console.warn('Wavelength price scale width',e)}
     try{
       const api=chart.timeScale();
       const fit=api.fitContent.bind(api);
