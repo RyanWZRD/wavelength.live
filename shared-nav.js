@@ -1,5 +1,5 @@
 (()=>{
-const BUILD='20260907-provenance-archival-v1';
+const BUILD='20260908-asset-width-v1';
 const versioned=src=>`${src}${src.includes('?')?'&':'?'}v=${BUILD}`;
 const nav=document.querySelector('.nav');if(!nav)return;
 const p=(location.pathname.split('/').pop()||'index.html').toLowerCase();
