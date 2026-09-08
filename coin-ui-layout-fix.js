@@ -5,14 +5,13 @@ if(LW?.createChart&&!LW.__wavelengthLayoutWrapped){
   LW.__wavelengthLayoutWrapped=true;
   const create=LW.createChart.bind(LW);
   LW.createChart=(container,options={})=>{
-    const chart=create(container,{...options,timeScale:{...(options.timeScale||{}),rightOffset:12,rightBarStaysOnScroll:true}});
+    const timeScale={...(options.timeScale||{}),rightOffsetPixels:120,rightBarStaysOnScroll:true};
+    const chart=create(container,{...options,timeScale});
     try{
       const api=chart.timeScale();
       const fit=api.fitContent.bind(api);
-      api.fitContent=()=>{fit();api.applyOptions({rightOffset:12,rightBarStaysOnScroll:true})};
-      const originalTimeScale=chart.timeScale.bind(chart);
-      try{chart.timeScale=()=>api}catch{}
-      const reinforce=()=>{try{api.applyOptions({rightOffset:12,rightBarStaysOnScroll:true})}catch{}};
+      const reinforce=()=>{try{api.applyOptions({rightOffsetPixels:120,rightBarStaysOnScroll:true})}catch{}};
+      api.fitContent=()=>{fit();reinforce()};
       document.addEventListener('click',e=>{if(e.target?.closest?.('[data-tf]'))setTimeout(reinforce,900)},true);
       setTimeout(reinforce,1200);
       setTimeout(reinforce,3000);
@@ -21,13 +20,17 @@ if(LW?.createChart&&!LW.__wavelengthLayoutWrapped){
   };
 }
 function reorder(){
+  const hero=document.querySelector('.coin-hero');
   const chart=document.querySelector('.chart-shell');
-  if(!chart)return;
+  const read=document.querySelector('#wavelengthRead');
+  if(!hero||!chart)return;
+  if(hero.nextElementSibling!==chart)hero.insertAdjacentElement('afterend',chart);
+  if(read&&chart.nextElementSibling!==read)chart.insertAdjacentElement('afterend',read);
   const history=document.querySelector('#coinHistory');
+  if(history&&read&&read.nextElementSibling!==history)read.insertAdjacentElement('afterend',history);
   const outcomes=document.querySelector('#coinOutcomeLineage');
-  if(history&&chart.nextElementSibling!==history)chart.insertAdjacentElement('afterend',history);
-  const anchor=history||chart;
-  if(outcomes&&anchor.nextElementSibling!==outcomes)anchor.insertAdjacentElement('afterend',outcomes);
+  const anchor=history||read||chart;
+  if(outcomes&&anchor&&anchor.nextElementSibling!==outcomes)anchor.insertAdjacentElement('afterend',outcomes);
 }
 function start(){
   reorder();
