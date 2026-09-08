@@ -1,6 +1,6 @@
 {
   "schema": "wavelength-research-recommendation-queue-v1",
-  "generated_at": "2026-09-08T06:35:07.296939+00:00",
+  "generated_at": "2026-09-08T13:06:33.932777+00:00",
   "mode": "RESEARCH_RECOMMENDATION_AND_FALSIFICATION_ONLY",
   "orders_enabled": false,
   "live_money_enabled": false,
@@ -11,11 +11,1293 @@
   "automatic_promotion": false,
   "capital_allocation_authority": false,
   "source_exact_resolved_24h": 90,
-  "eligible_attribution_findings": 0,
-  "active_recommendations": 0,
-  "status_counts": {},
-  "recommendations": [],
-  "history_count": 0,
+  "eligible_attribution_findings": 6,
+  "active_recommendations": 6,
+  "status_counts": {
+    "CHALLENGER_PASS_EARLY_EVIDENCE": 5,
+    "READY_FOR_MANUAL_STRATEGY_FACTORY_REVIEW": 1
+  },
+  "recommendations": [
+    {
+      "id": "ebe8eceec757e7fb",
+      "strategy_id": "candidate_v3_research_ecosystem",
+      "source": "STRATEGY_ATTRIBUTION_EXACT_FORWARD_24H",
+      "dimension": "Score bucket",
+      "bucket": "70-79",
+      "association": "HARMFUL_ASSOCIATION",
+      "source_n": 24,
+      "source_maturity": "EARLY",
+      "source_avg_pct": -5.434205,
+      "delta_vs_baseline_pp": -2.794711,
+      "hypothesis": "Avoiding Score bucket = 70-79 may improve 24h forward outcomes.",
+      "research_variant": "Compare a research-only variant that excludes Score bucket = 70-79 against the unchanged baseline.",
+      "falsification_question": "Does the observed advantage/disadvantage survive chronology, outlier removal and cross-asset tests?",
+      "challenger": {
+        "status": "PASS",
+        "tests": [
+          {
+            "test": "CHRONOLOGICAL_SPLIT",
+            "status": "PASS",
+            "detail": [
+              {
+                "segment": "EARLY_HALF",
+                "n_bucket": 13,
+                "delta_vs_segment_baseline_pp": -2.401238,
+                "baseline_avg_pct": -2.480422,
+                "bucket_avg_pct": -4.88166,
+                "direction_consistent": true
+              },
+              {
+                "segment": "LATE_HALF",
+                "n_bucket": 11,
+                "delta_vs_segment_baseline_pp": -3.288647,
+                "baseline_avg_pct": -2.798567,
+                "bucket_avg_pct": -6.087214,
+                "direction_consistent": true
+              }
+            ],
+            "requirement": "association direction must persist in both chronological halves"
+          },
+          {
+            "test": "EX_EXTREME_OBSERVATION",
+            "status": "PASS",
+            "n_after": 23,
+            "removed_outcome_pct": -15.640767,
+            "delta_after_removal_pp": -2.497029,
+            "requirement": "direction survives removal of the most supportive single observation"
+          },
+          {
+            "test": "LEAVE_ONE_SYMBOL_OUT",
+            "status": "PASS",
+            "folds": [
+              {
+                "excluded_symbol": "ADA",
+                "n_bucket": 24,
+                "delta_pp": -2.69732,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ARB",
+                "n_bucket": 20,
+                "delta_pp": -2.566934,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ASTER",
+                "n_bucket": 24,
+                "delta_pp": -2.763589,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BNB",
+                "n_bucket": 24,
+                "delta_pp": -2.732334,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BTC",
+                "n_bucket": 24,
+                "delta_pp": -2.725408,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DASH",
+                "n_bucket": 24,
+                "delta_pp": -3.135555,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DOGE",
+                "n_bucket": 24,
+                "delta_pp": -2.666148,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ENA",
+                "n_bucket": 24,
+                "delta_pp": -2.95673,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ETH",
+                "n_bucket": 24,
+                "delta_pp": -2.700814,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "LINK",
+                "n_bucket": 21,
+                "delta_pp": -3.110378,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "MARSCOIN",
+                "n_bucket": 24,
+                "delta_pp": -3.478888,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "NEAR",
+                "n_bucket": 21,
+                "delta_pp": -3.012036,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PROM",
+                "n_bucket": 24,
+                "delta_pp": -2.575486,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PUMP",
+                "n_bucket": 24,
+                "delta_pp": -2.244118,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "RAY",
+                "n_bucket": 20,
+                "delta_pp": -2.253098,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SAHARA",
+                "n_bucket": 24,
+                "delta_pp": -2.659247,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SOL",
+                "n_bucket": 22,
+                "delta_pp": -3.084112,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SUI",
+                "n_bucket": 24,
+                "delta_pp": -2.574122,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "TAO",
+                "n_bucket": 21,
+                "delta_pp": -3.200851,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "UNI",
+                "n_bucket": 21,
+                "delta_pp": -2.9895,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "USD1",
+                "n_bucket": 24,
+                "delta_pp": -2.67142,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "WLD",
+                "n_bucket": 24,
+                "delta_pp": -2.619577,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "XRP",
+                "n_bucket": 24,
+                "delta_pp": -2.739743,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ZEC",
+                "n_bucket": 22,
+                "delta_pp": -2.849394,
+                "direction_consistent": true
+              }
+            ],
+            "direction_consistent_pct": 100.0,
+            "requirement": ">=70% of symbol-exclusion folds retain direction"
+          }
+        ],
+        "failed_tests": [],
+        "inconclusive_tests": [],
+        "principle": "try to break the attribution before allowing it to become a strategy proposal"
+      },
+      "status": "CHALLENGER_PASS_EARLY_EVIDENCE",
+      "first_seen_at": "2026-09-08T13:06:33.926427+00:00",
+      "last_seen_at": "2026-09-08T13:06:33.926427+00:00",
+      "automatic_launch": true,
+      "automatic_strategy_change": false,
+      "manual_approval_required_for_any_strategy_proposal": true,
+      "active": true
+    },
+    {
+      "id": "ba0b9c8ac0ede6fd",
+      "strategy_id": "candidate_v3_research_ecosystem",
+      "source": "STRATEGY_ATTRIBUTION_EXACT_FORWARD_24H",
+      "dimension": "ADX bucket",
+      "bucket": "<20",
+      "association": "HELPFUL_ASSOCIATION",
+      "source_n": 24,
+      "source_maturity": "EARLY",
+      "source_avg_pct": 0.055341,
+      "delta_vs_baseline_pp": 2.694835,
+      "hypothesis": "Conditioning entries on ADX bucket = <20 may improve 24h forward outcomes.",
+      "research_variant": "Compare a research-only variant that requires ADX bucket = <20 against the unchanged baseline.",
+      "falsification_question": "Does the observed advantage/disadvantage survive chronology, outlier removal and cross-asset tests?",
+      "challenger": {
+        "status": "PASS",
+        "tests": [
+          {
+            "test": "CHRONOLOGICAL_SPLIT",
+            "status": "PASS",
+            "detail": [
+              {
+                "segment": "EARLY_HALF",
+                "n_bucket": 10,
+                "delta_vs_segment_baseline_pp": 2.964451,
+                "baseline_avg_pct": -2.480422,
+                "bucket_avg_pct": 0.484029,
+                "direction_consistent": true
+              },
+              {
+                "segment": "LATE_HALF",
+                "n_bucket": 14,
+                "delta_vs_segment_baseline_pp": 2.547702,
+                "baseline_avg_pct": -2.798567,
+                "bucket_avg_pct": -0.250865,
+                "direction_consistent": true
+              }
+            ],
+            "requirement": "association direction must persist in both chronological halves"
+          },
+          {
+            "test": "EX_EXTREME_OBSERVATION",
+            "status": "PASS",
+            "n_after": 23,
+            "removed_outcome_pct": 12.5,
+            "delta_after_removal_pp": 2.32387,
+            "requirement": "direction survives removal of the most supportive single observation"
+          },
+          {
+            "test": "LEAVE_ONE_SYMBOL_OUT",
+            "status": "PASS",
+            "folds": [
+              {
+                "excluded_symbol": "ADA",
+                "n_bucket": 23,
+                "delta_pp": 2.810501,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ARB",
+                "n_bucket": 24,
+                "delta_pp": 2.456435,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ASTER",
+                "n_bucket": 24,
+                "delta_pp": 2.725957,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BNB",
+                "n_bucket": 23,
+                "delta_pp": 2.759444,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BTC",
+                "n_bucket": 20,
+                "delta_pp": 3.005102,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DASH",
+                "n_bucket": 24,
+                "delta_pp": 2.353991,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DOGE",
+                "n_bucket": 22,
+                "delta_pp": 2.838824,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ENA",
+                "n_bucket": 20,
+                "delta_pp": 3.768464,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ETH",
+                "n_bucket": 24,
+                "delta_pp": 2.788732,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "LINK",
+                "n_bucket": 24,
+                "delta_pp": 2.750319,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "MARSCOIN",
+                "n_bucket": 24,
+                "delta_pp": 2.010658,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "NEAR",
+                "n_bucket": 24,
+                "delta_pp": 2.586208,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PROM",
+                "n_bucket": 24,
+                "delta_pp": 2.914061,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PUMP",
+                "n_bucket": 20,
+                "delta_pp": 1.416844,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "RAY",
+                "n_bucket": 24,
+                "delta_pp": 2.361334,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SAHARA",
+                "n_bucket": 24,
+                "delta_pp": 2.830299,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SOL",
+                "n_bucket": 24,
+                "delta_pp": 2.718582,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SUI",
+                "n_bucket": 24,
+                "delta_pp": 2.915424,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "TAO",
+                "n_bucket": 24,
+                "delta_pp": 2.689738,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "UNI",
+                "n_bucket": 24,
+                "delta_pp": 2.685694,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "USD1",
+                "n_bucket": 20,
+                "delta_pp": 2.826944,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "WLD",
+                "n_bucket": 24,
+                "delta_pp": 2.869969,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "XRP",
+                "n_bucket": 20,
+                "delta_pp": 3.052408,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ZEC",
+                "n_bucket": 24,
+                "delta_pp": 2.528299,
+                "direction_consistent": true
+              }
+            ],
+            "direction_consistent_pct": 100.0,
+            "requirement": ">=70% of symbol-exclusion folds retain direction"
+          }
+        ],
+        "failed_tests": [],
+        "inconclusive_tests": [],
+        "principle": "try to break the attribution before allowing it to become a strategy proposal"
+      },
+      "status": "CHALLENGER_PASS_EARLY_EVIDENCE",
+      "first_seen_at": "2026-09-08T13:06:33.927727+00:00",
+      "last_seen_at": "2026-09-08T13:06:33.927727+00:00",
+      "automatic_launch": true,
+      "automatic_strategy_change": false,
+      "manual_approval_required_for_any_strategy_proposal": true,
+      "active": true
+    },
+    {
+      "id": "9ad5301eff06ad85",
+      "strategy_id": "candidate_v3_research_ecosystem",
+      "source": "STRATEGY_ATTRIBUTION_EXACT_FORWARD_24H",
+      "dimension": "ATR bucket",
+      "bucket": "<2%",
+      "association": "HELPFUL_ASSOCIATION",
+      "source_n": 56,
+      "source_maturity": "DEVELOPING",
+      "source_avg_pct": -0.860168,
+      "delta_vs_baseline_pp": 1.779326,
+      "hypothesis": "Conditioning entries on ATR bucket = <2% may improve 24h forward outcomes.",
+      "research_variant": "Compare a research-only variant that requires ATR bucket = <2% against the unchanged baseline.",
+      "falsification_question": "Does the observed advantage/disadvantage survive chronology, outlier removal and cross-asset tests?",
+      "challenger": {
+        "status": "PASS",
+        "tests": [
+          {
+            "test": "CHRONOLOGICAL_SPLIT",
+            "status": "PASS",
+            "detail": [
+              {
+                "segment": "EARLY_HALF",
+                "n_bucket": 28,
+                "delta_vs_segment_baseline_pp": 1.76286,
+                "baseline_avg_pct": -2.480422,
+                "bucket_avg_pct": -0.717561,
+                "direction_consistent": true
+              },
+              {
+                "segment": "LATE_HALF",
+                "n_bucket": 28,
+                "delta_vs_segment_baseline_pp": 1.795793,
+                "baseline_avg_pct": -2.798567,
+                "bucket_avg_pct": -1.002774,
+                "direction_consistent": true
+              }
+            ],
+            "requirement": "association direction must persist in both chronological halves"
+          },
+          {
+            "test": "EX_EXTREME_OBSERVATION",
+            "status": "PASS",
+            "n_after": 55,
+            "removed_outcome_pct": 12.947394,
+            "delta_after_removal_pp": 1.703414,
+            "requirement": "direction survives removal of the most supportive single observation"
+          },
+          {
+            "test": "LEAVE_ONE_SYMBOL_OUT",
+            "status": "PASS",
+            "folds": [
+              {
+                "excluded_symbol": "ADA",
+                "n_bucket": 52,
+                "delta_pp": 1.852519,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ARB",
+                "n_bucket": 56,
+                "delta_pp": 1.540927,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ASTER",
+                "n_bucket": 55,
+                "delta_pp": 1.792439,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BNB",
+                "n_bucket": 52,
+                "delta_pp": 1.875413,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BTC",
+                "n_bucket": 52,
+                "delta_pp": 1.870885,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DASH",
+                "n_bucket": 56,
+                "delta_pp": 1.438483,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DOGE",
+                "n_bucket": 52,
+                "delta_pp": 1.832138,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ENA",
+                "n_bucket": 52,
+                "delta_pp": 2.022133,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ETH",
+                "n_bucket": 52,
+                "delta_pp": 1.854804,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "LINK",
+                "n_bucket": 52,
+                "delta_pp": 1.87992,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "MARSCOIN",
+                "n_bucket": 56,
+                "delta_pp": 1.09515,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "NEAR",
+                "n_bucket": 56,
+                "delta_pp": 1.6707,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PROM",
+                "n_bucket": 56,
+                "delta_pp": 1.998552,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PUMP",
+                "n_bucket": 56,
+                "delta_pp": 2.32992,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "RAY",
+                "n_bucket": 56,
+                "delta_pp": 1.445825,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SAHARA",
+                "n_bucket": 52,
+                "delta_pp": 1.827626,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SOL",
+                "n_bucket": 52,
+                "delta_pp": 1.900671,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SUI",
+                "n_bucket": 52,
+                "delta_pp": 1.771967,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "TAO",
+                "n_bucket": 53,
+                "delta_pp": 1.814535,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "UNI",
+                "n_bucket": 53,
+                "delta_pp": 1.862958,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "USD1",
+                "n_bucket": 52,
+                "delta_pp": 1.835585,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "WLD",
+                "n_bucket": 55,
+                "delta_pp": 1.703414,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "XRP",
+                "n_bucket": 52,
+                "delta_pp": 1.880258,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ZEC",
+                "n_bucket": 56,
+                "delta_pp": 1.612791,
+                "direction_consistent": true
+              }
+            ],
+            "direction_consistent_pct": 100.0,
+            "requirement": ">=70% of symbol-exclusion folds retain direction"
+          }
+        ],
+        "failed_tests": [],
+        "inconclusive_tests": [],
+        "principle": "try to break the attribution before allowing it to become a strategy proposal"
+      },
+      "status": "READY_FOR_MANUAL_STRATEGY_FACTORY_REVIEW",
+      "first_seen_at": "2026-09-08T13:06:33.929120+00:00",
+      "last_seen_at": "2026-09-08T13:06:33.929120+00:00",
+      "automatic_launch": true,
+      "automatic_strategy_change": false,
+      "manual_approval_required_for_any_strategy_proposal": true,
+      "active": true
+    },
+    {
+      "id": "a4307b334fa828c9",
+      "strategy_id": "candidate_v3_research_ecosystem",
+      "source": "STRATEGY_ATTRIBUTION_EXACT_FORWARD_24H",
+      "dimension": "Score bucket",
+      "bucket": "40-54",
+      "association": "HELPFUL_ASSOCIATION",
+      "source_n": 27,
+      "source_maturity": "EARLY",
+      "source_avg_pct": -1.311374,
+      "delta_vs_baseline_pp": 1.32812,
+      "hypothesis": "Conditioning entries on Score bucket = 40-54 may improve 24h forward outcomes.",
+      "research_variant": "Compare a research-only variant that requires Score bucket = 40-54 against the unchanged baseline.",
+      "falsification_question": "Does the observed advantage/disadvantage survive chronology, outlier removal and cross-asset tests?",
+      "challenger": {
+        "status": "PASS",
+        "tests": [
+          {
+            "test": "CHRONOLOGICAL_SPLIT",
+            "status": "PASS",
+            "detail": [
+              {
+                "segment": "EARLY_HALF",
+                "n_bucket": 15,
+                "delta_vs_segment_baseline_pp": 1.322112,
+                "baseline_avg_pct": -2.480422,
+                "bucket_avg_pct": -1.15831,
+                "direction_consistent": true
+              },
+              {
+                "segment": "LATE_HALF",
+                "n_bucket": 12,
+                "delta_vs_segment_baseline_pp": 1.295863,
+                "baseline_avg_pct": -2.798567,
+                "bucket_avg_pct": -1.502704,
+                "direction_consistent": true
+              }
+            ],
+            "requirement": "association direction must persist in both chronological halves"
+          },
+          {
+            "test": "EX_EXTREME_OBSERVATION",
+            "status": "PASS",
+            "n_after": 26,
+            "removed_outcome_pct": 2.410304,
+            "delta_after_removal_pp": 1.241719,
+            "requirement": "direction survives removal of the most supportive single observation"
+          },
+          {
+            "test": "LEAVE_ONE_SYMBOL_OUT",
+            "status": "PASS",
+            "folds": [
+              {
+                "excluded_symbol": "ADA",
+                "n_bucket": 25,
+                "delta_pp": 1.316784,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ARB",
+                "n_bucket": 27,
+                "delta_pp": 1.089721,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ASTER",
+                "n_bucket": 27,
+                "delta_pp": 1.359243,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BNB",
+                "n_bucket": 25,
+                "delta_pp": 1.40772,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BTC",
+                "n_bucket": 25,
+                "delta_pp": 1.362656,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DASH",
+                "n_bucket": 27,
+                "delta_pp": 0.987277,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DOGE",
+                "n_bucket": 24,
+                "delta_pp": 1.277561,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ENA",
+                "n_bucket": 23,
+                "delta_pp": 2.002889,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ETH",
+                "n_bucket": 24,
+                "delta_pp": 1.3554,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "LINK",
+                "n_bucket": 27,
+                "delta_pp": 1.383605,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "MARSCOIN",
+                "n_bucket": 27,
+                "delta_pp": 0.643944,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "NEAR",
+                "n_bucket": 27,
+                "delta_pp": 1.219494,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PROM",
+                "n_bucket": 26,
+                "delta_pp": 1.404205,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PUMP",
+                "n_bucket": 27,
+                "delta_pp": 1.878714,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "RAY",
+                "n_bucket": 27,
+                "delta_pp": 0.994619,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SAHARA",
+                "n_bucket": 24,
+                "delta_pp": 1.304095,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SOL",
+                "n_bucket": 26,
+                "delta_pp": 1.368766,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SUI",
+                "n_bucket": 27,
+                "delta_pp": 1.54871,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "TAO",
+                "n_bucket": 27,
+                "delta_pp": 1.323024,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "UNI",
+                "n_bucket": 27,
+                "delta_pp": 1.318979,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "USD1",
+                "n_bucket": 24,
+                "delta_pp": 1.286198,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "WLD",
+                "n_bucket": 27,
+                "delta_pp": 1.503254,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "XRP",
+                "n_bucket": 24,
+                "delta_pp": 1.419911,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ZEC",
+                "n_bucket": 27,
+                "delta_pp": 1.161584,
+                "direction_consistent": true
+              }
+            ],
+            "direction_consistent_pct": 100.0,
+            "requirement": ">=70% of symbol-exclusion folds retain direction"
+          }
+        ],
+        "failed_tests": [],
+        "inconclusive_tests": [],
+        "principle": "try to break the attribution before allowing it to become a strategy proposal"
+      },
+      "status": "CHALLENGER_PASS_EARLY_EVIDENCE",
+      "first_seen_at": "2026-09-08T13:06:33.930427+00:00",
+      "last_seen_at": "2026-09-08T13:06:33.930427+00:00",
+      "automatic_launch": true,
+      "automatic_strategy_change": false,
+      "manual_approval_required_for_any_strategy_proposal": true,
+      "active": true
+    },
+    {
+      "id": "0a2db6cc0dd329c3",
+      "strategy_id": "candidate_v3_research_ecosystem",
+      "source": "STRATEGY_ATTRIBUTION_EXACT_FORWARD_24H",
+      "dimension": "Decision",
+      "bucket": "REJECT",
+      "association": "HELPFUL_ASSOCIATION",
+      "source_n": 42,
+      "source_maturity": "EARLY",
+      "source_avg_pct": -1.61507,
+      "delta_vs_baseline_pp": 1.024424,
+      "hypothesis": "Conditioning entries on Decision = REJECT may improve 24h forward outcomes.",
+      "research_variant": "Compare a research-only variant that requires Decision = REJECT against the unchanged baseline.",
+      "falsification_question": "Does the observed advantage/disadvantage survive chronology, outlier removal and cross-asset tests?",
+      "challenger": {
+        "status": "PASS",
+        "tests": [
+          {
+            "test": "CHRONOLOGICAL_SPLIT",
+            "status": "PASS",
+            "detail": [
+              {
+                "segment": "EARLY_HALF",
+                "n_bucket": 21,
+                "delta_vs_segment_baseline_pp": 1.02091,
+                "baseline_avg_pct": -2.480422,
+                "bucket_avg_pct": -1.459512,
+                "direction_consistent": true
+              },
+              {
+                "segment": "LATE_HALF",
+                "n_bucket": 21,
+                "delta_vs_segment_baseline_pp": 1.027939,
+                "baseline_avg_pct": -2.798567,
+                "bucket_avg_pct": -1.770628,
+                "direction_consistent": true
+              }
+            ],
+            "requirement": "association direction must persist in both chronological halves"
+          },
+          {
+            "test": "EX_EXTREME_OBSERVATION",
+            "status": "PASS",
+            "n_after": 41,
+            "removed_outcome_pct": 12.5,
+            "delta_after_removal_pp": 0.850261,
+            "requirement": "direction survives removal of the most supportive single observation"
+          },
+          {
+            "test": "LEAVE_ONE_SYMBOL_OUT",
+            "status": "PASS",
+            "folds": [
+              {
+                "excluded_symbol": "ADA",
+                "n_bucket": 39,
+                "delta_pp": 1.00449,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ARB",
+                "n_bucket": 42,
+                "delta_pp": 0.786025,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ASTER",
+                "n_bucket": 41,
+                "delta_pp": 1.012975,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BNB",
+                "n_bucket": 39,
+                "delta_pp": 1.040752,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BTC",
+                "n_bucket": 39,
+                "delta_pp": 1.044621,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DASH",
+                "n_bucket": 42,
+                "delta_pp": 0.683581,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DOGE",
+                "n_bucket": 38,
+                "delta_pp": 0.969863,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ENA",
+                "n_bucket": 38,
+                "delta_pp": 1.336914,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ETH",
+                "n_bucket": 39,
+                "delta_pp": 1.053965,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "LINK",
+                "n_bucket": 42,
+                "delta_pp": 1.079908,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "MARSCOIN",
+                "n_bucket": 38,
+                "delta_pp": 1.996483,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "NEAR",
+                "n_bucket": 42,
+                "delta_pp": 0.915798,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PROM",
+                "n_bucket": 41,
+                "delta_pp": 1.14547,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PUMP",
+                "n_bucket": 38,
+                "delta_pp": 0.436773,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "RAY",
+                "n_bucket": 42,
+                "delta_pp": 0.690923,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SAHARA",
+                "n_bucket": 39,
+                "delta_pp": 1.03838,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SOL",
+                "n_bucket": 41,
+                "delta_pp": 1.05148,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SUI",
+                "n_bucket": 41,
+                "delta_pp": 1.145508,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "TAO",
+                "n_bucket": 42,
+                "delta_pp": 1.019328,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "UNI",
+                "n_bucket": 42,
+                "delta_pp": 1.015283,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "USD1",
+                "n_bucket": 39,
+                "delta_pp": 1.022684,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "WLD",
+                "n_bucket": 42,
+                "delta_pp": 1.199558,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "XRP",
+                "n_bucket": 38,
+                "delta_pp": 1.062826,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ZEC",
+                "n_bucket": 42,
+                "delta_pp": 0.857888,
+                "direction_consistent": true
+              }
+            ],
+            "direction_consistent_pct": 100.0,
+            "requirement": ">=70% of symbol-exclusion folds retain direction"
+          }
+        ],
+        "failed_tests": [],
+        "inconclusive_tests": [],
+        "principle": "try to break the attribution before allowing it to become a strategy proposal"
+      },
+      "status": "CHALLENGER_PASS_EARLY_EVIDENCE",
+      "first_seen_at": "2026-09-08T13:06:33.931460+00:00",
+      "last_seen_at": "2026-09-08T13:06:33.931460+00:00",
+      "automatic_launch": true,
+      "automatic_strategy_change": false,
+      "manual_approval_required_for_any_strategy_proposal": true,
+      "active": true
+    },
+    {
+      "id": "330574456ed4f6df",
+      "strategy_id": "candidate_v3_research_ecosystem",
+      "source": "STRATEGY_ATTRIBUTION_EXACT_FORWARD_24H",
+      "dimension": "Score bucket",
+      "bucket": "55-69",
+      "association": "HELPFUL_ASSOCIATION",
+      "source_n": 24,
+      "source_maturity": "EARLY",
+      "source_avg_pct": -1.637527,
+      "delta_vs_baseline_pp": 1.001967,
+      "hypothesis": "Conditioning entries on Score bucket = 55-69 may improve 24h forward outcomes.",
+      "research_variant": "Compare a research-only variant that requires Score bucket = 55-69 against the unchanged baseline.",
+      "falsification_question": "Does the observed advantage/disadvantage survive chronology, outlier removal and cross-asset tests?",
+      "challenger": {
+        "status": "PASS",
+        "tests": [
+          {
+            "test": "CHRONOLOGICAL_SPLIT",
+            "status": "PASS",
+            "detail": [
+              {
+                "segment": "EARLY_HALF",
+                "n_bucket": 11,
+                "delta_vs_segment_baseline_pp": 0.888817,
+                "baseline_avg_pct": -2.480422,
+                "bucket_avg_pct": -1.591605,
+                "direction_consistent": true
+              },
+              {
+                "segment": "LATE_HALF",
+                "n_bucket": 13,
+                "delta_vs_segment_baseline_pp": 1.122183,
+                "baseline_avg_pct": -2.798567,
+                "bucket_avg_pct": -1.676384,
+                "direction_consistent": true
+              }
+            ],
+            "requirement": "association direction must persist in both chronological halves"
+          },
+          {
+            "test": "EX_EXTREME_OBSERVATION",
+            "status": "PASS",
+            "n_after": 23,
+            "removed_outcome_pct": 12.947394,
+            "delta_after_removal_pp": 0.542974,
+            "requirement": "direction survives removal of the most supportive single observation"
+          },
+          {
+            "test": "LEAVE_ONE_SYMBOL_OUT",
+            "status": "PASS",
+            "folds": [
+              {
+                "excluded_symbol": "ADA",
+                "n_bucket": 23,
+                "delta_pp": 1.111328,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ARB",
+                "n_bucket": 24,
+                "delta_pp": 0.763568,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ASTER",
+                "n_bucket": 24,
+                "delta_pp": 1.03309,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BNB",
+                "n_bucket": 23,
+                "delta_pp": 1.086377,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "BTC",
+                "n_bucket": 23,
+                "delta_pp": 1.072589,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DASH",
+                "n_bucket": 20,
+                "delta_pp": 2.327146,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "DOGE",
+                "n_bucket": 24,
+                "delta_pp": 1.130531,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ENA",
+                "n_bucket": 24,
+                "delta_pp": 0.839949,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ETH",
+                "n_bucket": 23,
+                "delta_pp": 1.031083,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "LINK",
+                "n_bucket": 23,
+                "delta_pp": 0.867903,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "MARSCOIN",
+                "n_bucket": 24,
+                "delta_pp": 0.317791,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "NEAR",
+                "n_bucket": 23,
+                "delta_pp": 1.077793,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PROM",
+                "n_bucket": 21,
+                "delta_pp": 0.707018,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "PUMP",
+                "n_bucket": 24,
+                "delta_pp": 1.552561,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "RAY",
+                "n_bucket": 24,
+                "delta_pp": 0.668466,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SAHARA",
+                "n_bucket": 23,
+                "delta_pp": 1.014136,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SOL",
+                "n_bucket": 23,
+                "delta_pp": 1.075642,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "SUI",
+                "n_bucket": 21,
+                "delta_pp": 0.705384,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "TAO",
+                "n_bucket": 23,
+                "delta_pp": 1.061135,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "UNI",
+                "n_bucket": 23,
+                "delta_pp": 0.875548,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "USD1",
+                "n_bucket": 23,
+                "delta_pp": 1.053453,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "WLD",
+                "n_bucket": 23,
+                "delta_pp": 0.542974,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "XRP",
+                "n_bucket": 24,
+                "delta_pp": 1.056936,
+                "direction_consistent": true
+              },
+              {
+                "excluded_symbol": "ZEC",
+                "n_bucket": 22,
+                "delta_pp": 1.211607,
+                "direction_consistent": true
+              }
+            ],
+            "direction_consistent_pct": 100.0,
+            "requirement": ">=70% of symbol-exclusion folds retain direction"
+          }
+        ],
+        "failed_tests": [],
+        "inconclusive_tests": [],
+        "principle": "try to break the attribution before allowing it to become a strategy proposal"
+      },
+      "status": "CHALLENGER_PASS_EARLY_EVIDENCE",
+      "first_seen_at": "2026-09-08T13:06:33.932763+00:00",
+      "last_seen_at": "2026-09-08T13:06:33.932763+00:00",
+      "automatic_launch": true,
+      "automatic_strategy_change": false,
+      "manual_approval_required_for_any_strategy_proposal": true,
+      "active": true
+    }
+  ],
+  "history_count": 6,
   "methodology": {
     "source": "Only matured 24h exact-forward attribution findings",
     "automatic_tests": [
