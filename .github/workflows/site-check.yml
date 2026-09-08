@@ -60,6 +60,9 @@ jobs:
           node --check adaptive-allocation.js
           node --check portfolio-validation-trials.js
           node --check shared-nav.js
+          node --check auth-core.js
+          node --check wavelength-os.js
+          node --check wavelength-os-core.js
           node --check governance.js
           node --check terminal-ui.js
           node --check final-ui.js
@@ -71,6 +74,12 @@ jobs:
       - name: Assert required cockpit files
         run: |
           test -s index.html
+          test -s cockpit.html
+          test -s account.html
+          test -s upgrade.html
+          test -s auth-core.js
+          test -s wavelength-os.js
+          test -s wavelength-os-core.js
           test -s coin.html
           test -s coin.js
           test -s coin-intelligence.js
@@ -138,8 +147,15 @@ jobs:
           test -s schema-smoke.js
       - name: Assert shared navigation wiring
         run: |
-          grep -q 'shared-nav.js' index.html
-          grep -q 'funnel-drilldown.js' index.html
+          grep -q 'Crypto Decision Intelligence' index.html
+          grep -q 'wavelength-today.html' index.html
+          grep -q 'cockpit.html#markets' index.html
+          grep -q 'shared-nav.js' cockpit.html
+          grep -q 'funnel-drilldown.js' cockpit.html
+          grep -q 'auth-core.js' account.html
+          grep -q 'auth-core.js' upgrade.html
+          grep -q 'auth-core.js' wavelength-os.js
+          grep -q 'wavelength-os-core.js' wavelength-os.js
           grep -q 'observation-experience.js' shared-nav.js
           grep -q 'opportunity-centre.html' shared-nav.js
           grep -q 'shared-nav.js' opportunity-centre.html
