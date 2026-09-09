@@ -1,11 +1,13 @@
 {
   "actionable_items": [
-    "V3 forward feed: stale 7.7h"
+    "Observation baseline: 1 critical file(s) changed"
   ],
   "automatic_promotion": false,
   "baseline_drift": {
     "baseline_ref": "observation-baseline-v1",
-    "changed_critical_files": [],
+    "changed_critical_files": [
+      "automatic_paper_runner.py"
+    ],
     "file_checks": [
       {
         "baseline_sha256": "204ede01f3092dd2800604a00122f3e65394dd8d4fee42f0da9b6cda02d60d82",
@@ -27,9 +29,9 @@
       },
       {
         "baseline_sha256": "7518626332f5f5dfcfefb1ccf0afe63d4262871a2af52cda3b4ba723097b4e59",
-        "current_sha256": "7518626332f5f5dfcfefb1ccf0afe63d4262871a2af52cda3b4ba723097b4e59",
+        "current_sha256": "edf760f90da4f152cec53b8aa9b886c9241cd98808de9efa68e4e88a0c1e87e1",
         "path": "automatic_paper_runner.py",
-        "state": "UNCHANGED"
+        "state": "CHANGED_SINCE_BASELINE"
       },
       {
         "baseline_sha256": "7b8fc8675f2a27c503f02d7eb7ef9f005c8930bcdce187ae28c477cf49658d71",
@@ -100,7 +102,7 @@
         "passed": true
       }
     ],
-    "state": "GREEN_BASELINE_MATCH",
+    "state": "AMBER_REVIEW_REQUIRED",
     "strategy_evidence_window_invalidated": false
   },
   "broker_reconciliation": {
@@ -108,7 +110,7 @@
     "account_position_count": 0,
     "account_position_symbols": [],
     "authority": "READ_ONLY_ADVISORY",
-    "broker_snapshot_generated_at": "2026-09-09T13:03:19.778339+00:00",
+    "broker_snapshot_generated_at": "2026-09-09T17:10:25.582899+00:00",
     "guardian_status": "FLAT_OK",
     "new_entries_should_be_blocked": false,
     "open_eth_order_count": 0,
@@ -127,8 +129,8 @@
   "components": [
     {
       "component": "Observation baseline",
-      "detail": "0 critical file(s) changed",
-      "state": "GREEN_BASELINE_MATCH"
+      "detail": "1 critical file(s) changed",
+      "state": "AMBER_REVIEW_REQUIRED"
     },
     {
       "component": "Evidence vault",
@@ -142,41 +144,41 @@
     },
     {
       "component": "V3 forward feed",
-      "detail": "stale 7.7h",
-      "state": "RED"
+      "detail": "fresh 1.0h",
+      "state": "GREEN"
     },
     {
       "component": "Crowding forward feed",
-      "detail": "fresh 0.0h",
+      "detail": "fresh 4.2h",
       "state": "GREEN"
     },
     {
       "component": "Alert engine",
-      "detail": "fresh 0.1h",
+      "detail": "fresh 0.0h",
       "state": "GREEN"
     },
     {
       "component": "Existing incidents",
-      "detail": "0 actionable; 24 informational/expected",
+      "detail": "0 actionable; 26 informational/expected",
       "state": "GREEN"
     }
   ],
   "evidence_integrity": {
     "failure_count": 0,
-    "manifest_sha256": "e04d80d8da39485266e83a80191b391f58e576032fb559b99020e55dbb577871",
-    "previous_manifest_sha256": "c16c46913710f8bef3192c241549d6c1a44c911a02505247d664c5ed479bede9",
+    "manifest_sha256": "9d1a82d1b1fb594fea34735f1426505c0da1c805148bbca3f80f316643176560",
+    "previous_manifest_sha256": "e04d80d8da39485266e83a80191b391f58e576032fb559b99020e55dbb577871",
     "state": "PASS"
   },
   "execution_authority": false,
   "existing_operations": {
     "actionable_incident_count": 0,
     "circuit_breaker": "HARD_BLOCK",
-    "durable_incident_count": 24,
+    "durable_incident_count": 26,
     "guardian_status": "UNKNOWN",
     "incident_severity_source": "runtime/execution_incidents.jsonl",
-    "informational_incident_count": 24,
-    "reconciliation_confidence": 60.0,
-    "unacknowledged_incidents": 24
+    "informational_incident_count": 26,
+    "reconciliation_confidence": 40.0,
+    "unacknowledged_incidents": 26
   },
   "forward_evidence": {
     "candidate_v3": {
@@ -185,7 +187,7 @@
       "external_resolution_calls": 0,
       "genuine_forward_entry_events": 0,
       "latest_shadow_action": "NO_SIGNAL",
-      "latest_shadow_bar": "2026-09-09T00:00:00+00:00",
+      "latest_shadow_bar": "2026-09-09T12:00:00+00:00",
       "latest_shadow_entry_signal": false,
       "resolved_counts": {
         "12h": 0,
@@ -211,7 +213,7 @@
       }
     }
   },
-  "generated_at": "2026-09-09T13:03:20.041150+00:00",
+  "generated_at": "2026-09-09T17:10:25.816073+00:00",
   "incident_classification": {
     "actionable_count": 0,
     "actionable_severities": [
@@ -223,7 +225,7 @@
       "WARNING"
     ],
     "info_dry_run_blocking_is_operationally_expected": true,
-    "informational_count": 24,
+    "informational_count": 26,
     "mode": "OPERATOR_INCIDENT_SEVERITY_CLASSIFICATION_V1"
   },
   "live_money_enabled": false,
@@ -231,6 +233,6 @@
   "operator_centre_mode": "WAVELENGTH_OPERATOR_INCIDENT_CENTRE_V1_READ_ONLY",
   "operator_principle": "RED is actionable; AMBER requires review/monitoring; GREEN needs no intervention. No control on this page can place orders or alter strategy state.",
   "orders_enabled": false,
-  "overall_state": "RED",
+  "overall_state": "AMBER",
   "strategy_rule_mutation": false
 }
