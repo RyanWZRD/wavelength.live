@@ -1,6 +1,6 @@
 {
   "mode": "WAVELENGTH_READINESS_LAB_V1_READ_ONLY",
-  "generated_at": "2026-09-07T16:20:59.018577+00:00",
+  "generated_at": "2026-09-09T08:17:00.202237+00:00",
   "orders_enabled": false,
   "live_money_enabled": false,
   "execution_authority": false,
@@ -30,9 +30,9 @@
       },
       {
         "gate": "BROKER_SNAPSHOT_ERRORS",
-        "current": 1,
+        "current": 0,
         "required": 0,
-        "passed": false
+        "passed": true
       },
       {
         "gate": "GUARDIAN_STATE",
@@ -44,68 +44,69 @@
     "blockers": [
       "MINIMUM_PRICE_EVIDENCE",
       "MEANINGFUL_FILL_SAMPLE",
-      "EXECUTION_ERRORS",
-      "BROKER_SNAPSHOT_ERRORS"
+      "EXECUTION_ERRORS"
     ],
-    "reconciliation_confidence_pct": 60.0,
+    "reconciliation_confidence_pct": 40.0,
     "note": "Rehearsal only. This does not submit PAPER or live orders."
   },
   "evidence_quality": {
-    "score_0_to_100": 60.0,
-    "state": "DEVELOPING",
-    "operational_sources_fresh": 6,
+    "score_0_to_100": 30.0,
+    "state": "THIN",
+    "operational_sources_fresh": 4,
     "operational_sources_total": 6,
     "execution_measurement_completeness_pct": 0.0,
     "sources": [
       {
         "source": "paper_graduation",
-        "state": "FRESH",
-        "age_hours": 0.229,
+        "state": "STALE",
+        "age_hours": 2.877,
         "max_age_hours": 2.5
       },
       {
         "source": "execution_intelligence",
         "state": "FRESH",
-        "age_hours": 1.942,
+        "age_hours": 3.327,
         "max_age_hours": 30.0
       },
       {
         "source": "portfolio_risk",
-        "state": "FRESH",
-        "age_hours": 1.227,
+        "state": "AGING",
+        "age_hours": 41.161,
         "max_age_hours": 48.0
       },
       {
         "source": "candidate_v3_forward",
         "state": "FRESH",
-        "age_hours": 1.849,
+        "age_hours": 2.955,
         "max_age_hours": 8.0
       },
       {
         "source": "crowding_v2_forward",
         "state": "FRESH",
-        "age_hours": 2.034,
+        "age_hours": 3.485,
         "max_age_hours": 8.0
       },
       {
         "source": "strategy_challenger",
         "state": "FRESH",
-        "age_hours": 0.075,
+        "age_hours": 0.847,
         "max_age_hours": 72.0
       }
     ],
-    "quality_warnings": [],
+    "quality_warnings": [
+      "paper_graduation:STALE"
+    ],
     "principle": "Missing evidence remains missing; no data is imputed."
   },
   "decision_journal": {
-    "state_fingerprint": "8ea5541d158b38c7a24d",
+    "state_fingerprint": "6497b63b87a7f0255e5f",
     "new_event_count": 1,
     "latest_event": {
-      "at": "2026-09-07T16:20:59.018577+00:00",
+      "at": "2026-09-09T08:17:00.202237+00:00",
       "type": "READINESS_STATE_CHANGED",
-      "fingerprint": "8ea5541d158b38c7a24d",
+      "fingerprint": "6497b63b87a7f0255e5f",
       "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
-      "quality_state": "DEVELOPING",
+      "quality_state": "THIN",
       "summary": {
         "overall_state": "WAITING_FOR_FORWARD_EVIDENCE",
         "strategies": [
@@ -134,14 +135,14 @@
         "execution": {
           "fills": 0,
           "errors": 4,
-          "broker_errors": 1,
+          "broker_errors": 0,
           "guardian": "FLAT_OK"
         },
         "portfolio": {
           "state": "WARNING_BLOCK_CO_ADMISSION",
           "allowed": false
         },
-        "quality_state": "DEVELOPING"
+        "quality_state": "THIN"
       },
       "authority": "READ_ONLY"
     },
@@ -239,9 +240,9 @@
         "lifecycle_state": "SHADOW",
         "next_state": "PAPER_ELIGIBLE",
         "days": {
-          "current": 2.172,
+          "current": 3.725,
           "required": 120.0,
-          "progress_pct": 1.8
+          "progress_pct": 3.1
         },
         "trades": {
           "current": 0,
@@ -261,9 +262,9 @@
         "lifecycle_state": "SHADOW",
         "next_state": "PAPER_ELIGIBLE",
         "days": {
-          "current": 1.338,
+          "current": 2.892,
           "required": 90.0,
-          "progress_pct": 1.5
+          "progress_pct": 3.2
         },
         "trades": {
           "current": 0,
