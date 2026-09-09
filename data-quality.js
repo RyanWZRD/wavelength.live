@@ -56,7 +56,58 @@ async function feeds(){
   else{badge.textContent='CANONICAL FEEDS HEALTHY';badge.className='badge good'}
   return{actionable,aging,degraded};
 }
-async function prices(){const syms=[['BTC','bitcoin'],['ETH','ethereum'],['SOL','solana']];const cg=await get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd');const out=[];for(const [sym,id] of syms){try{const b=await get(`https://api.binance.com/api/v3/ticker/price?symbol=${sym}USDT`),bp=+b.price,cp=+cg[id].usd,diff=cp?100*(bp/cp-1):null;out.push({sym,bp,cp,diff})}catch{out.push({sym,bp:null,cp:null,diff:null})}}$('#priceMetrics').innerHTML=out.map(x=>`<div class="metric"><div class="metric-label">${x.sym} source gap</div><div class="metric-value ${Math.abs(x.diff||0)>.5?'accent':'up'}">${x.diff==null?'—':`${x.diff>=0?'+':''}${n(x.diff,3)}%`}</div><div class="card-meta">Binance ${x.bp==null?'—':'$'+n(x.bp,2)} · CG ${x.cp==null?'—':'$'+n(x.cp,2)}</div></div>`).join('');const max=Math.max(...out.map(x=>Math.abs(x.diff??999)));$('#priceBadge').textContent=max<=0.5?'SOURCES ALIGNED':max<=1?'CHECK GAP':'SOURCE WARNING';$('#priceBadge').className='badge '+(max<=0.5?'good':max<=1?'warn':'bad');$('#priceNotes').innerHTML=`<div class="context-item"><strong>${max<=0.5?'Independent spot cross-check looks normal':'Material source discrepancy detected'}</strong><p>Comparison is diagnostic only; no strategy candle, signal or threshold is replaced by this browser-side check.</p></div>`;return max}
-async function load(){try{$('#dqStatus').className='status-pill warn';const [health,max]=await Promise.all([feeds(),prices()]);const review=health.actionable||max>1,monitor=!review&&health.aging;$('#dqStatus').className='status-pill '+(review?'bad':monitor?'warn':'');$('#dqStatus').innerHTML='<span class="dot"></span>'+(review?'REVIEW':monitor?'MONITOR':'HEALTHY')}catch(e){console.error(e);$('#dqStatus').className='status-pill bad';$('#dqStatus').innerHTML='<span class="dot"></span>CHECK FAILED'}}
+async function prices(){
+  const syms=[['BTC','bitcoin'],['ETH','ethereum'],['SOL','solana']];
+  let cg=null,cgError=null;
+  try{cg=await get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd')}catch(e){cgError=e}
+  const out=[];
+  for(const [sym,id] of syms){
+    let bp=null,cp=null,binanceError=null;
+    try{const b=await get(`https://api.binance.com/api/v3/ticker/price?symbol=${sym}USDT`);bp=Number(b.price)}catch(e){binanceError=e}
+    if(cg&&cg[id]&&Number.isFinite(Number(cg[id].usd)))cp=Number(cg[id].usd);
+    const comparable=Number.isFinite(bp)&&Number.isFinite(cp)&&cp>0;
+    const diff=comparable?100*(bp/cp-1):null;
+    out.push({sym,bp:Number.isFinite(bp)?bp:null,cp:Number.isFinite(cp)?cp:null,diff,comparable,binanceError,cgError});
+  }
+  $('#priceMetrics').innerHTML=out.map(x=>`<div class="metric"><div class="metric-label">${x.sym} source gap</div><div class="metric-value ${x.diff!=null&&Math.abs(x.diff)>.5?'accent':x.diff!=null?'up':''}">${x.diff==null?'—':`${x.diff>=0?'+':''}${n(x.diff,3)}%`}</div><div class="card-meta">Binance ${x.bp==null?'—':'$'+n(x.bp,2)} · CG ${x.cp==null?'—':'$'+n(x.cp,2)}</div></div>`).join('');
+  const compared=out.filter(x=>x.comparable);
+  const unavailable=out.length-compared.length;
+  const max=compared.length?Math.max(...compared.map(x=>Math.abs(x.diff))):null;
+  const badge=$('#priceBadge');
+  let state='UNAVAILABLE';
+  if(!compared.length){badge.textContent='CHECK UNAVAILABLE';badge.className='badge warn'}
+  else if(max<=0.5&&unavailable===0){state='ALIGNED';badge.textContent='SOURCES ALIGNED';badge.className='badge good'}
+  else if(max<=0.5){state='PARTIAL';badge.textContent=`PARTIAL CHECK · ${compared.length}/${out.length}`;badge.className='badge warn'}
+  else if(max<=1){state='GAP';badge.textContent='CHECK GAP';badge.className='badge warn'}
+  else{state='CONFLICT';badge.textContent='SOURCE WARNING';badge.className='badge bad'}
+  let title,body;
+  if(state==='UNAVAILABLE'){
+    title='Independent price cross-check unavailable';
+    body='No valid Binance-versus-CoinGecko comparison was completed in this browser session. This is a provider/network availability issue, not evidence of a price discrepancy.';
+  }else if(state==='PARTIAL'){
+    title='Independent price cross-check partially available';
+    body=`${compared.length} of ${out.length} assets were compared successfully. Missing comparisons are reported as unavailable and are not treated as discrepancies.`;
+  }else if(state==='ALIGNED'){
+    title='Independent spot cross-check looks normal';
+    body='All requested Binance-versus-CoinGecko comparisons completed within the 0.5% alignment threshold.';
+  }else{
+    title='Measured source discrepancy detected';
+    body=`At least one completed Binance-versus-CoinGecko comparison differs by ${n(max,3)}%. Only completed comparisons contribute to this warning.`;
+  }
+  $('#priceNotes').innerHTML=`<div class="context-item"><strong>${esc(title)}</strong><p>${esc(body)} Comparison is diagnostic only; no strategy candle, signal or threshold is replaced by this browser-side check.</p></div>`;
+  return{state,max,compared:compared.length,total:out.length};
+}
+async function load(){
+  try{
+    $('#dqStatus').className='status-pill warn';
+    const [health,price]=await Promise.all([feeds(),prices()]);
+    const priceConflict=price.state==='CONFLICT';
+    const priceUnavailable=price.state==='UNAVAILABLE'||price.state==='PARTIAL';
+    const review=health.actionable||priceConflict;
+    const monitor=!review&&(health.aging||priceUnavailable||price.state==='GAP');
+    $('#dqStatus').className='status-pill '+(review?'bad':monitor?'warn':'');
+    $('#dqStatus').innerHTML='<span class="dot"></span>'+(review?'REVIEW':monitor?'MONITOR':'HEALTHY');
+  }catch(e){console.error(e);$('#dqStatus').className='status-pill bad';$('#dqStatus').innerHTML='<span class="dot"></span>CHECK FAILED'}
+}
 load();setInterval(load,60000);
 })();
