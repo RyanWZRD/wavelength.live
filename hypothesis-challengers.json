@@ -1,7 +1,7 @@
 {
   "automatic_promotion": false,
   "capital_allocation_authority": false,
-  "challenger_count": 5,
+  "challenger_count": 6,
   "challengers": [
     {
       "automatic_promotion": false,
@@ -31,6 +31,110 @@
       },
       "execution_authority": false,
       "falsification_rule": "Collect at least 15 fresh matching canonical-V1 4h outcomes after hypothesis creation; reject if fresh mean return <= comparison baseline or fresh positive rate does not exceed baseline.",
+      "fresh_event_ids": [
+        "episode:PUMP:2026-09-09T12:54:29.649120+00:00",
+        "episode:SUI:2026-09-09T12:54:29.649120+00:00",
+        "episode:DOGE:2026-09-09T12:54:29.649120+00:00"
+      ],
+      "fresh_evidence": {
+        "mean_mae_pct": -4.107832429583895,
+        "mean_mfe_pct": 0.42899121377441746,
+        "mean_return_pct": -1.3872357424245492,
+        "median_return_pct": -2.5573770491803205,
+        "n": 3,
+        "positive_rate_pct": 33.333333333333336
+      },
+      "fresh_forward_only": true,
+      "horizon": "4h",
+      "hypothesis_id": "4h:adx_band:20-34",
+      "minimum_fresh_matching_events": 15,
+      "progress": {
+        "pct": 20.0,
+        "remaining": 12,
+        "required_matching_events": 15,
+        "resolved_matching_events": 3
+      },
+      "same_sample_discovery": true,
+      "statement": "adx_band=20-34 may improve 4h forward outcomes versus the rest of the canonical observed sample; this is a discovery hypothesis, not an edge claim.",
+      "statistical_robustness": {
+        "blocking_checks_passed": false,
+        "bootstrap_mean_return_pct": {
+          "confidence": 0.9,
+          "draws": 5000,
+          "high": -0.1894600038387743,
+          "low": -2.585011481010324,
+          "probability_mean_gt_baseline": 1.0
+        },
+        "checks": {
+          "bootstrap_90pct_lower_above_baseline": true,
+          "bootstrap_probability_ge_90pct": true,
+          "ex_best_mean_above_baseline": true,
+          "hit_rate_family_adjusted_p_le_alpha": false,
+          "leave_one_asset_out": true,
+          "median_positive": false,
+          "minimum_effect_size": true
+        },
+        "ex_best_mean_return_pct": -2.5781028730528233,
+        "hit_rate_test": {
+          "baseline_positive_rate_pct": 33.333333333333336,
+          "bonferroni_p": 1.0,
+          "family_size": 6,
+          "n": 3,
+          "raw_one_sided_p": 0.7037037037037037,
+          "wins": 1
+        },
+        "leave_one_asset_out": {
+          "all_means_beat_baseline": true,
+          "groups": 3,
+          "state": "MEASURED",
+          "worst_mean_return_pct": -2.5781028730528233
+        },
+        "leave_one_month_out": {
+          "all_means_beat_baseline": null,
+          "groups": 1,
+          "state": "INSUFFICIENT_GROUP_DIVERSITY",
+          "worst_mean_return_pct": null
+        },
+        "policy": {
+          "bootstrap_draws": 5000,
+          "confidence_level": 0.9,
+          "family_alpha": 0.1,
+          "minimum_effect_lift_pct": 0.25,
+          "multiple_testing": "BONFERRONI_ACTIVE_CHALLENGERS"
+        }
+      },
+      "status": "SURVIVING",
+      "updated_at": "2026-09-09T17:10:34.945927+00:00",
+      "value": "20-34"
+    },
+    {
+      "automatic_promotion": false,
+      "automatic_strategy_change": false,
+      "capital_allocation_authority": false,
+      "comparison_baseline": {
+        "mean_return_pct": -2.092109813043654,
+        "positive_rate_pct": 25.0,
+        "sample_n": 16
+      },
+      "created_at": "2026-09-09T17:10:34.945927+00:00",
+      "created_from_analytics_generated_at": "2026-09-09T17:10:34.880337+00:00",
+      "decision_checks": {
+        "mean_return_beats_frozen_comparison": null,
+        "positive_rate_beats_frozen_comparison": null,
+        "sample_requirement_met": false,
+        "statistical_robustness_established": null
+      },
+      "dimension": "adx_x_btc_trend",
+      "discovery_baseline": {
+        "mean_return_lift_pct": 2.2976599158199376,
+        "mean_return_pct": 0.2055501027762838,
+        "median_return_pct": 0.23605783416937864,
+        "positive_rate_lift_pp": 30.555555555555557,
+        "positive_rate_pct": 55.55555555555556,
+        "sample_n": 9
+      },
+      "execution_authority": false,
+      "falsification_rule": "Collect at least 15 fresh matching canonical-V1 4h outcomes after hypothesis creation; reject if fresh mean return <= comparison baseline or fresh positive rate does not exceed baseline.",
       "fresh_event_ids": [],
       "fresh_evidence": {
         "mean_mae_pct": null,
@@ -42,7 +146,7 @@
       },
       "fresh_forward_only": true,
       "horizon": "4h",
-      "hypothesis_id": "4h:adx_band:20-34",
+      "hypothesis_id": "4h:adx_x_btc_trend:20-34|BULLISH",
       "minimum_fresh_matching_events": 15,
       "progress": {
         "pct": 0.0,
@@ -51,7 +155,7 @@
         "resolved_matching_events": 0
       },
       "same_sample_discovery": true,
-      "statement": "adx_band=20-34 may improve 4h forward outcomes versus the rest of the canonical observed sample; this is a discovery hypothesis, not an edge claim.",
+      "statement": "adx_x_btc_trend=20-34|BULLISH may improve 4h forward outcomes versus the rest of the canonical observed sample; this is a discovery hypothesis, not an edge claim.",
       "statistical_robustness": {
         "blocking_checks_passed": false,
         "checks": {},
@@ -64,8 +168,8 @@
         }
       },
       "status": "PENDING",
-      "updated_at": "2026-09-09T16:51:49.904836+00:00",
-      "value": "20-34"
+      "updated_at": "2026-09-09T17:10:34.945927+00:00",
+      "value": "20-34|BULLISH"
     },
     {
       "automatic_promotion": false,
@@ -95,30 +199,69 @@
       },
       "execution_authority": false,
       "falsification_rule": "Collect at least 15 fresh matching canonical-V1 4h outcomes after hypothesis creation; reject if fresh mean return <= comparison baseline or fresh positive rate does not exceed baseline.",
-      "fresh_event_ids": [],
+      "fresh_event_ids": [
+        "episode:XRP:2026-09-09T12:54:29.649120+00:00",
+        "episode:DOGE:2026-09-09T12:54:29.649120+00:00"
+      ],
       "fresh_evidence": {
-        "mean_mae_pct": null,
-        "mean_mfe_pct": null,
-        "mean_return_pct": null,
-        "median_return_pct": null,
-        "n": 0,
-        "positive_rate_pct": null
+        "mean_mae_pct": -3.012987160938269,
+        "mean_mfe_pct": -0.05663465445418514,
+        "mean_return_pct": -1.8450540562093387,
+        "median_return_pct": -1.8450540562093387,
+        "n": 2,
+        "positive_rate_pct": 0.0
       },
       "fresh_forward_only": true,
       "horizon": "4h",
       "hypothesis_id": "4h:coin_volatility_regime:LOW",
       "minimum_fresh_matching_events": 15,
       "progress": {
-        "pct": 0.0,
-        "remaining": 15,
+        "pct": 13.333333333333334,
+        "remaining": 13,
         "required_matching_events": 15,
-        "resolved_matching_events": 0
+        "resolved_matching_events": 2
       },
       "same_sample_discovery": true,
       "statement": "coin_volatility_regime=LOW may improve 4h forward outcomes versus the rest of the canonical observed sample; this is a discovery hypothesis, not an edge claim.",
       "statistical_robustness": {
         "blocking_checks_passed": false,
-        "checks": {},
+        "bootstrap_mean_return_pct": {
+          "confidence": 0.9,
+          "draws": 5000,
+          "high": -1.132731063238357,
+          "low": -2.5573770491803205,
+          "probability_mean_gt_baseline": 0.762
+        },
+        "checks": {
+          "bootstrap_90pct_lower_above_baseline": false,
+          "bootstrap_probability_ge_90pct": false,
+          "ex_best_mean_above_baseline": false,
+          "hit_rate_family_adjusted_p_le_alpha": false,
+          "leave_one_asset_out": false,
+          "median_positive": false,
+          "minimum_effect_size": false
+        },
+        "ex_best_mean_return_pct": -2.5573770491803205,
+        "hit_rate_test": {
+          "baseline_positive_rate_pct": 46.15384615384615,
+          "bonferroni_p": 1.0,
+          "family_size": 6,
+          "n": 2,
+          "raw_one_sided_p": 1.0,
+          "wins": 0
+        },
+        "leave_one_asset_out": {
+          "all_means_beat_baseline": false,
+          "groups": 2,
+          "state": "MEASURED",
+          "worst_mean_return_pct": -2.5573770491803205
+        },
+        "leave_one_month_out": {
+          "all_means_beat_baseline": null,
+          "groups": 1,
+          "state": "INSUFFICIENT_GROUP_DIVERSITY",
+          "worst_mean_return_pct": null
+        },
         "policy": {
           "bootstrap_draws": 5000,
           "confidence_level": 0.9,
@@ -127,8 +270,8 @@
           "multiple_testing": "BONFERRONI_ACTIVE_CHALLENGERS"
         }
       },
-      "status": "PENDING",
-      "updated_at": "2026-09-09T16:51:49.904836+00:00",
+      "status": "SURVIVING",
+      "updated_at": "2026-09-09T17:10:34.945927+00:00",
       "value": "LOW"
     },
     {
@@ -164,25 +307,31 @@
         "episode:DOT:2026-09-08T12:49:22.191225+00:00",
         "episode:TAO:2026-09-08T19:23:25.914491+00:00",
         "episode:ADA:2026-09-08T19:23:25.914491+00:00",
-        "episode:SAHARA:2026-09-08T22:31:59.858263+00:00"
+        "episode:SAHARA:2026-09-08T22:31:59.858263+00:00",
+        "episode:ZEC:2026-09-09T12:54:29.649120+00:00",
+        "episode:PUMP:2026-09-09T12:54:29.649120+00:00",
+        "episode:NEAR:2026-09-09T12:54:29.649120+00:00",
+        "episode:TAO:2026-09-09T12:54:29.649120+00:00",
+        "episode:DASH:2026-09-09T12:54:29.649120+00:00",
+        "episode:SUI:2026-09-09T12:54:29.649120+00:00"
       ],
       "fresh_evidence": {
-        "mean_mae_pct": -1.637550982518683,
-        "mean_mfe_pct": 3.5871687464787754,
-        "mean_return_pct": 1.8409386004366612,
-        "median_return_pct": -0.11591962905719289,
-        "n": 5,
-        "positive_rate_pct": 40.0
+        "mean_mae_pct": -2.739583370957712,
+        "mean_mfe_pct": 2.2121461201588897,
+        "mean_return_pct": 0.3013217452815778,
+        "median_return_pct": -0.6118546845124251,
+        "n": 11,
+        "positive_rate_pct": 36.36363636363637
       },
       "fresh_forward_only": true,
       "horizon": "4h",
       "hypothesis_id": "4h:coin_volatility_regime:NORMAL",
       "minimum_fresh_matching_events": 15,
       "progress": {
-        "pct": 33.333333333333336,
-        "remaining": 10,
+        "pct": 73.33333333333333,
+        "remaining": 4,
         "required_matching_events": 15,
-        "resolved_matching_events": 5
+        "resolved_matching_events": 11
       },
       "same_sample_discovery": true,
       "statement": "coin_volatility_regime=NORMAL may improve 4h forward outcomes versus the rest of the canonical observed sample; this is a discovery hypothesis, not an edge claim.",
@@ -191,9 +340,9 @@
         "bootstrap_mean_return_pct": {
           "confidence": 0.9,
           "draws": 5000,
-          "high": 5.342102485728932,
-          "low": -0.6414742573913812,
-          "probability_mean_gt_baseline": 1.0
+          "high": 2.064754047585802,
+          "low": -1.1038120822774797,
+          "probability_mean_gt_baseline": 0.9992
         },
         "checks": {
           "bootstrap_90pct_lower_above_baseline": true,
@@ -204,20 +353,20 @@
           "median_positive": false,
           "minimum_effect_size": true
         },
-        "ex_best_mean_return_pct": -0.06773199324442147,
+        "ex_best_mean_return_pct": -0.6161081777063637,
         "hit_rate_test": {
           "baseline_positive_rate_pct": 20.0,
-          "bonferroni_p": 1.0,
-          "family_size": 5,
-          "n": 5,
-          "raw_one_sided_p": 0.2627200000000001,
-          "wins": 2
+          "bonferroni_p": 0.9668352000000006,
+          "family_size": 6,
+          "n": 11,
+          "raw_one_sided_p": 0.1611392000000001,
+          "wins": 4
         },
         "leave_one_asset_out": {
           "all_means_beat_baseline": true,
-          "groups": 5,
+          "groups": 10,
           "state": "MEASURED",
-          "worst_mean_return_pct": -0.06773199324442147
+          "worst_mean_return_pct": -0.6161081777063637
         },
         "leave_one_month_out": {
           "all_means_beat_baseline": null,
@@ -234,7 +383,7 @@
         }
       },
       "status": "SURVIVING",
-      "updated_at": "2026-09-09T16:51:49.904836+00:00",
+      "updated_at": "2026-09-09T17:10:34.945927+00:00",
       "value": "NORMAL"
     },
     {
@@ -271,25 +420,28 @@
         "episode:WLD:2026-09-07T06:01:24.282001+00:00",
         "episode:AVAX:2026-09-07T12:24:15.162797+00:00",
         "episode:SOPH:2026-09-08T12:49:22.191225+00:00",
-        "episode:BNB:2026-09-08T12:49:22.191225+00:00"
+        "episode:BNB:2026-09-08T12:49:22.191225+00:00",
+        "episode:PUMP:2026-09-09T12:54:29.649120+00:00",
+        "episode:XRP:2026-09-09T12:54:29.649120+00:00",
+        "episode:DOGE:2026-09-09T12:54:29.649120+00:00"
       ],
       "fresh_evidence": {
-        "mean_mae_pct": -6.254570696763321,
-        "mean_mfe_pct": 3.603351568420377,
-        "mean_return_pct": -4.572135771008378,
-        "median_return_pct": 0.029010990081157484,
-        "n": 6,
-        "positive_rate_pct": 50.0
+        "mean_mae_pct": -5.304776445258129,
+        "mean_mfe_pct": 2.563627364466713,
+        "mean_return_pct": -3.3476026910707724,
+        "median_return_pct": -0.5236132533569027,
+        "n": 9,
+        "positive_rate_pct": 44.44444444444444
       },
       "fresh_forward_only": true,
       "horizon": "4h",
       "hypothesis_id": "4h:score_band:65-74",
       "minimum_fresh_matching_events": 15,
       "progress": {
-        "pct": 40.0,
-        "remaining": 9,
+        "pct": 60.0,
+        "remaining": 6,
         "required_matching_events": 15,
-        "resolved_matching_events": 6
+        "resolved_matching_events": 9
       },
       "same_sample_discovery": true,
       "statement": "score_band=65-74 may improve 4h forward outcomes versus the rest of the observed sample; this is a discovery hypothesis, not an edge claim.",
@@ -298,9 +450,9 @@
         "bootstrap_mean_return_pct": {
           "confidence": 0.9,
           "draws": 5000,
-          "high": 2.4280401487945817,
-          "low": -15.286733427963599,
-          "probability_mean_gt_baseline": 0.2526
+          "high": 1.281792148722306,
+          "low": -10.681152939791762,
+          "probability_mean_gt_baseline": 0.1588
         },
         "checks": {
           "bootstrap_90pct_lower_above_baseline": false,
@@ -308,23 +460,23 @@
           "ex_best_mean_above_baseline": false,
           "hit_rate_family_adjusted_p_le_alpha": false,
           "leave_one_asset_out": false,
-          "median_positive": true,
+          "median_positive": false,
           "minimum_effect_size": false
         },
-        "ex_best_mean_return_pct": -6.644134387529919,
+        "ex_best_mean_return_pct": -4.489535191404534,
         "hit_rate_test": {
           "baseline_positive_rate_pct": 54.54545454545454,
           "bonferroni_p": 1.0,
-          "family_size": 5,
-          "n": 6,
-          "raw_one_sided_p": 0.7371668263187098,
-          "wins": 3
+          "family_size": 6,
+          "n": 9,
+          "raw_one_sided_p": 0.8270543165327581,
+          "wins": 4
         },
         "leave_one_asset_out": {
           "all_means_beat_baseline": false,
-          "groups": 6,
+          "groups": 9,
           "state": "MEASURED",
-          "worst_mean_return_pct": -6.644134387529919
+          "worst_mean_return_pct": -4.489535191404534
         },
         "leave_one_month_out": {
           "all_means_beat_baseline": null,
@@ -341,7 +493,7 @@
         }
       },
       "status": "SURVIVING",
-      "updated_at": "2026-09-09T16:51:49.904836+00:00",
+      "updated_at": "2026-09-09T17:10:34.945927+00:00",
       "value": "65-74"
     },
     {
@@ -372,30 +524,69 @@
       },
       "execution_authority": false,
       "falsification_rule": "Collect at least 15 fresh matching canonical-V1 4h outcomes after hypothesis creation; reject if fresh mean return <= comparison baseline or fresh positive rate does not exceed baseline.",
-      "fresh_event_ids": [],
+      "fresh_event_ids": [
+        "episode:NEAR:2026-09-09T12:54:29.649120+00:00",
+        "episode:XRP:2026-09-09T12:54:29.649120+00:00"
+      ],
       "fresh_evidence": {
-        "mean_mae_pct": null,
-        "mean_mfe_pct": null,
-        "mean_return_pct": null,
-        "median_return_pct": null,
-        "n": 0,
-        "positive_rate_pct": null
+        "mean_mae_pct": -2.785767150280971,
+        "mean_mfe_pct": 0.5579679430026907,
+        "mean_return_pct": -0.872292873875391,
+        "median_return_pct": -0.872292873875391,
+        "n": 2,
+        "positive_rate_pct": 0.0
       },
       "fresh_forward_only": true,
       "horizon": "4h",
       "hypothesis_id": "4h:stage:DEVELOPING",
       "minimum_fresh_matching_events": 15,
       "progress": {
-        "pct": 0.0,
-        "remaining": 15,
+        "pct": 13.333333333333334,
+        "remaining": 13,
         "required_matching_events": 15,
-        "resolved_matching_events": 0
+        "resolved_matching_events": 2
       },
       "same_sample_discovery": true,
       "statement": "stage=DEVELOPING may improve 4h forward outcomes versus the rest of the canonical observed sample; this is a discovery hypothesis, not an edge claim.",
       "statistical_robustness": {
         "blocking_checks_passed": false,
-        "checks": {},
+        "bootstrap_mean_return_pct": {
+          "confidence": 0.9,
+          "draws": 5000,
+          "high": -0.6118546845124251,
+          "low": -1.132731063238357,
+          "probability_mean_gt_baseline": 1.0
+        },
+        "checks": {
+          "bootstrap_90pct_lower_above_baseline": true,
+          "bootstrap_probability_ge_90pct": true,
+          "ex_best_mean_above_baseline": true,
+          "hit_rate_family_adjusted_p_le_alpha": false,
+          "leave_one_asset_out": true,
+          "median_positive": false,
+          "minimum_effect_size": true
+        },
+        "ex_best_mean_return_pct": -1.132731063238357,
+        "hit_rate_test": {
+          "baseline_positive_rate_pct": 16.666666666666668,
+          "bonferroni_p": 1.0,
+          "family_size": 6,
+          "n": 2,
+          "raw_one_sided_p": 0.9999999999999999,
+          "wins": 0
+        },
+        "leave_one_asset_out": {
+          "all_means_beat_baseline": true,
+          "groups": 2,
+          "state": "MEASURED",
+          "worst_mean_return_pct": -1.132731063238357
+        },
+        "leave_one_month_out": {
+          "all_means_beat_baseline": null,
+          "groups": 1,
+          "state": "INSUFFICIENT_GROUP_DIVERSITY",
+          "worst_mean_return_pct": null
+        },
         "policy": {
           "bootstrap_draws": 5000,
           "confidence_level": 0.9,
@@ -404,13 +595,13 @@
           "multiple_testing": "BONFERRONI_ACTIVE_CHALLENGERS"
         }
       },
-      "status": "PENDING",
-      "updated_at": "2026-09-09T16:51:49.904836+00:00",
+      "status": "SURVIVING",
+      "updated_at": "2026-09-09T17:10:34.945927+00:00",
       "value": "DEVELOPING"
     }
   ],
   "execution_authority": false,
-  "generated_at": "2026-09-09T16:51:49.904836+00:00",
+  "generated_at": "2026-09-09T17:10:34.945927+00:00",
   "lifecycle": [
     "PENDING",
     "SURVIVING",
@@ -437,8 +628,8 @@
   "status_counts": {
     "CONFIRMED": 0,
     "FALSIFIED": 0,
-    "PENDING": 3,
-    "SURVIVING": 2
+    "PENDING": 1,
+    "SURVIVING": 5
   },
   "strategy_rule_mutation": false
 }
