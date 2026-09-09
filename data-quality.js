@@ -56,46 +56,63 @@ async function feeds(){
   else{badge.textContent='CANONICAL FEEDS HEALTHY';badge.className='badge good'}
   return{actionable,aging,degraded};
 }
+async function exchangePrice(sym){
+  const attempts=[
+    ['Binance',async()=>{const d=await get(`https://api.binance.com/api/v3/ticker/price?symbol=${sym}USDT`);return Number(d.price)}],
+    ['Coinbase',async()=>{const d=await get(`https://api.exchange.coinbase.com/products/${sym}-USD/ticker`);return Number(d.price)}],
+    ['Kraken',async()=>{const pair=sym==='BTC'?'XBTUSD':`${sym}USD`;const d=await get(`https://api.kraken.com/0/public/Ticker?pair=${pair}`);if(d?.error?.length)throw new Error(d.error.join(','));const row=Object.values(d?.result||{})[0];return Number(row?.c?.[0])}]
+  ];
+  const failures=[];
+  for(const [source,fn] of attempts){
+    try{const price=await fn();if(Number.isFinite(price)&&price>0)return{source,price,failures};throw new Error('invalid price')}
+    catch(e){failures.push({source,error:String(e?.message||e)})}
+  }
+  return{source:null,price:null,failures};
+}
 async function prices(){
   const syms=[['BTC','bitcoin'],['ETH','ethereum'],['SOL','solana']];
+  const meta=$('#priceBadge')?.closest('.card-head')?.querySelector('.card-meta');
+  if(meta)meta.textContent='Exchange fallback chain (Binance → Coinbase → Kraken) versus CoinGecko · BTC / ETH / SOL';
   let cg=null,cgError=null;
   try{cg=await get('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana&vs_currencies=usd')}catch(e){cgError=e}
   const out=[];
   for(const [sym,id] of syms){
-    let bp=null,cp=null,binanceError=null;
-    try{const b=await get(`https://api.binance.com/api/v3/ticker/price?symbol=${sym}USDT`);bp=Number(b.price)}catch(e){binanceError=e}
-    if(cg&&cg[id]&&Number.isFinite(Number(cg[id].usd)))cp=Number(cg[id].usd);
-    const comparable=Number.isFinite(bp)&&Number.isFinite(cp)&&cp>0;
-    const diff=comparable?100*(bp/cp-1):null;
-    out.push({sym,bp:Number.isFinite(bp)?bp:null,cp:Number.isFinite(cp)?cp:null,diff,comparable,binanceError,cgError});
+    const ex=await exchangePrice(sym);
+    const cp=cg&&cg[id]&&Number.isFinite(Number(cg[id].usd))?Number(cg[id].usd):null;
+    const comparable=Number.isFinite(ex.price)&&Number.isFinite(cp)&&cp>0;
+    const diff=comparable?100*(ex.price/cp-1):null;
+    out.push({sym,exchange:ex.source,ep:Number.isFinite(ex.price)?ex.price:null,cp,diff,comparable,failures:ex.failures,cgError});
   }
-  $('#priceMetrics').innerHTML=out.map(x=>`<div class="metric"><div class="metric-label">${x.sym} source gap</div><div class="metric-value ${x.diff!=null&&Math.abs(x.diff)>.5?'accent':x.diff!=null?'up':''}">${x.diff==null?'—':`${x.diff>=0?'+':''}${n(x.diff,3)}%`}</div><div class="card-meta">Binance ${x.bp==null?'—':'$'+n(x.bp,2)} · CG ${x.cp==null?'—':'$'+n(x.cp,2)}</div></div>`).join('');
+  $('#priceMetrics').innerHTML=out.map(x=>`<div class="metric"><div class="metric-label">${x.sym} source gap</div><div class="metric-value ${x.diff!=null&&Math.abs(x.diff)>.5?'accent':x.diff!=null?'up':''}">${x.diff==null?'—':`${x.diff>=0?'+':''}${n(x.diff,3)}%`}</div><div class="card-meta">${esc(x.exchange||'Exchange')} ${x.ep==null?'—':'$'+n(x.ep,2)} · CG ${x.cp==null?'—':'$'+n(x.cp,2)}</div></div>`).join('');
   const compared=out.filter(x=>x.comparable);
   const unavailable=out.length-compared.length;
   const max=compared.length?Math.max(...compared.map(x=>Math.abs(x.diff))):null;
+  const used=[...new Set(compared.map(x=>x.exchange).filter(Boolean))];
+  const fallbackUsed=used.some(x=>x!=='Binance');
   const badge=$('#priceBadge');
   let state='UNAVAILABLE';
   if(!compared.length){badge.textContent='CHECK UNAVAILABLE';badge.className='badge warn'}
-  else if(max<=0.5&&unavailable===0){state='ALIGNED';badge.textContent='SOURCES ALIGNED';badge.className='badge good'}
+  else if(max<=0.5&&unavailable===0){state='ALIGNED';badge.textContent=fallbackUsed?'SOURCES ALIGNED · FALLBACK USED':'SOURCES ALIGNED';badge.className='badge good'}
   else if(max<=0.5){state='PARTIAL';badge.textContent=`PARTIAL CHECK · ${compared.length}/${out.length}`;badge.className='badge warn'}
   else if(max<=1){state='GAP';badge.textContent='CHECK GAP';badge.className='badge warn'}
   else{state='CONFLICT';badge.textContent='SOURCE WARNING';badge.className='badge bad'}
   let title,body;
+  const providerText=used.length?used.join(' / '):'no exchange provider';
   if(state==='UNAVAILABLE'){
     title='Independent price cross-check unavailable';
-    body='No valid Binance-versus-CoinGecko comparison was completed in this browser session. This is a provider/network availability issue, not evidence of a price discrepancy.';
+    body='No valid exchange-versus-CoinGecko comparison completed after trying Binance, Coinbase and Kraken. This is a provider/network availability issue, not evidence of a price discrepancy.';
   }else if(state==='PARTIAL'){
     title='Independent price cross-check partially available';
-    body=`${compared.length} of ${out.length} assets were compared successfully. Missing comparisons are reported as unavailable and are not treated as discrepancies.`;
+    body=`${compared.length} of ${out.length} assets were compared successfully using ${providerText}. Missing comparisons are unavailable, not discrepancies.`;
   }else if(state==='ALIGNED'){
     title='Independent spot cross-check looks normal';
-    body='All requested Binance-versus-CoinGecko comparisons completed within the 0.5% alignment threshold.';
+    body=`All requested comparisons completed within the 0.5% alignment threshold using ${providerText}.${fallbackUsed?' A fallback exchange was used because Binance was unavailable for at least one asset.':''}`;
   }else{
     title='Measured source discrepancy detected';
-    body=`At least one completed Binance-versus-CoinGecko comparison differs by ${n(max,3)}%. Only completed comparisons contribute to this warning.`;
+    body=`At least one completed exchange-versus-CoinGecko comparison differs by ${n(max,3)}%. Only completed comparisons contribute to this warning; providers used: ${providerText}.`;
   }
   $('#priceNotes').innerHTML=`<div class="context-item"><strong>${esc(title)}</strong><p>${esc(body)} Comparison is diagnostic only; no strategy candle, signal or threshold is replaced by this browser-side check.</p></div>`;
-  return{state,max,compared:compared.length,total:out.length};
+  return{state,max,compared:compared.length,total:out.length,fallbackUsed};
 }
 async function load(){
   try{
