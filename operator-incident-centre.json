@@ -1,7 +1,7 @@
 {
   "actionable_items": [
-    "Broker reconciliation: BROKER_POSITION_OUTSIDE_RUNTIME_STATE:UNIUSD, UNVERIFIED_PROTECTION:UNIUSD",
-    "Crowding forward feed: aging 4.6h"
+    "Crowding forward feed: aging 4.8h",
+    "Alert engine: aging 2.3h"
   ],
   "automatic_promotion": false,
   "baseline_drift": {
@@ -105,27 +105,22 @@
     "strategy_evidence_window_invalidated": false
   },
   "broker_reconciliation": {
-    "account_has_open_positions": true,
-    "account_position_count": 1,
-    "account_position_symbols": [
-      "UNIUSD"
-    ],
+    "account_has_open_positions": false,
+    "account_position_count": 0,
+    "account_position_symbols": [],
     "authority": "READ_ONLY_ADVISORY",
-    "broker_snapshot_generated_at": "2026-09-09T09:21:45.978888+00:00",
+    "broker_snapshot_generated_at": "2026-09-09T09:38:42.258546+00:00",
     "guardian_status": "FLAT_OK",
-    "new_entries_should_be_blocked": true,
+    "new_entries_should_be_blocked": false,
     "open_eth_order_count": 0,
     "paper_endpoint": "https://paper-api.alpaca.markets",
     "position_qty": 0,
-    "problems": [
-      "BROKER_POSITION_OUTSIDE_RUNTIME_STATE:UNIUSD",
-      "UNVERIFIED_PROTECTION:UNIUSD"
-    ],
+    "problems": [],
     "protective_stop_count": 0,
     "protective_stop_remaining_qty": 0,
     "runtime_position_qty": null,
     "runtime_stop_price": null,
-    "state": "RED_MISMATCH",
+    "state": "GREEN_RECONCILED",
     "strategy_position_qty": 0,
     "strategy_symbol": "ETHUSD"
   },
@@ -143,23 +138,23 @@
     },
     {
       "component": "Broker reconciliation",
-      "detail": "BROKER_POSITION_OUTSIDE_RUNTIME_STATE:UNIUSD, UNVERIFIED_PROTECTION:UNIUSD",
-      "state": "RED"
+      "detail": "broker and runtime agree",
+      "state": "GREEN"
     },
     {
       "component": "V3 forward feed",
-      "detail": "fresh 4.0h",
+      "detail": "fresh 4.3h",
       "state": "GREEN"
     },
     {
       "component": "Crowding forward feed",
-      "detail": "aging 4.6h",
+      "detail": "aging 4.8h",
       "state": "AMBER"
     },
     {
       "component": "Alert engine",
-      "detail": "fresh 2.0h",
-      "state": "GREEN"
+      "detail": "aging 2.3h",
+      "state": "AMBER"
     },
     {
       "component": "Existing incidents",
@@ -169,8 +164,8 @@
   ],
   "evidence_integrity": {
     "failure_count": 0,
-    "manifest_sha256": "f3e6e0cccc625537d89a35bc1c699dad50f812be7364e8348033e5e51222b1e2",
-    "previous_manifest_sha256": "3c4af52aa5f13f2d1934b44ed3c6634d06c30ce290116ade67737be61941e069",
+    "manifest_sha256": "c16c46913710f8bef3192c241549d6c1a44c911a02505247d664c5ed479bede9",
+    "previous_manifest_sha256": "f3e6e0cccc625537d89a35bc1c699dad50f812be7364e8348033e5e51222b1e2",
     "state": "PASS"
   },
   "execution_authority": false,
@@ -217,7 +212,7 @@
       }
     }
   },
-  "generated_at": "2026-09-09T09:21:46.642166+00:00",
+  "generated_at": "2026-09-09T09:38:43.002868+00:00",
   "incident_classification": {
     "actionable_count": 0,
     "actionable_severities": [
@@ -237,6 +232,6 @@
   "operator_centre_mode": "WAVELENGTH_OPERATOR_INCIDENT_CENTRE_V1_READ_ONLY",
   "operator_principle": "RED is actionable; AMBER requires review/monitoring; GREEN needs no intervention. No control on this page can place orders or alter strategy state.",
   "orders_enabled": false,
-  "overall_state": "RED",
+  "overall_state": "AMBER",
   "strategy_rule_mutation": false
 }
