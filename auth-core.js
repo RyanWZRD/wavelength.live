@@ -18,5 +18,6 @@ function renderBadge(){const top=document.querySelector('.topbar');if(!top||docu
 function enforce(){if(CONFIG.mode!=='enforced')return;const tier=routeTier(page());if(tier!=='pro'||(state.plan==='pro'&&state.entitled))return;const ret=encodeURIComponent(location.pathname.split('/').pop()+location.search+location.hash);location.replace(`upgrade.html?return=${ret}`)}
 function registerMigration(adapter){window.WavelengthAccessMigration=adapter}
 window.WavelengthAccess={config:CONFIG,get state(){return state},routeTier,can,refresh,setProvider,exportLocal,importLocal,registerMigration,localKeys:[...LOCAL_KEYS],proRoutes:[...PRO_ROUTES],mixedRoutes:[...MIXED_ROUTES],freeRoutes:[...FREE_ROUTES]};
+if(page()==='decision-desk.html'&&!document.querySelector('script[data-dd-purchase-polish]')){const s=document.createElement('script');s.src='decision-desk-polish.js?v=20260909-polish1';s.defer=true;s.setAttribute('data-dd-purchase-polish','1');document.head.appendChild(s)}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh);else refresh();
 })();
