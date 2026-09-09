@@ -52,7 +52,17 @@ jobs:
         run: |
           git config user.name 'wavelength-continuity[bot]'
           git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'
-          git add source-heartbeats.json
-          git diff --cached --quiet || git commit -m 'Update source heartbeat continuity'
-          git pull --rebase origin main
-          git push origin HEAD:main
+          cp source-heartbeats.json /tmp/source-heartbeats.json
+          for attempt in 1 2 3 4 5; do
+            git fetch origin main
+            git reset --hard origin/main
+            cp /tmp/source-heartbeats.json source-heartbeats.json
+            git add source-heartbeats.json
+            if git diff --cached --quiet; then exit 0; fi
+            git commit -m 'Update source heartbeat continuity'
+            if git push origin HEAD:main; then exit 0; fi
+            echo "Concurrent main update detected; retrying heartbeat persistence (attempt $attempt/5)"
+            sleep $((attempt * 2))
+          done
+          echo 'Failed to persist source heartbeat after retries'
+          exit 1
