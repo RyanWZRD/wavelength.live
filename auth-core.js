@@ -3,7 +3,7 @@ const CONFIG={mode:'preview',monthly_gbp:29,annual_gbp:290,session_endpoint:'/ap
 const PRO_ROUTES=new Set(['decision-desk.html','portfolio-intelligence.html','ask-wavelength.html','decision-room.html','replay.html','thesis-watch.html','evidence-map.html']);
 const MIXED_ROUTES=new Set(['discover.html','proof-ledger.html']);
 const FREE_ROUTES=new Set(['index.html','wavelength-today.html','cockpit.html','coin.html']);
-const LOCAL_KEYS=['wavelength_portfolio_v1','wavelength_portfolio_sample_v1','wavelength_thesis_watch_v1','wavelength_thesis_watch_v2','wavelength_research_context_v1','wavelength_customer_onboarding_v1','wavelength_watchlist_v2','wavelength_user_decisions_v1','wavelength_attention_snapshot_v1'];
+const LOCAL_KEYS=['wavelength_portfolio_v1','wavelength_portfolio_sample_v1','wavelength_thesis_watch_v1','wavelength_thesis_watch_v2','wavelength_research_context_v1','wavelength_customer_onboarding_v1','wavelength_watchlist_v2','wavelength_user_decisions_v1','wavelength_attention_snapshot_v1','wavelength_research_policy_v1','wavelength_living_theses_v1'];
 let provider=null,state={status:'loading',authenticated:false,plan:'unknown',entitled:false,email:null,renewal_at:null,cancel_at_period_end:false};
 const page=()=>((location.pathname.split('/').pop()||'index.html').toLowerCase());
 const routeTier=p=>PRO_ROUTES.has(p)?'pro':MIXED_ROUTES.has(p)?'mixed':FREE_ROUTES.has(p)?'free':'unclassified';
@@ -18,6 +18,6 @@ function renderBadge(){const top=document.querySelector('.topbar');if(!top||docu
 function enforce(){if(CONFIG.mode!=='enforced')return;const tier=routeTier(page());if(tier!=='pro'||(state.plan==='pro'&&state.entitled))return;const ret=encodeURIComponent(location.pathname.split('/').pop()+location.search+location.hash);location.replace(`upgrade.html?return=${ret}`)}
 function registerMigration(adapter){window.WavelengthAccessMigration=adapter}
 window.WavelengthAccess={config:CONFIG,get state(){return state},routeTier,can,refresh,setProvider,exportLocal,importLocal,registerMigration,localKeys:[...LOCAL_KEYS],proRoutes:[...PRO_ROUTES],mixedRoutes:[...MIXED_ROUTES],freeRoutes:[...FREE_ROUTES]};
-if(page()==='decision-desk.html'&&!document.querySelector('script[data-dd-purchase-polish]')){const s=document.createElement('script');s.src='decision-desk-polish.js?v=20260909-polish1';s.defer=true;s.setAttribute('data-dd-purchase-polish','1');document.head.appendChild(s)}
+if(page()==='decision-desk.html'&&!document.querySelector('script[data-dd-intelligence-os]')){['decision-desk-ambition-core.js','decision-desk-ambition-brief.js','decision-desk-ambition-thesis.js','decision-desk-ambition-memory.js'].forEach((src,i)=>{const s=document.createElement('script');s.src=src+'?v=20260909-os1';s.async=false;if(i===0)s.setAttribute('data-dd-intelligence-os','1');document.head.appendChild(s)})}
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',refresh);else refresh();
 })();
