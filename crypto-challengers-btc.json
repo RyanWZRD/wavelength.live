@@ -1,0 +1,121 @@
+{
+  "actions_this_run": [],
+  "fee_assumption_per_side_pct": 0.25,
+  "forward_start": "2026-09-10T23:39:41.325938+00:00",
+  "generated_at": "2026-09-10T23:39:41.326103+00:00",
+  "governance": {
+    "automatic_promotion": false,
+    "candidate_v3_mutation": false,
+    "capital_allocation_authority": false,
+    "crowding_v2_mutation": false,
+    "execution_authority": false,
+    "live_money_enabled": false,
+    "orders_enabled": false,
+    "paper_broker_orders_enabled": false,
+    "strategy_rule_mutation": false
+  },
+  "last_processed_bar": "2026-09-10T16:00:00+00:00",
+  "latest_market": {
+    "close": 77129.111,
+    "rsi14": 31.4662
+  },
+  "mode": "CRYPTO_CHALLENGER_BTC_SHADOW_V1_RESEARCH_ONLY",
+  "note": "BTC independent genuine-forward shadow challengers only; no broker execution.",
+  "strategies": {
+    "breakout_20": {
+      "completed_trades": 0,
+      "entries": 0,
+      "family": "TREND_BREAKOUT",
+      "frozen_rule": {
+        "entry": "close > prior 20-bar high, close > EMA100, RSI >= 55",
+        "exit": "close < EMA20 or RSI < 45",
+        "family": "TREND_BREAKOUT"
+      },
+      "last_action": "NO_SIGNAL",
+      "last_action_bar": null,
+      "losses": 0,
+      "position": "FLAT",
+      "readiness": {
+        "gates": {
+          "above_ema100": false,
+          "breakout": false,
+          "rsi_55": false
+        },
+        "missing": [
+          "breakout",
+          "above_ema100",
+          "rsi_55"
+        ],
+        "passed": 0,
+        "readiness_pct": 0.0,
+        "total": 3
+      },
+      "realised_net_return_pct_sum": 0.0,
+      "win_rate_pct": null,
+      "wins": 0
+    },
+    "mean_reversion": {
+      "completed_trades": 0,
+      "entries": 0,
+      "family": "MEAN_REVERSION",
+      "frozen_rule": {
+        "entry": "close < lower Bollinger(20,2) and RSI <= 35",
+        "exit": "close >= SMA20 or RSI >= 55",
+        "family": "MEAN_REVERSION"
+      },
+      "last_action": "NO_SIGNAL",
+      "last_action_bar": null,
+      "losses": 0,
+      "position": "FLAT",
+      "readiness": {
+        "gates": {
+          "below_lower_band": true,
+          "rsi_35": true
+        },
+        "missing": [],
+        "passed": 2,
+        "readiness_pct": 100.0,
+        "total": 2
+      },
+      "realised_net_return_pct_sum": 0.0,
+      "win_rate_pct": null,
+      "wins": 0
+    },
+    "trend_pullback": {
+      "completed_trades": 0,
+      "entries": 0,
+      "family": "TREND_PULLBACK",
+      "frozen_rule": {
+        "entry": "EMA20 > EMA50, close > EMA100, RSI 42-58, bar touches EMA20 and closes >= EMA20",
+        "exit": "close < EMA50 or RSI >= 70",
+        "family": "TREND_PULLBACK"
+      },
+      "last_action": "NO_SIGNAL",
+      "last_action_bar": null,
+      "losses": 0,
+      "position": "FLAT",
+      "readiness": {
+        "gates": {
+          "above_ema100": false,
+          "ema20_above_ema50": false,
+          "rsi_42_58": false,
+          "touch_reclaim_ema20": false
+        },
+        "missing": [
+          "ema20_above_ema50",
+          "above_ema100",
+          "rsi_42_58",
+          "touch_reclaim_ema20"
+        ],
+        "passed": 0,
+        "readiness_pct": 0.0,
+        "total": 4
+      },
+      "realised_net_return_pct_sum": 0.0,
+      "win_rate_pct": null,
+      "wins": 0
+    }
+  },
+  "symbol": "BTC/USD",
+  "timeframe": "4Hour"
+}
