@@ -18,6 +18,18 @@
       "debt_id": "MARKET_MEMORY_DEPTH",
       "experiment": "Continue frozen market-state collection including nearest successes and failures.",
       "priority": 82
+    },
+    {
+      "automatic_rule_change": false,
+      "debt_id": "STALE_CALIBRATION",
+      "experiment": "Repair/verify producing workflow before increasing confidence.",
+      "priority": 75
+    },
+    {
+      "automatic_rule_change": false,
+      "debt_id": "STALE_ROBUSTNESS",
+      "experiment": "Repair/verify producing workflow before increasing confidence.",
+      "priority": 75
     }
   ],
   "automatic_promotion": false,
@@ -226,12 +238,12 @@
     },
     {
       "basis": "availability + cadence-aware evidence age; disagreement/long-run accuracy will be added as forward history accumulates",
-      "reputation_score": 70,
+      "reputation_score": 100,
       "source": "autopilot"
     },
     {
       "basis": "availability + cadence-aware evidence age; disagreement/long-run accuracy will be added as forward history accumulates",
-      "reputation_score": 70,
+      "reputation_score": 100,
       "source": "challengers"
     },
     {
@@ -241,12 +253,12 @@
     },
     {
       "basis": "availability + cadence-aware evidence age; disagreement/long-run accuracy will be added as forward history accumulates",
-      "reputation_score": 100,
+      "reputation_score": 55,
       "source": "robustness"
     },
     {
       "basis": "availability + cadence-aware evidence age; disagreement/long-run accuracy will be added as forward history accumulates",
-      "reputation_score": 70,
+      "reputation_score": 100,
       "source": "memory"
     },
     {
@@ -256,12 +268,12 @@
     },
     {
       "basis": "availability + cadence-aware evidence age; disagreement/long-run accuracy will be added as forward history accumulates",
-      "reputation_score": 100,
+      "reputation_score": 55,
       "source": "calibration"
     },
     {
       "basis": "availability + cadence-aware evidence age; disagreement/long-run accuracy will be added as forward history accumulates",
-      "reputation_score": 70,
+      "reputation_score": 100,
       "source": "proof"
     }
   ],
@@ -283,10 +295,22 @@
       "id": "MARKET_MEMORY_DEPTH",
       "priority": 82,
       "reason": "Market Memory sample 0<50."
+    },
+    {
+      "experiment": "Repair/verify producing workflow before increasing confidence.",
+      "id": "STALE_CALIBRATION",
+      "priority": 75,
+      "reason": "calibration evidence is 1204m old (limit 720m)."
+    },
+    {
+      "experiment": "Repair/verify producing workflow before increasing confidence.",
+      "id": "STALE_ROBUSTNESS",
+      "priority": 75,
+      "reason": "robustness evidence is 1002m old (limit 720m)."
     }
   ],
   "execution_authority": false,
-  "generated_at": "2026-09-09T17:10:42.604349+00:00",
+  "generated_at": "2026-09-10T09:52:15.629420+00:00",
   "live_money_enabled": false,
   "mode": "WAVELENGTH_INTELLIGENCE_EXPANSION_V1_RESEARCH_ONLY",
   "model_version_ledger": {
@@ -318,10 +342,22 @@
       "id": "MARKET_MEMORY_DEPTH",
       "priority": 82,
       "reason": "Market Memory sample 0<50."
+    },
+    {
+      "experiment": "Repair/verify producing workflow before increasing confidence.",
+      "id": "STALE_CALIBRATION",
+      "priority": 75,
+      "reason": "calibration evidence is 1204m old (limit 720m)."
+    },
+    {
+      "experiment": "Repair/verify producing workflow before increasing confidence.",
+      "id": "STALE_ROBUSTNESS",
+      "priority": 75,
+      "reason": "robustness evidence is 1002m old (limit 720m)."
     }
   ],
   "schema": "wavelength-intelligence-expansion-v1",
-  "self_audit_state": "HIGH_TRUST",
+  "self_audit_state": "CAUTION",
   "shadow_model_tournament": [
     {
       "execution_authority": false,
@@ -382,70 +418,70 @@
   ],
   "source_inventory": [
     {
-      "age_minutes": 481.99,
+      "age_minutes": 44.2,
       "available": true,
-      "fingerprint": "835b3732fe38616b",
-      "observed_or_generated_at": "2026-09-09T09:08:43.317075+00:00",
+      "fingerprint": "00e6229214acd2a5",
+      "observed_or_generated_at": "2026-09-10T09:08:03.552432+00:00",
       "path": "runtime/autonomous_research_director.json",
       "source": "director",
       "stale_limit_minutes": 1560
     },
     {
-      "age_minutes": 481.99,
+      "age_minutes": 44.2,
       "available": true,
-      "fingerprint": "da380900500ff21a",
-      "observed_or_generated_at": "2026-09-09T09:08:43.387807+00:00",
+      "fingerprint": "c64d226f9ada15b9",
+      "observed_or_generated_at": "2026-09-10T09:08:03.643082+00:00",
       "path": "runtime/research_autopilot_v2.json",
       "source": "autopilot",
       "stale_limit_minutes": 720
     },
     {
-      "age_minutes": 584.51,
+      "age_minutes": 150.84,
       "available": true,
-      "fingerprint": "ee5dde6b3c8240e9",
-      "observed_or_generated_at": "2026-09-09T07:26:11.761163+00:00",
+      "fingerprint": "9999e521edb8671a",
+      "observed_or_generated_at": "2026-09-10T07:21:25.217167+00:00",
       "path": "runtime/strategy_challenger_results.json",
       "source": "challengers",
       "stale_limit_minutes": 720
     },
     {
-      "age_minutes": 245.4,
+      "age_minutes": 291.7,
       "available": true,
-      "fingerprint": "f0fb4f49a5c7ba28",
-      "observed_or_generated_at": "2026-09-09T13:05:18.840177+00:00",
+      "fingerprint": "437866f19b94bab1",
+      "observed_or_generated_at": "2026-09-10T05:00:33.756685+00:00",
       "path": "runtime/hourly_radar_outcome_lineage_public.json",
       "source": "radar_lineage",
       "stale_limit_minutes": 720
     },
     {
-      "age_minutes": 192.69,
+      "age_minutes": 1001.52,
       "available": true,
-      "fingerprint": "9d7df40b025fb7d6",
-      "observed_or_generated_at": "2026-09-09T13:58:01.033485+00:00",
+      "fingerprint": "143e3ad2cbdc046b",
+      "observed_or_generated_at": "2026-09-09T17:10:44.544818+00:00",
       "path": "research/decision_robustness_public.json",
       "source": "robustness",
       "stale_limit_minutes": 720
     },
     {
-      "age_minutes": 449.24,
+      "age_minutes": 11.89,
       "available": true,
-      "fingerprint": "d7101d303ad7690e",
-      "observed_or_generated_at": "2026-09-09T09:41:28.335520+00:00",
+      "fingerprint": "468ae533815a6617",
+      "observed_or_generated_at": "2026-09-10T09:40:22.250439+00:00",
       "path": "research/market_memory_public.json",
       "source": "memory",
       "stale_limit_minutes": 720
     },
     {
-      "age_minutes": 240.15,
+      "age_minutes": 270.5,
       "available": true,
-      "fingerprint": "12d0d9d6609b2e9b",
-      "observed_or_generated_at": "2026-09-09T13:10:33.850250+00:00",
+      "fingerprint": "da47e5ce4ca431c7",
+      "observed_or_generated_at": "2026-09-10T05:21:45.425609+00:00",
       "path": "research/asset_portfolio_construction_public.json",
       "source": "portfolio",
       "stale_limit_minutes": 720
     },
     {
-      "age_minutes": 201.95,
+      "age_minutes": 1203.5,
       "available": true,
       "fingerprint": "24d459febc4f997b",
       "observed_or_generated_at": "2026-09-09T13:48:45.486551+00:00",
@@ -454,15 +490,15 @@
       "stale_limit_minutes": 720
     },
     {
-      "age_minutes": 493.35,
+      "age_minutes": 56.04,
       "available": true,
-      "fingerprint": "b1ae2fbff17d926a",
-      "observed_or_generated_at": "2026-09-09T08:57:21.876514+00:00",
+      "fingerprint": "1f05b3710fc97a89",
+      "observed_or_generated_at": "2026-09-10T08:56:13.416424+00:00",
       "path": "research/proof_acceleration_evidence_audit_public.json",
       "source": "proof",
       "stale_limit_minutes": 720
     }
   ],
   "strategy_rule_mutation": false,
-  "wavelength_self_audit_score": 86
+  "wavelength_self_audit_score": 74
 }
