@@ -56,7 +56,7 @@ jobs:
           assert p['automatic_promotion'] is False and p['parameter_mutation'] is False
           assert p['horizons_hours']==[24,72,168]
           e=p['evaluation']
-          assert e['state'] in {'COLLECTING_FORWARD_EVIDENCE','MEASURED'}
+          assert e['state'] in {'COLLECTING_FORWARD_EVIDENCE','MEASURED','CHALLENGER_ELIGIBLE'}
           assert 'score_calibration' in e and 'factor_diagnostics' in e
           print('Decision Quality v3 evaluation valid:',e['state'],e['resolved_asset_outcomes'])
           PY
