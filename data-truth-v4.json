@@ -84,6 +84,92 @@
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         }
       },
+      "symbol": "ADA"
+    },
+    {
+      "dimensions": {
+        "derivatives": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "OKX_PUBLIC",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "event_catalyst_risk": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "GITHUB_RELEASES",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_EVENT_CATALYST_RISK"
+        },
+        "fundamental": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "COINGECKO",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "macro_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
+        },
+        "market_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "WAVELENGTH_MARKET_CONTEXT",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
+        },
+        "onchain_exchange_flows": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "COIN_METRICS_COMMUNITY",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_ONCHAIN_EXCHANGE_FLOWS"
+        },
+        "stablecoin_liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "DEFILLAMA_OR_WAVELENGTH",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "technical": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        }
+      },
       "symbol": "DOGE"
     },
     {
@@ -342,7 +428,7 @@
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         }
       },
-      "symbol": "ADA"
+      "symbol": "ETH"
     },
     {
       "dimensions": {
@@ -489,11 +575,30 @@
         "onchain_exchange_flows": {
           "availability_status": "AVAILABLE",
           "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "COIN_METRICS_COMMUNITY",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_ONCHAIN_EXCHANGE_FLOWS"
+          "direct_flow": {
+            "chain": "ethereum",
+            "exchange": null,
+            "inflow_total": null,
+            "netflow_total": -1363419.0216635875,
+            "observation_date": "2026-09-11T05:17:44.682361+00:00",
+            "outflow_total": null,
+            "pit_caveat": "Nansen labels/entity mappings can evolve; current flow evidence is direct labelled exchange flow, not immutable PIT history unless a PIT endpoint is used.",
+            "provider": "NANSEN_API",
+            "provider_consensus": {
+              "cryptoquant_direct": false,
+              "independent_direct_sources": 1,
+              "nansen_direct": true
+            },
+            "timestamp_basis": "RETRIEVAL_TIME_CURRENT_1D_WINDOW",
+            "token_address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
+            "units": "USD_WHERE_PROVIDER_FIELD_IS_USD",
+            "window": "1d"
+          },
+          "freshness": "DAILY_DIRECT_FLOW",
+          "legacy_transport_direct": false,
+          "provider": "NANSEN_API",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "DIRECT_EXCHANGE_WALLET_FLOW_OBSERVATION"
         },
         "stablecoin_liquidity": {
           "availability_status": "AVAILABLE",
@@ -514,7 +619,7 @@
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         }
       },
-      "symbol": "ETH"
+      "symbol": "UNI"
     },
     {
       "dimensions": {
@@ -601,92 +706,6 @@
         }
       },
       "symbol": "SOL"
-    },
-    {
-      "dimensions": {
-        "derivatives": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "OKX_PUBLIC",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "event_catalyst_risk": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "GITHUB_RELEASES",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_EVENT_CATALYST_RISK"
-        },
-        "fundamental": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "COINGECKO",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "macro_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
-        },
-        "market_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "WAVELENGTH_MARKET_CONTEXT",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
-        },
-        "onchain_exchange_flows": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "GLASSNODE",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "stablecoin_liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "DEFILLAMA_OR_WAVELENGTH",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "technical": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        }
-      },
-      "symbol": "NEAR"
     },
     {
       "dimensions": {
@@ -917,32 +936,13 @@
           "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
         },
         "onchain_exchange_flows": {
-          "availability_status": "AVAILABLE",
+          "availability_status": "MISSING",
           "cache_fallback": false,
-          "direct_flow": {
-            "chain": "ethereum",
-            "exchange": null,
-            "inflow_total": null,
-            "netflow_total": -1363419.0216635875,
-            "observation_date": "2026-09-11T05:17:44.682361+00:00",
-            "outflow_total": null,
-            "pit_caveat": "Nansen labels/entity mappings can evolve; current flow evidence is direct labelled exchange flow, not immutable PIT history unless a PIT endpoint is used.",
-            "provider": "NANSEN_API",
-            "provider_consensus": {
-              "cryptoquant_direct": false,
-              "independent_direct_sources": 1,
-              "nansen_direct": true
-            },
-            "timestamp_basis": "RETRIEVAL_TIME_CURRENT_1D_WINDOW",
-            "token_address": "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984",
-            "units": "USD_WHERE_PROVIDER_FIELD_IS_USD",
-            "window": "1d"
-          },
-          "freshness": "DAILY_DIRECT_FLOW",
+          "freshness": "AGING",
           "legacy_transport_direct": false,
-          "provider": "NANSEN_API",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "DIRECT_EXCHANGE_WALLET_FLOW_OBSERVATION"
+          "provider": "GLASSNODE",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
         },
         "stablecoin_liquidity": {
           "availability_status": "AVAILABLE",
@@ -963,7 +963,93 @@
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         }
       },
-      "symbol": "UNI"
+      "symbol": "NEAR"
+    },
+    {
+      "dimensions": {
+        "derivatives": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "OKX_PUBLIC",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "event_catalyst_risk": {
+          "availability_status": "MISSING",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": false,
+          "provider": "COINGECKO_OR_REGISTRY",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+        },
+        "fundamental": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "COINGECKO",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "macro_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
+        },
+        "market_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "WAVELENGTH_MARKET_CONTEXT",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
+        },
+        "onchain_exchange_flows": {
+          "availability_status": "MISSING",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": false,
+          "provider": "GLASSNODE",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+        },
+        "stablecoin_liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "DEFILLAMA_OR_WAVELENGTH",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "technical": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        }
+      },
+      "symbol": "PUMP"
     },
     {
       "dimensions": {
@@ -1194,6 +1280,92 @@
           "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
         },
         "onchain_exchange_flows": {
+          "availability_status": "MISSING",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": false,
+          "provider": "GLASSNODE",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+        },
+        "stablecoin_liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "DEFILLAMA_OR_WAVELENGTH",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "technical": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        }
+      },
+      "symbol": "RAY"
+    },
+    {
+      "dimensions": {
+        "derivatives": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "OKX_PUBLIC",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "event_catalyst_risk": {
+          "availability_status": "MISSING",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": false,
+          "provider": "COINGECKO_OR_REGISTRY",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+        },
+        "fundamental": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "COINGECKO",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "macro_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
+        },
+        "market_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "WAVELENGTH_MARKET_CONTEXT",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
+        },
+        "onchain_exchange_flows": {
           "availability_status": "AVAILABLE",
           "cache_fallback": false,
           "direct_flow": {
@@ -1326,374 +1498,11 @@
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         }
       },
-      "symbol": "WLD"
-    },
-    {
-      "dimensions": {
-        "derivatives": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "OKX_PUBLIC",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "event_catalyst_risk": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "COINGECKO_OR_REGISTRY",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "fundamental": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "COINGECKO",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "macro_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
-        },
-        "market_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "WAVELENGTH_MARKET_CONTEXT",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
-        },
-        "onchain_exchange_flows": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "GLASSNODE",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "stablecoin_liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "DEFILLAMA_OR_WAVELENGTH",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "technical": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        }
-      },
-      "symbol": "PUMP"
-    },
-    {
-      "dimensions": {
-        "derivatives": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "OKX_PUBLIC",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "event_catalyst_risk": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "COINGECKO_OR_REGISTRY",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "fundamental": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "COINGECKO",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "macro_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
-        },
-        "market_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "WAVELENGTH_MARKET_CONTEXT",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
-        },
-        "onchain_exchange_flows": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "GLASSNODE",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "stablecoin_liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "DEFILLAMA_OR_WAVELENGTH",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "technical": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        }
-      },
       "symbol": "PEPE"
     },
     {
       "dimensions": {
         "derivatives": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "OKX_PUBLIC",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "event_catalyst_risk": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "COINGECKO_OR_REGISTRY",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "fundamental": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "COINGECKO",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "macro_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
-        },
-        "market_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "WAVELENGTH_MARKET_CONTEXT",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
-        },
-        "onchain_exchange_flows": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "direct_flow": {
-            "chain": "arbitrum",
-            "exchange": null,
-            "inflow_total": null,
-            "netflow_total": 556118.15174862,
-            "observation_date": "2026-09-11T05:17:44.682361+00:00",
-            "outflow_total": null,
-            "pit_caveat": "Nansen labels/entity mappings can evolve; current flow evidence is direct labelled exchange flow, not immutable PIT history unless a PIT endpoint is used.",
-            "provider": "NANSEN_API",
-            "provider_consensus": {
-              "cryptoquant_direct": false,
-              "independent_direct_sources": 1,
-              "nansen_direct": true
-            },
-            "timestamp_basis": "RETRIEVAL_TIME_CURRENT_1D_WINDOW",
-            "token_address": "0x912ce59144191c1204e64559fe8253a0e49e6548",
-            "units": "USD_WHERE_PROVIDER_FIELD_IS_USD",
-            "window": "1d"
-          },
-          "freshness": "DAILY_DIRECT_FLOW",
-          "legacy_transport_direct": false,
-          "provider": "NANSEN_API",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "DIRECT_EXCHANGE_WALLET_FLOW_OBSERVATION"
-        },
-        "stablecoin_liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "DEFILLAMA_OR_WAVELENGTH",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "technical": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        }
-      },
-      "symbol": "ARB"
-    },
-    {
-      "dimensions": {
-        "derivatives": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "OKX_PUBLIC",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "event_catalyst_risk": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "COINGECKO_OR_REGISTRY",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "fundamental": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "COINGECKO",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "macro_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
-        },
-        "market_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "WAVELENGTH_MARKET_CONTEXT",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
-        },
-        "onchain_exchange_flows": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "GLASSNODE",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "stablecoin_liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "DEFILLAMA_OR_WAVELENGTH",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "technical": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        }
-      },
-      "symbol": "TRUMP"
-    },
-    {
-      "dimensions": {
-        "derivatives": {
           "availability_status": "MISSING",
           "cache_fallback": false,
           "freshness": "AGING",
@@ -1719,92 +1528,6 @@
           "provider": "COINGECKO",
           "semantic_class": "SEMANTIC_DIRECT",
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "macro_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "FRESH",
-          "legacy_transport_direct": true,
-          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
-        },
-        "market_context": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "WAVELENGTH_MARKET_CONTEXT",
-          "semantic_class": "LIVE_PROXY",
-          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
-        },
-        "onchain_exchange_flows": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "GLASSNODE",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "stablecoin_liquidity": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "DEFILLAMA_OR_WAVELENGTH",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        },
-        "technical": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": true,
-          "provider": "BINANCE_SPOT",
-          "semantic_class": "SEMANTIC_DIRECT",
-          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
-        }
-      },
-      "symbol": "MARSCOIN"
-    },
-    {
-      "dimensions": {
-        "derivatives": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "BINANCE_FUTURES",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "event_catalyst_risk": {
-          "availability_status": "MISSING",
-          "cache_fallback": false,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "COINGECKO_OR_REGISTRY",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
-        },
-        "fundamental": {
-          "availability_status": "AVAILABLE",
-          "cache_fallback": true,
-          "freshness": "AGING",
-          "legacy_transport_direct": false,
-          "provider": "COINGECKO",
-          "semantic_class": "CACHE",
-          "semantic_reason": "CACHE_FALLBACK_USED"
         },
         "liquidity": {
           "availability_status": "AVAILABLE",
@@ -2033,6 +1756,92 @@
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         }
       },
+      "symbol": "XAUT"
+    },
+    {
+      "dimensions": {
+        "derivatives": {
+          "availability_status": "MISSING",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": false,
+          "provider": "BINANCE_FUTURES",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+        },
+        "event_catalyst_risk": {
+          "availability_status": "MISSING",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": false,
+          "provider": "COINGECKO_OR_REGISTRY",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+        },
+        "fundamental": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "COINGECKO",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "macro_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "FRESH",
+          "legacy_transport_direct": true,
+          "provider": "YAHOO_FINANCE_PUBLIC_FALLBACK",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MACRO_CONTEXT"
+        },
+        "market_context": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "WAVELENGTH_MARKET_CONTEXT",
+          "semantic_class": "LIVE_PROXY",
+          "semantic_reason": "LIVE_SOURCE_IS_PROXY_FOR_MARKET_CONTEXT"
+        },
+        "onchain_exchange_flows": {
+          "availability_status": "MISSING",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": false,
+          "provider": "GLASSNODE",
+          "semantic_class": "MISSING",
+          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+        },
+        "stablecoin_liquidity": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "DEFILLAMA_OR_WAVELENGTH",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        },
+        "technical": {
+          "availability_status": "AVAILABLE",
+          "cache_fallback": false,
+          "freshness": "AGING",
+          "legacy_transport_direct": true,
+          "provider": "BINANCE_SPOT",
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
+        }
+      },
       "symbol": "USD1"
     },
     {
@@ -2142,13 +1951,13 @@
           "semantic_reason": "EVIDENCE_UNAVAILABLE"
         },
         "fundamental": {
-          "availability_status": "MISSING",
+          "availability_status": "AVAILABLE",
           "cache_fallback": false,
           "freshness": "AGING",
-          "legacy_transport_direct": false,
+          "legacy_transport_direct": true,
           "provider": "COINGECKO",
-          "semantic_class": "MISSING",
-          "semantic_reason": "EVIDENCE_UNAVAILABLE"
+          "semantic_class": "SEMANTIC_DIRECT",
+          "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         },
         "liquidity": {
           "availability_status": "AVAILABLE",
@@ -2205,7 +2014,7 @@
           "semantic_reason": "SOURCE_DIRECTLY_MEASURES_DIMENSION"
         }
       },
-      "symbol": "HOLO"
+      "symbol": "MARSCOIN"
     },
     {
       "dimensions": {
@@ -2302,42 +2111,42 @@
     "disagreement_assets": 0,
     "disagreement_rate_pct": null,
     "policy": "FUNDING_DIRECTION_ONLY; venue funding intervals and venue-specific OI are not directly averaged.",
-    "single_source_assets": 20
+    "single_source_assets": 18
   },
   "dimension_semantics": [
     {
       "cache_pct": 0.0,
       "dimension": "derivatives",
       "live_proxy_pct": 0.0,
-      "missing_pct": 23.1,
-      "n": 26,
-      "proxy_adjusted_completeness": 76.9,
-      "semantic_direct_pct": 76.9
+      "missing_pct": 25.0,
+      "n": 24,
+      "proxy_adjusted_completeness": 75.0,
+      "semantic_direct_pct": 75.0
     },
     {
       "cache_pct": 0.0,
       "dimension": "event_catalyst_risk",
-      "live_proxy_pct": 38.5,
-      "missing_pct": 61.5,
-      "n": 26,
-      "proxy_adjusted_completeness": 23.1,
+      "live_proxy_pct": 41.7,
+      "missing_pct": 58.3,
+      "n": 24,
+      "proxy_adjusted_completeness": 25.0,
       "semantic_direct_pct": 0.0
     },
     {
-      "cache_pct": 3.8,
+      "cache_pct": 0.0,
       "dimension": "fundamental",
       "live_proxy_pct": 0.0,
-      "missing_pct": 11.5,
-      "n": 26,
-      "proxy_adjusted_completeness": 85.6,
-      "semantic_direct_pct": 84.6
+      "missing_pct": 8.3,
+      "n": 24,
+      "proxy_adjusted_completeness": 91.7,
+      "semantic_direct_pct": 91.7
     },
     {
       "cache_pct": 0.0,
       "dimension": "liquidity",
       "live_proxy_pct": 0.0,
       "missing_pct": 0.0,
-      "n": 26,
+      "n": 24,
       "proxy_adjusted_completeness": 100.0,
       "semantic_direct_pct": 100.0
     },
@@ -2346,7 +2155,7 @@
       "dimension": "macro_context",
       "live_proxy_pct": 100.0,
       "missing_pct": 0.0,
-      "n": 26,
+      "n": 24,
       "proxy_adjusted_completeness": 60.0,
       "semantic_direct_pct": 0.0
     },
@@ -2355,25 +2164,25 @@
       "dimension": "market_context",
       "live_proxy_pct": 100.0,
       "missing_pct": 0.0,
-      "n": 26,
+      "n": 24,
       "proxy_adjusted_completeness": 60.0,
       "semantic_direct_pct": 0.0
     },
     {
       "cache_pct": 0.0,
       "dimension": "onchain_exchange_flows",
-      "live_proxy_pct": 26.9,
-      "missing_pct": 61.5,
-      "n": 26,
-      "proxy_adjusted_completeness": 27.7,
-      "semantic_direct_pct": 11.5
+      "live_proxy_pct": 29.2,
+      "missing_pct": 62.5,
+      "n": 24,
+      "proxy_adjusted_completeness": 25.8,
+      "semantic_direct_pct": 8.3
     },
     {
       "cache_pct": 0.0,
       "dimension": "stablecoin_liquidity",
       "live_proxy_pct": 0.0,
       "missing_pct": 0.0,
-      "n": 26,
+      "n": 24,
       "proxy_adjusted_completeness": 100.0,
       "semantic_direct_pct": 100.0
     },
@@ -2382,27 +2191,27 @@
       "dimension": "technical",
       "live_proxy_pct": 0.0,
       "missing_pct": 0.0,
-      "n": 26,
+      "n": 24,
       "proxy_adjusted_completeness": 100.0,
       "semantic_direct_pct": 100.0
     }
   ],
   "direct_evidence_maturity": {
-    "asset_count": 26,
-    "derivatives_consensus_assets": 12,
-    "derivatives_consensus_pct": 46.2,
+    "asset_count": 24,
+    "derivatives_consensus_assets": 8,
+    "derivatives_consensus_pct": 33.3,
     "direct_dated_event_assets": 0,
     "direct_dated_event_pct": 0.0,
     "direct_dated_event_symbols": [],
     "headline_dimension_availability": {
-      "catalyst_context_pct": 38.5,
-      "derivatives_pct": 76.9,
-      "onchain_context_pct": 26.9
+      "catalyst_context_pct": 41.7,
+      "derivatives_pct": 75.0,
+      "onchain_context_pct": 29.2
     },
     "legacy_direct_dated_event_assets": 0,
     "semantic_direct_maturity_policy": "COUNT_ONLY_V4_SEMANTIC_DIRECT_AVAILABLE_CELLS; COINGECKO_AND_GITHUB_RELEASES_ARE_NOT_DIRECT_DATED_CATALYST_FEEDS",
-    "true_exchange_flow_assets": 3,
-    "true_exchange_flow_pct": 11.5,
+    "true_exchange_flow_assets": 2,
+    "true_exchange_flow_pct": 8.3,
     "true_exchange_flow_provider_status": "AVAILABLE",
     "warnings": [
       "COIN_METRICS_NETWORK_ACTIVITY_IS_NOT_TRUE_EXCHANGE_FLOW",
@@ -2412,37 +2221,37 @@
   },
   "exchange_flow_intelligence": {
     "coverage": {
-      "cryptoquant_routable_assets": 6,
-      "direct_assets": 3,
-      "direct_pct": 11.5,
-      "nansen_routable_assets": 3,
-      "universe_assets": 26
+      "cryptoquant_routable_assets": 4,
+      "direct_assets": 2,
+      "direct_pct": 8.3,
+      "nansen_routable_assets": 2,
+      "universe_assets": 24
     },
-    "generated_at": "2026-09-11T05:17:44.682361+00:00",
+    "generated_at": "2026-09-11T13:01:42.311881+00:00",
     "provider": {
       "credential_present": true,
       "cryptoquant": {
         "credential_present": false,
         "direct_assets": 0,
-        "routable_assets": 6
+        "routable_assets": 4
       },
       "definition": "Direct labelled exchange-wallet inflow, outflow and netflow observations.",
-      "history_runs": 19,
+      "history_runs": 20,
       "name": "NANSEN_PRIMARY_CRYPTOQUANT_SECONDARY",
       "nansen": {
-        "calls_this_run": 3,
+        "calls_this_run": 0,
         "credential_present": true,
-        "direct_assets": 3,
+        "direct_assets": 2,
         "free_tier_budget_policy": "MAX_4_CANONICAL_CALLS_PER_REFRESH; TWO_REFRESHES_PER_DAY_TARGETS_8_CREDITS_DAY",
-        "refresh_due": true,
+        "refresh_due": false,
         "refresh_hours": 12,
-        "routable_assets": 3
+        "routable_assets": 2
       },
       "status": "AVAILABLE"
     },
     "semantic_policy": "Only an actual labelled exchange-flow value is SEMANTIC_DIRECT. Native assets are never inferred from wrapped-token flows. Persisted direct source observations retain their source timestamp; credentials/endpoints alone never count as coverage."
   },
-  "generated_at": "2026-09-11T05:17:51.697169+00:00",
+  "generated_at": "2026-09-11T13:01:47.606380+00:00",
   "guardrails": [
     "RESEARCH_ONLY",
     "NO_ORDER_AUTHORITY",
@@ -2462,21 +2271,21 @@
     "availability_pct": 100.0,
     "comparison_policy": "DIRECTION_ONLY_NOT_ABSOLUTE_RATE_OR_CROSS_VENUE_OI",
     "latest_available": true,
-    "latest_funding_direction_consensus_assets": 12,
+    "latest_funding_direction_consensus_assets": 8,
     "latest_status": "AVAILABLE",
     "provider": "HYPERLIQUID_PUBLIC",
-    "runs_observed": 20,
+    "runs_observed": 21,
     "semantic_role": "INDEPENDENT_DERIVATIVES_DIRECTION_CROSS_CHECK"
   },
   "mode": "DATA_TRUTH_V4_SEMANTIC_HARDENING_RESEARCH_ONLY",
   "schema": "wavelength-data-truth-v4-semantic",
   "scores": {
-    "empirical_usefulness": 85.0,
-    "legacy_completeness": 81.2,
-    "proxy_adjusted_completeness": 70.4,
-    "reliability": 60.7,
-    "semantic_direct_pct": 52.6,
-    "v3_overall_evidence_quality": 74.8
+    "empirical_usefulness": 87.9,
+    "legacy_completeness": 82.0,
+    "proxy_adjusted_completeness": 70.8,
+    "reliability": 61.1,
+    "semantic_direct_pct": 52.8,
+    "v3_overall_evidence_quality": 75.9
   },
   "semantic_policy": {
     "CACHE": "Cached/fallback evidence; retained with explicit penalty and never relabelled as live.",
@@ -2491,16 +2300,16 @@
     }
   },
   "semantic_summary": {
-    "cache_cells": 1,
-    "cache_pct": 0.4,
-    "live_proxy_cells": 69,
-    "live_proxy_pct": 29.5,
-    "missing_cells": 41,
-    "missing_pct": 17.5,
-    "proxy_adjusted_completeness": 70.4,
-    "semantic_direct_cells": 123,
-    "semantic_direct_pct": 52.6,
-    "total_evidence_cells": 234
+    "cache_cells": 0,
+    "cache_pct": 0.0,
+    "live_proxy_cells": 65,
+    "live_proxy_pct": 30.1,
+    "missing_cells": 37,
+    "missing_pct": 17.1,
+    "proxy_adjusted_completeness": 70.8,
+    "semantic_direct_cells": 114,
+    "semantic_direct_pct": 52.8,
+    "total_evidence_cells": 216
   },
   "semantic_vocabulary": [
     "SEMANTIC_DIRECT",
@@ -2509,11 +2318,11 @@
     "MISSING"
   ],
   "v3_scores": {
-    "completeness": 81.2,
-    "empirical_usefulness": 85.0,
-    "overall_evidence_quality": 74.8,
+    "completeness": 82.0,
+    "empirical_usefulness": 87.9,
+    "overall_evidence_quality": 75.9,
     "overall_status": "EMPIRICALLY_CALIBRATED",
-    "reliability": 60.7
+    "reliability": 61.1
   },
   "warnings": [
     "COIN_METRICS_NETWORK_ACTIVITY_IS_LIVE_PROXY_NOT_TRUE_EXCHANGE_FLOW",
