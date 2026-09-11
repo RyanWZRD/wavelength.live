@@ -1,0 +1,38 @@
+name: Unified validation command UI checks
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'control-centre.html'
+      - 'validation-command.js'
+      - '.github/workflows/validation-command-ui-check.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'control-centre.html'
+      - 'validation-command.js'
+      - '.github/workflows/validation-command-ui-check.yml'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Syntax check
+        run: node --check validation-command.js
+      - name: Assert read-only validation command wiring
+        run: |
+          grep -q 'validation-command.js' control-centre.html
+          grep -q 'validationCommandGrid' control-centre.html
+          grep -q 'workflowHealthTable' control-centre.html
+          grep -q 'feedHealthTable' control-centre.html
+          grep -q 'platform-health.json' validation-command.js
+          grep -q 'ig-mt4-manual-demo-ticket.json' validation-command.js
+          grep -q 'crypto-opportunity-funnel.json' validation-command.js
+          grep -q 'crypto-challengers-btc.json' validation-command.js
+          grep -q 'candidate-v3-forward-evidence.json' validation-command.js
+          ! grep -Eq 'submit_order|place_order|cancel_order|replace_order|automatic execution' validation-command.js
