@@ -11,9 +11,15 @@
       const r=await fetch(`ig-mt4-manual-demo-ticket.json?ts=${Date.now()}`,{cache:'no-store'});
       if(!r.ok) throw new Error(`HTTP ${r.status}`);
       const p=await r.json(), t=p.ticket||{};
+      const direction=String(t.direction||'').toUpperCase();
+      const quality=String(t.entry_quality||'').toUpperCase();
+      const hasSignal=direction==='LONG'||direction==='SHORT';
+      const noSignal=!hasSignal||quality==='NO_ENTRY';
       const ready=p.status==='PASS_MANUAL_DEMO_READY';
-      const badgeClass=ready?'good':'warn';
-      const badgeText=ready?'MANUAL DEMO READY':'BLOCKED';
+      const badgeClass=ready?'good':noSignal?'':'warn';
+      const badgeText=ready?'MANUAL DEMO READY':noSignal?'NO SIGNAL — WAITING':'SIGNAL — BLOCKED';
+      const action=ready?'MANUAL DEMO ONLY':noSignal?'WAIT':'DO NOT PLACE';
+      const actionSub=ready?'Confirm IG-DEMO + symbol first':noSignal?'No manual action required':'Signal present; ticket prerequisites not satisfied';
       root.innerHTML=`
         <div class="card-head"><div><div class="card-title">IG MT4 Manual Demo Ticket</div><div class="card-meta">Operator-facing Gold ticket · manual demo only · no automatic execution</div></div><span class="badge ${badgeClass}">${badgeText}</span></div>
         <div class="grid4" style="margin-bottom:14px">
@@ -26,9 +32,9 @@
           ${metric('Entry reference',fmt(t.entry_reference,4))}
           ${metric('Stop',fmt(t.stop,4),`Distance ${fmt(t.stop_distance,4)}`)}
           ${metric('Target',fmt(t.target,4))}
-          ${metric('Action',ready?'MANUAL DEMO ONLY':'DO NOT PLACE',ready?'Confirm IG-DEMO + symbol first':'Ticket prerequisites not satisfied')}
+          ${metric('Action',action,actionSub)}
         </div>
-        <div class="card-meta">${esc(t.cash_value_basis||'')} · Updated ${when(p.generated_at)}. This card cannot place orders and has no live-money authority.</div>`;
+        <div class="card-meta">${noSignal?'No qualifying Gold setup. Broker execution pricing is not required until a valid signal is present. ':''}${esc(t.cash_value_basis||'')} · Updated ${when(p.generated_at)}. This card cannot place orders and has no live-money authority.</div>`;
     } catch(err) {
       root.innerHTML=`<div class="card-head"><div><div class="card-title">IG MT4 Manual Demo Ticket</div><div class="card-meta">Read-only operator ticket</div></div><span class="badge warn">UNAVAILABLE</span></div><div class="empty">Manual demo ticket feed unavailable: ${esc(err.message)}</div>`;
     }
