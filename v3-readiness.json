@@ -1,33 +1,30 @@
 {
   "schema": "wavelength-v3-readiness-v1",
-  "generated_at": "2026-09-13T19:13:53.231227+00:00",
+  "generated_at": "2026-09-13T22:54:00.259543+00:00",
   "mode": "V3_READINESS_DIAGNOSTIC_PAPER_READ_ONLY",
   "orders_enabled": false,
   "live_money_enabled": false,
   "symbol": "ETH/USD",
   "readiness": {
-    "state": "DEVELOPING",
-    "conditions_passed": 3,
+    "state": "NEAR_ENTRY",
+    "conditions_passed": 4,
     "conditions_total": 5,
-    "score_pct": 60.0,
+    "score_pct": 80.0,
     "entry_signal": false,
     "primary_blocker": {
-      "gate": "MOMENTUM",
-      "label": "Momentum / RSI",
-      "value": 47.91
+      "gate": "ADX",
+      "label": "Trend strength",
+      "value": 24.27,
+      "required": 35.0,
+      "distance": 10.73
     },
     "blockers": [
       {
-        "gate": "MOMENTUM",
-        "label": "Momentum / RSI",
-        "value": 47.91
-      },
-      {
         "gate": "ADX",
         "label": "Trend strength",
-        "value": 25.27,
+        "value": 24.27,
         "required": 35.0,
-        "distance": 9.73
+        "distance": 10.73
       }
     ],
     "gates": [
@@ -46,53 +43,53 @@
       {
         "key": "MOMENTUM",
         "label": "Momentum / RSI",
-        "passed": false,
-        "value": 47.91
+        "passed": true,
+        "value": 51.42
       },
       {
         "key": "VOLATILITY",
         "label": "Volatility",
         "passed": true,
-        "value": 1.2884
+        "value": 1.2564
       },
       {
         "key": "ADX",
         "label": "Trend strength",
         "passed": false,
-        "value": 25.27
+        "value": 24.27
       }
     ]
   },
   "condition_deltas": {
     "adx": {
-      "previous": 26.98,
-      "current": 25.27,
-      "change": -1.71
+      "previous": 25.27,
+      "current": 24.27,
+      "change": -1.0
     },
     "rsi": {
-      "previous": 45.28,
-      "current": 47.91,
-      "change": 2.63
+      "previous": 47.91,
+      "current": 51.42,
+      "change": 3.51
     },
     "atr_pct": {
-      "previous": 1.2925,
-      "current": 1.2884,
-      "change": -0.0041
+      "previous": 1.2884,
+      "current": 1.2564,
+      "change": -0.032
     },
     "close": {
-      "previous": 2480.3475,
-      "current": 2490.603,
-      "change": 10.2555
+      "previous": 2490.603,
+      "current": 2504.97,
+      "change": 14.367
     },
     "ema_fast": {
-      "previous": 2503.672599,
-      "current": 2502.427876,
-      "change": -1.2447
+      "previous": 2502.427876,
+      "current": 2502.669983,
+      "change": 0.2421
     },
     "ema_slow": {
-      "previous": 2467.780685,
-      "current": 2468.344326,
-      "change": 0.5636
+      "previous": 2468.344326,
+      "current": 2469.248473,
+      "change": 0.9041
     }
   },
   "next_evaluation": "next completed 4h candle",
@@ -104,12 +101,12 @@
     "unrealized_pct": null,
     "original_or_current_stop": null,
     "initial_target_zone": {
-      "high": 2530.603726250758,
-      "low": 2524.516273749242
+      "high": 2529.23858404739,
+      "low": 2522.66141595261
     },
     "stretch_target_zone": {
-      "high": 2583.210422976195,
-      "low": 2574.6879894740728
+      "high": 2584.4210423348404,
+      "low": 2575.2130070021476
     },
     "mae_pct": null,
     "mfe_pct": null,
@@ -119,7 +116,7 @@
   "paper_execution_health": {
     "paper_endpoint_locked": true,
     "broker_check": "OK",
-    "last_paper_event_at": "2026-09-13T18:47:23.062474+00:00",
+    "last_paper_event_at": "2026-09-13T22:24:40.357531+00:00",
     "latest_result": "NO_EXECUTION",
     "protective_stop_persisted": false,
     "open_order_count": 0,
@@ -148,18 +145,12 @@
   },
   "missed_trade_analysis": {
     "mode": "RETROSPECTIVE_SHADOW_OBSERVATION_ONLY",
-    "sample_n": 37,
+    "sample_n": 38,
     "missed_winner_3pct_n": 6,
     "avoided_loser_minus3pct_n": 0,
-    "missed_winner_rate_pct": 16.2,
+    "missed_winner_rate_pct": 15.8,
     "avoided_loser_rate_pct": 0.0,
     "recent": [
-      {
-        "bar_time": "2026-09-11 12:00:00+00:00",
-        "best_next_24h_pct": -0.782,
-        "worst_next_24h_pct": -1.788,
-        "primary_blocker": "ADX"
-      },
       {
         "bar_time": "2026-09-11 16:00:00+00:00",
         "best_next_24h_pct": -0.124,
@@ -204,14 +195,20 @@
       },
       {
         "bar_time": "2026-09-13 04:00:00+00:00",
-        "best_next_24h_pct": -1.033,
+        "best_next_24h_pct": -0.462,
         "worst_next_24h_pct": -1.441,
         "primary_blocker": "ADX"
       },
       {
         "bar_time": "2026-09-13 08:00:00+00:00",
-        "best_next_24h_pct": 0.413,
+        "best_next_24h_pct": 0.993,
         "worst_next_24h_pct": 0.413,
+        "primary_blocker": "ADX"
+      },
+      {
+        "bar_time": "2026-09-13 12:00:00+00:00",
+        "best_next_24h_pct": 0.577,
+        "worst_next_24h_pct": 0.577,
         "primary_blocker": "ADX"
       }
     ],
