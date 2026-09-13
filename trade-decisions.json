@@ -1,7 +1,7 @@
 {
   "schema": "wavelength-trade-decision-v2",
   "mode": "TRADE_DECISION_ENGINE_RESEARCH_ONLY",
-  "generated_at": "2026-09-13T13:18:13.219407+00:00",
+  "generated_at": "2026-09-13T18:46:34.117441+00:00",
   "orders_enabled": false,
   "live_money_enabled": false,
   "automatic_promotion": false,
@@ -10,47 +10,369 @@
   "capital_allocation_authority": false,
   "assets": [
     {
-      "symbol": "UNI",
-      "action": "MONITOR",
-      "rank_score": 69.43,
-      "purchase_verdict": "WATCH_OR_WAIT_FOR_CONFIRMATION",
-      "fusion_score": 69.43,
-      "evidence_conflict": false,
-      "conflicts": [],
+      "symbol": "ETH",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 56.45,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 56.45,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
       "entry": {
-        "price": 6.254,
-        "ema20": 6.300535614469472,
-        "ema80": 6.29548766993288,
-        "atr": 0.08319268200836759,
-        "atr_pct": 1.3302315639329643,
-        "distance_from_ema20_atr": -0.5593714897278056,
+        "price": 2508.87,
+        "ema20": 2502.8282065139474,
+        "ema80": 2504.6648706783467,
+        "atr": 12.174905003031709,
+        "atr_pct": 0.4852744463854926,
+        "distance_from_ema20_atr": 0.4962497435953709,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 2499.7844802631894,
+          "high": 2511.959385266221,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 2462.02,
+          "gap_pct": 1.8673745550785776,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 2527.56
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 2505.871932764705,
+        "risk_per_unit": 43.851932764705,
+        "initial_target_zone": {
+          "low": 2524.516273749242,
+          "high": 2530.603726250758
+        },
+        "stretch_target_zone": {
+          "low": 2574.6879894740728,
+          "high": 2583.210422976195
+        },
+        "initial_reward_risk": 0.4945749450010785,
+        "stretch_reward_risk": 1.6664550192699004,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 10,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 10,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 10,
+            "median_pct": -0.3614815,
+            "q25_pct": -0.73564925,
+            "q75_pct": -0.104652,
+            "win_rate_pct": 20.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 10,
+            "median_pct": -0.8600814999999999,
+            "q25_pct": -1.2094369999999999,
+            "q75_pct": 0.8837855000000001,
+            "win_rate_pct": 40.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -1.2094369999999999,
+        "median_pct": -0.8600814999999999,
+        "q75_pct": 0.8837855000000001,
+        "win_rate_pct": 40.0,
+        "resolved_n": 10
+      },
+      "estimated_reward_risk": 0.4945749450010785,
+      "research_risk": {
+        "multiplier": 0.25,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "RSI 52.1 in trend zone",
+        "ADX 25.6 confirms trend strength",
+        "Volume 1.62x recent baseline"
+      ],
+      "against": [
+        "EMA20 not above EMA80"
+      ],
+      "thesis_invalidation_cues": [
+        "ADX falling below 25",
+        "RSI leaving the 50-72 trend zone",
+        "Volume expansion fading below baseline"
+      ]
+    },
+    {
+      "symbol": "BNB",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 56.45,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 56.45,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 721.35,
+        "ema20": 721.6880134226,
+        "ema80": 726.2026938535936,
+        "atr": 2.604651228712032,
+        "atr_pct": 0.3610800899302741,
+        "distance_from_ema20_atr": -0.1297730071780421,
         "entry_quality": "EARLY_PULLBACK",
         "preferred_entry_zone": {
-          "low": 6.27973744396738,
-          "high": 6.362930125975748,
+          "low": 721.0368506154219,
+          "high": 723.641501844134,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 713.1,
+          "gap_pct": 1.1436889166146809,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 729.92
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 722.339176229778,
+        "risk_per_unit": 9.239176229777968,
+        "initial_target_zone": {
+          "low": 729.2688371928219,
+          "high": 730.571162807178
+        },
+        "stretch_target_zone": {
+          "low": 736.8834954300193,
+          "high": 738.7067512901177
+        },
+        "initial_reward_risk": 0.8205086234624348,
+        "stretch_reward_risk": 1.6728706917047222,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 10,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 13,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 13,
+            "median_pct": 0.247781,
+            "q25_pct": -0.661575,
+            "q75_pct": 0.855657,
+            "win_rate_pct": 61.53846153846154,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 10,
+            "median_pct": 0.49062550000000005,
+            "q25_pct": 0.06451475,
+            "q75_pct": 1.3348025,
+            "win_rate_pct": 70.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": 0.06451475,
+        "median_pct": 0.49062550000000005,
+        "q75_pct": 1.3348025,
+        "win_rate_pct": 70.0,
+        "resolved_n": 10
+      },
+      "estimated_reward_risk": 0.8205086234624348,
+      "research_risk": {
+        "multiplier": 0.125,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "ADX 32.5 confirms trend strength"
+      ],
+      "against": [
+        "EMA20 not above EMA80",
+        "RSI 45.8 outside 50-72 trend zone",
+        "Volume confirmation weak at 0.54x"
+      ],
+      "thesis_invalidation_cues": [
+        "ADX falling below 25"
+      ]
+    },
+    {
+      "symbol": "SOL",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 53.09,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 53.09,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 101.25,
+        "ema20": 100.83358339453264,
+        "ema80": 101.37660742273371,
+        "atr": 0.5356348037310792,
+        "atr_pct": 0.5290220283763746,
+        "distance_from_ema20_atr": 0.7774263407954864,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 100.69967469359987,
+          "high": 101.23530949733095,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 99.42,
+          "gap_pct": 1.8074074074074058,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 102.34
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 100.96749209546542,
+        "risk_per_unit": 1.5474920954654152,
+        "initial_target_zone": {
+          "low": 102.20609129906724,
+          "high": 102.47390870093277
+        },
+        "stretch_target_zone": {
+          "low": 103.51783723908792,
+          "high": 103.89278160169968
+        },
+        "initial_reward_risk": 0.8869240163206124,
+        "stretch_reward_risk": 1.7691963228445282,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 14,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 16,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 16,
+            "median_pct": -0.019526500000000002,
+            "q25_pct": -1.0922025000000002,
+            "q75_pct": 0.5506929999999999,
+            "win_rate_pct": 43.75,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 14,
+            "median_pct": -0.6278865,
+            "q25_pct": -1.66023325,
+            "q75_pct": -0.1005085,
+            "win_rate_pct": 21.428571428571427,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -1.66023325,
+        "median_pct": -0.6278865,
+        "q75_pct": -0.1005085,
+        "win_rate_pct": 21.428571428571427,
+        "resolved_n": 14
+      },
+      "estimated_reward_risk": 0.8869240163206124,
+      "research_risk": {
+        "multiplier": 0.25,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "RSI 53.6 in trend zone"
+      ],
+      "against": [
+        "EMA20 not above EMA80",
+        "ADX 17.9 below 25",
+        "Volume confirmation weak at 0.92x"
+      ],
+      "thesis_invalidation_cues": [
+        "RSI leaving the 50-72 trend zone"
+      ]
+    },
+    {
+      "symbol": "UNI",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 52.49,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 52.49,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 6.345,
+        "ema20": 6.304376335774672,
+        "ema80": 6.297792379869572,
+        "atr": 0.08313359483280748,
+        "atr_pct": 1.310222140784988,
+        "distance_from_ema20_atr": 0.4886552098105182,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 6.283592937066469,
+          "high": 6.366726531899277,
           "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
         },
         "research_invalidation": {
           "price": 6.159,
-          "gap_pct": 1.519027822193792,
+          "gap_pct": 2.93144208037825,
           "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
         },
         "recent_20h_high": 6.486
       },
       "target_exit": {
         "available": true,
-        "reference_entry": 6.321333784971564,
-        "risk_per_unit": 0.16233378497156448,
+        "reference_entry": 6.325159734482874,
+        "risk_per_unit": 0.16615973448287402,
         "initial_target_zone": {
-          "low": 6.465201829497908,
-          "high": 6.506798170502091
+          "low": 6.4652166012917975,
+          "high": 6.506783398708202
         },
         "stretch_target_zone": {
-          "low": 6.619922600495642,
-          "high": 6.678157477901499
+          "low": 6.628463036644194,
+          "high": 6.68665655302716
         },
-        "initial_reward_risk": 1.0143681123265842,
-        "stretch_reward_risk": 2.018718742277893,
+        "initial_reward_risk": 0.9679858120723204,
+        "stretch_reward_risk": 2.0004850235666676,
         "research_exit_state": "PRE_ENTRY_PLAN",
         "evidence_strength": "STRUCTURAL_ONLY",
         "history_used": false,
@@ -95,7 +417,7 @@
         "win_rate_pct": 10.0,
         "resolved_n": 10
       },
-      "estimated_reward_risk": 1.0143681123265842,
+      "estimated_reward_risk": 0.9679858120723204,
       "research_risk": {
         "multiplier": 0.25,
         "label": "QUARTER_RESEARCH_RISK",
@@ -114,47 +436,904 @@
       ]
     },
     {
-      "symbol": "REZ",
-      "action": "MONITOR",
-      "rank_score": 53.56,
-      "purchase_verdict": "WATCH_OR_WAIT_FOR_CONFIRMATION",
-      "fusion_score": 53.56,
-      "evidence_conflict": false,
-      "conflicts": [],
+      "symbol": "SUI",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 51.82,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 51.82,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
       "entry": {
-        "price": 0.003749,
-        "ema20": 0.0037355452019867744,
-        "ema80": 0.0034795815779890063,
-        "atr": 0.00022362327195011807,
-        "atr_pct": 5.96487788610611,
-        "distance_from_ema20_atr": 0.06016725314808494,
+        "price": 0.7234,
+        "ema20": 0.718099654096412,
+        "ema80": 0.733865627083472,
+        "atr": 0.0059118718848941475,
+        "atr_pct": 0.8172341560539325,
+        "distance_from_ema20_atr": 0.8965596695576871,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 0.7166216861251884,
+          "high": 0.7225335580100826,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 0.7046,
+          "gap_pct": 2.598838816698927,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 0.7312
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 0.7195776220676355,
+        "risk_per_unit": 0.014977622067635532,
+        "initial_target_zone": {
+          "low": 0.7297220320287764,
+          "high": 0.7326779679712235
+        },
+        "stretch_target_zone": {
+          "low": 0.7450983023198082,
+          "high": 0.7492366126392341
+        },
+        "initial_reward_risk": 0.7759828549472281,
+        "stretch_reward_risk": 1.842070476027251,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 7,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 7,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 7,
+            "median_pct": -0.110345,
+            "q25_pct": -0.858159,
+            "q75_pct": 0.5804045,
+            "win_rate_pct": 42.857142857142854,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 7,
+            "median_pct": -0.618217,
+            "q25_pct": -5.033026,
+            "q75_pct": -0.351878,
+            "win_rate_pct": 14.285714285714286,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -5.033026,
+        "median_pct": -0.618217,
+        "q75_pct": -0.351878,
+        "win_rate_pct": 14.285714285714286,
+        "resolved_n": 7
+      },
+      "estimated_reward_risk": 0.7759828549472281,
+      "research_risk": {
+        "multiplier": 0.25,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "RSI 54.8 in trend zone",
+        "ADX 26.4 confirms trend strength"
+      ],
+      "against": [
+        "EMA20 not above EMA80",
+        "Volume confirmation weak at 0.64x"
+      ],
+      "thesis_invalidation_cues": [
+        "ADX falling below 25",
+        "RSI leaving the 50-72 trend zone"
+      ]
+    },
+    {
+      "symbol": "ZEC",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 50.93,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 50.93,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 1110.73,
+        "ema20": 1111.2098067170937,
+        "ema80": 1135.883623194755,
+        "atr": 15.785520108178007,
+        "atr_pct": 1.421184275942669,
+        "distance_from_ema20_atr": -0.03039536954155083,
         "entry_quality": "EARLY_PULLBACK",
         "preferred_entry_zone": {
-          "low": 0.003679639383999245,
-          "high": 0.0039032626559493628,
+          "low": 1107.263426690049,
+          "high": 1123.0489467982272,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 1073.47,
+          "gap_pct": 3.354550610859524,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 1156.89
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 1115.1561867441383,
+        "risk_per_unit": 41.68618674413824,
+        "initial_target_zone": {
+          "low": 1152.9436199729555,
+          "high": 1160.8363800270447
+        },
+        "stretch_target_zone": {
+          "low": 1185.4172682987157,
+          "high": 1196.4671323744403
+        },
+        "initial_reward_risk": 1.0011425010403545,
+        "stretch_reward_risk": 1.8180126202859395,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 9,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 12,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 12,
+            "median_pct": -1.7309359999999998,
+            "q25_pct": -2.7291860000000003,
+            "q75_pct": 1.25620125,
+            "win_rate_pct": 41.666666666666664,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 9,
+            "median_pct": -1.970022,
+            "q25_pct": -2.906276,
+            "q75_pct": 0.280412,
+            "win_rate_pct": 33.333333333333336,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -2.906276,
+        "median_pct": -1.970022,
+        "q75_pct": 0.280412,
+        "win_rate_pct": 33.333333333333336,
+        "resolved_n": 9
+      },
+      "estimated_reward_risk": 1.0011425010403545,
+      "research_risk": {
+        "multiplier": 0.125,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "ADX 25.3 confirms trend strength"
+      ],
+      "against": [
+        "EMA20 not above EMA80",
+        "RSI 47.3 outside 50-72 trend zone",
+        "Volume confirmation weak at 0.37x"
+      ],
+      "thesis_invalidation_cues": [
+        "ADX falling below 25"
+      ]
+    },
+    {
+      "symbol": "BTC",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 49.63,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 49.63,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 77380.0,
+        "ema20": 77133.52423032117,
+        "ema80": 77432.25736609871,
+        "atr": 205.47593590029356,
+        "atr_pct": 0.26554140074992705,
+        "distance_from_ema20_atr": 1.1995359388382623,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 77082.1552463461,
+          "high": 77287.63118224639,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 76500.0,
+          "gap_pct": 1.1372447660894287,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 77413.52
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 77184.89321429624,
+        "risk_per_unit": 684.893214296244,
+        "initial_target_zone": {
+          "low": 77441.73813417161,
+          "high": 77544.47610212176
+        },
+        "stretch_target_zone": {
+          "low": 78277.30705845187,
+          "high": 78421.14021358208
+        },
+        "initial_reward_risk": 0.45001745880508065,
+        "stretch_reward_risk": 1.7000174588050647,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 15,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 15,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 15,
+            "median_pct": 0.023546,
+            "q25_pct": -0.650183,
+            "q75_pct": 0.5051265,
+            "win_rate_pct": 53.333333333333336,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 15,
+            "median_pct": -0.62635,
+            "q25_pct": -1.4851625,
+            "q75_pct": -0.028781,
+            "win_rate_pct": 26.666666666666668,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -1.4851625,
+        "median_pct": -0.62635,
+        "q75_pct": -0.028781,
+        "win_rate_pct": 26.666666666666668,
+        "resolved_n": 15
+      },
+      "estimated_reward_risk": 0.45001745880508065,
+      "research_risk": {
+        "multiplier": 0.25,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "RSI 58.6 in trend zone"
+      ],
+      "against": [
+        "EMA20 not above EMA80",
+        "ADX 18.2 below 25",
+        "Volume confirmation weak at 0.59x"
+      ],
+      "thesis_invalidation_cues": [
+        "RSI leaving the 50-72 trend zone"
+      ]
+    },
+    {
+      "symbol": "XRP",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 47.92,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 47.92,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 1.3576,
+        "ema20": 1.3538589698233128,
+        "ema80": 1.3650114698550915,
+        "atr": 0.007307884016612552,
+        "atr_pct": 0.5382943441818321,
+        "distance_from_ema20_atr": 0.5119170156755218,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 1.3520319988191596,
+          "high": 1.3593398828357721,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 1.3325,
+          "gap_pct": 1.8488509133765396,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 1.3701
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 1.355685940827466,
+        "risk_per_unit": 0.023185940827465945,
+        "initial_target_zone": {
+          "low": 1.368273028995847,
+          "high": 1.3719269710041533
+        },
+        "stretch_target_zone": {
+          "low": 1.3930724334809028,
+          "high": 1.3981879522925316
+        },
+        "initial_reward_risk": 0.6216723867189082,
+        "stretch_reward_risk": 1.7227790045911562,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 15,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 17,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 17,
+            "median_pct": -0.014663,
+            "q25_pct": -0.626548,
+            "q75_pct": 0.679268,
+            "win_rate_pct": 47.05882352941177,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 15,
+            "median_pct": -0.454545,
+            "q25_pct": -2.2506105,
+            "q75_pct": 0.7464145,
+            "win_rate_pct": 40.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -2.2506105,
+        "median_pct": -0.454545,
+        "q75_pct": 0.7464145,
+        "win_rate_pct": 40.0,
+        "resolved_n": 15
+      },
+      "estimated_reward_risk": 0.6216723867189082,
+      "research_risk": {
+        "multiplier": 0.25,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "RSI 52.2 in trend zone"
+      ],
+      "against": [
+        "EMA20 not above EMA80",
+        "ADX 19.7 below 25",
+        "Volume confirmation weak at 0.70x"
+      ],
+      "thesis_invalidation_cues": [
+        "RSI leaving the 50-72 trend zone"
+      ]
+    },
+    {
+      "symbol": "NEAR",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 47.17,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 47.17,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 2.359,
+        "ema20": 2.3302649918297518,
+        "ema80": 2.3802716613404846,
+        "atr": 0.032849964232095505,
+        "atr_pct": 1.392537695298665,
+        "distance_from_ema20_atr": 0.8747348388943801,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 2.322052500771728,
+          "high": 2.3549024650038235,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 2.265,
+          "gap_pct": 3.9847392963119908,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 2.381
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 2.3384774828877757,
+        "risk_per_unit": 0.07347748288777556,
+        "initial_target_zone": {
+          "low": 2.379539938177895,
+          "high": 2.395964920293943
+        },
+        "stretch_target_zone": {
+          "low": 2.468101795364405,
+          "high": 2.491096770326872
+        },
+        "initial_reward_risk": 0.6706128790966153,
+        "stretch_reward_risk": 1.9206128790966122,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 8,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 9,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 9,
+            "median_pct": 2.564103,
+            "q25_pct": -0.477431,
+            "q75_pct": 3.988604,
+            "win_rate_pct": 66.66666666666667,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 8,
+            "median_pct": 2.8129315,
+            "q25_pct": -2.045715,
+            "q75_pct": 6.2635137499999995,
+            "win_rate_pct": 62.5,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -2.045715,
+        "median_pct": 2.8129315,
+        "q75_pct": 6.2635137499999995,
+        "win_rate_pct": 62.5,
+        "resolved_n": 8
+      },
+      "estimated_reward_risk": 0.6706128790966153,
+      "research_risk": {
+        "multiplier": 0.25,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "RSI 55.2 in trend zone"
+      ],
+      "against": [
+        "EMA20 not above EMA80",
+        "ADX 19.7 below 25",
+        "Volume confirmation weak at 0.93x"
+      ],
+      "thesis_invalidation_cues": [
+        "RSI leaving the 50-72 trend zone"
+      ]
+    },
+    {
+      "symbol": "\u725b\u6765",
+      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
+      "rank_score": 45.48,
+      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
+      "fusion_score": 45.48,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 0.12552,
+        "ema20": 0.12909629698654276,
+        "ema80": 0.12064702095573648,
+        "atr": 0.007682666979454056,
+        "atr_pct": 6.120671589749885,
+        "distance_from_ema20_atr": -0.46550201851869266,
+        "entry_quality": "EARLY_PULLBACK",
+        "preferred_entry_zone": {
+          "low": 0.12717563024167924,
+          "high": 0.1348582972211333,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 0.11679,
+          "gap_pct": 6.955066921606109,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 0.16355
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 0.13101696373140626,
+        "risk_per_unit": 0.01422696373140625,
+        "initial_target_zone": {
+          "low": 0.1504367425836521,
+          "high": 0.15427807607337915
+        },
+        "stretch_target_zone": {
+          "low": 0.1576357354220362,
+          "high": 0.16301360230765408
+        },
+        "initial_reward_risk": 1.5,
+        "stretch_reward_risk": 2.060011235478281,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 3,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 5,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 5,
+            "median_pct": 2.820313,
+            "q25_pct": 0.194233,
+            "q75_pct": 4.177373,
+            "win_rate_pct": 80.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 3,
+            "median_pct": -6.103392,
+            "q25_pct": -7.199389,
+            "q75_pct": 1.6670539999999998,
+            "win_rate_pct": 33.333333333333336,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -7.199389,
+        "median_pct": -6.103392,
+        "q75_pct": 1.6670539999999998,
+        "win_rate_pct": 33.333333333333336,
+        "resolved_n": 3
+      },
+      "estimated_reward_risk": 1.5,
+      "research_risk": {
+        "multiplier": 0.125,
+        "label": "QUARTER_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "EMA20 above EMA80"
+      ],
+      "against": [
+        "RSI 45.7 outside 50-72 trend zone",
+        "ADX 17.0 below 25",
+        "Volume confirmation weak at 0.49x"
+      ],
+      "thesis_invalidation_cues": [
+        "EMA20 crossing back below EMA80"
+      ]
+    },
+    {
+      "symbol": "REZ",
+      "action": "AVOID",
+      "rank_score": 56.25,
+      "purchase_verdict": "AVOID_POOR_EXECUTION_QUALITY",
+      "fusion_score": 56.25,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE",
+        "SETUP_STRONG_EXECUTION_QUALITY_WEAK"
+      ],
+      "entry": {
+        "price": 0.004722,
+        "ema20": 0.004089650996608656,
+        "ema80": 0.0036128822715657026,
+        "atr": 0.0003513715269194961,
+        "atr_pct": 7.441158977541215,
+        "distance_from_ema20_atr": 1.7996592066955475,
+        "entry_quality": "EXTENDED",
+        "preferred_entry_zone": {
+          "low": 0.004001808114878782,
+          "high": 0.004353179641798278,
           "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
         },
         "research_invalidation": {
           "price": 0.003385,
-          "gap_pct": 9.709255801547084,
+          "gap_pct": 28.314273612875894,
           "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
         },
-        "recent_20h_high": 0.004308
+        "recent_20h_high": 0.005119
       },
       "target_exit": {
         "available": true,
-        "reference_entry": 0.003791451019974304,
-        "risk_per_unit": 0.00040645101997430384,
+        "reference_entry": 0.0041774938783385295,
+        "risk_per_unit": 0.0007924938783385295,
         "initial_target_zone": {
-          "low": 0.004252094182012471,
-          "high": 0.00436390581798753
+          "low": 0.005031157118270126,
+          "high": 0.005206842881729875
         },
         "stretch_target_zone": {
-          "low": 0.004556681557684819,
-          "high": 0.0047132178480499025
+          "low": 0.0055721884822191115,
+          "high": 0.005818148551062759
         },
-        "initial_reward_risk": 1.27087632861237,
-        "stretch_reward_risk": 2.075277564677741,
+        "initial_reward_risk": 1.1880295197173596,
+        "stretch_reward_risk": 1.9150616550934427,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 1,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 1,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 1,
+            "median_pct": -7.448204,
+            "q25_pct": -7.448204,
+            "q75_pct": -7.448204,
+            "win_rate_pct": 0.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 1,
+            "median_pct": 24.180435,
+            "q25_pct": 24.180435,
+            "q75_pct": 24.180435,
+            "win_rate_pct": 100.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": 24.180435,
+        "median_pct": 24.180435,
+        "q75_pct": 24.180435,
+        "win_rate_pct": 100.0,
+        "resolved_n": 1
+      },
+      "estimated_reward_risk": 1.1880295197173596,
+      "research_risk": {
+        "multiplier": 0.0,
+        "label": "ZERO_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "EMA20 above EMA80",
+        "RSI 64.7 in trend zone",
+        "ADX 53.9 confirms trend strength",
+        "Volume 3.37x recent baseline"
+      ],
+      "against": [],
+      "thesis_invalidation_cues": [
+        "EMA20 crossing back below EMA80",
+        "ADX falling below 25",
+        "RSI leaving the 50-72 trend zone",
+        "Volume expansion fading below baseline"
+      ]
+    },
+    {
+      "symbol": "LSK",
+      "action": "AVOID",
+      "rank_score": 51.62,
+      "purchase_verdict": "AVOID_POOR_EXECUTION_QUALITY",
+      "fusion_score": 51.62,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 0.9876,
+        "ema20": 0.8311990367101737,
+        "ema80": 0.4494904426203469,
+        "atr": 0.17376086841968422,
+        "atr_pct": 17.594255611551663,
+        "distance_from_ema20_atr": 0.9000931263307884,
+        "entry_quality": "IDEAL",
+        "preferred_entry_zone": {
+          "low": 0.7877588196052526,
+          "high": 0.9615196880249368,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 0.2795,
+          "gap_pct": 71.69906844876468,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 2.0
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 0.8746392538150947,
+        "risk_per_unit": 0.5951392538150946,
+        "initial_target_zone": {
+          "low": 1.7239079174328156,
+          "high": 1.8107883516426577
+        },
+        "stretch_target_zone": {
+          "low": 1.8183883197666,
+          "high": 1.9400209276603788
+        },
+        "initial_reward_risk": 1.5000000000000002,
+        "stretch_reward_risk": 1.6879501116061584,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 0,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 2,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 2,
+            "median_pct": -6.406146,
+            "q25_pct": -9.735891,
+            "q75_pct": -3.0764009999999997,
+            "win_rate_pct": 50.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": null,
+        "median_pct": null,
+        "q75_pct": null,
+        "win_rate_pct": null,
+        "resolved_n": 0
+      },
+      "estimated_reward_risk": 1.5000000000000002,
+      "research_risk": {
+        "multiplier": 0.0,
+        "label": "ZERO_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [
+        "EMA20 above EMA80",
+        "RSI 61.7 in trend zone",
+        "ADX 72.3 confirms trend strength"
+      ],
+      "against": [
+        "Volume confirmation weak at 0.48x",
+        "ATR 17.6% is unusually high"
+      ],
+      "thesis_invalidation_cues": [
+        "EMA20 crossing back below EMA80",
+        "ADX falling below 25",
+        "RSI leaving the 50-72 trend zone"
+      ]
+    },
+    {
+      "symbol": "VTHO",
+      "action": "AVOID",
+      "rank_score": 46.63,
+      "purchase_verdict": "AVOID_POOR_EXECUTION_QUALITY",
+      "fusion_score": 46.63,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 0.000807,
+        "ema20": 0.0008084146857156604,
+        "ema80": 0.0006878765802663473,
+        "atr": 6.382674207496937e-05,
+        "atr_pct": 7.90913780358976,
+        "distance_from_ema20_atr": -0.022164466956479494,
+        "entry_quality": "EARLY_PULLBACK",
+        "preferred_entry_zone": {
+          "low": 0.000792458000196918,
+          "high": 0.0008562847422718874,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 0.000646,
+          "gap_pct": 19.950433705080545,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 0.001183
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 0.0008243713712344028,
+        "risk_per_unit": 0.0001783713712344028,
+        "initial_target_zone": {
+          "low": 0.0010759717425672646,
+          "high": 0.0011078851136047494
+        },
+        "stretch_target_zone": {
+          "low": 0.0011207363386636208,
+          "high": 0.0011654150581160995
+        },
+        "initial_reward_risk": 1.5000000000000002,
+        "stretch_reward_risk": 1.7867459612486758,
         "research_exit_state": "PRE_ENTRY_PLAN",
         "evidence_strength": "STRUCTURAL_ONLY",
         "history_used": false,
@@ -168,1163 +1347,12 @@
         "horizons": {
           "4h": {
             "resolved_n": 1,
-            "median_pct": 6.177387,
-            "q25_pct": 6.177387,
-            "q75_pct": 6.177387,
-            "win_rate_pct": 100.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": null,
-        "median_pct": null,
-        "q75_pct": null,
-        "win_rate_pct": null,
-        "resolved_n": 0
-      },
-      "estimated_reward_risk": 1.27087632861237,
-      "research_risk": {
-        "multiplier": 0.125,
-        "label": "QUARTER_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [
-        "EMA20 above EMA80",
-        "RSI 51.8 in trend zone",
-        "ADX 45.9 confirms trend strength"
-      ],
-      "against": [
-        "Volume confirmation weak at 0.47x"
-      ],
-      "thesis_invalidation_cues": [
-        "EMA20 crossing back below EMA80",
-        "ADX falling below 25",
-        "RSI leaving the 50-72 trend zone"
-      ]
-    },
-    {
-      "symbol": "TRX",
-      "action": "WAIT_EVIDENCE_CONFLICT_OR_CONTEXT",
-      "rank_score": 61.55,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 61.55,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 0.341,
-        "ema20": 0.3401683930930971,
-        "ema80": 0.3393743365116876,
-        "atr": 0.0005728955469100813,
-        "atr_pct": 0.1680045592111675,
-        "distance_from_ema20_atr": 1.4515855663186907,
-        "entry_quality": "IDEAL",
-        "preferred_entry_zone": {
-          "low": 0.3400251692063696,
-          "high": 0.34059806475327964,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 0.3392,
-          "gap_pct": 0.5278592375366639,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 0.3412
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 0.3403116169798246,
-        "risk_per_unit": 0.0011116169798245923,
-        "initial_target_zone": {
-          "low": 0.3410567761132725,
-          "high": 0.3413432238867275
-        },
-        "stretch_target_zone": {
-          "low": 0.34235996808355196,
-          "high": 0.342760994966389
-        },
-        "initial_reward_risk": 0.7991808656211711,
-        "stretch_reward_risk": 2.02305702950017,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 7,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 10,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 10,
-            "median_pct": 0.191754,
-            "q25_pct": -0.1544115,
-            "q75_pct": 0.4125145,
-            "win_rate_pct": 60.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 7,
-            "median_pct": 0.206551,
-            "q25_pct": -0.339464,
-            "q75_pct": 0.4423925,
-            "win_rate_pct": 57.142857142857146,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": -0.339464,
-        "median_pct": 0.206551,
-        "q75_pct": 0.4423925,
-        "win_rate_pct": 57.142857142857146,
-        "resolved_n": 7
-      },
-      "estimated_reward_risk": 0.7991808656211711,
-      "research_risk": {
-        "multiplier": 0.25,
-        "label": "QUARTER_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [
-        "EMA20 above EMA80"
-      ],
-      "against": [
-        "RSI 45.8 outside 50-72 trend zone",
-        "ADX 20.2 below 25",
-        "Volume confirmation weak at 0.50x"
-      ],
-      "thesis_invalidation_cues": [
-        "EMA20 crossing back below EMA80"
-      ]
-    },
-    {
-      "symbol": "SOL",
-      "action": "AVOID",
-      "rank_score": 64.54,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 64.54,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 99.74,
-        "ema20": 100.79355713345947,
-        "ema80": 101.43934971099847,
-        "atr": 0.4949328894099349,
-        "atr_pct": 0.4962230693903498,
-        "distance_from_ema20_atr": -2.128686850282958,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 100.66982391110699,
-          "high": 101.16475680051693,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 99.42,
-          "gap_pct": 0.32083416883897453,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 102.34
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 100.91729035581196,
-        "risk_per_unit": 1.4972903558119555,
-        "initial_target_zone": {
-          "low": 102.21626677764752,
-          "high": 102.46373322235249
-        },
-        "stretch_target_zone": {
-          "low": 103.35807612339832,
-          "high": 103.70452914598528
-        },
-        "initial_reward_risk": 0.9501895465135315,
-        "stretch_reward_risk": 1.7458285687429715,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 5,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 6,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 6,
-            "median_pct": 0.40398100000000003,
-            "q25_pct": 0.0322625,
-            "q75_pct": 0.6346995,
-            "win_rate_pct": 66.66666666666667,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 5,
-            "median_pct": -1.586363,
-            "q25_pct": -1.638073,
-            "q75_pct": -1.075269,
-            "win_rate_pct": 20.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": -1.638073,
-        "median_pct": -1.586363,
-        "q75_pct": -1.075269,
-        "win_rate_pct": 20.0,
-        "resolved_n": 5
-      },
-      "estimated_reward_risk": 0.9501895465135315,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 31.5 outside 50-72 trend zone",
-        "ADX 23.9 below 25",
-        "Volume confirmation weak at 0.74x"
-      ],
-      "thesis_invalidation_cues": []
-    },
-    {
-      "symbol": "ETH",
-      "action": "AVOID",
-      "rank_score": 61.07,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 61.07,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 2473.8,
-        "ema20": 2503.2809924647727,
-        "ema80": 2505.0808543793173,
-        "atr": 11.533175448165553,
-        "atr_pct": 0.4662129294270172,
-        "distance_from_ema20_atr": -2.556190408900932,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 2500.3976986027315,
-          "high": 2511.930874050897,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 2467.5,
-          "gap_pct": 0.2546689303904997,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 2534.58
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 2506.1642863268144,
-        "risk_per_unit": 38.66428632681436,
-        "initial_target_zone": {
-          "low": 2531.6967061379587,
-          "high": 2537.463293862041
-        },
-        "stretch_target_zone": {
-          "low": 2567.7577960007225,
-          "high": 2575.8310188144383
-        },
-        "initial_reward_risk": 0.734934389658675,
-        "stretch_reward_risk": 1.6974352125892043,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 6,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 6,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 6,
-            "median_pct": 0.48939900000000003,
-            "q25_pct": -0.1001975,
-            "q75_pct": 1.6258955,
-            "win_rate_pct": 50.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 6,
-            "median_pct": 1.6022889999999999,
-            "q25_pct": 0.0885015,
-            "q75_pct": 3.1832825,
-            "win_rate_pct": 83.33333333333333,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": 0.0885015,
-        "median_pct": 1.6022889999999999,
-        "q75_pct": 3.1832825,
-        "win_rate_pct": 83.33333333333333,
-        "resolved_n": 6
-      },
-      "estimated_reward_risk": 0.734934389658675,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [
-        "ADX 27.1 confirms trend strength"
-      ],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 29.9 outside 50-72 trend zone",
-        "Volume confirmation weak at 1.25x"
-      ],
-      "thesis_invalidation_cues": [
-        "ADX falling below 25"
-      ]
-    },
-    {
-      "symbol": "BNB",
-      "action": "AVOID",
-      "rank_score": 61.07,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 61.07,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 715.14,
-        "ema20": 722.2779656761742,
-        "ema80": 726.8561632776286,
-        "atr": 2.6146310882986605,
-        "atr_pct": 0.3656110815083285,
-        "distance_from_ema20_atr": -2.7300087221172227,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 721.6243079040995,
-          "high": 724.2389389923982,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 714.05,
-          "gap_pct": 0.15241770842073327,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 732.42
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 722.9316234482488,
-        "risk_per_unit": 8.881623448248888,
-        "initial_target_zone": {
-          "low": 731.7663422279253,
-          "high": 733.0736577720746
-        },
-        "stretch_target_zone": {
-          "low": 737.0404785101035,
-          "high": 738.8707202719125
-        },
-        "initial_reward_risk": 1.068315562693874,
-        "stretch_reward_risk": 1.6915799268343603,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 5,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 6,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 6,
-            "median_pct": -0.2050335,
-            "q25_pct": -1.8494392499999999,
-            "q75_pct": 0.15794325,
-            "win_rate_pct": 50.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 5,
-            "median_pct": -0.00415,
-            "q25_pct": -0.995108,
-            "q75_pct": 0.637224,
-            "win_rate_pct": 40.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": -0.995108,
-        "median_pct": -0.00415,
-        "q75_pct": 0.637224,
-        "win_rate_pct": 40.0,
-        "resolved_n": 5
-      },
-      "estimated_reward_risk": 1.068315562693874,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [
-        "ADX 32.4 confirms trend strength"
-      ],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 25.8 outside 50-72 trend zone",
-        "Volume confirmation weak at 0.68x"
-      ],
-      "thesis_invalidation_cues": [
-        "ADX falling below 25"
-      ]
-    },
-    {
-      "symbol": "\u725b\u6765",
-      "action": "AVOID",
-      "rank_score": 57.24,
-      "purchase_verdict": "WATCH_OR_WAIT_FOR_CONFIRMATION",
-      "fusion_score": 57.24,
-      "evidence_conflict": false,
-      "conflicts": [],
-      "entry": {
-        "price": 0.12055,
-        "ema20": 0.1327377568255889,
-        "ema80": 0.12027430119058131,
-        "atr": 0.008607633422316564,
-        "atr_pct": 7.14030147019209,
-        "distance_from_ema20_atr": -1.4159242416144628,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 0.13058584847000976,
-          "high": 0.1391934818923263,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 0.12,
-          "gap_pct": 0.456242223143931,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 0.16355
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 0.13488966518116802,
-        "risk_per_unit": 0.014889665181168021,
-        "initial_target_zone": {
-          "low": 0.15507225459734092,
-          "high": 0.15937607130849918
-        },
-        "stretch_target_zone": {
-          "low": 0.1634005250932921,
-          "high": 0.1694258684889137
-        },
-        "initial_reward_risk": 1.5,
-        "stretch_reward_risk": 2.1171417373309938,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 2,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 3,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 3,
-            "median_pct": 0.194233,
-            "q25_pct": -0.9995745,
-            "q75_pct": 1.507273,
-            "win_rate_pct": 66.66666666666667,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 2,
-            "median_pct": 0.5710569999999997,
-            "q25_pct": -3.8621645000000004,
-            "q75_pct": 5.0042785,
-            "win_rate_pct": 50.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": -3.8621645000000004,
-        "median_pct": 0.5710569999999997,
-        "q75_pct": 5.0042785,
-        "win_rate_pct": 50.0,
-        "resolved_n": 2
-      },
-      "estimated_reward_risk": 1.5,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [
-        "EMA20 above EMA80"
-      ],
-      "against": [
-        "RSI 38.5 outside 50-72 trend zone",
-        "ADX 19.6 below 25",
-        "Volume confirmation weak at 0.88x"
-      ],
-      "thesis_invalidation_cues": [
-        "EMA20 crossing back below EMA80"
-      ]
-    },
-    {
-      "symbol": "ZEC",
-      "action": "AVOID",
-      "rank_score": 57.07,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 57.07,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 1087.67,
-        "ema20": 1116.2944406262977,
-        "ema80": 1140.130453708584,
-        "atr": 15.367003355119522,
-        "atr_pct": 1.4128369225150572,
-        "distance_from_ema20_atr": -1.8627210500843299,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 1112.4526897875178,
-          "high": 1127.8196931426373,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 1073.47,
-          "gap_pct": 1.3055430415475322,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 1156.89
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 1120.1361914650774,
-        "risk_per_unit": 46.66619146507742,
-        "initial_target_zone": {
-          "low": 1153.0482491612202,
-          "high": 1160.73175083878
-        },
-        "stretch_target_zone": {
-          "low": 1196.140984654812,
-          "high": 1206.8978870033955
-        },
-        "initial_reward_risk": 0.7875896314021537,
-        "stretch_reward_risk": 1.7439444233397385,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 2,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 5,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 5,
-            "median_pct": 0.644911,
-            "q25_pct": -2.019364,
-            "q75_pct": 1.096158,
-            "win_rate_pct": 60.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 2,
-            "median_pct": 1.3561210000000001,
-            "q25_pct": 0.8182665,
-            "q75_pct": 1.8939755000000003,
-            "win_rate_pct": 100.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": 0.8182665,
-        "median_pct": 1.3561210000000001,
-        "q75_pct": 1.8939755000000003,
-        "win_rate_pct": 100.0,
-        "resolved_n": 2
-      },
-      "estimated_reward_risk": 0.7875896314021537,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 32.4 outside 50-72 trend zone",
-        "ADX 22.5 below 25",
-        "Volume confirmation weak at 0.39x"
-      ],
-      "thesis_invalidation_cues": []
-    },
-    {
-      "symbol": "BTC",
-      "action": "AVOID",
-      "rank_score": 52.54,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 52.54,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 76728.53,
-        "ema20": 77028.0027217921,
-        "ema80": 77450.42855559636,
-        "atr": 186.97946600207655,
-        "atr_pct": 0.2436896236668115,
-        "distance_from_ema20_atr": -1.6016342767220053,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 76981.25785529158,
-          "high": 77168.23732129367,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 76500.0,
-          "gap_pct": 0.29784227587834516,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 77404.37
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 77074.74758829262,
-        "risk_per_unit": 574.7475882926228,
-        "initial_target_zone": {
-          "low": 77357.62513349947,
-          "high": 77451.11486650052
-        },
-        "stretch_target_zone": {
-          "low": 78008.20845956079,
-          "high": 78139.09408576225
-        },
-        "initial_reward_risk": 0.5735081249954735,
-        "stretch_reward_risk": 1.7379867349009577,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 11,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 14,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 14,
-            "median_pct": 0.024057000000000002,
-            "q25_pct": -0.24761225,
-            "q75_pct": 0.130943,
-            "win_rate_pct": 57.142857142857146,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 11,
-            "median_pct": -0.024588,
-            "q25_pct": -1.01987,
-            "q75_pct": 0.063642,
-            "win_rate_pct": 45.45454545454545,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": -1.01987,
-        "median_pct": -0.024588,
-        "q75_pct": 0.063642,
-        "win_rate_pct": 45.45454545454545,
-        "resolved_n": 11
-      },
-      "estimated_reward_risk": 0.5735081249954735,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 34.0 outside 50-72 trend zone",
-        "ADX 22.3 below 25",
-        "Volume confirmation weak at 0.74x"
-      ],
-      "thesis_invalidation_cues": []
-    },
-    {
-      "symbol": "XRP",
-      "action": "AVOID",
-      "rank_score": 50.83,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 50.83,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 1.3393,
-        "ema20": 1.3546164532201583,
-        "ema80": 1.3666910708851894,
-        "atr": 0.00668589933171389,
-        "atr_pct": 0.49920849187739047,
-        "distance_from_ema20_atr": -2.290859084208215,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 1.3529449783872298,
-          "high": 1.3596308777189436,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 1.3369,
-          "gap_pct": 0.17919808855371894,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 1.3706
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 1.3562879280530868,
-        "risk_per_unit": 0.019387928053086867,
-        "initial_target_zone": {
-          "low": 1.3689285251670715,
-          "high": 1.3722714748329286
-        },
-        "stretch_target_zone": {
-          "low": 1.3882116223509164,
-          "high": 1.392891751883116
-        },
-        "initial_reward_risk": 0.7381950205161034,
-        "stretch_reward_risk": 1.7672728602102525,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 2,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 5,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 5,
-            "median_pct": -0.014663,
-            "q25_pct": -0.493033,
-            "q75_pct": 0.058694,
-            "win_rate_pct": 40.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 2,
-            "median_pct": 1.1311410000000002,
-            "q25_pct": 0.5155525000000001,
-            "q75_pct": 1.7467295,
-            "win_rate_pct": 50.0,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": 0.5155525000000001,
-        "median_pct": 1.1311410000000002,
-        "q75_pct": 1.7467295,
-        "win_rate_pct": 50.0,
-        "resolved_n": 2
-      },
-      "estimated_reward_risk": 0.7381950205161034,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 29.7 outside 50-72 trend zone",
-        "ADX 22.6 below 25",
-        "Volume confirmation weak at 0.94x"
-      ],
-      "thesis_invalidation_cues": []
-    },
-    {
-      "symbol": "NEAR",
-      "action": "AVOID",
-      "rank_score": 49.07,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 49.07,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 2.301,
-        "ema20": 2.331778498974051,
-        "ema80": 2.3870261128778956,
-        "atr": 0.030340881583524965,
-        "atr_pct": 1.318595462126248,
-        "distance_from_ema20_atr": -1.014423357782833,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 2.3241932785781696,
-          "high": 2.3545341601616947,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 2.265,
-          "gap_pct": 1.564537157757498,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 2.408
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 2.339363719369932,
-        "risk_per_unit": 0.07436371936993202,
-        "initial_target_zone": {
-          "low": 2.4004147796041186,
-          "high": 2.415585220395881
-        },
-        "stretch_target_zone": {
-          "low": 2.467210382403401,
-          "high": 2.488448999511869
-        },
-        "initial_reward_risk": 0.9229807386129738,
-        "stretch_reward_risk": 1.8620097644509381,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 2,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 6,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 6,
-            "median_pct": -0.44358149999999996,
-            "q25_pct": -1.7019540000000002,
-            "q75_pct": 0.010841249999999997,
-            "win_rate_pct": 33.333333333333336,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 2,
-            "median_pct": -1.711055,
-            "q25_pct": -2.2702234999999997,
-            "q75_pct": -1.1518864999999998,
+            "median_pct": -1.22549,
+            "q25_pct": -1.22549,
+            "q75_pct": -1.22549,
             "win_rate_pct": 0.0,
             "evidence_strength": "INSUFFICIENT_SAMPLE"
           },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": -2.2702234999999997,
-        "median_pct": -1.711055,
-        "q75_pct": -1.1518864999999998,
-        "win_rate_pct": 0.0,
-        "resolved_n": 2
-      },
-      "estimated_reward_risk": 0.9229807386129738,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 38.4 outside 50-72 trend zone",
-        "ADX 19.8 below 25",
-        "Volume confirmation weak at 1.04x"
-      ],
-      "thesis_invalidation_cues": []
-    },
-    {
-      "symbol": "SUI",
-      "action": "AVOID",
-      "rank_score": 48.42,
-      "purchase_verdict": "GOOD_ASSET_BAD_ENTRY",
-      "fusion_score": 48.42,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 0.7091,
-        "ema20": 0.7177280804706284,
-        "ema80": 0.7359098382157168,
-        "atr": 0.005556599853464533,
-        "atr_pct": 0.7836130099371786,
-        "distance_from_ema20_atr": -1.5527626062994018,
-        "entry_quality": "STRUCTURE_DAMAGED",
-        "preferred_entry_zone": {
-          "low": 0.7163389305072623,
-          "high": 0.7218955303607268,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 0.7049,
-          "gap_pct": 0.5923000987166805,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 0.7312
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 0.7191172304339946,
-        "risk_per_unit": 0.014217230433994588,
-        "initial_target_zone": {
-          "low": 0.7298108500366338,
-          "high": 0.7325891499633661
-        },
-        "stretch_target_zone": {
-          "low": 0.743278858307972,
-          "high": 0.7471684782053972
-        },
-        "initial_reward_risk": 0.8498680261321846,
-        "stretch_reward_risk": 1.8362534070114942,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 12,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 14,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 14,
-            "median_pct": -0.065715,
-            "q25_pct": -0.7831675,
-            "q75_pct": 0.29869775,
-            "win_rate_pct": 42.857142857142854,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "24h": {
-            "resolved_n": 12,
-            "median_pct": -2.0502565,
-            "q25_pct": -3.68047925,
-            "q75_pct": -0.40352499999999997,
-            "win_rate_pct": 8.333333333333334,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
-          "7d": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          }
-        }
-      },
-      "forward_distribution_24h": {
-        "q25_pct": -3.68047925,
-        "median_pct": -2.0502565,
-        "q75_pct": -0.40352499999999997,
-        "win_rate_pct": 8.333333333333334,
-        "resolved_n": 12
-      },
-      "estimated_reward_risk": 0.8498680261321846,
-      "research_risk": {
-        "multiplier": 0.0,
-        "label": "ZERO_RESEARCH_RISK",
-        "capital_authority": false
-      },
-      "why": [
-        "ADX 26.9 confirms trend strength"
-      ],
-      "against": [
-        "EMA20 not above EMA80",
-        "RSI 34.8 outside 50-72 trend zone",
-        "Volume confirmation weak at 0.49x"
-      ],
-      "thesis_invalidation_cues": [
-        "ADX falling below 25"
-      ]
-    },
-    {
-      "symbol": "LSK",
-      "action": "AVOID",
-      "rank_score": 47.91,
-      "purchase_verdict": "AVOID_POOR_EXECUTION_QUALITY",
-      "fusion_score": 47.91,
-      "evidence_conflict": true,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "entry": {
-        "price": 0.9826,
-        "ema20": 0.7476366447838618,
-        "ema80": 0.3820684481017636,
-        "atr": 0.19407591748699587,
-        "atr_pct": 19.751263737736195,
-        "distance_from_ema20_atr": 1.2106775444299112,
-        "entry_quality": "IDEAL",
-        "preferred_entry_zone": {
-          "low": 0.6991176654121128,
-          "high": 0.8931935828991087,
-          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
-        },
-        "research_invalidation": {
-          "price": 0.2234,
-          "gap_pct": 77.26440056991656,
-          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
-        },
-        "recent_20h_high": 2.0
-      },
-      "target_exit": {
-        "available": true,
-        "reference_entry": 0.7961556241556107,
-        "risk_per_unit": 0.5727556241556107,
-        "initial_target_zone": {
-          "low": 1.6067700810172778,
-          "high": 1.7038080397607756
-        },
-        "stretch_target_zone": {
-          "low": 1.7352874594601693,
-          "high": 1.8711406017010666
-        },
-        "initial_reward_risk": 1.5,
-        "stretch_reward_risk": 1.7582689090302182,
-        "research_exit_state": "PRE_ENTRY_PLAN",
-        "evidence_strength": "STRUCTURAL_ONLY",
-        "history_used": false,
-        "history_resolved_n": 0,
-        "source_count": 3,
-        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
-      },
-      "similar_history": {
-        "observations": 0,
-        "minimum_similarity": 0.62,
-        "horizons": {
-          "4h": {
-            "resolved_n": 0,
-            "median_pct": null,
-            "q25_pct": null,
-            "q75_pct": null,
-            "win_rate_pct": null,
-            "evidence_strength": "INSUFFICIENT_SAMPLE"
-          },
           "24h": {
             "resolved_n": 0,
             "median_pct": null,
@@ -1350,7 +1378,7 @@
         "win_rate_pct": null,
         "resolved_n": 0
       },
-      "estimated_reward_risk": 1.5,
+      "estimated_reward_risk": 1.5000000000000002,
       "research_risk": {
         "multiplier": 0.0,
         "label": "ZERO_RESEARCH_RISK",
@@ -1358,12 +1386,11 @@
       },
       "why": [
         "EMA20 above EMA80",
-        "RSI 64.6 in trend zone",
-        "ADX 74.5 confirms trend strength"
+        "RSI 52.1 in trend zone",
+        "ADX 52.2 confirms trend strength"
       ],
       "against": [
-        "Volume confirmation weak at 0.65x",
-        "ATR 19.7% is unusually high"
+        "Volume confirmation weak at 0.36x"
       ],
       "thesis_invalidation_cues": [
         "EMA20 crossing back below EMA80",
@@ -1374,24 +1401,24 @@
     {
       "symbol": "THE",
       "action": "AVOID",
-      "rank_score": 37.93,
+      "rank_score": 35.89,
       "purchase_verdict": "AVOID_POOR_EXECUTION_QUALITY",
-      "fusion_score": 37.93,
+      "fusion_score": 35.89,
       "evidence_conflict": true,
       "conflicts": [
         "EVIDENCE_DISAGREEMENT_WIDE"
       ],
       "entry": {
         "price": 0.0677,
-        "ema20": 0.06719552246733136,
-        "ema80": 0.06731292466746705,
-        "atr": 0.001155026890673078,
-        "atr_pct": 1.7060958503295098,
-        "distance_from_ema20_atr": 0.43676691576821763,
-        "entry_quality": "IDEAL",
+        "ema20": 0.06757431325838474,
+        "ema80": 0.0674262445703362,
+        "atr": 0.001147309576365446,
+        "atr_pct": 1.694696567748074,
+        "distance_from_ema20_atr": 0.10954910880585284,
+        "entry_quality": "EARLY_PULLBACK",
         "preferred_entry_zone": {
-          "low": 0.06690676574466309,
-          "high": 0.06806179263533617,
+          "low": 0.06728748586429338,
+          "high": 0.06843479544065882,
           "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
         },
         "research_invalidation": {
@@ -1403,18 +1430,18 @@
       },
       "target_exit": {
         "available": true,
-        "reference_entry": 0.06748427918999964,
-        "risk_per_unit": 0.001584279189999635,
+        "reference_entry": 0.0678611406524761,
+        "risk_per_unit": 0.001961140652476101,
         "initial_target_zone": {
-          "low": 0.06957194125233081,
-          "high": 0.07014945469766735
+          "low": 0.07051602423709889,
+          "high": 0.07108967902528161
         },
         "stretch_target_zone": {
-          "low": 0.07079290910177322,
-          "high": 0.07160142792524438
+          "low": 0.0716319724808915,
+          "high": 0.07243508918434731
         },
-        "initial_reward_risk": 1.4999999999999956,
-        "stretch_reward_risk": 2.3435827137955503,
+        "initial_reward_risk": 1.5,
+        "stretch_reward_risk": 2.1275323495412306,
         "research_exit_state": "PRE_ENTRY_PLAN",
         "evidence_strength": "STRUCTURAL_ONLY",
         "history_used": false,
@@ -1459,7 +1486,7 @@
         "win_rate_pct": null,
         "resolved_n": 0
       },
-      "estimated_reward_risk": 1.4999999999999956,
+      "estimated_reward_risk": 1.5,
       "research_risk": {
         "multiplier": 0.0,
         "label": "ZERO_RESEARCH_RISK",
@@ -1477,6 +1504,109 @@
         "ADX falling below 25",
         "RSI leaving the 50-72 trend zone"
       ]
+    },
+    {
+      "symbol": "HOLO",
+      "action": "AVOID",
+      "rank_score": 26.22,
+      "purchase_verdict": "AVOID_OR_INSUFFICIENT_SETUP",
+      "fusion_score": 26.22,
+      "evidence_conflict": true,
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "entry": {
+        "price": 0.0624,
+        "ema20": 0.06268176079585164,
+        "ema80": 0.062958870839332,
+        "atr": 0.0006068344929161977,
+        "atr_pct": 0.9724911745451885,
+        "distance_from_ema20_atr": -0.4643124264370894,
+        "entry_quality": "EARLY_PULLBACK",
+        "preferred_entry_zone": {
+          "low": 0.06253005217262259,
+          "high": 0.06313688666553878,
+          "basis": "EMA20 +/- ATR pullback band constrained by recent 20h swing low"
+        },
+        "research_invalidation": {
+          "price": 0.0618,
+          "gap_pct": 0.9615384615384558,
+          "basis": "lower of EMA80 and recent 20h swing low; research reference, not an executable stop"
+        },
+        "recent_20h_high": 0.0636
+      },
+      "target_exit": {
+        "available": true,
+        "reference_entry": 0.06283346941908069,
+        "risk_per_unit": 0.001033469419080689,
+        "initial_target_zone": {
+          "low": 0.06359201253522594,
+          "high": 0.06389542978168404
+        },
+        "stretch_target_zone": {
+          "low": 0.06482316585978518,
+          "high": 0.06524795000482653
+        },
+        "initial_reward_risk": 0.8807727858885296,
+        "stretch_reward_risk": 2.1307727858885315,
+        "research_exit_state": "PRE_ENTRY_PLAN",
+        "evidence_strength": "STRUCTURAL_ONLY",
+        "history_used": false,
+        "history_resolved_n": 6,
+        "source_count": 3,
+        "method": "median blend of 1.5R, ATR expansion, recent resistance and sufficiently sampled historical Q75; stretch uses 2.5R/3ATR"
+      },
+      "similar_history": {
+        "observations": 8,
+        "minimum_similarity": 0.62,
+        "horizons": {
+          "4h": {
+            "resolved_n": 6,
+            "median_pct": -0.913242,
+            "q25_pct": -2.62557075,
+            "q75_pct": 0.82288425,
+            "win_rate_pct": 33.333333333333336,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "24h": {
+            "resolved_n": 6,
+            "median_pct": -3.9734999999999996,
+            "q25_pct": -5.46598025,
+            "q75_pct": -1.9274792500000002,
+            "win_rate_pct": 0.0,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          },
+          "7d": {
+            "resolved_n": 0,
+            "median_pct": null,
+            "q25_pct": null,
+            "q75_pct": null,
+            "win_rate_pct": null,
+            "evidence_strength": "INSUFFICIENT_SAMPLE"
+          }
+        }
+      },
+      "forward_distribution_24h": {
+        "q25_pct": -5.46598025,
+        "median_pct": -3.9734999999999996,
+        "q75_pct": -1.9274792500000002,
+        "win_rate_pct": 0.0,
+        "resolved_n": 6
+      },
+      "estimated_reward_risk": 0.8807727858885296,
+      "research_risk": {
+        "multiplier": 0.0,
+        "label": "ZERO_RESEARCH_RISK",
+        "capital_authority": false
+      },
+      "why": [],
+      "against": [
+        "EMA20 not above EMA80",
+        "RSI 44.0 outside 50-72 trend zone",
+        "ADX 12.8 below 25",
+        "Volume confirmation weak at 0.84x"
+      ],
+      "thesis_invalidation_cues": []
     }
   ],
   "methodology": {
