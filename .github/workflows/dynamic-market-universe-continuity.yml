@@ -56,4 +56,26 @@ jobs:
           git add dynamic-market-universe-v2-continuity.json dynamic-market-universe-v2-continuity-history.jsonl
           if git diff --cached --quiet; then exit 0; fi
           git commit -m 'Update dynamic market universe continuity evidence'
-          git push
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push origin HEAD:main; then
+                echo "Universe evidence push succeeded on attempt ${attempt}"
+                exit 0
+              fi
+            else
+              git rebase --abort || true
+              git reset --hard origin/main
+              python dynamic-market-universe-continuity.py
+              git add dynamic-market-universe-v2-continuity.json dynamic-market-universe-v2-continuity-history.jsonl
+              if git diff --cached --quiet; then
+                echo 'Latest main already contains equivalent universe evidence'
+                exit 0
+              fi
+              git commit -m 'Update dynamic market universe continuity evidence'
+            fi
+            echo "Concurrent writer race on attempt ${attempt}; retrying"
+            sleep $((attempt * 2))
+          done
+          echo 'Universe evidence push failed after retries' >&2
+          exit 1
