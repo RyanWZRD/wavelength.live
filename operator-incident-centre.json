@@ -1,8 +1,6 @@
 {
   "actionable_items": [
-    "Broker reconciliation: BROKER_SNAPSHOT_ERRORS",
-    "Observation baseline: 1 critical file(s) changed",
-    "V3 forward feed: aging 5.1h"
+    "Observation baseline: 1 critical file(s) changed"
   ],
   "automatic_promotion": false,
   "baseline_drift": {
@@ -112,20 +110,18 @@
     "account_position_count": 0,
     "account_position_symbols": [],
     "authority": "READ_ONLY_ADVISORY",
-    "broker_snapshot_generated_at": "2026-09-14T20:22:07.067463+00:00",
+    "broker_snapshot_generated_at": "2026-09-14T23:15:15.791699+00:00",
     "guardian_status": "FLAT_OK",
-    "new_entries_should_be_blocked": true,
+    "new_entries_should_be_blocked": false,
     "open_eth_order_count": 0,
     "paper_endpoint": "https://paper-api.alpaca.markets",
     "position_qty": 0,
-    "problems": [
-      "BROKER_SNAPSHOT_ERRORS"
-    ],
+    "problems": [],
     "protective_stop_count": 0,
     "protective_stop_remaining_qty": 0,
     "runtime_position_qty": null,
     "runtime_stop_price": null,
-    "state": "RED_MISMATCH",
+    "state": "GREEN_RECONCILED",
     "strategy_position_qty": 0,
     "strategy_symbol": "ETHUSD"
   },
@@ -143,46 +139,46 @@
     },
     {
       "component": "Broker reconciliation",
-      "detail": "BROKER_SNAPSHOT_ERRORS",
-      "state": "RED"
+      "detail": "broker and runtime agree",
+      "state": "GREEN"
     },
     {
       "component": "V3 forward feed",
-      "detail": "aging 5.1h",
-      "state": "AMBER"
+      "detail": "fresh 2.6h",
+      "state": "GREEN"
     },
     {
       "component": "Crowding forward feed",
-      "detail": "fresh 0.0h",
+      "detail": "fresh 2.9h",
       "state": "GREEN"
     },
     {
       "component": "Alert engine",
-      "detail": "fresh 1.1h",
+      "detail": "fresh 0.1h",
       "state": "GREEN"
     },
     {
       "component": "Existing incidents",
-      "detail": "0 actionable; 68 informational/expected",
+      "detail": "0 actionable; 70 informational/expected",
       "state": "GREEN"
     }
   ],
   "evidence_integrity": {
     "failure_count": 0,
-    "manifest_sha256": "7e974a01dd4e77d55b4d8666ccbe97818fc06db25af5543b6c8b17c601f7cf88",
-    "previous_manifest_sha256": "0c80600bf99dce955f4d0d190f525a10c8a378e0d6af2a767b2eb01c64746250",
+    "manifest_sha256": "5f5493aef1789691aed5ba8b898791d44c4283271d4a4d679a102a224f56beb1",
+    "previous_manifest_sha256": "7e974a01dd4e77d55b4d8666ccbe97818fc06db25af5543b6c8b17c601f7cf88",
     "state": "PASS"
   },
   "execution_authority": false,
   "existing_operations": {
     "actionable_incident_count": 0,
     "circuit_breaker": "HARD_BLOCK",
-    "durable_incident_count": 68,
+    "durable_incident_count": 70,
     "guardian_status": "UNKNOWN",
     "incident_severity_source": "runtime/execution_incidents.jsonl",
-    "informational_incident_count": 68,
+    "informational_incident_count": 70,
     "reconciliation_confidence": 60.0,
-    "unacknowledged_incidents": 68
+    "unacknowledged_incidents": 70
   },
   "forward_evidence": {
     "candidate_v3": {
@@ -191,7 +187,7 @@
       "external_resolution_calls": 0,
       "genuine_forward_entry_events": 0,
       "latest_shadow_action": "NO_SIGNAL",
-      "latest_shadow_bar": "2026-09-14T08:00:00+00:00",
+      "latest_shadow_bar": "2026-09-14T16:00:00+00:00",
       "latest_shadow_entry_signal": false,
       "resolved_counts": {
         "12h": 0,
@@ -217,7 +213,7 @@
       }
     }
   },
-  "generated_at": "2026-09-14T20:22:22.306884+00:00",
+  "generated_at": "2026-09-14T23:15:16.057534+00:00",
   "incident_classification": {
     "actionable_count": 0,
     "actionable_severities": [
@@ -229,7 +225,7 @@
       "WARNING"
     ],
     "info_dry_run_blocking_is_operationally_expected": true,
-    "informational_count": 68,
+    "informational_count": 70,
     "mode": "OPERATOR_INCIDENT_SEVERITY_CLASSIFICATION_V1"
   },
   "live_money_enabled": false,
@@ -237,6 +233,6 @@
   "operator_centre_mode": "WAVELENGTH_OPERATOR_INCIDENT_CENTRE_V1_READ_ONLY",
   "operator_principle": "RED is actionable; AMBER requires review/monitoring; GREEN needs no intervention. No control on this page can place orders or alter strategy state.",
   "orders_enabled": false,
-  "overall_state": "RED",
+  "overall_state": "AMBER",
   "strategy_rule_mutation": false
 }
