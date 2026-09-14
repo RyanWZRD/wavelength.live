@@ -13,6 +13,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-python@v5
         with:
@@ -26,9 +28,44 @@ jobs:
           ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
 
       - name: Commit and push if changed
+        env:
+          ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
+          ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add bot-status.json
-          git diff --staged --quiet || git commit -m "Update bot status"
-          git push
+
+          commit_status() {
+            git add bot-status.json
+            if git diff --staged --quiet; then
+              return 1
+            fi
+            git commit -m "Update bot status"
+            return 0
+          }
+
+          commit_status || exit 0
+
+          for attempt in 1 2 3 4 5 6; do
+            git fetch origin main
+            if git rebase origin/main; then
+              if git push origin HEAD:main; then
+                echo "Bot status push succeeded on attempt ${attempt}"
+                exit 0
+              fi
+            else
+              echo "Rebase conflict on attempt ${attempt}; rebuilding status from latest main"
+              git rebase --abort || true
+            fi
+
+            git reset --hard origin/main
+            python update_status.py
+            if ! commit_status; then
+              echo "Latest main already contains equivalent bot status"
+              exit 0
+            fi
+            sleep $((attempt * 2))
+          done
+
+          echo 'Bot status push failed after retries' >&2
+          exit 1
