@@ -15,8 +15,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: forward-shadow-continuity
-  cancel-in-progress: true
+  group: wavelength-live-main-publisher
+  cancel-in-progress: false
 
 jobs:
   shadow:
@@ -61,7 +61,7 @@ jobs:
           state=json.loads(Path('forward-shadow-continuity-state.json').read_text())
           print(state)
           PY
-      - name: Commit forward shadow continuity
+      - name: Commit forward shadow continuity [PUBLICATION]
         run: |
           git config user.name 'wavelength-continuity[bot]'
           git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'

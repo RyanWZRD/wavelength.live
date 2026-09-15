@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: decision-quality-v3-forward-evaluation
+  group: wavelength-live-main-publisher
   cancel-in-progress: false
 
 jobs:
@@ -60,7 +60,7 @@ jobs:
           assert 'score_calibration' in e and 'factor_diagnostics' in e
           print('Decision Quality v3 evaluation valid:',e['state'],e['resolved_asset_outcomes'])
           PY
-      - name: Commit durable evaluation evidence
+      - name: Commit durable evaluation evidence [PUBLICATION]
         run: |
           git config user.name 'wavelength-evaluation[bot]'
           git config user.email 'wavelength-evaluation[bot]@users.noreply.github.com'

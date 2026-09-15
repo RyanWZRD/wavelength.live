@@ -13,6 +13,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: wavelength-live-main-publisher
+  cancel-in-progress: false
+
 jobs:
   snapshot:
     runs-on: ubuntu-latest
@@ -46,7 +50,7 @@ jobs:
           assert latest['market_regime'].startswith('BTC:')
           print('History feed is read-only and market-context lineage is explicit')
           PY
-      - name: Commit history snapshot
+      - name: Commit history snapshot [PUBLICATION]
         run: |
           git config user.name 'wavelength-history[bot]'
           git config user.email 'wavelength-history[bot]@users.noreply.github.com'

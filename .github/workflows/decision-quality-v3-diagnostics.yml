@@ -15,7 +15,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: decision-quality-v3-diagnostics
+  group: wavelength-live-main-publisher
   cancel-in-progress: false
 
 jobs:
@@ -59,7 +59,7 @@ jobs:
           assert c['orders_enabled'] is False
           print('Decision Quality v3.1 diagnostics feed valid')
           PY
-      - name: Commit durable diagnostics evidence
+      - name: Commit durable diagnostics evidence [PUBLICATION]
         run: |
           git config user.name 'wavelength-diagnostics[bot]'
           git config user.email 'wavelength-diagnostics[bot]@users.noreply.github.com'

@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: update-bot-status-main
+  group: wavelength-live-main-publisher
   cancel-in-progress: false
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
           ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
           ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}
 
-      - name: Commit and push if changed
+      - name: Commit and push if changed [PUBLICATION]
         env:
           ALPACA_API_KEY_ID: ${{ secrets.ALPACA_API_KEY_ID }}
           ALPACA_API_SECRET_KEY: ${{ secrets.ALPACA_API_SECRET_KEY }}

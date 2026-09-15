@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: decision-quality-v2-continuity
+  group: wavelength-live-main-publisher
   cancel-in-progress: false
 
 jobs:
@@ -54,7 +54,7 @@ jobs:
           assert Path('decision-quality-v2-history.jsonl').read_text().strip()
           print('Decision Quality continuity feed valid:',p['universe'])
           PY
-      - name: Commit append-only continuity evidence
+      - name: Commit append-only continuity evidence [PUBLICATION]
         run: |
           git config user.name 'wavelength-continuity[bot]'
           git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'

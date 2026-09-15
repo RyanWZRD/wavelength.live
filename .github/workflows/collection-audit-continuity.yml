@@ -24,8 +24,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: collection-audit-continuity
-  cancel-in-progress: true
+  group: wavelength-live-main-publisher
+  cancel-in-progress: false
 
 jobs:
   audit:
@@ -54,7 +54,7 @@ jobs:
           assert 'decision_quality_v31_walk_forward_eligible' in p
           print(p['overall_state'],p['evidence_confidence_pct'],p['universe_coverage'].get('counts'))
           PY
-      - name: Commit continuity audit evidence
+      - name: Commit continuity audit evidence [PUBLICATION]
         run: |
           git config user.name 'wavelength-continuity[bot]'
           git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'

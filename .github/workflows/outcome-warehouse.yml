@@ -19,7 +19,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: outcome-warehouse-main
+  group: wavelength-live-main-publisher
   cancel-in-progress: false
 
 jobs:
@@ -84,7 +84,7 @@ jobs:
               if c['status'] in ('FALSIFIED','CONFIRMED'): assert c['progress']['resolved_matching_events']>=c['minimum_fresh_matching_events']
           print('Outcome evidence remains research-only; discovery is canonical score + market-context v1 over a predeclared search space')
           PY
-      - name: Commit durable evidence
+      - name: Commit durable evidence [PUBLICATION]
         run: |
           git config user.name 'wavelength-outcomes[bot]'
           git config user.email 'wavelength-outcomes[bot]@users.noreply.github.com'

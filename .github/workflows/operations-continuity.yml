@@ -14,8 +14,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: operations-continuity
-  cancel-in-progress: true
+  group: wavelength-live-main-publisher
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -50,7 +50,7 @@ jobs:
           assert alerts['strategy_rule_mutation'] is False
           print(bot['generated_at'],alerts['generated_at'])
           PY
-      - name: Commit continuity outputs
+      - name: Commit continuity outputs [PUBLICATION]
         run: |
           git config user.name 'wavelength-continuity[bot]'
           git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'

@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: dynamic-market-universe-continuity
+  group: wavelength-live-main-publisher
   cancel-in-progress: false
 jobs:
   collect:
@@ -49,7 +49,7 @@ jobs:
           assert len(d['universe_fingerprint'])>=16
           print(d['counts'])
           PY
-      - name: Commit append-only universe evidence
+      - name: Commit append-only universe evidence [PUBLICATION]
         run: |
           git config user.name 'wavelength-research-bot'
           git config user.email '85081495+RyanWZRD@users.noreply.github.com'

@@ -17,8 +17,8 @@ permissions:
   contents: write
 
 concurrency:
-  group: source-heartbeat-continuity
-  cancel-in-progress: true
+  group: wavelength-live-main-publisher
+  cancel-in-progress: false
 
 jobs:
   heartbeat:
@@ -48,7 +48,7 @@ jobs:
           assert {'v3_forward','crowding'} <= set(progress)
           print('heartbeat sources',len(p['sources']),'progress',{k:v.get('authority_state') for k,v in progress.items()})
           PY
-      - name: Commit heartbeat
+      - name: Commit heartbeat [PUBLICATION]
         run: |
           git config user.name 'wavelength-continuity[bot]'
           git config user.email 'wavelength-continuity[bot]@users.noreply.github.com'

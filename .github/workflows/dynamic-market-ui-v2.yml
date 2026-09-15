@@ -11,6 +11,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: wavelength-live-main-publisher
+  cancel-in-progress: false
+
 jobs:
   patch:
     runs-on: ubuntu-latest
@@ -34,7 +38,7 @@ jobs:
           assert 'Dynamic deep-intelligence tier' in idx
           print('Markets UI deep tier expanded to 60 without changing live repaint code')
           PY
-      - name: Commit patch
+      - name: Commit patch [PUBLICATION]
         run: |
           git config user.name 'wavelength-universe[bot]'
           git config user.email 'wavelength-universe[bot]@users.noreply.github.com'
