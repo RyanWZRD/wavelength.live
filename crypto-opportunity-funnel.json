@@ -2,30 +2,24 @@
   "closest_actionable": {
     "advisory_only": true,
     "asset": "ETH",
-    "completed_trades": null,
-    "entries": null,
-    "family": "TREND_STATE",
+    "completed_trades": 0,
+    "entries": 1,
+    "family": "MEAN_REVERSION",
     "gates": {
-      "above_ema200": true,
-      "adx_at_least_35": false,
-      "atr_filter": true,
-      "fast_above_slow": true,
-      "rsi_50_to_75": false
+      "below_lower_bollinger": true,
+      "rsi_at_most_35": true
     },
-    "id": "eth_candidate_v3",
-    "label": "Candidate V3",
-    "last_action": "NO_SIGNAL",
-    "missing_conditions": [
-      "rsi_50_to_75",
-      "adx_at_least_35"
-    ],
-    "net_return_pct": null,
-    "position": "FLAT",
-    "readiness_pct": 60.0,
+    "id": "eth_mean_reversion",
+    "label": "Mean reversion",
+    "last_action": "WOULD_ENTER_LONG",
+    "missing_conditions": [],
+    "net_return_pct": 0.0,
+    "position": "LONG",
+    "readiness_pct": 100.0,
     "rules_frozen": true,
-    "strategy": "candidate_v3"
+    "strategy": "mean_reversion"
   },
-  "generated_at": "2026-09-15T18:18:08.162132+00:00",
+  "generated_at": "2026-09-15T21:30:54.146028+00:00",
   "governance": {
     "automatic_promotion": false,
     "execution_authority": false,
@@ -36,6 +30,26 @@
     "threshold_relaxation": false
   },
   "lanes": [
+    {
+      "advisory_only": true,
+      "asset": "ETH",
+      "completed_trades": 0,
+      "entries": 1,
+      "family": "MEAN_REVERSION",
+      "gates": {
+        "below_lower_bollinger": true,
+        "rsi_at_most_35": true
+      },
+      "id": "eth_mean_reversion",
+      "label": "Mean reversion",
+      "last_action": "WOULD_ENTER_LONG",
+      "missing_conditions": [],
+      "net_return_pct": 0.0,
+      "position": "LONG",
+      "readiness_pct": 100.0,
+      "rules_frozen": true,
+      "strategy": "mean_reversion"
+    },
     {
       "advisory_only": true,
       "asset": "ETH",
@@ -65,54 +79,6 @@
     {
       "advisory_only": true,
       "asset": "ETH",
-      "completed_trades": 0,
-      "entries": 0,
-      "family": "MEAN_REVERSION",
-      "gates": {
-        "below_lower_bollinger": true,
-        "rsi_at_most_35": false
-      },
-      "id": "eth_mean_reversion",
-      "label": "Mean reversion",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "rsi_at_most_35"
-      ],
-      "net_return_pct": 0.0,
-      "position": "FLAT",
-      "readiness_pct": 50.0,
-      "rules_frozen": true,
-      "strategy": "mean_reversion"
-    },
-    {
-      "advisory_only": true,
-      "asset": "ETH",
-      "completed_trades": 2,
-      "entries": 2,
-      "family": "TREND_PULLBACK",
-      "gates": {
-        "above_ema100": false,
-        "ema20_above_ema50": true,
-        "rsi_42_to_58": false,
-        "touch_and_reclaim_ema20": false
-      },
-      "id": "eth_trend_pullback",
-      "label": "Trend pullback",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "above_ema100",
-        "rsi_42_to_58",
-        "touch_and_reclaim_ema20"
-      ],
-      "net_return_pct": -3.706998,
-      "position": "FLAT",
-      "readiness_pct": 25.0,
-      "rules_frozen": true,
-      "strategy": "trend_pullback"
-    },
-    {
-      "advisory_only": true,
-      "asset": "ETH",
       "completed_trades": 1,
       "entries": 1,
       "family": "TREND_BREAKOUT",
@@ -134,6 +100,33 @@
       "readiness_pct": 0.0,
       "rules_frozen": true,
       "strategy": "breakout_20"
+    },
+    {
+      "advisory_only": true,
+      "asset": "ETH",
+      "completed_trades": 2,
+      "entries": 2,
+      "family": "TREND_PULLBACK",
+      "gates": {
+        "above_ema100": false,
+        "ema20_above_ema50": false,
+        "rsi_42_to_58": false,
+        "touch_and_reclaim_ema20": false
+      },
+      "id": "eth_trend_pullback",
+      "label": "Trend pullback",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "ema20_above_ema50",
+        "above_ema100",
+        "rsi_42_to_58",
+        "touch_and_reclaim_ema20"
+      ],
+      "net_return_pct": -3.706998,
+      "position": "FLAT",
+      "readiness_pct": 0.0,
+      "rules_frozen": true,
+      "strategy": "trend_pullback"
     },
     {
       "advisory_only": true,
