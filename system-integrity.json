@@ -4,13 +4,13 @@
     "comparison_status": "TEMPORALLY_INCOMPARABLE",
     "consistent": null,
     "contradictions": [],
-    "timestamp_skew_minutes": 753.2
+    "timestamp_skew_minutes": 926.6
   },
   "finding_counts": {
     "CRITICAL": 0,
     "HIGH": 1,
     "LOW": 1,
-    "MEDIUM": 2
+    "MEDIUM": 5
   },
   "findings": [
     {
@@ -30,20 +30,41 @@
     {
       "area": "FRESHNESS",
       "code": "MODULE_STALE",
+      "detail": "validation_calibration",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
+      "detail": "decision_robustness",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
       "detail": "institutional_research_v2",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
+      "detail": "market_memory",
       "penalty": 4,
       "severity": "MEDIUM"
     },
     {
       "area": "CONSISTENCY",
       "code": "CROSS_OUTPUT_TIME_SKEW",
-      "detail": "Conviction Room and Market Command are 753.2 minutes apart; rank equality was not asserted.",
+      "detail": "Conviction Room and Market Command are 926.6 minutes apart; rank equality was not asserted.",
       "penalty": 0,
       "severity": "LOW"
     }
   ],
-  "freshness_score": 93.2,
-  "generated_at": "2026-09-14T23:30:16.025142+00:00",
+  "freshness_score": 89.7,
+  "generated_at": "2026-09-15T05:24:39.838213+00:00",
   "guardrails": [
     "RESEARCH_ONLY",
     "NO_ORDER_AUTHORITY",
@@ -55,62 +76,62 @@
     "NO_PI_MUTATION",
     "NO_PORTFOLIO_WEIGHT_MUTATION"
   ],
-  "integrity_score": 81.6,
+  "integrity_score": 68.4,
   "mode": "SYSTEM_INTEGRITY_ASSURANCE_RESEARCH_ONLY",
   "module_freshness": [
     {
       "age_hours": 0.0,
-      "generated_at": "2026-09-14T23:30:14.281291+00:00",
+      "generated_at": "2026-09-15T05:24:38.554215+00:00",
       "module": "data_truth",
       "status": "FRESH"
     },
     {
-      "age_hours": 15.41,
+      "age_hours": 21.31,
       "generated_at": "2026-09-14T08:05:54.355483+00:00",
       "module": "conviction_room",
       "status": "STALE"
     },
     {
-      "age_hours": 2.85,
-      "generated_at": "2026-09-14T20:39:04.511948+00:00",
+      "age_hours": 5.87,
+      "generated_at": "2026-09-14T23:32:33.046961+00:00",
       "module": "market_command",
-      "status": "FRESH"
+      "status": "AGING"
     },
     {
-      "age_hours": 127.4,
+      "age_hours": 133.31,
       "generated_at": "2026-09-09T16:06:03.087108+00:00",
       "module": "proof_programme",
       "status": "EXPIRED"
     },
     {
-      "age_hours": 7.55,
+      "age_hours": 13.46,
       "generated_at": "2026-09-14T15:57:21.592054+00:00",
       "module": "validation_calibration",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 7.49,
+      "age_hours": 13.4,
       "generated_at": "2026-09-14T16:00:46.168355+00:00",
       "module": "decision_robustness",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 15.42,
+      "age_hours": 21.32,
       "generated_at": "2026-09-14T08:05:21.071535+00:00",
       "module": "institutional_research_v2",
       "status": "STALE"
     },
     {
-      "age_hours": 7.55,
+      "age_hours": 13.46,
       "generated_at": "2026-09-14T15:57:21.592054+00:00",
       "module": "market_memory",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 2.86,
+      "age_hours": 8.77,
       "generated_at": "2026-09-14T20:38:23.879588+00:00",
       "module": "portfolio",
-      "status": "FRESH"
+      "status": "AGING"
     }
   ],
   "proof_ledger_integrity": {
@@ -143,7 +164,7 @@
   ],
   "reproducibility": {
     "deterministic_when_comparable": null,
-    "input_hash": "bc7f7e29bb0d699f3fec01d72f0b91fae2493ad07f0a6a60929fe0f92371571e",
+    "input_hash": "2698778676fa455f2f2531380cff451db66ecea67b8ad3ceb57e4609b7f4f3de",
     "output_hash": "6f68a3fe932f73c861d677617b73c01d610df60e9b7001b67286abf07cad6994",
     "same_inputs_as_previous": false
   },
@@ -167,8 +188,8 @@
     },
     "direct_evidence": {
       "asset_count": 21,
-      "derivatives_consensus_assets": 10,
-      "derivatives_consensus_pct": 47.6,
+      "derivatives_consensus_assets": 12,
+      "derivatives_consensus_pct": 57.1,
       "direct_dated_event_assets": 0,
       "direct_dated_event_pct": 0.0,
       "direct_dated_event_symbols": [],
@@ -179,8 +200,8 @@
       },
       "legacy_direct_dated_event_assets": 0,
       "semantic_direct_maturity_policy": "COUNT_ONLY_V4_SEMANTIC_DIRECT_AVAILABLE_CELLS; COINGECKO_AND_GITHUB_RELEASES_ARE_NOT_DIRECT_DATED_CATALYST_FEEDS",
-      "true_exchange_flow_assets": 1,
-      "true_exchange_flow_pct": 4.8,
+      "true_exchange_flow_assets": 2,
+      "true_exchange_flow_pct": 9.5,
       "true_exchange_flow_provider_status": "AVAILABLE",
       "warnings": [
         "COIN_METRICS_NETWORK_ACTIVITY_IS_NOT_TRUE_EXCHANGE_FLOW",
@@ -192,24 +213,24 @@
       "availability_pct": 100.0,
       "comparison_policy": "DIRECTION_ONLY_NOT_ABSOLUTE_RATE_OR_CROSS_VENUE_OI",
       "latest_available": true,
-      "latest_funding_direction_consensus_assets": 10,
+      "latest_funding_direction_consensus_assets": 12,
       "latest_status": "AVAILABLE",
       "provider": "HYPERLIQUID_PUBLIC",
-      "runs_observed": 36,
+      "runs_observed": 37,
       "semantic_role": "INDEPENDENT_DERIVATIVES_DIRECTION_CROSS_CHECK"
     },
-    "proxy_adjusted_completeness": 70.6,
+    "proxy_adjusted_completeness": 71.1,
     "semantic_labels_explicit": true,
     "semantic_summary": {
       "cache_cells": 1,
       "cache_pct": 0.5,
       "live_proxy_cells": 57,
       "live_proxy_pct": 30.2,
-      "missing_cells": 32,
-      "missing_pct": 16.9,
-      "proxy_adjusted_completeness": 70.6,
-      "semantic_direct_cells": 99,
-      "semantic_direct_pct": 52.4,
+      "missing_cells": 31,
+      "missing_pct": 16.4,
+      "proxy_adjusted_completeness": 71.1,
+      "semantic_direct_cells": 100,
+      "semantic_direct_pct": 52.9,
       "total_evidence_cells": 189
     },
     "semantic_vocabulary": [
@@ -227,7 +248,7 @@
       "EXCHANGE_FLOW_HISTORY_CAN_BE_REVISED_AS_PROVIDER_WALLET_CLUSTERING_EVOLVES"
     ]
   },
-  "status": "WATCH",
+  "status": "DEGRADED",
   "workflow_presence": [
     {
       "present": true,
