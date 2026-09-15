@@ -8,8 +8,8 @@
     "gates": {
       "above_ema100": true,
       "ema20_above_ema50": true,
-      "rsi_42_to_58": false,
-      "touch_and_reclaim_ema20": true
+      "rsi_42_to_58": true,
+      "touch_and_reclaim_ema20": false
     },
     "id": "eth_trend_pullback",
     "label": "Trend pullback",
@@ -21,7 +21,7 @@
     "rules_frozen": true,
     "strategy": "trend_pullback"
   },
-  "generated_at": "2026-09-14T23:13:45.747446+00:00",
+  "generated_at": "2026-09-15T01:35:00.706808+00:00",
   "governance": {
     "automatic_promotion": false,
     "execution_authority": false,
@@ -41,8 +41,8 @@
       "gates": {
         "above_ema100": true,
         "ema20_above_ema50": true,
-        "rsi_42_to_58": false,
-        "touch_and_reclaim_ema20": true
+        "rsi_42_to_58": true,
+        "touch_and_reclaim_ema20": false
       },
       "id": "eth_trend_pullback",
       "label": "Trend pullback",
@@ -81,52 +81,6 @@
     },
     {
       "advisory_only": true,
-      "asset": "ETH",
-      "completed_trades": 1,
-      "entries": 1,
-      "family": "TREND_BREAKOUT",
-      "gates": {
-        "above_ema100": true,
-        "breakout_20": false,
-        "rsi_at_least_55": true
-      },
-      "id": "eth_breakout_20",
-      "label": "20-bar breakout",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "breakout_20"
-      ],
-      "net_return_pct": -3.570534,
-      "position": "FLAT",
-      "readiness_pct": 66.7,
-      "rules_frozen": true,
-      "strategy": "breakout_20"
-    },
-    {
-      "advisory_only": true,
-      "asset": "BTC",
-      "completed_trades": 0,
-      "entries": 0,
-      "family": "TREND_BREAKOUT",
-      "gates": {
-        "above_ema100": true,
-        "breakout_20": false,
-        "rsi_at_least_55": true
-      },
-      "id": "btc_breakout_20",
-      "label": "20-bar breakout \u00b7 BTC lane",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "breakout_20"
-      ],
-      "net_return_pct": 0.0,
-      "position": "FLAT",
-      "readiness_pct": 66.7,
-      "rules_frozen": true,
-      "strategy": "breakout_20"
-    },
-    {
-      "advisory_only": true,
       "asset": "BTC",
       "completed_trades": 0,
       "entries": 0,
@@ -134,7 +88,7 @@
       "gates": {
         "above_ema100": true,
         "ema20_above_ema50": false,
-        "rsi_42_to_58": false,
+        "rsi_42_to_58": true,
         "touch_and_reclaim_ema20": false
       },
       "id": "btc_trend_pullback",
@@ -142,14 +96,61 @@
       "last_action": "NO_SIGNAL",
       "missing_conditions": [
         "ema20_above_ema50",
-        "rsi_42_to_58",
         "touch_and_reclaim_ema20"
       ],
       "net_return_pct": 0.0,
       "position": "FLAT",
-      "readiness_pct": 25.0,
+      "readiness_pct": 50.0,
       "rules_frozen": true,
       "strategy": "trend_pullback"
+    },
+    {
+      "advisory_only": true,
+      "asset": "ETH",
+      "completed_trades": 1,
+      "entries": 1,
+      "family": "TREND_BREAKOUT",
+      "gates": {
+        "above_ema100": true,
+        "breakout_20": false,
+        "rsi_at_least_55": false
+      },
+      "id": "eth_breakout_20",
+      "label": "20-bar breakout",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "breakout_20",
+        "rsi_at_least_55"
+      ],
+      "net_return_pct": -3.570534,
+      "position": "FLAT",
+      "readiness_pct": 33.3,
+      "rules_frozen": true,
+      "strategy": "breakout_20"
+    },
+    {
+      "advisory_only": true,
+      "asset": "BTC",
+      "completed_trades": 0,
+      "entries": 0,
+      "family": "TREND_BREAKOUT",
+      "gates": {
+        "above_ema100": true,
+        "breakout_20": false,
+        "rsi_at_least_55": false
+      },
+      "id": "btc_breakout_20",
+      "label": "20-bar breakout \u00b7 BTC lane",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "breakout_20",
+        "rsi_at_least_55"
+      ],
+      "net_return_pct": 0.0,
+      "position": "FLAT",
+      "readiness_pct": 33.3,
+      "rules_frozen": true,
+      "strategy": "breakout_20"
     },
     {
       "advisory_only": true,
