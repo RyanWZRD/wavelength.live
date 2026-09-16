@@ -1,8 +1,23 @@
 {
-  "actions_this_run": [],
+  "actions_this_run": [
+    {
+      "bar_time": "2026-09-15T20:00:00+00:00",
+      "diagnostics": {
+        "bb_lower": 75713.35020042688,
+        "close": 75586.34,
+        "rsi14": 32.734125090876475,
+        "sma20": 77254.528225
+      },
+      "family": "MEAN_REVERSION",
+      "kind": "SHADOW_ENTRY",
+      "observed_at": "2026-09-16T00:31:03.506138+00:00",
+      "price": 75586.34,
+      "strategy": "mean_reversion"
+    }
+  ],
   "fee_assumption_per_side_pct": 0.25,
   "forward_start": "2026-09-10T23:39:41.325938+00:00",
-  "generated_at": "2026-09-15T21:30:49.598979+00:00",
+  "generated_at": "2026-09-16T00:31:03.506294+00:00",
   "governance": {
     "automatic_promotion": false,
     "candidate_v3_mutation": false,
@@ -14,10 +29,10 @@
     "paper_broker_orders_enabled": false,
     "strategy_rule_mutation": false
   },
-  "last_processed_bar": "2026-09-15T16:00:00+00:00",
+  "last_processed_bar": "2026-09-15T20:00:00+00:00",
   "latest_market": {
-    "close": 76124.3165,
-    "rsi14": 36.3998
+    "close": 75586.34,
+    "rsi14": 32.7341
   },
   "mode": "CRYPTO_CHALLENGER_BTC_SHADOW_V1_RESEARCH_ONLY",
   "note": "BTC independent genuine-forward shadow challengers only; no broker execution.",
@@ -32,7 +47,7 @@
         "family": "TREND_BREAKOUT"
       },
       "last_action": "NO_SIGNAL",
-      "last_action_bar": "2026-09-15T16:00:00+00:00",
+      "last_action_bar": "2026-09-15T20:00:00+00:00",
       "losses": 0,
       "position": "FLAT",
       "readiness": {
@@ -56,28 +71,25 @@
     },
     "mean_reversion": {
       "completed_trades": 1,
-      "entries": 1,
+      "entries": 2,
       "family": "MEAN_REVERSION",
       "frozen_rule": {
         "entry": "close < lower Bollinger(20,2) and RSI <= 35",
         "exit": "close >= SMA20 or RSI >= 55",
         "family": "MEAN_REVERSION"
       },
-      "last_action": "NO_SIGNAL",
-      "last_action_bar": "2026-09-15T16:00:00+00:00",
+      "last_action": "WOULD_ENTER_LONG",
+      "last_action_bar": "2026-09-15T20:00:00+00:00",
       "losses": 0,
-      "position": "FLAT",
+      "position": "LONG",
       "readiness": {
         "gates": {
-          "below_lower_band": false,
-          "rsi_35": false
+          "below_lower_band": true,
+          "rsi_35": true
         },
-        "missing": [
-          "below_lower_band",
-          "rsi_35"
-        ],
-        "passed": 0,
-        "readiness_pct": 0.0,
+        "missing": [],
+        "passed": 2,
+        "readiness_pct": 100.0,
         "total": 2
       },
       "realised_net_return_pct_sum": 0.446857,
@@ -94,7 +106,7 @@
         "family": "TREND_PULLBACK"
       },
       "last_action": "NO_SIGNAL",
-      "last_action_bar": "2026-09-15T16:00:00+00:00",
+      "last_action_bar": "2026-09-15T20:00:00+00:00",
       "losses": 0,
       "position": "FLAT",
       "readiness": {
