@@ -1,25 +1,29 @@
 {
   "closest_actionable": {
     "advisory_only": true,
-    "asset": "BTC",
-    "completed_trades": 1,
+    "asset": "ETH",
+    "completed_trades": 2,
     "entries": 2,
-    "family": "MEAN_REVERSION",
+    "family": "TREND_PULLBACK",
     "gates": {
-      "below_lower_bollinger": false,
-      "rsi_at_most_35": false
+      "above_ema100": true,
+      "ema20_above_ema50": false,
+      "rsi_42_to_58": true,
+      "touch_and_reclaim_ema20": true
     },
-    "id": "btc_mean_reversion",
-    "label": "Mean reversion \u00b7 BTC lane",
-    "last_action": "HOLD_SHADOW_LONG",
-    "missing_conditions": [],
-    "net_return_pct": 0.446857,
-    "position": "LONG",
-    "readiness_pct": 100.0,
+    "id": "eth_trend_pullback",
+    "label": "Trend pullback",
+    "last_action": "NO_SIGNAL",
+    "missing_conditions": [
+      "ema20_above_ema50"
+    ],
+    "net_return_pct": -3.706998,
+    "position": "FLAT",
+    "readiness_pct": 75.0,
     "rules_frozen": true,
-    "strategy": "mean_reversion"
+    "strategy": "trend_pullback"
   },
-  "generated_at": "2026-09-18T00:29:11.408499+00:00",
+  "generated_at": "2026-09-18T06:03:04.979262+00:00",
   "governance": {
     "automatic_promotion": false,
     "execution_authority": false,
@@ -32,23 +36,97 @@
   "lanes": [
     {
       "advisory_only": true,
-      "asset": "BTC",
-      "completed_trades": 1,
+      "asset": "ETH",
+      "completed_trades": 2,
       "entries": 2,
-      "family": "MEAN_REVERSION",
+      "family": "TREND_PULLBACK",
       "gates": {
-        "below_lower_bollinger": false,
-        "rsi_at_most_35": false
+        "above_ema100": true,
+        "ema20_above_ema50": false,
+        "rsi_42_to_58": true,
+        "touch_and_reclaim_ema20": true
       },
-      "id": "btc_mean_reversion",
-      "label": "Mean reversion \u00b7 BTC lane",
-      "last_action": "HOLD_SHADOW_LONG",
-      "missing_conditions": [],
-      "net_return_pct": 0.446857,
-      "position": "LONG",
-      "readiness_pct": 100.0,
+      "id": "eth_trend_pullback",
+      "label": "Trend pullback",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "ema20_above_ema50"
+      ],
+      "net_return_pct": -3.706998,
+      "position": "FLAT",
+      "readiness_pct": 75.0,
       "rules_frozen": true,
-      "strategy": "mean_reversion"
+      "strategy": "trend_pullback"
+    },
+    {
+      "advisory_only": true,
+      "asset": "BTC",
+      "completed_trades": 0,
+      "entries": 0,
+      "family": "TREND_PULLBACK",
+      "gates": {
+        "above_ema100": true,
+        "ema20_above_ema50": false,
+        "rsi_42_to_58": true,
+        "touch_and_reclaim_ema20": true
+      },
+      "id": "btc_trend_pullback",
+      "label": "Trend pullback \u00b7 BTC lane",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "ema20_above_ema50"
+      ],
+      "net_return_pct": 0.0,
+      "position": "FLAT",
+      "readiness_pct": 75.0,
+      "rules_frozen": true,
+      "strategy": "trend_pullback"
+    },
+    {
+      "advisory_only": true,
+      "asset": "ETH",
+      "completed_trades": 1,
+      "entries": 1,
+      "family": "TREND_BREAKOUT",
+      "gates": {
+        "above_ema100": true,
+        "breakout_20": false,
+        "rsi_at_least_55": true
+      },
+      "id": "eth_breakout_20",
+      "label": "20-bar breakout",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "breakout_20"
+      ],
+      "net_return_pct": -3.570534,
+      "position": "FLAT",
+      "readiness_pct": 66.7,
+      "rules_frozen": true,
+      "strategy": "breakout_20"
+    },
+    {
+      "advisory_only": true,
+      "asset": "BTC",
+      "completed_trades": 0,
+      "entries": 0,
+      "family": "TREND_BREAKOUT",
+      "gates": {
+        "above_ema100": true,
+        "breakout_20": false,
+        "rsi_at_least_55": true
+      },
+      "id": "btc_breakout_20",
+      "label": "20-bar breakout \u00b7 BTC lane",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "breakout_20"
+      ],
+      "net_return_pct": 0.0,
+      "position": "FLAT",
+      "readiness_pct": 66.7,
+      "rules_frozen": true,
+      "strategy": "breakout_20"
     },
     {
       "advisory_only": true,
@@ -61,98 +139,20 @@
         "adx_at_least_35": false,
         "atr_filter": true,
         "fast_above_slow": false,
-        "rsi_50_to_75": false
+        "rsi_50_to_75": true
       },
       "id": "eth_candidate_v3",
       "label": "Candidate V3",
       "last_action": "NO_SIGNAL",
       "missing_conditions": [
         "fast_above_slow",
-        "rsi_50_to_75",
         "adx_at_least_35"
       ],
       "net_return_pct": null,
       "position": "FLAT",
-      "readiness_pct": 40.0,
+      "readiness_pct": 60.0,
       "rules_frozen": true,
       "strategy": "candidate_v3"
-    },
-    {
-      "advisory_only": true,
-      "asset": "ETH",
-      "completed_trades": 2,
-      "entries": 2,
-      "family": "TREND_PULLBACK",
-      "gates": {
-        "above_ema100": false,
-        "ema20_above_ema50": false,
-        "rsi_42_to_58": true,
-        "touch_and_reclaim_ema20": false
-      },
-      "id": "eth_trend_pullback",
-      "label": "Trend pullback",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "ema20_above_ema50",
-        "above_ema100",
-        "touch_and_reclaim_ema20"
-      ],
-      "net_return_pct": -3.706998,
-      "position": "FLAT",
-      "readiness_pct": 25.0,
-      "rules_frozen": true,
-      "strategy": "trend_pullback"
-    },
-    {
-      "advisory_only": true,
-      "asset": "BTC",
-      "completed_trades": 0,
-      "entries": 0,
-      "family": "TREND_PULLBACK",
-      "gates": {
-        "above_ema100": false,
-        "ema20_above_ema50": false,
-        "rsi_42_to_58": true,
-        "touch_and_reclaim_ema20": false
-      },
-      "id": "btc_trend_pullback",
-      "label": "Trend pullback \u00b7 BTC lane",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "ema20_above_ema50",
-        "above_ema100",
-        "touch_and_reclaim_ema20"
-      ],
-      "net_return_pct": 0.0,
-      "position": "FLAT",
-      "readiness_pct": 25.0,
-      "rules_frozen": true,
-      "strategy": "trend_pullback"
-    },
-    {
-      "advisory_only": true,
-      "asset": "ETH",
-      "completed_trades": 1,
-      "entries": 1,
-      "family": "TREND_BREAKOUT",
-      "gates": {
-        "above_ema100": false,
-        "breakout_20": false,
-        "rsi_at_least_55": false
-      },
-      "id": "eth_breakout_20",
-      "label": "20-bar breakout",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "breakout_20",
-        "above_ema100",
-        "rsi_at_least_55"
-      ],
-      "net_return_pct": -3.570534,
-      "position": "FLAT",
-      "readiness_pct": 0.0,
-      "rules_frozen": true,
-      "strategy": "breakout_20"
     },
     {
       "advisory_only": true,
@@ -180,27 +180,25 @@
     {
       "advisory_only": true,
       "asset": "BTC",
-      "completed_trades": 0,
-      "entries": 0,
-      "family": "TREND_BREAKOUT",
+      "completed_trades": 2,
+      "entries": 2,
+      "family": "MEAN_REVERSION",
       "gates": {
-        "above_ema100": false,
-        "breakout_20": false,
-        "rsi_at_least_55": false
+        "below_lower_bollinger": false,
+        "rsi_at_most_35": false
       },
-      "id": "btc_breakout_20",
-      "label": "20-bar breakout \u00b7 BTC lane",
-      "last_action": "NO_SIGNAL",
+      "id": "btc_mean_reversion",
+      "label": "Mean reversion \u00b7 BTC lane",
+      "last_action": "WOULD_EXIT_LONG",
       "missing_conditions": [
-        "breakout_20",
-        "above_ema100",
-        "rsi_at_least_55"
+        "below_lower_bollinger",
+        "rsi_at_most_35"
       ],
-      "net_return_pct": 0.0,
+      "net_return_pct": 2.235725,
       "position": "FLAT",
       "readiness_pct": 0.0,
       "rules_frozen": true,
-      "strategy": "breakout_20"
+      "strategy": "mean_reversion"
     },
     {
       "advisory_only": true,
