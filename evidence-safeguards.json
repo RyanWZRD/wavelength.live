@@ -6,13 +6,13 @@
     "crowding_completed_trades": 0,
     "crowding_entries": 0,
     "v3_completed_trades": 0,
-    "v3_entries": 0
+    "v3_entries": 1
   },
   "data_loss_protection": {
     "checks": [
       {
         "check": "MONOTONIC_COUNTER:v3_entries",
-        "current": 0,
+        "current": 1,
         "passed": true,
         "previous": 0
       },
@@ -58,27 +58,27 @@
       "runtime/candidate_v3_forward_evidence_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "14fcfe0a7b24846439cebb2ec5de7154f0223ebf884866501121349b75c5d4bb"
+        "sha256": "bb8a9b81802a96c3c597a1f82b8eb369ceeb628405170bbfa9b83b54504f370c"
       },
       "runtime/crowding_v2_forward_evidence_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "3a621cece275a71d1e0722f774d54d9ca3692d5dc4479c8f5ad3a21cc7740775"
+        "sha256": "12470d40ce928a422eec9872e25bb3a13e641e63801c99aedf91afb98f6297b3"
       },
       "runtime/paper_graduation_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "72bac3529a373d22192b2e078c90e4f4a2f8b389da90d84a0963a3043587a2d8"
+        "sha256": "baa6bf585763e196c2bc0388e4c5def5300e0608e8558b79d448bc3b86de9692"
       },
       "runtime/readiness_lab_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "11732cdef4d0dab8d228d75550733d8cc11d27be08f4f6f2062d28261f0837b9"
+        "sha256": "7cb76944d22810f7a742d415c11de49dc6a44fdbe1b3b0286eaae159ee3dd761"
       },
       "runtime/wavelength_alerts_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "5f7f4157f17aaa3c4ede9699fa928236a2955d17b3a320e4b91747610e25b895"
+        "sha256": "001f5fe7fbf7f7a1dfca55cb096c7205adbe615b2ab495eaf754d8d2029a7cb2"
       }
     },
     "principle": "Evidence counters and append-only histories may grow or remain unchanged; regression is actionable.",
@@ -102,7 +102,7 @@
       "strategy_id": "crowding_v2"
     }
   },
-  "generated_at": "2026-09-19T05:38:56.361406+00:00",
+  "generated_at": "2026-10-01T07:04:36.788234+00:00",
   "live_money_enabled": false,
   "material_change_monitoring": {
     "notification_delivery": "WAVELENGTH_ALERT_ENGINE_GITHUB_ISSUE",
@@ -119,10 +119,10 @@
   "mode": "WAVELENGTH_EVIDENCE_SAFEGUARDS_V1_READ_ONLY",
   "monthly_checkpoint": {
     "archive_path": "runtime/monthly_evidence_checkpoints.jsonl",
-    "created_this_run": false,
-    "current_month": "2026-09",
+    "created_this_run": true,
+    "current_month": "2026-10",
     "latest": {
-      "at": "2026-09-06T12:21:50.528096+00:00",
+      "at": "2026-10-01T07:04:36.788234+00:00",
       "automatic_promotion": false,
       "capital_allocation_authority": false,
       "counters": {
@@ -130,54 +130,56 @@
         "crowding_completed_trades": 0,
         "crowding_entries": 0,
         "v3_completed_trades": 0,
-        "v3_entries": 0
+        "v3_entries": 1
       },
       "evidence_quality": {
         "execution_measurement_completeness_pct": 0.0,
-        "operational_sources_fresh": 6,
+        "operational_sources_fresh": 5,
         "operational_sources_total": 6,
         "principle": "Missing evidence remains missing; no data is imputed.",
-        "quality_warnings": [],
-        "score_0_to_100": 60.0,
+        "quality_warnings": [
+          "paper_graduation:STALE"
+        ],
+        "score_0_to_100": 37.5,
         "sources": [
           {
-            "age_hours": 1.444,
+            "age_hours": 2.994,
             "max_age_hours": 2.5,
             "source": "paper_graduation",
-            "state": "FRESH"
+            "state": "STALE"
           },
           {
-            "age_hours": 7.125,
+            "age_hours": 3.362,
             "max_age_hours": 30.0,
             "source": "execution_intelligence",
             "state": "FRESH"
           },
           {
-            "age_hours": 3.152,
+            "age_hours": 22.249,
             "max_age_hours": 48.0,
             "source": "portfolio_risk",
             "state": "FRESH"
           },
           {
-            "age_hours": 1.356,
+            "age_hours": 3.059,
             "max_age_hours": 8.0,
             "source": "candidate_v3_forward",
             "state": "FRESH"
           },
           {
-            "age_hours": 1.568,
+            "age_hours": 3.47,
             "max_age_hours": 8.0,
             "source": "crowding_v2_forward",
             "state": "FRESH"
           },
           {
-            "age_hours": 2.59,
+            "age_hours": 0.798,
             "max_age_hours": 72.0,
             "source": "strategy_challenger",
             "state": "FRESH"
           }
         ],
-        "state": "DEVELOPING"
+        "state": "THIN"
       },
       "graduation_state": "WAITING_FOR_FORWARD_EVIDENCE",
       "lifecycle": {
@@ -197,8 +199,8 @@
               "MINIMUM_FORWARD_TRADES_NOT_MET"
             ],
             "days": {
-              "current": 0.945,
-              "progress_pct": 0.8,
+              "current": 13.716,
+              "progress_pct": 11.4,
               "required": 120.0
             },
             "hard_blockers": [],
@@ -222,8 +224,8 @@
               "PROTECTIVE_EXIT_CANDIDATE_NOT_MANUALLY_SELECTED"
             ],
             "days": {
-              "current": 0.112,
-              "progress_pct": 0.1,
+              "current": 12.883,
+              "progress_pct": 14.3,
               "required": 90.0
             },
             "hard_blockers": [
@@ -245,13 +247,12 @@
         ]
       },
       "mode": "MONTHLY_FORWARD_EVIDENCE_CHECKPOINT_V1_READ_ONLY",
-      "month": "2026-09",
+      "month": "2026-10",
       "paper_readiness": {
         "blockers": [
           "MINIMUM_PRICE_EVIDENCE",
           "MEANINGFUL_FILL_SAMPLE",
-          "EXECUTION_ERRORS",
-          "BROKER_SNAPSHOT_ERRORS"
+          "EXECUTION_ERRORS"
         ],
         "checks": [
           {
@@ -267,15 +268,15 @@
             "required": 30
           },
           {
-            "current": 3,
+            "current": 4,
             "gate": "EXECUTION_ERRORS",
             "passed": false,
             "required": 0
           },
           {
-            "current": 1,
+            "current": 0,
             "gate": "BROKER_SNAPSHOT_ERRORS",
-            "passed": false,
+            "passed": true,
             "required": 0
           },
           {
