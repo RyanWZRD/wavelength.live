@@ -5,7 +5,7 @@
     "crowding_completed_episodes": 0,
     "crowding_completed_trades": 0,
     "crowding_entries": 0,
-    "v3_completed_trades": 0,
+    "v3_completed_trades": 1,
     "v3_entries": 1
   },
   "data_loss_protection": {
@@ -30,7 +30,7 @@
       },
       {
         "check": "MONOTONIC_COUNTER:v3_completed_trades",
-        "current": 0,
+        "current": 1,
         "passed": true,
         "previous": 0
       },
@@ -58,17 +58,17 @@
       "runtime/candidate_v3_forward_evidence_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "88dde3b26b233e1bfa4b256912842b05ff2b304c0b73de329c2a970050a5b25b"
+        "sha256": "329574c5a9296e72a2e5e52026f43ef6c22ffe2f4cf90d78161b44017ef76c6b"
       },
       "runtime/crowding_v2_forward_evidence_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "02d4a39813ad0b08c2028d368550a81b7986236efb2a4abba47b62b7974125df"
+        "sha256": "644969da104502a54e5cd5443b440bce0b93e388581888fec4103d5762093d52"
       },
       "runtime/paper_graduation_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "04fc251a21d091e4b71a9d6e52ebb4f02b6a08b95f7b6908349db7bb1aed780b"
+        "sha256": "5ba8773cc895b6992ff36292765fd1dd35532ca538b88c6c9e574d4851920bbe"
       },
       "runtime/readiness_lab_public.json": {
         "exists": true,
@@ -78,7 +78,7 @@
       "runtime/wavelength_alerts_public.json": {
         "exists": true,
         "readable_json": true,
-        "sha256": "015016061919cbe4fa764b41d34a554a738556f4d4af68293f9ab89eeff9a3e1"
+        "sha256": "1cfe4e9f2b301ff9e85f25bc68c03bdd83093c82ddc63493576d2e57046fddcf"
       }
     },
     "principle": "Evidence counters and append-only histories may grow or remain unchanged; regression is actionable.",
@@ -88,10 +88,74 @@
   "execution_authority": false,
   "first_forward_trade_review": {
     "candidate_v3": {
-      "completed_trades": 0,
-      "principle": "No judgement is made before a genuine forward trade completes.",
-      "review_created": false,
-      "state": "WAITING_FOR_FIRST_COMPLETED_GENUINE_FORWARD_TRADE",
+      "completed_trades": 1,
+      "first_event_context": {
+        "entry_reference_time": "2026-09-19T20:00:00+00:00",
+        "event_id": "v3fwd:39df4bbaa18c1d2dc444",
+        "outcomes": {
+          "12h": {
+            "first_stop_touch_at": null,
+            "mae_pct": -2.7104,
+            "mfe_pct": 0.18097,
+            "resolved_close": 2580.18,
+            "resolved_close_at": "2026-09-20T08:14:59.999000+00:00",
+            "return_pct": -2.10906,
+            "stop_touched": false,
+            "target_at": "2026-09-20T08:00:00+00:00"
+          },
+          "24h": {
+            "first_stop_touch_at": null,
+            "mae_pct": -2.7104,
+            "mfe_pct": 0.53571,
+            "resolved_close": 2631.79,
+            "resolved_close_at": "2026-09-20T20:14:59.999000+00:00",
+            "return_pct": -0.151,
+            "stop_touched": false,
+            "target_at": "2026-09-20T20:00:00+00:00"
+          },
+          "3d": {
+            "first_stop_touch_at": null,
+            "mae_pct": -2.7104,
+            "mfe_pct": 6.50929,
+            "resolved_close": 2749.82,
+            "resolved_close_at": "2026-09-22T20:14:59.999000+00:00",
+            "return_pct": 4.32701,
+            "stop_touched": false,
+            "target_at": "2026-09-22T20:00:00+00:00"
+          },
+          "4h": {
+            "first_stop_touch_at": null,
+            "mae_pct": -0.68367,
+            "mfe_pct": 0.18097,
+            "resolved_close": 2629.99,
+            "resolved_close_at": "2026-09-20T00:14:59.999000+00:00",
+            "return_pct": -0.21929,
+            "stop_touched": false,
+            "target_at": "2026-09-20T00:00:00+00:00"
+          },
+          "7d": {
+            "first_stop_touch_at": null,
+            "mae_pct": -2.7104,
+            "mfe_pct": 6.50929,
+            "resolved_close": 2681.98,
+            "resolved_close_at": "2026-09-26T20:14:59.999000+00:00",
+            "return_pct": 1.75319,
+            "stop_touched": false,
+            "target_at": "2026-09-26T20:00:00+00:00"
+          }
+        }
+      },
+      "note": "Descriptive first-trade review only. One trade is not evidence for retuning strategy rules.",
+      "review_created": true,
+      "review_questions": [
+        "Was the signal lineage canonical and frozen at entry?",
+        "Was market/regime context captured contemporaneously?",
+        "Were MFE/MAE and exit-path fields captured where available?",
+        "Did any data, execution-assumption or governance anomaly occur?",
+        "Does this trade reveal an evidence-quality defect requiring repair?"
+      ],
+      "state": "FIRST_GENUINE_FORWARD_TRADE_REVIEW_AVAILABLE",
+      "strategy_change_authority": false,
       "strategy_id": "candidate_v3"
     },
     "crowding_v2": {
@@ -102,7 +166,7 @@
       "strategy_id": "crowding_v2"
     }
   },
-  "generated_at": "2026-10-07T16:16:38.535679+00:00",
+  "generated_at": "2026-10-07T21:52:43.997352+00:00",
   "live_money_enabled": false,
   "material_change_monitoring": {
     "notification_delivery": "WAVELENGTH_ALERT_ENGINE_GITHUB_ISSUE",
