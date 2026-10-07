@@ -5,41 +5,42 @@
     "candidate_v3": {
       "action": "NO_SIGNAL",
       "blocker_explanation": [
-        "ADX 16.07 is 18.93 below the frozen 35 threshold",
-        "RSI 29.40 is 20.60 below the frozen 50 lower bound"
+        "ADX 21.20 is 13.80 below the frozen 35 threshold",
+        "RSI 25.96 is 24.04 below the frozen 50 lower bound"
       ],
-      "completed_forward_trades": 0,
+      "completed_forward_trades": 1,
       "entry_signal": false,
       "failed_gates": [
+        "price_above_trend",
         "rsi_momentum",
         "adx_trend_strength"
       ],
       "forward_entries": 1,
       "gate_state": {
         "adx_trend_strength": false,
-        "price_above_trend": true,
+        "price_above_trend": false,
         "rsi_momentum": false,
         "trend_state": true,
         "volatility_band": true
       },
-      "latest_bar": "2026-10-07 00:00:00+00:00",
+      "latest_bar": "2026-10-07 08:00:00+00:00",
       "metrics": {
-        "adx": 16.07,
+        "adx": 21.2,
         "adx_min": 35.0,
-        "atr_pct": 1.1052,
-        "close": 2610.825,
-        "ema_fast": 2693.805408,
-        "ema_slow": 2678.982553,
-        "ema_trend": 2585.909761,
-        "rsi": 29.4,
+        "atr_pct": 1.1574,
+        "close": 2578.1325,
+        "ema_fast": 2676.036797,
+        "ema_slow": 2674.961607,
+        "ema_trend": 2585.726963,
+        "rsi": 25.96,
         "rsi_range": [
           50.0,
           75.0
         ]
       },
       "near_miss": false,
-      "passed_gate_count": 3,
-      "readiness_pct": 60.0,
+      "passed_gate_count": 2,
+      "readiness_pct": 40.0,
       "strategy_id": "candidate_v3",
       "symbol": "ETH/USD",
       "timeframe": "4Hour",
@@ -49,20 +50,20 @@
       "bars_since_entry_signal": null,
       "near_ready_bars": 63,
       "no_entry_seen_in_window": true,
-      "observations": 122
+      "observations": 124
     },
     "crowding_v2": {
       "completed_forward_trades": 0,
       "detailed_gate_telemetry_available": false,
       "evidence_state": "WAITING_FOR_FIRST_GENUINE_ENTRY",
       "forward_entries": 0,
-      "latest_bar": "2026-10-06T12:00:00+00:00",
+      "latest_bar": "2026-10-07T08:00:00+00:00",
       "note": "No entry criteria are inferred here. This monitor reports only canonical Crowding v2 forward state until explicit gate telemetry is available.",
       "position": "FLAT",
       "strategy_id": "crowding_v2"
     },
     "execution_authority": false,
-    "generated_at": "2026-10-07T11:58:21.701772+00:00",
+    "generated_at": "2026-10-07T18:47:10.486805+00:00",
     "live_money_enabled": false,
     "mode": "CRYPTO_SIGNAL_ACTIVITY_DIAGNOSTICS_V1_READ_ONLY",
     "orders_enabled": false,
@@ -71,16 +72,40 @@
     "strategy_rule_mutation": false,
     "summary": {
       "candidate_v3_near_miss": false,
-      "candidate_v3_readiness_pct": 60.0,
+      "candidate_v3_readiness_pct": 40.0,
       "message": "Quiet is evidence: no validated entry is being manufactured. Diagnostics show how close the frozen strategy is to qualifying.",
       "validated_forward_entries_total": 1
     }
   },
   "autonomous": true,
   "broker_connection": false,
-  "closed_trades": [],
+  "closed_trades": [
+    {
+      "automatic_simulated_entry": true,
+      "automatic_simulated_exit": true,
+      "broker_connection": false,
+      "broker_order_id": null,
+      "closed_at": "2026-10-07T12:00:00+00:00",
+      "entry_reference": 2635.77,
+      "event_id": "v3fwd:39df4bbaa18c1d2dc444",
+      "exit_policy": "FIXED_STOP_OR_TREND_EXIT_NEXT_OPEN",
+      "exit_reason": "TREND_EXIT_NEXT_OPEN",
+      "exit_reference": 2576.831,
+      "fixed_stop_price": 2558.447922369431,
+      "gross_return_pct": -2.236121,
+      "opened_at": "2026-09-19T20:00:00+00:00",
+      "paper_notional_gbp": 100.0,
+      "paper_pnl_gbp": -2.2361,
+      "position_id": "candidate_v3:v3fwd:39df4bbaa18c1d2dc444",
+      "side": "LONG",
+      "status": "CLOSED",
+      "strategy_id": "candidate_v3",
+      "symbol": "ETHUSDT",
+      "take_profit_price": null
+    }
+  ],
   "execution_authority": false,
-  "generated_at": "2026-10-07T15:53:17.459356+00:00",
+  "generated_at": "2026-10-07T18:47:10.404860+00:00",
   "governance": {
     "automatic_real_order_submission": false,
     "manual_approval_required_for_simulation": false,
@@ -96,29 +121,18 @@
   "orders_enabled": false,
   "paper_notional_gbp_per_position": 100.0,
   "paper_only": true,
-  "positions": [
-    {
-      "automatic_simulated_entry": true,
-      "broker_connection": false,
-      "broker_order_id": null,
-      "entry_reference": 2635.77,
-      "event_id": "v3fwd:39df4bbaa18c1d2dc444",
-      "exit_policy": "FIXED_STOP_OR_TREND_EXIT_NEXT_OPEN",
-      "fixed_stop_price": 2558.447922369431,
-      "opened_at": "2026-09-19T20:00:00+00:00",
-      "paper_notional_gbp": 100.0,
-      "position_id": "candidate_v3:v3fwd:39df4bbaa18c1d2dc444",
-      "side": "LONG",
-      "status": "OPEN",
-      "strategy_id": "candidate_v3",
-      "symbol": "ETHUSDT",
-      "take_profit_price": null
-    }
-  ],
+  "positions": [],
   "summary": {
-    "actions_this_run": [],
-    "completed_simulated_trades": 0,
-    "cumulative_paper_pnl_gbp": 0,
-    "open_positions": 1
+    "actions_this_run": [
+      {
+        "at": "2026-10-07T12:00:00+00:00",
+        "kind": "SIMULATED_EXIT",
+        "position_id": "candidate_v3:v3fwd:39df4bbaa18c1d2dc444",
+        "reason": "TREND_EXIT_NEXT_OPEN"
+      }
+    ],
+    "completed_simulated_trades": 1,
+    "cumulative_paper_pnl_gbp": -2.2361,
+    "open_positions": 0
   }
 }
