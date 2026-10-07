@@ -19,7 +19,7 @@
     "rules_frozen": true,
     "strategy": "mean_reversion"
   },
-  "generated_at": "2026-10-07T16:40:50.716675+00:00",
+  "generated_at": "2026-10-07T22:05:36.357782+00:00",
   "governance": {
     "automatic_promotion": false,
     "execution_authority": false,
@@ -57,45 +57,18 @@
       "entries": 3,
       "family": "MEAN_REVERSION",
       "gates": {
-        "below_lower_bollinger": true,
+        "below_lower_bollinger": false,
         "rsi_at_most_35": true
       },
       "id": "btc_mean_reversion",
       "label": "Mean reversion \u00b7 BTC lane",
-      "last_action": "WOULD_ENTER_LONG",
+      "last_action": "HOLD_SHADOW_LONG",
       "missing_conditions": [],
       "net_return_pct": 2.235725,
       "position": "LONG",
       "readiness_pct": 100.0,
       "rules_frozen": true,
       "strategy": "mean_reversion"
-    },
-    {
-      "advisory_only": true,
-      "asset": "ETH",
-      "completed_trades": null,
-      "entries": null,
-      "family": "TREND_STATE",
-      "gates": {
-        "above_ema200": false,
-        "adx_at_least_35": false,
-        "atr_filter": true,
-        "fast_above_slow": true,
-        "rsi_50_to_75": false
-      },
-      "id": "eth_candidate_v3",
-      "label": "Candidate V3",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "above_ema200",
-        "rsi_50_to_75",
-        "adx_at_least_35"
-      ],
-      "net_return_pct": null,
-      "position": "FLAT",
-      "readiness_pct": 40.0,
-      "rules_frozen": true,
-      "strategy": "candidate_v3"
     },
     {
       "advisory_only": true,
@@ -122,6 +95,34 @@
       "readiness_pct": 25.0,
       "rules_frozen": true,
       "strategy": "trend_pullback"
+    },
+    {
+      "advisory_only": true,
+      "asset": "ETH",
+      "completed_trades": null,
+      "entries": null,
+      "family": "TREND_STATE",
+      "gates": {
+        "above_ema200": false,
+        "adx_at_least_35": false,
+        "atr_filter": true,
+        "fast_above_slow": false,
+        "rsi_50_to_75": false
+      },
+      "id": "eth_candidate_v3",
+      "label": "Candidate V3",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "fast_above_slow",
+        "above_ema200",
+        "rsi_50_to_75",
+        "adx_at_least_35"
+      ],
+      "net_return_pct": null,
+      "position": "FLAT",
+      "readiness_pct": 20.0,
+      "rules_frozen": true,
+      "strategy": "candidate_v3"
     },
     {
       "advisory_only": true,
