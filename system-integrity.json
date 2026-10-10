@@ -4,15 +4,22 @@
     "comparison_status": "TEMPORALLY_INCOMPARABLE",
     "consistent": null,
     "contradictions": [],
-    "timestamp_skew_minutes": 353.3
+    "timestamp_skew_minutes": 684.6
   },
   "finding_counts": {
     "CRITICAL": 0,
     "HIGH": 1,
     "LOW": 1,
-    "MEDIUM": 0
+    "MEDIUM": 2
   },
   "findings": [
+    {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
+      "detail": "conviction_room",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
     {
       "area": "FRESHNESS",
       "code": "MODULE_EXPIRED",
@@ -21,15 +28,22 @@
       "severity": "HIGH"
     },
     {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
+      "detail": "institutional_research_v2",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
+    {
       "area": "CONSISTENCY",
       "code": "CROSS_OUTPUT_TIME_SKEW",
-      "detail": "Conviction Room and Market Command are 353.3 minutes apart; rank equality was not asserted.",
+      "detail": "Conviction Room and Market Command are 684.6 minutes apart; rank equality was not asserted.",
       "penalty": 0,
       "severity": "LOW"
     }
   ],
-  "freshness_score": 94.1,
-  "generated_at": "2026-10-10T20:20:05.897832+00:00",
+  "freshness_score": 92.3,
+  "generated_at": "2026-10-10T23:51:58.235779+00:00",
   "guardrails": [
     "RESEARCH_ONLY",
     "NO_ORDER_AUTHORITY",
@@ -41,60 +55,60 @@
     "NO_PI_MUTATION",
     "NO_PORTFOLIO_WEIGHT_MUTATION"
   ],
-  "integrity_score": 89.9,
+  "integrity_score": 81.3,
   "mode": "SYSTEM_INTEGRITY_ASSURANCE_RESEARCH_ONLY",
   "module_freshness": [
     {
       "age_hours": 0.0,
-      "generated_at": "2026-10-10T20:20:04.083431+00:00",
+      "generated_at": "2026-10-10T23:51:56.924040+00:00",
       "module": "data_truth",
       "status": "FRESH"
     },
     {
-      "age_hours": 11.4,
+      "age_hours": 14.93,
       "generated_at": "2026-10-10T08:56:11.720678+00:00",
       "module": "conviction_room",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 5.51,
-      "generated_at": "2026-10-10T14:49:26.988265+00:00",
+      "age_hours": 3.52,
+      "generated_at": "2026-10-10T20:20:45.896874+00:00",
       "module": "market_command",
       "status": "AGING"
     },
     {
-      "age_hours": 748.23,
+      "age_hours": 751.77,
       "generated_at": "2026-09-09T16:06:03.087108+00:00",
       "module": "proof_programme",
       "status": "EXPIRED"
     },
     {
-      "age_hours": 4.84,
+      "age_hours": 8.38,
       "generated_at": "2026-10-10T15:29:24.501631+00:00",
       "module": "validation_calibration",
       "status": "AGING"
     },
     {
-      "age_hours": 4.75,
+      "age_hours": 8.28,
       "generated_at": "2026-10-10T15:35:10.172439+00:00",
       "module": "decision_robustness",
       "status": "AGING"
     },
     {
-      "age_hours": 11.45,
+      "age_hours": 14.98,
       "generated_at": "2026-10-10T08:52:52.607772+00:00",
       "module": "institutional_research_v2",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 4.84,
+      "age_hours": 8.38,
       "generated_at": "2026-10-10T15:29:24.501631+00:00",
       "module": "market_memory",
       "status": "AGING"
     },
     {
-      "age_hours": 5.54,
-      "generated_at": "2026-10-10T14:47:49.511926+00:00",
+      "age_hours": 3.53,
+      "generated_at": "2026-10-10T20:20:16.677607+00:00",
       "module": "portfolio",
       "status": "AGING"
     }
@@ -129,8 +143,8 @@
   ],
   "reproducibility": {
     "deterministic_when_comparable": null,
-    "input_hash": "182998a203b316479fdec75ba01f132113113c9d462f55ae9726c54b0870bead",
-    "output_hash": "cd49857b26843922c142acfb04ed9debe337b2101e407fc2ea907b1d54938032",
+    "input_hash": "1b64ed7bb545e2598a80038e8c00acc244efca4aadf3175d47124ab77a394b1c",
+    "output_hash": "c387ce73167339a1a641e38a4dfcd1991efd46cffdd03067bb117a5f79cdf96b",
     "same_inputs_as_previous": false
   },
   "safety_boundary_scan": {
@@ -149,24 +163,24 @@
       "disagreement_assets": 0,
       "disagreement_rate_pct": null,
       "policy": "FUNDING_DIRECTION_ONLY; venue funding intervals and venue-specific OI are not directly averaged.",
-      "single_source_assets": 15
+      "single_source_assets": 14
     },
     "direct_evidence": {
-      "asset_count": 17,
-      "derivatives_consensus_assets": 10,
-      "derivatives_consensus_pct": 58.8,
+      "asset_count": 15,
+      "derivatives_consensus_assets": 9,
+      "derivatives_consensus_pct": 60.0,
       "direct_dated_event_assets": 0,
       "direct_dated_event_pct": 0.0,
       "direct_dated_event_symbols": [],
       "headline_dimension_availability": {
-        "catalyst_context_pct": 52.9,
-        "derivatives_pct": 88.2,
-        "onchain_context_pct": 35.3
+        "catalyst_context_pct": 60.0,
+        "derivatives_pct": 93.3,
+        "onchain_context_pct": 40.0
       },
       "legacy_direct_dated_event_assets": 0,
       "semantic_direct_maturity_policy": "COUNT_ONLY_V4_SEMANTIC_DIRECT_AVAILABLE_CELLS; COINGECKO_AND_GITHUB_RELEASES_ARE_NOT_DIRECT_DATED_CATALYST_FEEDS",
-      "true_exchange_flow_assets": 2,
-      "true_exchange_flow_pct": 11.8,
+      "true_exchange_flow_assets": 1,
+      "true_exchange_flow_pct": 6.7,
       "true_exchange_flow_provider_status": "AVAILABLE",
       "warnings": [
         "COIN_METRICS_NETWORK_ACTIVITY_IS_NOT_TRUE_EXCHANGE_FLOW",
@@ -178,25 +192,25 @@
       "availability_pct": 100.0,
       "comparison_policy": "DIRECTION_ONLY_NOT_ABSOLUTE_RATE_OR_CROSS_VENUE_OI",
       "latest_available": true,
-      "latest_funding_direction_consensus_assets": 10,
+      "latest_funding_direction_consensus_assets": 9,
       "latest_status": "AVAILABLE",
       "provider": "HYPERLIQUID_PUBLIC",
-      "runs_observed": 84,
+      "runs_observed": 85,
       "semantic_role": "INDEPENDENT_DERIVATIVES_DIRECTION_CROSS_CHECK"
     },
-    "proxy_adjusted_completeness": 73.5,
+    "proxy_adjusted_completeness": 74.8,
     "semantic_labels_explicit": true,
     "semantic_summary": {
       "cache_cells": 0,
       "cache_pct": 0.0,
-      "live_proxy_cells": 49,
-      "live_proxy_pct": 32.0,
-      "missing_cells": 21,
-      "missing_pct": 13.7,
-      "proxy_adjusted_completeness": 73.5,
-      "semantic_direct_cells": 83,
-      "semantic_direct_pct": 54.2,
-      "total_evidence_cells": 153
+      "live_proxy_cells": 45,
+      "live_proxy_pct": 33.3,
+      "missing_cells": 16,
+      "missing_pct": 11.9,
+      "proxy_adjusted_completeness": 74.8,
+      "semantic_direct_cells": 74,
+      "semantic_direct_pct": 54.8,
+      "total_evidence_cells": 135
     },
     "semantic_vocabulary": [
       "SEMANTIC_DIRECT",
