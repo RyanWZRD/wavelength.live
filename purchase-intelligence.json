@@ -1,2779 +1,2471 @@
 {
+  "schema": "wavelength-purchase-intelligence-v1",
+  "mode": "EVIDENCE_FUSION_PURCHASE_INTELLIGENCE_RESEARCH_ONLY",
+  "generated_at": "2026-10-14T23:28:44.776072+00:00",
+  "orders_enabled": false,
+  "automatic_promotion": false,
+  "strategy_rule_mutation": false,
+  "automatic_parameter_changes": false,
+  "capital_allocation_authority": false,
+  "method": "multi-source evidence fusion with missing-data exclusion; score is a research prioritisation index, not a probability or trade instruction",
+  "freshness": {
+    "spot_orderbook": "run-time snapshot",
+    "derivatives": "run-time Binance futures snapshot / 24h context",
+    "decision_technical": "latest durable decision-journal observation",
+    "stablecoin": "latest DeFiLlama stablecoin aggregate",
+    "fundamentals": "latest public CoinGecko market snapshot",
+    "market_context_generated_at": "2026-10-14T23:26:39.169244+00:00"
+  },
+  "global": {
+    "stablecoin_liquidity": {
+      "available": true,
+      "total_supply_usd": 306871939544.06116,
+      "change_1d_pct": -0.048664684032151406,
+      "change_7d_pct": -0.6361322613924081,
+      "score": 42.0
+    },
+    "market_context": {
+      "available": true,
+      "regime": "RISK_OFF",
+      "breadth": {
+        "above_ema200_pct": 0.0,
+        "ema20_above_80_pct": 0.0,
+        "adx25_plus_pct": 100.0,
+        "average_7d_return_pct": -6.042
+      },
+      "score": 18.33,
+      "generated_at": "2026-10-14T23:26:39.169244+00:00"
+    }
+  },
   "assets": [
     {
-      "change_24h_pct": -0.001,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE",
-        "ASSET_STRONG_MARKET_CONTEXT_WEAK"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
+      "symbol": "USD1",
+      "price": 1.00031,
+      "change_24h_pct": 0.015,
+      "spot_quote_volume_24h": 161445498.51805,
+      "fusion_score": 66.5,
       "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 65.0,
+          "decision": "WATCH",
+          "rsi": 56.3764648462692,
+          "adx": 32.598127116746255,
+          "volume_ratio": 1.073133396887803,
+          "why": [
+            "EMA20 above EMA80",
+            "RSI 56.4 in trend zone",
+            "ADX 32.6 confirms trend strength"
+          ],
+          "against": [
+            "Volume confirmation weak at 1.07x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 1.0003,
+          "best_ask": 1.00031,
+          "spread_bps": 0.09996950930031852,
+          "bid_depth_1pct_usd": 6461841.6808,
+          "ask_depth_1pct_usd": 12518243.167589996,
+          "book_imbalance_1pct": -0.3190924347898126,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.0
+          },
+          "score": 100.0
+        },
         "derivatives": {
           "available": false,
           "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=USD1USDT"
         },
-        "event_catalyst_risk": {
+        "market_context": {
           "available": true,
-          "circulating_supply": 4145119778.8989,
-          "circulating_to_total_or_max": 1.0,
-          "dilution_headroom_pct": 0.0,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 1.0,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 4145119778.8989
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
         },
         "fundamental": {
-          "ath_change_pct": -4.62419,
           "available": true,
-          "circulating_supply": 4148119780.8990755,
-          "fully_diluted_valuation_usd": 4145937067.0,
-          "market_cap_rank": 30,
-          "market_cap_to_fdv": 1.0,
-          "market_cap_usd": 4145937067.0,
-          "max_supply": null,
           "name": "USD1",
-          "score": 92.0,
-          "total_supply": 4148119780.8990755,
-          "volume_to_market_cap": 0.20931374692282564
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 9930500.107859999,
-          "available": true,
-          "best_ask": 1.00027,
-          "best_bid": 1.00026,
-          "bid_depth_1pct_usd": 6932547.135040002,
-          "book_imbalance_1pct": -0.17778239778591928,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.0
-          },
-          "score": 100.0,
-          "spread_bps": 0.09997350702129448
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
+          "market_cap_rank": 30,
+          "market_cap_usd": 4133916790.0,
+          "fully_diluted_valuation_usd": 4133916790.0,
+          "market_cap_to_fdv": 1.0,
+          "volume_to_market_cap": 0.2381751687362822,
+          "circulating_supply": 4136659711.877416,
+          "total_supply": 4136659711.877416,
+          "max_supply": null,
+          "ath_change_pct": -4.63897,
+          "score": 92.0
         },
         "onchain_exchange_flows": {
           "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
         },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
         },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "RLUSD",
+      "price": 1.0012,
+      "change_24h_pct": 0.04,
+      "spot_quote_volume_24h": 40001531.8168,
+      "fusion_score": 66.5,
+      "dimensions": {
         "technical": {
-          "adx": 47.50014095296958,
-          "against": [
-            "Volume confirmation weak at 1.21x"
-          ],
           "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
+          "score": 65.0,
           "decision": "WATCH",
-          "rsi": 54.10888908907815,
-          "score": 75.0,
-          "volume_ratio": 1.2074497184508461,
+          "rsi": 63.02219148944198,
+          "adx": 25.480467896017906,
+          "volume_ratio": 0.870900858576534,
           "why": [
             "EMA20 above EMA80",
-            "RSI 54.1 in trend zone",
-            "ADX 47.5 confirms trend strength"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 70.01,
-      "price": 1.00026,
-      "spot_quote_volume_24h": 140183020.94205,
-      "symbol": "USD1",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": 1.584,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE",
-        "ASSET_STRONG_MARKET_CONTEXT_WEAK"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=TRXUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 94996502617.87968,
-          "circulating_to_total_or_max": 1.0,
-          "dilution_headroom_pct": 0.0,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
+            "RSI 63.0 in trend zone",
+            "ADX 25.5 confirms trend strength"
           ],
-          "market_cap_to_fdv": 1.0,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 94996502617.87968
-        },
-        "fundamental": {
-          "ath_change_pct": -22.7077,
-          "available": true,
-          "circulating_supply": 94996465825.803,
-          "fully_diluted_valuation_usd": 31666027344.0,
-          "market_cap_rank": 8,
-          "market_cap_to_fdv": 0.9999995182850114,
-          "market_cap_usd": 31666012090.0,
-          "max_supply": null,
-          "name": "TRON",
-          "score": 90.0,
-          "total_supply": 94996511585.30508,
-          "volume_to_market_cap": 0.016609050028313813
+          "against": [
+            "Volume confirmation weak at 0.87x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
         },
         "liquidity": {
-          "ask_depth_1pct_usd": 1654200.4839,
           "available": true,
-          "best_ask": 0.3335,
-          "best_bid": 0.3334,
-          "bid_depth_1pct_usd": 1989404.6206999999,
-          "book_imbalance_1pct": 0.09199793259066666,
+          "best_bid": 1.0012,
+          "best_ask": 1.0013,
+          "spread_bps": 0.9987515605492032,
+          "bid_depth_1pct_usd": 14898205.6848,
+          "ask_depth_1pct_usd": 11112042.8525,
+          "book_imbalance_1pct": 0.1455642696712588,
           "estimated_buy_slippage_bps": {
             "1000": 0.0,
             "10000": 0.0
           },
-          "score": 94.0,
-          "spread_bps": 2.9989503673727542
+          "score": 100.0
         },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 37.24075285879909,
-          "against": [
-            "Volume confirmation weak at 1.12x"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "WATCH",
-          "rsi": 69.83693957345695,
-          "score": 75.0,
-          "volume_ratio": 1.1191232799010105,
-          "why": [
-            "EMA20 above EMA80",
-            "RSI 69.8 in trend zone",
-            "ADX 37.2 confirms trend strength"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 68.43,
-      "price": 0.3335,
-      "spot_quote_volume_24h": 51891528.55177,
-      "symbol": "TRX",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -1.79,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=XAUTUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 808994.63,
-          "circulating_to_total_or_max": 0.9777343395499078,
-          "dilution_headroom_pct": 2.23,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.9777343395222848,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 827417.63
-        },
-        "fundamental": {
-          "ath_change_pct": -25.61028,
-          "available": true,
-          "circulating_supply": 808994.63,
-          "fully_diluted_valuation_usd": 3387634154.0,
-          "market_cap_rank": 34,
-          "market_cap_to_fdv": 0.9777343394914892,
-          "market_cap_usd": 3312206242.0,
-          "max_supply": null,
-          "name": "Tether Gold",
-          "score": 92.0,
-          "total_supply": 827417.63,
-          "volume_to_market_cap": 0.07551069248905787
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 509613.10472500004,
-          "available": true,
-          "best_ask": 4093.83,
-          "best_bid": 4093.82,
-          "bid_depth_1pct_usd": 431503.56993400014,
-          "book_imbalance_1pct": -0.08299665375634932,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.0040919888122381565
-          },
-          "score": 91.99,
-          "spread_bps": 0.02442703339728379
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 41.809645937683136,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 22.5 outside 50-72 trend zone"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 22.481384065588585,
-          "score": 45.0,
-          "volume_ratio": 14.11754721456351,
-          "why": [
-            "ADX 41.8 confirms trend strength",
-            "Volume 14.12x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 58.76,
-      "price": 4092.34,
-      "spot_quote_volume_24h": 34332350.913329,
-      "symbol": "XAUT",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -1.538,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 20098240.0,
-          "circulating_to_total_or_max": 0.9570590476190476,
-          "dilution_headroom_pct": 4.29,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 1.0,
-          "max_supply": 21000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 20098240.0
-        },
-        "fundamental": {
-          "ath_change_pct": -34.69675,
-          "available": true,
-          "circulating_supply": 20098084.0,
-          "fully_diluted_valuation_usd": 1654422070015.0,
-          "market_cap_rank": 1,
-          "market_cap_to_fdv": 0.9999987561021838,
-          "market_cap_usd": 1654420012083.0,
-          "max_supply": 21000000.0,
-          "name": "Bitcoin",
-          "score": 90.0,
-          "total_supply": 20098109.0,
-          "volume_to_market_cap": 0.017986308847615134
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 928945.9663691001,
-          "available": true,
-          "best_ask": 82235.41,
-          "best_bid": 82235.4,
-          "bid_depth_1pct_usd": 1287488.347122,
-          "book_imbalance_1pct": 0.161765398852791,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.0
-          },
-          "score": 92.0,
-          "spread_bps": 0.0012160212513470598
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 14.346830933208983,
-          "against": [
-            "RSI 43.1 outside 50-72 trend zone",
-            "ADX 14.3 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 43.140891672632605,
-          "score": 40.0,
-          "volume_ratio": 1.9629025415274313,
-          "why": [
-            "EMA20 above EMA80",
-            "Volume 1.96x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 56.83,
-      "price": 82235.41,
-      "spot_quote_volume_24h": 1279793052.646516,
-      "symbol": "BTC",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -0.01,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=UUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 1568144634.63,
-          "circulating_to_total_or_max": 1.0,
-          "dilution_headroom_pct": 0.0,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 1.0,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 1568144634.63
-        },
-        "fundamental": {
-          "ath_change_pct": -0.85544,
-          "available": true,
-          "circulating_supply": 1567144634.63,
-          "fully_diluted_valuation_usd": 1566775187.0,
-          "market_cap_rank": 64,
-          "market_cap_to_fdv": 0.9993623035338509,
-          "market_cap_usd": 1565776060.0,
-          "max_supply": null,
-          "name": "United Stables",
-          "score": 85.0,
-          "total_supply": 1568144634.63,
-          "volume_to_market_cap": 0.08633260684800609
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 15840824.0678,
-          "available": true,
-          "best_ask": 1.0003,
-          "best_bid": 1.0002,
-          "bid_depth_1pct_usd": 19149085.4441,
-          "book_imbalance_1pct": 0.09454901205660067,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.0
-          },
-          "score": 100.0,
-          "spread_bps": 0.9997500624842689
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 13.312218660561479,
-          "against": [
-            "EMA20 not above EMA80",
-            "ADX 13.3 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 51.457432771628994,
-          "score": 35.0,
-          "volume_ratio": 1.627357426567205,
-          "why": [
-            "RSI 51.5 in trend zone",
-            "Volume 1.63x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 56.07,
-      "price": 1.0002,
-      "spot_quote_volume_24h": 27136204.0747,
-      "symbol": "U",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.431,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=SOLUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 589212523.2850806,
-          "circulating_to_total_or_max": 0.9267515865932419,
-          "dilution_headroom_pct": 7.32,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.9267515865972936,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 635782589.2168559
-        },
-        "fundamental": {
-          "ath_change_pct": -64.22005,
-          "available": true,
-          "circulating_supply": 589218898.6780165,
-          "fully_diluted_valuation_usd": 66699038029.0,
-          "market_cap_rank": 7,
-          "market_cap_to_fdv": 0.9267611690160198,
-          "market_cap_usd": 61814078456.0,
-          "max_supply": null,
-          "name": "Solana",
-          "score": 100.0,
-          "total_supply": 635782894.6438751,
-          "volume_to_market_cap": 0.04755113503944332
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 1542079.7029299994,
-          "available": true,
-          "best_ask": 104.8,
-          "best_bid": 104.79,
-          "bid_depth_1pct_usd": 3488994.641149999,
-          "book_imbalance_1pct": 0.38697797032375597,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.0
-          },
-          "score": 100.0,
-          "spread_bps": 0.9542440001899809
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 14.401235867898887,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 41.6 outside 50-72 trend zone",
-            "ADX 14.4 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 41.61511312076944,
-          "score": 15.0,
-          "volume_ratio": 1.788322426438406,
-          "why": [
-            "Volume 1.79x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 52.18,
-      "price": 104.75,
-      "spot_quote_volume_24h": 221064637.71919,
-      "symbol": "SOL",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -3.438,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 4,
-        "total_dimensions": 9,
-        "pct": 44.4
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=SPCXBUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": false,
-          "provider": "CoinGecko",
-          "status": "UNAVAILABLE",
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK"
-        },
-        "fundamental": {
-          "available": false
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 566999.5861400004,
-          "available": true,
-          "best_ask": 153.78,
-          "best_bid": 153.77,
-          "bid_depth_1pct_usd": 709089.0025300005,
-          "book_imbalance_1pct": 0.11134761148369203,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 1.0739744871890444
-          },
-          "score": 89.85,
-          "spread_bps": 0.6503007641028064
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 40.64357306108574,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 19.4 outside 50-72 trend zone"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 19.41134782486955,
-          "score": 45.0,
-          "volume_ratio": 1.6213889204456922,
-          "why": [
-            "ADX 40.6 confirms trend strength",
-            "Volume 1.62x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 49.55,
-      "price": 153.64,
-      "spot_quote_volume_24h": 32678245.6166,
-      "symbol": "SPCXB",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.781,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=ETHUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 122133648.45963953,
-          "circulating_to_total_or_max": 1.0,
-          "dilution_headroom_pct": 0.0,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 1.0,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 122133648.45963953
-        },
-        "fundamental": {
-          "ath_change_pct": -50.4406,
-          "available": true,
-          "circulating_supply": 122133648.4596395,
-          "fully_diluted_valuation_usd": 299311007351.0,
-          "market_cap_rank": 2,
-          "market_cap_to_fdv": 1.0,
-          "market_cap_usd": 299311007351.0,
-          "max_supply": null,
-          "name": "Ethereum",
-          "score": 100.0,
-          "total_supply": 122133648.45963953,
-          "volume_to_market_cap": 0.03485100727607821
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 1116209.029127,
-          "available": true,
-          "best_ask": 2445.36,
-          "best_bid": 2445.35,
-          "bid_depth_1pct_usd": 947824.0041180002,
-          "book_imbalance_1pct": -0.08158058630693073,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": -2.220446049250313e-12
-          },
-          "score": 92.0,
-          "spread_bps": 0.04089385794789827
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 13.496109487835296,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 40.9 outside 50-72 trend zone",
-            "ADX 13.5 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 40.857078496078486,
-          "score": 15.0,
-          "volume_ratio": 2.464327872029887,
-          "why": [
-            "Volume 2.46x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 50.51,
-      "price": 2444.67,
-      "spot_quote_volume_24h": 515393717.804081,
-      "symbol": "ETH",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.465,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=DOGEUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 156324676383.7052,
-          "circulating_to_total_or_max": 0.908672503240413,
-          "dilution_headroom_pct": 9.13,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.9086725032345532,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 172036323126.5791
-        },
-        "fundamental": {
-          "ath_change_pct": -88.73593,
-          "available": true,
-          "circulating_supply": 156319646383.70517,
-          "fully_diluted_valuation_usd": 12885177785.0,
-          "market_cap_rank": 12,
-          "market_cap_to_fdv": 0.9999921315016609,
-          "market_cap_usd": 12885076398.0,
-          "max_supply": null,
-          "name": "Dogecoin",
-          "score": 100.0,
-          "total_supply": 156320876383.70526,
-          "volume_to_market_cap": 0.04269079491724097
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 976200.2120799997,
-          "available": true,
-          "best_ask": 0.08235,
-          "best_bid": 0.08234,
-          "bid_depth_1pct_usd": 1129630.9109700006,
-          "book_imbalance_1pct": 0.07285992557075423,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.0
-          },
-          "score": 91.36,
-          "spread_bps": 1.2144028174157508
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 14.926750013684218,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 41.8 outside 50-72 trend zone",
-            "ADX 14.9 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 41.76987490704542,
-          "score": 15.0,
-          "volume_ratio": 2.7245954863443385,
-          "why": [
-            "Volume 2.72x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 50.38,
-      "price": 0.0823,
-      "spot_quote_volume_24h": 43645939.03735,
-      "symbol": "DOGE",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": 0.064,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=ZECUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 16986207.9780448,
-          "circulating_to_total_or_max": 0.8088670465735619,
-          "dilution_headroom_pct": 19.11,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.9999998160688394,
-          "max_supply": 21000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 16986211.1030448
-        },
-        "fundamental": {
-          "ath_change_pct": -62.26063,
-          "available": true,
-          "circulating_supply": 16984484.5405448,
-          "fully_diluted_valuation_usd": 20464705157.0,
-          "market_cap_rank": 10,
-          "market_cap_to_fdv": 0.9999255809947754,
-          "market_cap_usd": 20463182194.0,
-          "max_supply": 21000000.0,
-          "name": "Zcash",
-          "score": 100.0,
-          "total_supply": 16985748.6030448,
-          "volume_to_market_cap": 0.045308466699370484
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 553667.6496099998,
-          "available": true,
-          "best_ask": 1200.58,
-          "best_bid": 1200.57,
-          "bid_depth_1pct_usd": 290787.1618,
-          "book_imbalance_1pct": -0.3113020190755548,
-          "estimated_buy_slippage_bps": {
-            "1000": 1.2302937753450038,
-            "10000": 1.2615202232413303
-          },
-          "score": 89.48,
-          "spread_bps": 0.08329342190192955
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 19.152791434299314,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 47.6 outside 50-72 trend zone",
-            "ADX 19.2 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 47.64506135777601,
-          "score": 15.0,
-          "volume_ratio": 1.416330784922473,
-          "why": [
-            "Volume 1.42x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 49.99,
-      "price": 1199.43,
-      "spot_quote_volume_24h": 208404286.12498,
-      "symbol": "ZEC",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.371,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=NEARUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 1308955814.0,
-          "circulating_to_total_or_max": 0.999999983956678,
-          "dilution_headroom_pct": 0.0,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.9999999839838244,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 1308955835.0
-        },
-        "fundamental": {
-          "ath_change_pct": -75.68589,
-          "available": true,
-          "circulating_supply": 1308921703.0,
-          "fully_diluted_valuation_usd": 6504046684.0,
-          "market_cap_rank": 20,
-          "market_cap_to_fdv": 0.9999999404985821,
-          "market_cap_usd": 6504046297.0,
-          "max_supply": null,
-          "name": "NEAR Protocol",
-          "score": 100.0,
-          "total_supply": 1308921781.0,
-          "volume_to_market_cap": 0.15414958184760288
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 723436.0599,
-          "available": true,
-          "best_ask": 4.947,
-          "best_bid": 4.946,
-          "bid_depth_1pct_usd": 698757.7189000001,
-          "book_imbalance_1pct": -0.017352305549263945,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.6736363415815738
-          },
-          "score": 87.59,
-          "spread_bps": 2.0216314565861393
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 22.20536230729709,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 45.2 outside 50-72 trend zone",
-            "ADX 22.2 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 45.2031028415857,
-          "score": 15.0,
-          "volume_ratio": 1.3273129922505864,
-          "why": [
-            "Volume 1.33x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 49.6,
-      "price": 4.941,
-      "spot_quote_volume_24h": 172351031.1404,
-      "symbol": "NEAR",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -1.149,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BNBUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 133158552.0,
-          "circulating_to_total_or_max": 0.66579276,
-          "dilution_headroom_pct": 33.42,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 1.0000000159212492,
-          "max_supply": 200000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "MODERATE",
-          "score": 60,
-          "total_supply": 133158549.88
-        },
-        "fundamental": {
-          "ath_change_pct": -46.31339,
-          "available": true,
-          "circulating_supply": 133158570.17,
-          "fully_diluted_valuation_usd": 97919982308.0,
-          "market_cap_rank": 4,
-          "market_cap_to_fdv": 1.0000000319955122,
-          "market_cap_usd": 97919985441.0,
-          "max_supply": 200000000.0,
-          "name": "BNB",
-          "score": 90.0,
-          "total_supply": 133158565.91,
-          "volume_to_market_cap": 0.0058580037508851775
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 364826.59258000006,
-          "available": true,
-          "best_ask": 734.78,
-          "best_bid": 734.77,
-          "bid_depth_1pct_usd": 268528.56455999997,
-          "book_imbalance_1pct": -0.1520442786869325,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.0
-          },
-          "score": 92.0,
-          "spread_bps": 0.13609608383506386
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 13.457401247161844,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 46.5 outside 50-72 trend zone",
-            "ADX 13.5 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 46.52112578662613,
-          "score": 15.0,
-          "volume_ratio": 2.039136834610025,
-          "why": [
-            "Volume 2.04x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 47.74,
-      "price": 734.55,
-      "spot_quote_volume_24h": 50533946.24046,
-      "symbol": "BNB",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -1.759,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=XRPUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 63129671205.0,
-          "circulating_to_total_or_max": 0.63129671205,
-          "dilution_headroom_pct": 36.87,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.631387581409747,
-          "max_supply": 100000000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "MODERATE",
-          "score": 60,
-          "total_supply": 99985607990.0
-        },
-        "fundamental": {
-          "ath_change_pct": -63.04574,
-          "available": true,
-          "circulating_supply": 63129671205.0,
-          "fully_diluted_valuation_usd": 134697907473.0,
-          "market_cap_rank": 5,
-          "market_cap_to_fdv": 0.6313875814147111,
-          "market_cap_usd": 85046586021.0,
-          "max_supply": 100000000000.0,
-          "name": "XRP",
-          "score": 80.0,
-          "total_supply": 99985607990.0,
-          "volume_to_market_cap": 0.02138218195555756
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 1118530.92481,
-          "available": true,
-          "best_ask": 1.3471,
-          "best_bid": 1.347,
-          "bid_depth_1pct_usd": 1914267.9636299987,
-          "book_imbalance_1pct": 0.2623771203072774,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.3581904262528468
-          },
-          "score": 99.28,
-          "spread_bps": 0.7423629412418915
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 14.765067946344814,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 47.4 outside 50-72 trend zone",
-            "ADX 14.8 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 47.38932563526808,
-          "score": 15.0,
-          "volume_ratio": 1.7839052261949881,
-          "why": [
-            "Volume 1.78x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 47.59,
-      "price": 1.3457,
-      "spot_quote_volume_24h": 159902953.20825,
-      "symbol": "XRP",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -3.744,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=AVAXUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 443405822.0029473,
-          "circulating_to_total_or_max": 0.6158414194485379,
-          "dilution_headroom_pct": 38.42,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.9432678666741091,
-          "max_supply": 720000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "MODERATE",
-          "score": 60,
-          "total_supply": 470074130.29518306
-        },
-        "fundamental": {
-          "ath_change_pct": -93.16461,
-          "available": true,
-          "circulating_supply": 443365160.43232244,
-          "fully_diluted_valuation_usd": 4658789017.0,
-          "market_cap_rank": 28,
-          "market_cap_to_fdv": 0.9432620865560867,
-          "market_cap_usd": 4394459049.0,
-          "max_supply": 720000000.0,
-          "name": "Avalanche",
-          "score": 92.0,
-          "total_supply": 470033903.41831505,
-          "volume_to_market_cap": 0.06129251245640633
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 251872.92005000004,
-          "available": true,
-          "best_ask": 9.901,
-          "best_bid": 9.9,
-          "bid_depth_1pct_usd": 358475.7754799999,
-          "book_imbalance_1pct": 0.1746589387521024,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 1.5752978476579749
-          },
-          "score": 88.82,
-          "spread_bps": 1.0100499974743151
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 20.41317505447547,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 38.2 outside 50-72 trend zone",
-            "ADX 20.4 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 38.154047434663504,
-          "score": 15.0,
-          "volume_ratio": 1.8165460555217718,
-          "why": [
-            "Volume 1.82x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 47.41,
-      "price": 9.897,
-      "spot_quote_volume_24h": 25708929.94066,
-      "symbol": "AVAX",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.439,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=UNIUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 624868422.4808736,
-          "circulating_to_total_or_max": 0.6248684224808736,
-          "dilution_headroom_pct": 37.51,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.7043847083797339,
-          "max_supply": 1000000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "MODERATE",
-          "score": 60,
-          "total_supply": 887112418.7867086
-        },
-        "fundamental": {
-          "ath_change_pct": -83.84849,
-          "available": true,
-          "circulating_supply": 624872422.4808736,
-          "fully_diluted_valuation_usd": 6432968254.0,
-          "market_cap_rank": 27,
-          "market_cap_to_fdv": 0.7043828652787877,
-          "market_cap_usd": 4531272611.0,
-          "max_supply": 1000000000.0,
-          "name": "Uniswap",
-          "score": 82.0,
-          "total_supply": 887120418.7867086,
-          "volume_to_market_cap": 0.10267127955855401
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 295239.8616500001,
-          "available": true,
-          "best_ask": 7.242,
-          "best_bid": 7.241,
-          "bid_depth_1pct_usd": 490568.54853000003,
-          "book_imbalance_1pct": 0.24857036950680794,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 3.034066259754997
-          },
-          "score": 84.79,
-          "spread_bps": 1.3809293654634176
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 15.659608101171434,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 43.9 outside 50-72 trend zone",
-            "ADX 15.7 below 25"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 43.948800310099735,
-          "score": 15.0,
-          "volume_ratio": 1.4807823595963308,
-          "why": [
-            "Volume 1.48x recent baseline"
-          ]
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 44.9,
-      "price": 7.24,
-      "spot_quote_volume_24h": 42795592.54488,
-      "symbol": "UNI",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -0.04,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
         "derivatives": {
           "available": false,
           "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=RLUSDUSDT"
         },
-        "event_catalyst_risk": {
+        "market_context": {
           "available": true,
-          "circulating_supply": 2418068405.1500063,
-          "circulating_to_total_or_max": 1.0008277911319625,
-          "dilution_headroom_pct": null,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 1.000827790844579,
-          "max_supply": null,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 2416068405.150008
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
         },
         "fundamental": {
-          "ath_change_pct": -6.78172,
           "available": true,
-          "circulating_supply": 2382717600.917535,
-          "fully_diluted_valuation_usd": 2382602589.0,
-          "market_cap_rank": 45,
-          "market_cap_to_fdv": 1.0001631795423185,
-          "market_cap_usd": 2382991381.0,
-          "max_supply": null,
           "name": "Ripple USD",
-          "score": 92.0,
-          "total_supply": 2382328853.790009,
-          "volume_to_market_cap": 0.06342861632028705
+          "market_cap_rank": 43,
+          "market_cap_usd": 2415377252.0,
+          "fully_diluted_valuation_usd": 2415377252.0,
+          "market_cap_to_fdv": 1.0,
+          "volume_to_market_cap": 0.07181424634862794,
+          "circulating_supply": 2415068405.1416073,
+          "total_supply": 2415068405.1416073,
+          "max_supply": null,
+          "ath_change_pct": -6.77462,
+          "score": 92.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "TRX",
+      "price": 0.3327,
+      "change_24h_pct": 1.526,
+      "spot_quote_volume_24h": 54312465.61377,
+      "fusion_score": 64.84,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 65.0,
+          "decision": "WATCH",
+          "rsi": 50.18226253511335,
+          "adx": 28.99839205469033,
+          "volume_ratio": 0.26885418085142737,
+          "why": [
+            "EMA20 above EMA80",
+            "RSI 50.2 in trend zone",
+            "ADX 29.0 confirms trend strength"
+          ],
+          "against": [
+            "Volume confirmation weak at 0.27x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
         },
         "liquidity": {
-          "ask_depth_1pct_usd": 11492426.985800002,
           "available": true,
-          "best_ask": 1.001,
-          "best_bid": 1.0009,
-          "bid_depth_1pct_usd": 11887944.0822,
-          "book_imbalance_1pct": 0.016916630418296927,
+          "best_bid": 0.3326,
+          "best_ask": 0.3327,
+          "spread_bps": 3.006162633398136,
+          "bid_depth_1pct_usd": 1703090.0935400005,
+          "ask_depth_1pct_usd": 1101831.7985399999,
+          "book_imbalance_1pct": 0.21435830234621445,
           "estimated_buy_slippage_bps": {
             "1000": 0.0,
             "10000": 0.0
           },
-          "score": 100.0,
-          "spread_bps": 0.9990509016433287
+          "score": 93.98
         },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
-        "market_context": {
-          "available": true,
-          "breadth": {
-            "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
-          },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
-        },
-        "stablecoin_liquidity": {
-          "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
-        },
-        "technical": {
-          "adx": 12.826203699012124,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 47.8 outside 50-72 trend zone",
-            "ADX 12.8 below 25",
-            "Volume confirmation weak at 0.73x"
-          ],
-          "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 47.77122649592002,
-          "score": 0.0,
-          "volume_ratio": 0.7253013427503113,
-          "why": []
-        }
-      },
-      "evidence_conflict": true,
-      "fusion_score": 46.06,
-      "price": 1.0009,
-      "spot_quote_volume_24h": 48654330.2565,
-      "symbol": "RLUSD",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.469,
-      "conflicts": [
-        "EVIDENCE_DISAGREEMENT_WIDE"
-      ],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
-      "dimensions": {
         "derivatives": {
           "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=SUIUSDT"
-        },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 4118270447.6403894,
-          "circulating_to_total_or_max": 0.4118270447640389,
-          "dilution_headroom_pct": 58.82,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.4118270447480258,
-          "max_supply": 10000000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "ELEVATED",
-          "score": 45,
-          "total_supply": 10000000000.0
-        },
-        "fundamental": {
-          "ath_change_pct": -80.8986,
-          "available": true,
-          "circulating_supply": 4118270447.6403894,
-          "fully_diluted_valuation_usd": 10207521030.0,
-          "market_cap_rank": 29,
-          "market_cap_to_fdv": 0.4118270447491794,
-          "market_cap_usd": 4203733220.0,
-          "max_supply": 10000000000.0,
-          "name": "Sui",
-          "score": 72.0,
-          "total_supply": 10000000000.0,
-          "volume_to_market_cap": 0.11517020792294712
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 536161.34242,
-          "available": true,
-          "best_ask": 1.0193,
-          "best_bid": 1.0192,
-          "bid_depth_1pct_usd": 656340.3265700002,
-          "book_imbalance_1pct": 0.10077888130067508,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 0.9290049051369209
-          },
-          "score": 90.14,
-          "spread_bps": 0.9811135638949128
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=TRXUSDT"
         },
         "market_context": {
           "available": true,
+          "regime": "RISK_OFF",
           "breadth": {
             "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
           },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
         },
         "stablecoin_liquidity": {
           "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
         },
-        "technical": {
-          "adx": 17.58826279749285,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 42.1 outside 50-72 trend zone",
-            "ADX 17.6 below 25"
-          ],
+        "fundamental": {
           "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 42.08472122414307,
-          "score": 15.0,
-          "volume_ratio": 2.6350615446993957,
-          "why": [
-            "Volume 2.64x recent baseline"
-          ]
+          "name": "TRON",
+          "market_cap_rank": 8,
+          "market_cap_usd": 31550095685.0,
+          "fully_diluted_valuation_usd": 31550213896.0,
+          "market_cap_to_fdv": 0.9999962532425172,
+          "volume_to_market_cap": 0.017082628096631716,
+          "circulating_supply": 94996502617.87968,
+          "total_supply": 94996858548.1119,
+          "max_supply": null,
+          "ath_change_pct": -22.99529,
+          "score": 90.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
         }
       },
-      "evidence_conflict": true,
-      "fusion_score": 43.52,
-      "price": 1.0191,
-      "spot_quote_volume_24h": 47813543.25687,
-      "symbol": "SUI",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -7.018,
       "conflicts": [
         "EVIDENCE_DISAGREEMENT_WIDE"
       ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
       "coverage": {
-        "available_dimensions": 6,
+        "available_dimensions": 5,
         "total_dimensions": 9,
-        "pct": 66.7
-      },
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "U",
+      "price": 1.0002,
+      "change_24h_pct": 0.0,
+      "spot_quote_volume_24h": 25955221.2115,
+      "fusion_score": 58.48,
       "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 45.0,
+          "decision": "REJECT",
+          "rsi": 61.16797651591889,
+          "adx": 20.945051881282726,
+          "volume_ratio": 0.6223515626431678,
+          "why": [
+            "EMA20 above EMA80",
+            "RSI 61.2 in trend zone"
+          ],
+          "against": [
+            "ADX 20.9 below 25",
+            "Volume confirmation weak at 0.62x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 1.0002,
+          "best_ask": 1.0003,
+          "spread_bps": 0.9997500624842689,
+          "bid_depth_1pct_usd": 18458747.675699998,
+          "ask_depth_1pct_usd": 16862807.6604,
+          "book_imbalance_1pct": 0.04518317497952548,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.0
+          },
+          "score": 100.0
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=UUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "United Stables",
+          "market_cap_rank": 64,
+          "market_cap_usd": 1566955144.0,
+          "fully_diluted_valuation_usd": 1566955144.0,
+          "market_cap_to_fdv": 1.0,
+          "volume_to_market_cap": 0.09675220160609779,
+          "circulating_supply": 1568144634.63,
+          "total_supply": 1568144634.63,
+          "max_supply": null,
+          "ath_change_pct": -0.84918,
+          "score": 85.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "XAUT",
+      "price": 4104.28,
+      "change_24h_pct": -1.298,
+      "spot_quote_volume_24h": 58614355.036807,
+      "fusion_score": 52.8,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 30.0,
+          "decision": "REJECT",
+          "rsi": 35.030648038508986,
+          "adx": 46.22175761467946,
+          "volume_ratio": 0.20327115850947572,
+          "why": [
+            "ADX 46.2 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 35.0 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.20x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 4104.05,
+          "best_ask": 4104.06,
+          "spread_bps": 0.024366145191081205,
+          "bid_depth_1pct_usd": 465797.5588079998,
+          "ask_depth_1pct_usd": 491284.1660500001,
+          "book_imbalance_1pct": -0.026629499425225866,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.0
+          },
+          "score": 92.0
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=XAUTUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Tether Gold",
+          "market_cap_rank": 34,
+          "market_cap_usd": 3318040948.0,
+          "fully_diluted_valuation_usd": 3393601732.0,
+          "market_cap_to_fdv": 0.9777343395108805,
+          "volume_to_market_cap": 0.10281904061661387,
+          "circulating_supply": 808994.63,
+          "total_supply": 827417.63,
+          "max_supply": null,
+          "ath_change_pct": -25.4932,
+          "score": 92.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "ETH",
+      "price": 2420.11,
+      "change_24h_pct": -3.099,
+      "spot_quote_volume_24h": 783459131.963407,
+      "fusion_score": 52.5,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 29.23895287850091,
+          "adx": 34.187375690636976,
+          "volume_ratio": 1.1788289430537153,
+          "why": [
+            "ADX 34.2 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 29.2 outside 50-72 trend zone",
+            "Volume confirmation weak at 1.18x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 2419.89,
+          "best_ask": 2419.9,
+          "spread_bps": 0.04132410703860407,
+          "bid_depth_1pct_usd": 1086259.615485,
+          "ask_depth_1pct_usd": 1191936.881392,
+          "book_imbalance_1pct": -0.046386370118584895,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.0
+          },
+          "score": 100.0
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=ETHUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Ethereum",
+          "market_cap_rank": 2,
+          "market_cap_usd": 295280127883.0,
+          "fully_diluted_valuation_usd": 295280127883.0,
+          "market_cap_to_fdv": 1.0,
+          "volume_to_market_cap": 0.04689566133446946,
+          "circulating_supply": 122133648.45963953,
+          "total_supply": 122133648.45963953,
+          "max_supply": null,
+          "ath_change_pct": -51.12314,
+          "score": 100.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "ZEC",
+      "price": 1143.69,
+      "change_24h_pct": -6.047,
+      "spot_quote_volume_24h": 238584651.54755,
+      "fusion_score": 50.24,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 33.10581322141924,
+          "adx": 34.859817685098896,
+          "volume_ratio": 0.3844656116513299,
+          "why": [
+            "ADX 34.9 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 33.1 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.38x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 1143.75,
+          "best_ask": 1143.76,
+          "spread_bps": 0.0874313117756067,
+          "bid_depth_1pct_usd": 335970.38526999985,
+          "ask_depth_1pct_usd": 381848.8377099999,
+          "book_imbalance_1pct": -0.06391365816247904,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 1.143238742511432
+          },
+          "score": 89.71
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=ZECUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Zcash",
+          "market_cap_rank": 10,
+          "market_cap_usd": 19434087336.0,
+          "fully_diluted_valuation_usd": 19434398391.0,
+          "market_cap_to_fdv": 0.999983994616466,
+          "volume_to_market_cap": 0.05216316771007435,
+          "circulating_supply": 16986207.9780448,
+          "total_supply": 16986479.8530448,
+          "max_supply": 21000000.0,
+          "ath_change_pct": -64.16348,
+          "score": 100.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "ENA",
+      "price": 0.1969,
+      "change_24h_pct": -6.149,
+      "spot_quote_volume_24h": 44762210.871404,
+      "fusion_score": 50.11,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 30.0,
+          "decision": "REJECT",
+          "rsi": 35.40761775317603,
+          "adx": 38.43820467005223,
+          "volume_ratio": 0.3436539144333857,
+          "why": [
+            "ADX 38.4 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 35.4 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.34x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 0.1969,
+          "best_ask": 0.197,
+          "spread_bps": 5.077430820005927,
+          "bid_depth_1pct_usd": 693317.661845,
+          "ask_depth_1pct_usd": 593316.8461460001,
+          "book_imbalance_1pct": 0.07772278380372759,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.0
+          },
+          "score": 79.77
+        },
         "derivatives": {
           "available": false,
           "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=ENAUSDT"
         },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 13406250000.0,
-          "circulating_to_total_or_max": 0.89375,
-          "dilution_headroom_pct": 10.63,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.8937499998702882,
-          "max_supply": 15000000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 15000000000.0
-        },
-        "fundamental": {
-          "ath_change_pct": -86.92584,
-          "available": true,
-          "circulating_supply": 13406250000.0,
-          "fully_diluted_valuation_usd": 2972781056.0,
-          "market_cap_rank": 41,
-          "market_cap_to_fdv": 0.8937500000672771,
-          "market_cap_usd": 2656923069.0,
-          "max_supply": 15000000000.0,
-          "name": "Ethena",
-          "score": 92.0,
-          "total_supply": 15000000000.0,
-          "volume_to_market_cap": 0.12961091573103428
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 491177.7017459999,
-          "available": true,
-          "best_ask": 0.1976,
-          "best_bid": 0.1975,
-          "bid_depth_1pct_usd": 392621.406564,
-          "book_imbalance_1pct": -0.11151436367757736,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.0,
-            "10000": 2.8233582333925256
-          },
-          "score": 74.17,
-          "spread_bps": 5.062009617817716
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
         "market_context": {
           "available": true,
+          "regime": "RISK_OFF",
           "breadth": {
             "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
           },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
         },
         "stablecoin_liquidity": {
           "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
         },
-        "technical": {
-          "adx": 21.962034475312105,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 30.7 outside 50-72 trend zone",
-            "ADX 22.0 below 25"
-          ],
+        "fundamental": {
           "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 30.738764043412175,
-          "score": 15.0,
-          "volume_ratio": 4.9304003630158055,
-          "why": [
-            "Volume 4.93x recent baseline"
-          ]
+          "name": "Ethena",
+          "market_cap_rank": 41,
+          "market_cap_usd": 2638706162.0,
+          "fully_diluted_valuation_usd": 2952398503.0,
+          "market_cap_to_fdv": 0.8937499999809477,
+          "volume_to_market_cap": 0.14655852840654413,
+          "circulating_supply": 13406250000.0,
+          "total_supply": 15000000000.0,
+          "max_supply": 15000000000.0,
+          "ath_change_pct": -87.03267,
+          "score": 92.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
         }
       },
-      "evidence_conflict": true,
-      "fusion_score": 45.47,
-      "price": 0.1974,
-      "spot_quote_volume_24h": 38690310.076037,
-      "symbol": "ENA",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.625,
       "conflicts": [
         "EVIDENCE_DISAGREEMENT_WIDE"
       ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
       "coverage": {
-        "available_dimensions": 6,
+        "available_dimensions": 5,
         "total_dimensions": 9,
-        "pct": 66.7
-      },
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "BTC",
+      "price": 81574.27,
+      "change_24h_pct": -1.914,
+      "spot_quote_volume_24h": 1494778965.0069544,
+      "fusion_score": 49.04,
       "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=PEPEUSDT"
-        },
-        "event_catalyst_risk": {
+        "technical": {
           "available": true,
-          "circulating_supply": 420690000000000.0,
-          "circulating_to_total_or_max": 1.0,
-          "dilution_headroom_pct": 0.0,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 32.38741888798556,
+          "adx": 27.05500570295328,
+          "volume_ratio": 0.5290964818791701,
+          "why": [
+            "ADX 27.1 confirms trend strength"
           ],
-          "market_cap_to_fdv": 1.0,
-          "max_supply": 420690000000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "LOW",
-          "score": 80,
-          "total_supply": 420690000000000.0
-        },
-        "fundamental": {
-          "ath_change_pct": -85.42719,
-          "available": true,
-          "circulating_supply": 420690000000000.0,
-          "fully_diluted_valuation_usd": 1717682175.0,
-          "market_cap_rank": 60,
-          "market_cap_to_fdv": 1.0,
-          "market_cap_usd": 1717682175.0,
-          "max_supply": 420690000000000.0,
-          "name": "Pepe",
-          "score": 85.0,
-          "total_supply": 420690000000000.0,
-          "volume_to_market_cap": 0.14233986156373776
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 32.4 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.53x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
         },
         "liquidity": {
-          "ask_depth_1pct_usd": 239497.269297,
           "available": true,
-          "best_ask": 4.08e-06,
-          "best_bid": 4.07e-06,
-          "bid_depth_1pct_usd": 570375.0968390801,
-          "book_imbalance_1pct": 0.4085555222987863,
+          "best_bid": 81568.0,
+          "best_ask": 81568.01,
+          "spread_bps": 0.0012259708932149695,
+          "bid_depth_1pct_usd": 552041.0301344001,
+          "ask_depth_1pct_usd": 1799771.7163114995,
+          "book_imbalance_1pct": -0.530539979453165,
           "estimated_buy_slippage_bps": {
             "1000": 0.0,
             "10000": 0.0
           },
-          "score": 35.0,
-          "spread_bps": 24.539877300613263
+          "score": 92.0
         },
-        "macro_context": {
+        "derivatives": {
           "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BTCUSDT"
         },
         "market_context": {
           "available": true,
+          "regime": "RISK_OFF",
           "breadth": {
             "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
           },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
         },
         "stablecoin_liquidity": {
           "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
         },
-        "technical": {
-          "adx": 14.917687681436222,
-          "against": [
-            "RSI 47.8 outside 50-72 trend zone",
-            "ADX 14.9 below 25"
-          ],
+        "fundamental": {
           "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 47.768463458138854,
-          "score": 40.0,
-          "volume_ratio": 2.8438873379078546,
-          "why": [
-            "EMA20 above EMA80",
-            "Volume 2.84x recent baseline"
-          ]
+          "name": "Bitcoin",
+          "market_cap_rank": 1,
+          "market_cap_usd": 1637806210787.0,
+          "fully_diluted_valuation_usd": 1637810855712.0,
+          "market_cap_to_fdv": 0.9999971639429646,
+          "volume_to_market_cap": 0.020460295412421076,
+          "circulating_supply": 20098271.0,
+          "total_supply": 20098328.0,
+          "max_supply": 21000000.0,
+          "ath_change_pct": -35.36847,
+          "score": 90.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
         }
       },
-      "evidence_conflict": true,
-      "fusion_score": 44.13,
-      "price": 4.08e-06,
-      "spot_quote_volume_24h": 31686215.5844733,
-      "symbol": "PEPE",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
-    },
-    {
-      "change_24h_pct": -2.099,
       "conflicts": [
         "EVIDENCE_DISAGREEMENT_WIDE"
       ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
       "coverage": {
-        "available_dimensions": 6,
+        "available_dimensions": 5,
         "total_dimensions": 9,
-        "pct": 66.7
-      },
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "BNB",
+      "price": 730.27,
+      "change_24h_pct": -1.512,
+      "spot_quote_volume_24h": 64489252.78533,
+      "fusion_score": 49.01,
       "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 36.765719086508184,
+          "adx": 27.12729495180465,
+          "volume_ratio": 0.8151119240210568,
+          "why": [
+            "ADX 27.1 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 36.8 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.82x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 730.38,
+          "best_ask": 730.39,
+          "spread_bps": 0.13691409325206438,
+          "bid_depth_1pct_usd": 621032.7111000003,
+          "ask_depth_1pct_usd": 542188.18979,
+          "book_imbalance_1pct": 0.0677812109889661,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.057942149158662914
+          },
+          "score": 91.88
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=BNBUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "BNB",
+          "market_cap_rank": 4,
+          "market_cap_usd": 97134691680.0,
+          "fully_diluted_valuation_usd": 97134689652.0,
+          "market_cap_to_fdv": 1.000000020878226,
+          "volume_to_market_cap": 0.006864412502554824,
+          "circulating_supply": 133158542.87,
+          "total_supply": 133158540.09,
+          "max_supply": 200000000.0,
+          "ath_change_pct": -46.75766,
+          "score": 90.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "AVAX",
+      "price": 10.041,
+      "change_24h_pct": -1.79,
+      "spot_quote_volume_24h": 28870157.71224,
+      "fusion_score": 49.01,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 46.01255162250496,
+          "adx": 25.145437382562317,
+          "volume_ratio": 0.6133881894520822,
+          "why": [
+            "ADX 25.1 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 46.0 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.61x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 10.042,
+          "best_ask": 10.043,
+          "spread_bps": 0.9957679860586963,
+          "bid_depth_1pct_usd": 282251.10003000003,
+          "ask_depth_1pct_usd": 356516.89590000024,
+          "book_imbalance_1pct": -0.11626411520801783,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.8342449411147257
+          },
+          "score": 90.33
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=AVAXUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Avalanche",
+          "market_cap_rank": 28,
+          "market_cap_usd": 4449770127.0,
+          "fully_diluted_valuation_usd": 4717402096.0,
+          "market_cap_to_fdv": 0.9432670856641769,
+          "volume_to_market_cap": 0.06745800039841024,
+          "circulating_supply": 443406928.992908,
+          "total_supply": 470075693.0162289,
+          "max_supply": 720000000.0,
+          "ath_change_pct": -93.07738,
+          "score": 92.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "NEAR",
+      "price": 4.898,
+      "change_24h_pct": -3.029,
+      "spot_quote_volume_24h": 158168627.133,
+      "fusion_score": 48.52,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 43.99378054179745,
+          "adx": 27.59394895460375,
+          "volume_ratio": 0.48747218053236807,
+          "why": [
+            "ADX 27.6 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 44.0 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.49x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 4.899,
+          "best_ask": 4.9,
+          "spread_bps": 2.0410245943470438,
+          "bid_depth_1pct_usd": 722477.213,
+          "ask_depth_1pct_usd": 717239.9278000001,
+          "book_imbalance_1pct": 0.003637718168090817,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.408349667531116
+          },
+          "score": 88.06
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=NEARUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "NEAR Protocol",
+          "market_cap_rank": 21,
+          "market_cap_usd": 6409496020.0,
+          "fully_diluted_valuation_usd": 6409625575.0,
+          "market_cap_to_fdv": 0.999979787430875,
+          "volume_to_market_cap": 0.160992856190275,
+          "circulating_supply": 1308955769.0,
+          "total_supply": 1308982227.0,
+          "max_supply": null,
+          "ath_change_pct": -76.04676,
+          "score": 92.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "SOL",
+      "price": 104.5,
+      "change_24h_pct": -2.043,
+      "spot_quote_volume_24h": 232991632.23119,
+      "fusion_score": 45.67,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 0.0,
+          "decision": "REJECT",
+          "rsi": 39.035334526391686,
+          "adx": 20.512081365109754,
+          "volume_ratio": 0.5191541777709745,
+          "why": [],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 39.0 outside 50-72 trend zone",
+            "ADX 20.5 below 25",
+            "Volume confirmation weak at 0.52x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 104.5,
+          "best_ask": 104.51,
+          "spread_bps": 0.9568920147366266,
+          "bid_depth_1pct_usd": 3102478.811549999,
+          "ask_depth_1pct_usd": 2145532.8520999993,
+          "book_imbalance_1pct": 0.18234448030636471,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.0
+          },
+          "score": 100.0
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=SOLUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Solana",
+          "market_cap_rank": 7,
+          "market_cap_usd": 61517929568.0,
+          "fully_diluted_valuation_usd": 66380171873.0,
+          "market_cap_to_fdv": 0.9267515860865418,
+          "volume_to_market_cap": 0.052895558235637664,
+          "circulating_supply": 589212342.414528,
+          "total_supply": 635782394.3890823,
+          "max_supply": null,
+          "ath_change_pct": -64.40622,
+          "score": 100.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "DOGE",
+      "price": 0.08208,
+      "change_24h_pct": -2.564,
+      "spot_quote_volume_24h": 63309735.19439,
+      "fusion_score": 45.23,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 0.0,
+          "decision": "REJECT",
+          "rsi": 35.52503258406607,
+          "adx": 23.181865484222644,
+          "volume_ratio": 0.7438287651664133,
+          "why": [],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 35.5 outside 50-72 trend zone",
+            "ADX 23.2 below 25",
+            "Volume confirmation weak at 0.74x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 0.0821,
+          "best_ask": 0.08211,
+          "spread_bps": 1.2179526216425458,
+          "bid_depth_1pct_usd": 1427271.2974999992,
+          "ask_depth_1pct_usd": 3312526.616929999,
+          "book_imbalance_1pct": -0.3977501474673564,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.6788918668521049
+          },
+          "score": 97.99
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=DOGEUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Dogecoin",
+          "market_cap_rank": 12,
+          "market_cap_usd": 12813467161.0,
+          "fully_diluted_valuation_usd": 12813477817.0,
+          "market_cap_to_fdv": 0.9999991683756625,
+          "volume_to_market_cap": 0.05527469092485077,
+          "circulating_supply": 156326406383.7052,
+          "total_supply": 156326536383.70523,
+          "max_supply": null,
+          "ath_change_pct": -88.79593,
+          "score": 100.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "WAL",
+      "price": 0.06044,
+      "change_24h_pct": 57.601,
+      "spot_quote_volume_24h": 41493587.835394,
+      "fusion_score": 44.8,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 75.0,
+          "decision": "WATCH",
+          "rsi": 68.68425403277048,
+          "adx": 58.350805620598,
+          "volume_ratio": 0.5765991939423994,
+          "why": [
+            "EMA20 above EMA80",
+            "RSI 68.7 in trend zone",
+            "ADX 58.4 confirms trend strength"
+          ],
+          "against": [
+            "Volume confirmation weak at 0.58x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 0.06041,
+          "best_ask": 0.06047,
+          "spread_bps": 9.927200529451438,
+          "bid_depth_1pct_usd": 32048.226085000006,
+          "ask_depth_1pct_usd": 27471.827506999998,
+          "book_imbalance_1pct": 0.07688834773856981,
+          "estimated_buy_slippage_bps": {
+            "1000": 5.817448934994918,
+            "10000": 29.827620661182497
+          },
+          "score": 18.22
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=WALUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Walrus",
+          "market_cap_rank": 213,
+          "market_cap_usd": 159623081.0,
+          "fully_diluted_valuation_usd": 304939420.0,
+          "market_cap_to_fdv": 0.5234583347735101,
+          "volume_to_market_cap": 1.8093505161700267,
+          "circulating_supply": 2617291667.0,
+          "total_supply": 5000000000.0,
+          "max_supply": 5000000000.0,
+          "ath_change_pct": -91.96922,
+          "score": 50.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE",
+        "ASSET_STRONG_MARKET_CONTEXT_WEAK",
+        "SETUP_STRONG_EXECUTION_QUALITY_WEAK"
+      ],
+      "evidence_conflict": true,
+      "verdict": "AVOID_POOR_EXECUTION_QUALITY",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "HYPE",
+      "price": 81.03,
+      "change_24h_pct": -0.54,
+      "spot_quote_volume_24h": 29733634.8861,
+      "fusion_score": 44.41,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 47.670922957919004,
+          "adx": 28.168992171062282,
+          "volume_ratio": 0.567137377118912,
+          "why": [
+            "ADX 28.2 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 47.7 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.57x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 81.03,
+          "best_ask": 81.04,
+          "spread_bps": 1.2340346763750374,
+          "bid_depth_1pct_usd": 648453.1681399996,
+          "ask_depth_1pct_usd": 577358.2599599998,
+          "book_imbalance_1pct": 0.05799824226650953,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.48024234408750033
+          },
+          "score": 90.34
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=HYPEUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Hyperliquid",
+          "market_cap_rank": 11,
+          "market_cap_usd": 17999782493.0,
+          "fully_diluted_valuation_usd": 77301195554.0,
+          "market_cap_to_fdv": 0.23285257574607576,
+          "volume_to_market_cap": 0.042645510816506735,
+          "circulating_supply": 222445714.07414138,
+          "total_supply": 955307079.4341414,
+          "max_supply": 1000000000.0,
+          "ath_change_pct": -17.42201,
+          "score": 65.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "SPCXB",
+      "price": 150.14,
+      "change_24h_pct": -4.473,
+      "spot_quote_volume_24h": 37097444.56677,
+      "fusion_score": 44.39,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 30.0,
+          "decision": "REJECT",
+          "rsi": 27.209987530251695,
+          "adx": 58.99050718870633,
+          "volume_ratio": 0.7493752731680694,
+          "why": [
+            "ADX 59.0 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 27.2 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.75x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 150.21,
+          "best_ask": 150.22,
+          "spread_bps": 0.6657124787798092,
+          "bid_depth_1pct_usd": 469325.04141999985,
+          "ask_depth_1pct_usd": 338797.17855,
+          "book_imbalance_1pct": 0.16151995285421736,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 0.6370364122876282
+          },
+          "score": 90.73
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=SPCXBUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": false
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 4,
+        "total_dimensions": 9,
+        "pct": 44.4
+      }
+    },
+    {
+      "symbol": "PUMP",
+      "price": 0.004766,
+      "change_24h_pct": -4.756,
+      "spot_quote_volume_24h": 25579020.146279,
+      "fusion_score": 41.82,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 20.0,
+          "decision": "REJECT",
+          "rsi": 36.83050182202066,
+          "adx": 29.32266777977559,
+          "volume_ratio": 0.24287929895357094,
+          "why": [
+            "ADX 29.3 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 36.8 outside 50-72 trend zone",
+            "Volume confirmation weak at 0.24x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 0.004764,
+          "best_ask": 0.004765,
+          "spread_bps": 2.098856123413019,
+          "bid_depth_1pct_usd": 272730.80723100004,
+          "ask_depth_1pct_usd": 212794.17655200002,
+          "book_imbalance_1pct": 0.12344705768176913,
+          "estimated_buy_slippage_bps": {
+            "1000": 2.0556616212474843,
+            "10000": 5.695602212105744
+          },
+          "score": 65.31
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=PUMPUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Pump.fun",
+          "market_cap_rank": 47,
+          "market_cap_usd": 2206005123.0,
+          "fully_diluted_valuation_usd": 3943899569.0,
+          "market_cap_to_fdv": 0.5593461710687897,
+          "volume_to_market_cap": 0.07971153519392801,
+          "circulating_supply": 463158150420.2615,
+          "total_supply": 828034899361.665,
+          "max_supply": 1000000000000.0,
+          "ath_change_pct": -46.0019,
+          "score": 82.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "XRP",
+      "price": 1.3329,
+      "change_24h_pct": -2.316,
+      "spot_quote_volume_24h": 169852754.62798,
+      "fusion_score": 41.73,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 0.0,
+          "decision": "REJECT",
+          "rsi": 38.307993858090924,
+          "adx": 23.368155130098394,
+          "volume_ratio": 0.48129615750164806,
+          "why": [],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 38.3 outside 50-72 trend zone",
+            "ADX 23.4 below 25",
+            "Volume confirmation weak at 0.48x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 1.3328,
+          "best_ask": 1.3329,
+          "spread_bps": 0.7502719735903438,
+          "bid_depth_1pct_usd": 1953613.8505599997,
+          "ask_depth_1pct_usd": 1620480.8557100005,
+          "book_imbalance_1pct": 0.09320765738680264,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.3071302203050408,
+            "10000": 1.1979014159835266
+          },
+          "score": 97.6
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=XRPUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "XRP",
+          "market_cap_rank": 5,
+          "market_cap_usd": 84048012084.0,
+          "fully_diluted_valuation_usd": 133116352868.0,
+          "market_cap_to_fdv": 0.631387581414157,
+          "volume_to_market_cap": 0.023323772215347618,
+          "circulating_supply": 63129671205.0,
+          "total_supply": 99985607990.0,
+          "max_supply": 100000000000.0,
+          "ath_change_pct": -63.48971,
+          "score": 80.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "SNDKB",
+      "price": 1360.04,
+      "change_24h_pct": -8.492,
+      "spot_quote_volume_24h": 26495901.272094,
+      "fusion_score": 40.21,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 30.0,
+          "decision": "REJECT",
+          "rsi": 19.861168388432603,
+          "adx": 36.22088065248967,
+          "volume_ratio": 1.202928971322956,
+          "why": [
+            "ADX 36.2 confirms trend strength"
+          ],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 19.9 outside 50-72 trend zone",
+            "Volume confirmation weak at 1.20x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 1360.45,
+          "best_ask": 1360.48,
+          "spread_bps": 0.22051283935987115,
+          "bid_depth_1pct_usd": 210630.70294699993,
+          "ask_depth_1pct_usd": 210925.17470799995,
+          "book_imbalance_1pct": -0.0006985355361146628,
+          "estimated_buy_slippage_bps": {
+            "1000": 1.3583842181996708,
+            "10000": 2.5258186016685613
+          },
+          "score": 74.95
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=SNDKBUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": false
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 4,
+        "total_dimensions": 9,
+        "pct": 44.4
+      }
+    },
+    {
+      "symbol": "UNI",
+      "price": 7.164,
+      "change_24h_pct": -5.363,
+      "spot_quote_volume_24h": 48207852.30797,
+      "fusion_score": 39.7,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 0.0,
+          "decision": "REJECT",
+          "rsi": 40.8383421195276,
+          "adx": 24.930422359498355,
+          "volume_ratio": 0.2472996164935606,
+          "why": [],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 40.8 outside 50-72 trend zone",
+            "ADX 24.9 below 25",
+            "Volume confirmation weak at 0.25x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 7.164,
+          "best_ask": 7.165,
+          "spread_bps": 1.3957708144327363,
+          "bid_depth_1pct_usd": 505373.37364999996,
+          "ask_depth_1pct_usd": 345350.83748,
+          "book_imbalance_1pct": 0.18810154228177572,
+          "estimated_buy_slippage_bps": {
+            "1000": 2.220446049250313e-12,
+            "10000": 2.018010796283054
+          },
+          "score": 86.78
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=UNIUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Uniswap",
+          "market_cap_rank": 27,
+          "market_cap_usd": 4471436535.0,
+          "fully_diluted_valuation_usd": 6348044051.0,
+          "market_cap_to_fdv": 0.7043801994876863,
+          "volume_to_market_cap": 0.10981102027427075,
+          "circulating_supply": 624864422.4808736,
+          "total_supply": 887112418.7867086,
+          "max_supply": 1000000000.0,
+          "ath_change_pct": -84.0717,
+          "score": 82.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "SUI",
+      "price": 1.0266,
+      "change_24h_pct": -1.873,
+      "spot_quote_volume_24h": 51110544.77985,
+      "fusion_score": 38.17,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 0.0,
+          "decision": "REJECT",
+          "rsi": 44.6321787960314,
+          "adx": 18.572113816147006,
+          "volume_ratio": 0.3174190456861109,
+          "why": [],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 44.6 outside 50-72 trend zone",
+            "ADX 18.6 below 25",
+            "Volume confirmation weak at 0.32x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 1.0265,
+          "best_ask": 1.0266,
+          "spread_bps": 0.9741366713748868,
+          "bid_depth_1pct_usd": 714110.1497400001,
+          "ask_depth_1pct_usd": 572581.96928,
+          "book_imbalance_1pct": 0.10999381932003602,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 2.1925634206554356
+          },
+          "score": 87.61
+        },
+        "derivatives": {
+          "available": false,
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=SUIUSDT"
+        },
+        "market_context": {
+          "available": true,
+          "regime": "RISK_OFF",
+          "breadth": {
+            "above_ema200_pct": 0.0,
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
+          },
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
+        },
+        "stablecoin_liquidity": {
+          "available": true,
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
+        },
+        "fundamental": {
+          "available": true,
+          "name": "Sui",
+          "market_cap_rank": 29,
+          "market_cap_usd": 4226505399.0,
+          "fully_diluted_valuation_usd": 10262816521.0,
+          "market_cap_to_fdv": 0.41182704478362564,
+          "volume_to_market_cap": 0.11463415878153951,
+          "circulating_supply": 4118270447.6403894,
+          "total_supply": 10000000000.0,
+          "max_supply": 10000000000.0,
+          "ath_change_pct": -80.80712,
+          "score": 72.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
+        }
+      },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
+    },
+    {
+      "symbol": "WLD",
+      "price": 0.497,
+      "change_24h_pct": -3.42,
+      "spot_quote_volume_24h": 27661065.22647,
+      "fusion_score": 36.77,
+      "dimensions": {
+        "technical": {
+          "available": true,
+          "score": 0.0,
+          "decision": "REJECT",
+          "rsi": 44.51742431494935,
+          "adx": 13.708783614609086,
+          "volume_ratio": 0.39683257328095606,
+          "why": [],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 44.5 outside 50-72 trend zone",
+            "ADX 13.7 below 25",
+            "Volume confirmation weak at 0.40x"
+          ],
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
+        },
+        "liquidity": {
+          "available": true,
+          "best_bid": 0.4969,
+          "best_ask": 0.497,
+          "spread_bps": 2.0122748767479424,
+          "bid_depth_1pct_usd": 499763.07881999994,
+          "ask_depth_1pct_usd": 436218.62379,
+          "book_imbalance_1pct": 0.06789070219300786,
+          "estimated_buy_slippage_bps": {
+            "1000": 0.0,
+            "10000": 1.1540934272424863
+          },
+          "score": 86.65
+        },
         "derivatives": {
           "available": false,
           "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=WLDUSDT"
         },
-        "event_catalyst_risk": {
-          "available": true,
-          "circulating_supply": 3811581758.3167253,
-          "circulating_to_total_or_max": 0.38115817583167255,
-          "dilution_headroom_pct": 61.88,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
-          ],
-          "market_cap_to_fdv": 0.381158175847891,
-          "max_supply": 10000000000.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "ELEVATED",
-          "score": 45,
-          "total_supply": 10000000000.0
-        },
-        "fundamental": {
-          "ath_change_pct": -95.77969,
-          "available": true,
-          "circulating_supply": 3811574102.3061843,
-          "fully_diluted_valuation_usd": 4954224781.0,
-          "market_cap_rank": 52,
-          "market_cap_to_fdv": 0.38115741018493765,
-          "market_cap_usd": 1888339487.0,
-          "max_supply": 10000000000.0,
-          "name": "Worldcoin",
-          "score": 65.0,
-          "total_supply": 10000000000.0,
-          "volume_to_market_cap": 0.11129041967653351
-        },
-        "liquidity": {
-          "ask_depth_1pct_usd": 417079.6049799999,
-          "available": true,
-          "best_ask": 0.4945,
-          "best_bid": 0.4944,
-          "bid_depth_1pct_usd": 420277.5199300001,
-          "book_imbalance_1pct": 0.003819057430655951,
-          "estimated_buy_slippage_bps": {
-            "1000": 0.11152338283526575,
-            "10000": 2.871982738015255
-          },
-          "score": 83.19,
-          "spread_bps": 2.0224491859639797
-        },
-        "macro_context": {
-          "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
-        },
         "market_context": {
           "available": true,
+          "regime": "RISK_OFF",
           "breadth": {
             "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
           },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
         },
         "stablecoin_liquidity": {
           "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
         },
-        "technical": {
-          "adx": 14.380112867927325,
-          "against": [
-            "EMA20 not above EMA80",
-            "RSI 42.3 outside 50-72 trend zone",
-            "ADX 14.4 below 25"
-          ],
+        "fundamental": {
           "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 42.30469344368897,
-          "score": 15.0,
-          "volume_ratio": 1.7662633422023013,
-          "why": [
-            "Volume 1.77x recent baseline"
-          ]
+          "name": "Worldcoin",
+          "market_cap_rank": 53,
+          "market_cap_usd": 1894260426.0,
+          "fully_diluted_valuation_usd": 4969743178.0,
+          "market_cap_to_fdv": 0.38115861487279457,
+          "volume_to_market_cap": 0.11052489463769223,
+          "circulating_supply": 3811586148.9154577,
+          "total_supply": 10000000000.0,
+          "max_supply": 10000000000.0,
+          "ath_change_pct": -95.76704,
+          "score": 65.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
         }
       },
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
       "evidence_conflict": true,
-      "fusion_score": 40.9,
-      "price": 0.4943,
-      "spot_quote_volume_24h": 30619341.07088,
-      "symbol": "WLD",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
     },
     {
-      "change_24h_pct": 0.636,
-      "conflicts": [],
-      "coverage": {
-        "available_dimensions": 6,
-        "total_dimensions": 9,
-        "pct": 66.7
-      },
+      "symbol": "PEPE",
+      "price": 4.1e-06,
+      "change_24h_pct": -2.381,
+      "spot_quote_volume_24h": 33921548.44641074,
+      "fusion_score": 31.48,
       "dimensions": {
-        "derivatives": {
-          "available": false,
-          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=OPUSDT"
-        },
-        "event_catalyst_risk": {
+        "technical": {
           "available": true,
-          "circulating_supply": 2299624975.0,
-          "circulating_to_total_or_max": 0.5354231630917639,
-          "dilution_headroom_pct": 46.46,
-          "evidence_type": "SUPPLY_DILUTION_PROXY_NOT_SCHEDULED_UNLOCK",
-          "limitations": [
-            "NO_EXACT_UNLOCK_DATE",
-            "NO_VESTING_COHORT_DETAIL",
-            "PUBLIC_SUPPLY_PROXY_ONLY"
+          "score": 0.0,
+          "decision": "REJECT",
+          "rsi": 47.04504644785246,
+          "adx": 17.846923709184384,
+          "volume_ratio": 0.3404274334450978,
+          "why": [],
+          "against": [
+            "EMA20 not above EMA80",
+            "RSI 47.0 outside 50-72 trend zone",
+            "ADX 17.8 below 25",
+            "Volume confirmation weak at 0.34x"
           ],
-          "market_cap_to_fdv": 0.5354231634310961,
-          "max_supply": 4294967296.0,
-          "observed_at": "2026-10-14T20:14:20.427211+00:00",
-          "provider": "CoinGecko",
-          "risk": "ELEVATED",
-          "score": 45,
-          "total_supply": 4294967296.0
-        },
-        "fundamental": {
-          "ath_change_pct": -97.05637,
-          "available": true,
-          "circulating_supply": 2299624975.0,
-          "fully_diluted_valuation_usd": 612762929.0,
-          "market_cap_rank": 137,
-          "market_cap_to_fdv": 0.5354231636294042,
-          "market_cap_usd": 328087466.0,
-          "max_supply": 4294967296.0,
-          "name": "Optimism",
-          "score": 50.0,
-          "total_supply": 4294967296.0,
-          "volume_to_market_cap": 0.7093286916361504
+          "captured_at": "2026-10-14T23:11:23.858251+00:00"
         },
         "liquidity": {
-          "ask_depth_1pct_usd": 142259.317794,
           "available": true,
-          "best_ask": 0.1425,
-          "best_bid": 0.1424,
-          "bid_depth_1pct_usd": 155571.85468999998,
-          "book_imbalance_1pct": 0.04469826574891233,
+          "best_bid": 4.09e-06,
+          "best_ask": 4.1e-06,
+          "spread_bps": 24.420024420024188,
+          "bid_depth_1pct_usd": 493902.58114575,
+          "ask_depth_1pct_usd": 471857.48460368,
+          "book_imbalance_1pct": 0.022826680584440026,
           "estimated_buy_slippage_bps": {
-            "1000": 1.7197329343110468,
-            "10000": 7.470386294550213
+            "1000": 0.0,
+            "10000": 0.0
           },
-          "score": 47.0,
-          "spread_bps": 7.020007020006247
+          "score": 47.0
         },
-        "macro_context": {
+        "derivatives": {
           "available": false,
-          "provider": "FRED",
-          "score": null,
-          "series": {
-            "DGS10": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "DTWEXBGS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            },
-            "VIXCLS": {
-              "available": false,
-              "error": "HTTPSConnectionPool(host='fred.stlouisfed.org', port=443): Read timed out. (read timeout=35)"
-            }
-          },
-          "observed_at": "2026-10-14T20:19:54.906020+00:00"
+          "error": "451 Client Error:  for url: https://fapi.binance.com/fapi/v1/premiumIndex?symbol=PEPEUSDT"
         },
         "market_context": {
           "available": true,
+          "regime": "RISK_OFF",
           "breadth": {
             "above_ema200_pct": 0.0,
-            "adx25_plus_pct": 80.0,
-            "average_7d_return_pct": -5.076,
-            "ema20_above_80_pct": 0.0
+            "ema20_above_80_pct": 0.0,
+            "adx25_plus_pct": 100.0,
+            "average_7d_return_pct": -6.042
           },
-          "generated_at": "2026-10-14T14:01:50.207441+00:00",
-          "regime": "RISK_OFF",
-          "score": 11.67
-        },
-        "onchain_exchange_flows": {
-          "available": false,
-          "provider": "Glassnode",
-          "status": "PUBLIC_REDISTRIBUTION_NOT_ENABLED"
+          "score": 18.33,
+          "generated_at": "2026-10-14T23:26:39.169244+00:00"
         },
         "stablecoin_liquidity": {
           "available": true,
-          "change_1d_pct": 0.01413230427482759,
-          "change_7d_pct": -0.5694137776793062,
-          "score": 42.0,
-          "total_supply_usd": 309812424127.9558
+          "total_supply_usd": 306871939544.06116,
+          "change_1d_pct": -0.048664684032151406,
+          "change_7d_pct": -0.6361322613924081,
+          "score": 42.0
         },
-        "technical": {
-          "adx": 20.982613448564223,
-          "against": [
-            "RSI 41.5 outside 50-72 trend zone",
-            "ADX 21.0 below 25",
-            "Volume confirmation weak at 0.59x"
-          ],
+        "fundamental": {
           "available": true,
-          "captured_at": "2026-10-14T13:38:51.242579+00:00",
-          "decision": "REJECT",
-          "rsi": 41.47482665504296,
-          "score": 25.0,
-          "volume_ratio": 0.590010942314602,
-          "why": [
-            "EMA20 above EMA80"
-          ]
+          "name": "Pepe",
+          "market_cap_rank": 59,
+          "market_cap_usd": 1722783387.0,
+          "fully_diluted_valuation_usd": 1722783387.0,
+          "market_cap_to_fdv": 1.0,
+          "volume_to_market_cap": 0.14934703627949483,
+          "circulating_supply": 420690000000000.0,
+          "total_supply": 420690000000000.0,
+          "max_supply": 420690000000000.0,
+          "ath_change_pct": -85.38865,
+          "score": 85.0
+        },
+        "onchain_exchange_flows": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "event_catalyst_risk": {
+          "available": false,
+          "status": "PROVIDER_NOT_CONFIGURED",
+          "score": null
+        },
+        "macro_context": {
+          "available": false,
+          "status": "NOT_YET_CANONICALISED",
+          "score": null
         }
       },
-      "evidence_conflict": false,
-      "fusion_score": 34.06,
-      "price": 0.1424,
-      "spot_quote_volume_24h": 27508233.125314,
-      "symbol": "OP",
-      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE"
+      "conflicts": [
+        "EVIDENCE_DISAGREEMENT_WIDE"
+      ],
+      "evidence_conflict": true,
+      "verdict": "WAIT_MARKET_CONTEXT_UNSUPPORTIVE",
+      "coverage": {
+        "available_dimensions": 5,
+        "total_dimensions": 9,
+        "pct": 55.6
+      }
     }
   ],
-  "automatic_parameter_changes": false,
-  "automatic_promotion": false,
-  "capital_allocation_authority": false,
-  "freshness": {
-    "decision_technical": "latest durable decision-journal observation",
-    "derivatives": "run-time Binance futures snapshot / 24h context",
-    "fundamentals": "latest public CoinGecko market snapshot",
-    "market_context_generated_at": "2026-10-14T14:01:50.207441+00:00",
-    "spot_orderbook": "run-time snapshot",
-    "stablecoin": "latest DeFiLlama stablecoin aggregate"
-  },
-  "generated_at": "2026-10-14T20:34:19.940301+00:00",
-  "global": {
-    "market_context": {
-      "available": true,
-      "breadth": {
-        "above_ema200_pct": 0.0,
-        "adx25_plus_pct": 80.0,
-        "average_7d_return_pct": -5.076,
-        "ema20_above_80_pct": 0.0
-      },
-      "generated_at": "2026-10-14T14:01:50.207441+00:00",
-      "regime": "RISK_OFF",
-      "score": 11.67
-    },
-    "stablecoin_liquidity": {
-      "available": true,
-      "change_1d_pct": 0.01413230427482759,
-      "change_7d_pct": -0.5694137776793062,
-      "score": 42.0,
-      "total_supply_usd": 309812424127.9558
-    }
-  },
   "guardrails": {
-    "evidence_conflict_is_explicit": true,
-    "missing_data_never_imputed_as_neutral": true,
     "observational_only": true,
-    "onchain_and_event_data_unavailable_until_provider_configured": true,
+    "missing_data_never_imputed_as_neutral": true,
+    "evidence_conflict_is_explicit": true,
     "score_is_not_probability": true,
-    "verdict_is_not_order_authority": true
-  },
-  "method": "multi-source evidence fusion with missing-data exclusion; score is a research prioritisation index, not a probability or trade instruction",
-  "mode": "EVIDENCE_FUSION_PURCHASE_INTELLIGENCE_RESEARCH_ONLY",
-  "orders_enabled": false,
-  "schema": "wavelength-purchase-intelligence-v1",
-  "strategy_rule_mutation": false,
-  "external_evidence_generated_at": "2026-10-14T20:14:20.427178+00:00",
-  "external_evidence_merged": true,
-  "external_public_data_policy": "Free/public supply-risk evidence is a dilution proxy only; Wavelength does not claim exact unlock timing without an exact source."
+    "verdict_is_not_order_authority": true,
+    "onchain_and_event_data_unavailable_until_provider_configured": true
+  }
 }
