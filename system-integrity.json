@@ -4,13 +4,13 @@
     "comparison_status": "TEMPORALLY_INCOMPARABLE",
     "consistent": null,
     "contradictions": [],
-    "timestamp_skew_minutes": 742.4
+    "timestamp_skew_minutes": 938.2
   },
   "finding_counts": {
     "CRITICAL": 0,
     "HIGH": 1,
     "LOW": 1,
-    "MEDIUM": 2
+    "MEDIUM": 5
   },
   "findings": [
     {
@@ -30,20 +30,41 @@
     {
       "area": "FRESHNESS",
       "code": "MODULE_STALE",
+      "detail": "validation_calibration",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
+      "detail": "decision_robustness",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
       "detail": "institutional_research_v2",
+      "penalty": 4,
+      "severity": "MEDIUM"
+    },
+    {
+      "area": "FRESHNESS",
+      "code": "MODULE_STALE",
+      "detail": "market_memory",
       "penalty": 4,
       "severity": "MEDIUM"
     },
     {
       "area": "CONSISTENCY",
       "code": "CROSS_OUTPUT_TIME_SKEW",
-      "detail": "Conviction Room and Market Command are 742.4 minutes apart; rank equality was not asserted.",
+      "detail": "Conviction Room and Market Command are 938.2 minutes apart; rank equality was not asserted.",
       "penalty": 0,
       "severity": "LOW"
     }
   ],
-  "freshness_score": 92.3,
-  "generated_at": "2026-10-15T23:19:23.493037+00:00",
+  "freshness_score": 89.7,
+  "generated_at": "2026-10-16T05:02:50.121343+00:00",
   "guardrails": [
     "RESEARCH_ONLY",
     "NO_ORDER_AUTHORITY",
@@ -55,60 +76,60 @@
     "NO_PI_MUTATION",
     "NO_PORTFOLIO_WEIGHT_MUTATION"
   ],
-  "integrity_score": 81.3,
+  "integrity_score": 68.4,
   "mode": "SYSTEM_INTEGRITY_ASSURANCE_RESEARCH_ONLY",
   "module_freshness": [
     {
       "age_hours": 0.0,
-      "generated_at": "2026-10-15T23:19:21.972714+00:00",
+      "generated_at": "2026-10-16T05:02:48.985935+00:00",
       "module": "data_truth",
       "status": "FRESH"
     },
     {
-      "age_hours": 15.61,
+      "age_hours": 21.34,
       "generated_at": "2026-10-15T07:42:43.697494+00:00",
       "module": "conviction_room",
       "status": "STALE"
     },
     {
-      "age_hours": 3.24,
-      "generated_at": "2026-10-15T20:05:07.707924+00:00",
+      "age_hours": 5.7,
+      "generated_at": "2026-10-15T23:20:58.142502+00:00",
       "module": "market_command",
       "status": "AGING"
     },
     {
-      "age_hours": 871.22,
+      "age_hours": 876.95,
       "generated_at": "2026-09-09T16:06:03.087108+00:00",
       "module": "proof_programme",
       "status": "EXPIRED"
     },
     {
-      "age_hours": 9.04,
+      "age_hours": 14.77,
       "generated_at": "2026-10-15T14:16:47.943663+00:00",
       "module": "validation_calibration",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 8.88,
+      "age_hours": 14.6,
       "generated_at": "2026-10-15T14:26:38.359179+00:00",
       "module": "decision_robustness",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 15.63,
+      "age_hours": 21.35,
       "generated_at": "2026-10-15T07:41:49.718627+00:00",
       "module": "institutional_research_v2",
       "status": "STALE"
     },
     {
-      "age_hours": 9.04,
+      "age_hours": 14.77,
       "generated_at": "2026-10-15T14:16:47.943663+00:00",
       "module": "market_memory",
-      "status": "AGING"
+      "status": "STALE"
     },
     {
-      "age_hours": 3.26,
-      "generated_at": "2026-10-15T20:03:59.700220+00:00",
+      "age_hours": 5.72,
+      "generated_at": "2026-10-15T23:19:49.302584+00:00",
       "module": "portfolio",
       "status": "AGING"
     }
@@ -143,7 +164,7 @@
   ],
   "reproducibility": {
     "deterministic_when_comparable": null,
-    "input_hash": "f9cefe1ac0353d1ed9d1049eb4298f02d72ef165e26537575ea329ae1142e42e",
+    "input_hash": "475eb016f754f5e49852c009fe9e1c6fa8bce640ee62a84b0dc59871ecfdedf2",
     "output_hash": "2a73bf3a4a4a1ef691238b14b3a4cfad3e8dac19cf4d6c7911e91230e0b9db94",
     "same_inputs_as_previous": false
   },
@@ -163,12 +184,12 @@
       "disagreement_assets": 0,
       "disagreement_rate_pct": null,
       "policy": "FUNDING_DIRECTION_ONLY; venue funding intervals and venue-specific OI are not directly averaged.",
-      "single_source_assets": 2
+      "single_source_assets": 22
     },
     "direct_evidence": {
       "asset_count": 30,
-      "derivatives_consensus_assets": 14,
-      "derivatives_consensus_pct": 46.7,
+      "derivatives_consensus_assets": 20,
+      "derivatives_consensus_pct": 66.7,
       "direct_dated_event_assets": 0,
       "direct_dated_event_pct": 0.0,
       "direct_dated_event_symbols": [],
@@ -192,24 +213,24 @@
       "availability_pct": 100.0,
       "comparison_policy": "DIRECTION_ONLY_NOT_ABSOLUTE_RATE_OR_CROSS_VENUE_OI",
       "latest_available": true,
-      "latest_funding_direction_consensus_assets": 14,
+      "latest_funding_direction_consensus_assets": 20,
       "latest_status": "AVAILABLE",
       "provider": "HYPERLIQUID_PUBLIC",
-      "runs_observed": 103,
+      "runs_observed": 104,
       "semantic_role": "INDEPENDENT_DERIVATIVES_DIRECTION_CROSS_CHECK"
     },
-    "proxy_adjusted_completeness": 70.4,
+    "proxy_adjusted_completeness": 64.3,
     "semantic_labels_explicit": true,
     "semantic_summary": {
-      "cache_cells": 0,
-      "cache_pct": 0.0,
+      "cache_cells": 22,
+      "cache_pct": 8.1,
       "live_proxy_cells": 77,
       "live_proxy_pct": 28.5,
       "missing_cells": 49,
       "missing_pct": 18.1,
-      "proxy_adjusted_completeness": 70.4,
-      "semantic_direct_cells": 144,
-      "semantic_direct_pct": 53.3,
+      "proxy_adjusted_completeness": 64.3,
+      "semantic_direct_cells": 122,
+      "semantic_direct_pct": 45.2,
       "total_evidence_cells": 270
     },
     "semantic_vocabulary": [
@@ -227,7 +248,7 @@
       "EXCHANGE_FLOW_HISTORY_CAN_BE_REVISED_AS_PROVIDER_WALLET_CLUSTERING_EVOLVES"
     ]
   },
-  "status": "WATCH",
+  "status": "DEGRADED",
   "workflow_presence": [
     {
       "present": true,
