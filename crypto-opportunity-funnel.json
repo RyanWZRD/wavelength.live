@@ -9,22 +9,23 @@
       "above_ema100": false,
       "ema20_above_ema50": false,
       "rsi_42_to_58": true,
-      "touch_and_reclaim_ema20": true
+      "touch_and_reclaim_ema20": false
     },
     "id": "eth_trend_pullback",
     "label": "Trend pullback",
     "last_action": "NO_SIGNAL",
     "missing_conditions": [
       "ema20_above_ema50",
-      "above_ema100"
+      "above_ema100",
+      "touch_and_reclaim_ema20"
     ],
     "net_return_pct": -12.482874,
     "position": "FLAT",
-    "readiness_pct": 50.0,
+    "readiness_pct": 25.0,
     "rules_frozen": true,
     "strategy": "trend_pullback"
   },
-  "generated_at": "2026-10-16T12:33:16.966885+00:00",
+  "generated_at": "2026-10-16T17:32:18.116906+00:00",
   "governance": {
     "automatic_promotion": false,
     "execution_authority": false,
@@ -45,43 +46,19 @@
         "above_ema100": false,
         "ema20_above_ema50": false,
         "rsi_42_to_58": true,
-        "touch_and_reclaim_ema20": true
+        "touch_and_reclaim_ema20": false
       },
       "id": "eth_trend_pullback",
       "label": "Trend pullback",
       "last_action": "NO_SIGNAL",
       "missing_conditions": [
         "ema20_above_ema50",
-        "above_ema100"
+        "above_ema100",
+        "touch_and_reclaim_ema20"
       ],
       "net_return_pct": -12.482874,
       "position": "FLAT",
-      "readiness_pct": 50.0,
-      "rules_frozen": true,
-      "strategy": "trend_pullback"
-    },
-    {
-      "advisory_only": true,
-      "asset": "BTC",
-      "completed_trades": 5,
-      "entries": 5,
-      "family": "TREND_PULLBACK",
-      "gates": {
-        "above_ema100": false,
-        "ema20_above_ema50": false,
-        "rsi_42_to_58": true,
-        "touch_and_reclaim_ema20": true
-      },
-      "id": "btc_trend_pullback",
-      "label": "Trend pullback \u00b7 BTC lane",
-      "last_action": "NO_SIGNAL",
-      "missing_conditions": [
-        "ema20_above_ema50",
-        "above_ema100"
-      ],
-      "net_return_pct": -3.196531,
-      "position": "FLAT",
-      "readiness_pct": 50.0,
+      "readiness_pct": 25.0,
       "rules_frozen": true,
       "strategy": "trend_pullback"
     },
@@ -93,7 +70,7 @@
       "family": "TREND_STATE",
       "gates": {
         "above_ema200": false,
-        "adx_at_least_35": true,
+        "adx_at_least_35": false,
         "atr_filter": true,
         "fast_above_slow": false,
         "rsi_50_to_75": false
@@ -104,11 +81,12 @@
       "missing_conditions": [
         "fast_above_slow",
         "above_ema200",
-        "rsi_50_to_75"
+        "rsi_50_to_75",
+        "adx_at_least_35"
       ],
       "net_return_pct": null,
       "position": "FLAT",
-      "readiness_pct": 40.0,
+      "readiness_pct": 20.0,
       "rules_frozen": true,
       "strategy": "candidate_v3"
     },
@@ -149,7 +127,7 @@
       },
       "id": "eth_mean_reversion",
       "label": "Mean reversion",
-      "last_action": "WOULD_EXIT_LONG",
+      "last_action": "NO_SIGNAL",
       "missing_conditions": [
         "below_lower_bollinger",
         "rsi_at_most_35"
@@ -188,6 +166,33 @@
     {
       "advisory_only": true,
       "asset": "BTC",
+      "completed_trades": 5,
+      "entries": 5,
+      "family": "TREND_PULLBACK",
+      "gates": {
+        "above_ema100": false,
+        "ema20_above_ema50": false,
+        "rsi_42_to_58": false,
+        "touch_and_reclaim_ema20": false
+      },
+      "id": "btc_trend_pullback",
+      "label": "Trend pullback \u00b7 BTC lane",
+      "last_action": "NO_SIGNAL",
+      "missing_conditions": [
+        "ema20_above_ema50",
+        "above_ema100",
+        "rsi_42_to_58",
+        "touch_and_reclaim_ema20"
+      ],
+      "net_return_pct": -3.196531,
+      "position": "FLAT",
+      "readiness_pct": 0.0,
+      "rules_frozen": true,
+      "strategy": "trend_pullback"
+    },
+    {
+      "advisory_only": true,
+      "asset": "BTC",
       "completed_trades": 4,
       "entries": 4,
       "family": "MEAN_REVERSION",
@@ -197,7 +202,7 @@
       },
       "id": "btc_mean_reversion",
       "label": "Mean reversion \u00b7 BTC lane",
-      "last_action": "WOULD_EXIT_LONG",
+      "last_action": "NO_SIGNAL",
       "missing_conditions": [
         "below_lower_bollinger",
         "rsi_at_most_35"
